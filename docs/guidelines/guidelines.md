@@ -1,7 +1,7 @@
 Development Conventions and Guidelines
 ======================================
 
-To keep the *OpenUI5-FHIR** project code readable and maintainable, please follow these rules, even if you find them violated somewhere. Note that this list is not complete.
+To keep the *OpenUI5-FHIR* project code readable and maintainable, please follow these rules, even if you find them violated somewhere. Note that this list is not complete.
 When a file is consistently not following these rules and adhering to the rules would make the code worse, follow the local style.
 
 ### Table of Contents
