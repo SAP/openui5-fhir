@@ -8,7 +8,7 @@
 
 **The OpenUI5-FHIR project connects the worlds of UI5 and FHIR. Build beautiful and enterprise-ready web applications based on the FHIR specification.**
 
-The world of healthcare is in change. Though being a highly regulated industry, more and more solutions move from on-premise into the cloud due to increasing costs. With this, there is a need to standardize communication between all players in the healthcare ecosystem (hospital, insurances, etc.). The [FHIR](https://www.hl7.org/fhir/index.html) protocol, developed by HL7, has the goal to achieve that. To build UI5 applications based on a FHIR endpoint, there is a need to provide a UI5 library who enables FHIR for UI5. The [OpenUI5-FHIR](https://github.com/SAP/openui5-fhir) library. Currently, this library provides the UI5 FHIR Model which handles the communication with a FHIR endpoint by a central instance, like the ODataModel does it for OData services. The UI5 FHIR Model enables teams to implement fast and full scope UI5 applications based on a FHIR endpoint. In future, the *OpenUI5-FHIR* library might be enhanced by further FHIR specific UI5 artefacts.
+The world of healthcare is in change. Though being a highly regulated industry, more and more solutions move from on-premise into the cloud due to increasing costs. With this, there is a need to standardize communication between all players in the healthcare ecosystem (hospital, insurances, etc.). The [FHIR](https://www.hl7.org/fhir/index.html) protocol, developed by HL7, has the goal to achieve that. To build UI5 applications based on a FHIR endpoint, there is a need to provide a UI5 library who enables FHIR for UI5. The [OpenUI5-FHIR](https://github.com/SAP/openui5-fhir) project provides the *sap.fhir* UI5 library, which fills this gap. Currently, this library provides the UI5 FHIR Model which handles the communication with a FHIR endpoint by a central instance, like the ODataModel does it for OData services. The UI5 FHIR Model enables teams to implement fast and full scope UI5 applications based on a FHIR endpoint. In future, the *OpenUI5-FHIR* project might be enhanced by further FHIR specific UI5 artefacts.
 
 The complete documentation can be viewed in our [Documentation](https://sap.github.io/openui5-fhir/).
 
@@ -20,25 +20,25 @@ OpenUI5 provides models out of the box, which can be fragmented in client or ser
 
 Inside the healthcare community there are a few specifications for clinical/medical data. [FHIR](https://www.hl7.org/fhir/) is one of them. Furthermore FHIR provides a query language to access and modify the data.
 
-To develop OpenUI5 applications based on FHIR endpoints, there is a need to provide an easy to use way to bind the UI to an model which takes care of creating, reading, updating and deleting the corresponding data in the FHIR endpoint. This is the reason for the brand new UI5 FHIR Model, which is included in the *OpenUI5-FHIR* library.
+To develop OpenUI5 applications based on FHIR endpoints, there is a need to provide an easy to use way to bind the UI to an model which takes care of creating, reading, updating and deleting the corresponding data in the FHIR endpoint. This is the reason for the brand new UI5 FHIR Model, which is included in the *OpenUI5-FHIR* project.
 
 ## Features
 
-The *OpenUI5-FHIR* library provides following UI5 artefacts:
+The *OpenUI5-FHIR* project provides following UI5 artefacts:
 - **UI5 FHIR Model**: The FHIR specific UI5 model implementation to bind UI5 controls to content which is provided by a FHIR endpoint. The model takes care of requesting, creating, updating and removing FHIR resources. The application developer doesn't have to care about which requests have to be sent to the FHIR endpoint at which point in time. The UI5 FHIR Model does the job!
 
 ## Requirements
 
-The *OpenUI5-FHIR* library is completely integrated into the world of UI5. That means applications built with the *OpenUI5-FHIR* libary can be consumed in any modern browser.
+The *OpenUI5-FHIR* project is completely integrated into the world of UI5. That means applications built with the *OpenUI5-FHIR* libary can be consumed in any modern browser.
 
 The underlaying FHIR endpoint has to full following requirements:
 - Provide the FHIR data as JSON
 
 ## Usage
 
-The *OpenUI5-FHIR* library is published at npm.
+The *OpenUI5-FHIR* project is published at npm.
 
-*TODO: add here guide how add library*
+*TODO: add here guide how to include project/library
 
 ## Known Issues
 
@@ -50,7 +50,7 @@ Do you've any questions? Don't hesitate to raise a [new issue](https://github.co
 
 ## Contributing
 
-The idea of the *OpenUI5-FHIR* library is ab initio to be driven by the community of healthcare players.
+The idea of the *OpenUI5-FHIR* project is ab initio to be driven by the community of healthcare players and enthusiastic individuals.
 
 Please read [this document](CONTRIBUTING.md) to read more about your options:
 
