@@ -46,7 +46,7 @@ The list of current issues is available [here](https://github.com/SAP/openui5-fh
 
 ## Support
 
-Do you've any questions? Don't hesitate to raise a [new issue](https://github.com/SAP/openui5-fhir/issues/new).
+Do you've any questions? Don't hesitate to raise a [new issue](https://github.com/SAP/openui5-fhir/issues/new/choose).
 
 ## Contributing
 
