@@ -1,0 +1,38 @@
+language: node_js
+
+node_js:
+- "10.15.1"
+
+os:
+- linux
+
+branches:
+  only:
+    - master
+
+jobs:
+  include:
+    - stage: "JSLint Checks"
+      script: "npm run lint"
+    - stage: "Unit Tests"
+      script: "npm run test:coverage"
+    - stage: "API Documentation"
+      if: (branch = master) AND (NOT (type = pull_request))
+      script: "npm run docs"
+      deploy:
+        local-dir: generated_docs/html
+        provider: pages
+        github-token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
+        skip-cleanup: true
+        keep-history: true
+        on:
+          branch: master
+    # The following stage is needed if the project is hosted on the public github and travis
+    # - stage: "Release"
+      # name: "Generate a new Release"
+      # if: (branch = master) AND (NOT (type = pull_request))
+      # deploy:
+         # provider: script
+         # skip_cleanup: true
+         # script:
+           # - npx semantic-release
