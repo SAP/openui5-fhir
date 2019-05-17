@@ -1,6 +1,4 @@
-<p align="center"><img height="300px" src="docs/images/logo.png"></a></p>
-
-# OpenUI5-FHIR
+# 🔥 OpenUI5-FHIR
 [![npm version](https://badge.fury.io/js/openui5-fhir.svg)](//www.npmjs.com/package/openui5-fhir)
 [![Build Status](https://travis-ci.org/SAP/openui5-fhir.svg?branch=master)](https://travis-ci.org/SAP/openui5-fhir)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE.txt)
