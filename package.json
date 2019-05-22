@@ -29,7 +29,7 @@
     "test": "grunt test",
     "test:unit": "grunt test-unit",
     "test:opa5": "grunt test-opa5",
-    "test-local": "npm run startFhirmock && npm test",
+    "test-mockserver": "./setup_mock.sh && npm test",
     "lint:console": "eslint src test || true",
     "lint:file:checkstyle": "eslint -o ./target/eslint/eslint.checkstyle.xml -f checkstyle src test",
     "lint": "eslint src test",

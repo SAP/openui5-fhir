@@ -1,0 +1,152 @@
+<mvc:View xmlns:core="sap.ui.core"
+          xmlns:mvc="sap.ui.core.mvc"
+          xmlns="sap.m"
+          xmlns:html="http://www.w3.org/1999/xhtml"
+          xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+          xmlns:smartTable="sap.ui.comp.smarttable"
+          xmlns:l="sap.ui.layout"
+          xmlns:fb="sap.ui.comp.filterbar"
+          xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+          controllerName="sap-fhir-test-app.controller.patient.PatientTable"
+          viewName="sap-fhir-test-app.view.patient.PatientTable">
+    <Page title="Patient Search"
+          showNavButton="true"
+          navButtonPress="onNavBack">
+        <content>
+            <fb:FilterBar id="search"
+                          search="onPatientSearchPress"
+                          reset="onReset">
+                <fb:filterItems>
+                    <fb:FilterItem name="family"
+                                   label="Family Name">
+                        <fb:control>
+                            <Input id="inPatientName"
+                                   type="Text" />
+                        </fb:control>
+                    </fb:FilterItem>
+                    <fb:FilterItem name="given"
+                                   label="Given Name">
+                        <fb:control>
+                            <Input id="inPatientGivenName"
+                                   type="Text" />
+                        </fb:control>
+                    </fb:FilterItem>
+                    <fb:FilterItem name="birthDate"
+                                   label="Date of Birth">
+                        <fb:control>
+                            <DatePicker id="dpBirthDate"
+                                        valueFormat="yyyy-MM-dd" />
+                        </fb:control>
+                    </fb:FilterItem>
+                </fb:filterItems>
+            </fb:FilterBar>
+            <l:HorizontalLayout>
+                <smartTable:SmartTable noData="{i18n>noData}"
+                                       id="idSmartTable"
+                                       visible="false"
+                                       entitySet="Patient"
+                                       editable="false"
+                                       useVariantManagement="true"
+                                       useTablePersonalisation="true"
+                                       header="{i18n>smartTableHeader}"
+                                       showRowCount="true"
+                                       useExportToExcel="false"
+                                       enableAutoBinding="true"
+                                       tableType="ResponsiveTable"
+                                       demandPopin="true"
+                                       class="sapUiMediumMarginBegin sapUiMediumMarginEnd"
+                                       customData:p13nDialogSettings="{group:{visible:false}}"
+                                       beforeRebindTable="onBeforeRebindTable">
+                    <Table mode="MultiSelect"
+                           id="patientTable"
+                           growing="true"
+                           growingThreshold="10"
+                           growingScrollToLoad="false">
+                        <columns>
+                            <Column hAlign="Left">
+                                <customData>
+                                    <core:CustomData key="p13nData"
+                                                     value='\{"columnKey": "Name","leadingProperty": "Name","columnIndex":"0", "sortProperty":"family", "filterProperty":"family", "type":"string"}' />
+                                </customData>
+                                <Text text="{i18n>labelFamilyName}" />
+                            </Column>
+                            <Column hAlign="Left">
+                                <customData>
+                                    <core:CustomData key="p13nData"
+                                                     value='\{"columnKey": "Vorname","leadingProperty": "Vorname","columnIndex":"1", "sortProperty":"given", "filterProperty":"given", "type":"string"}' />
+                                </customData>
+                                <Text text="{i18n>labelGivenName}" />
+                            </Column>
+                            <Column hAlign="Left"
+                                    width="130px">
+                                <customData>
+                                    <core:CustomData key="p13nData"
+                                                     value='\{"columnKey": "Geburtsdatum","leadingProperty": "Geburtsdatum","columnIndex":"2", "sortProperty":"birthdate", "filterProperty":"birthdate", "type":"date"}' />
+                                </customData>
+                                <Text text="{i18n>labelDateOfBirth}" />
+                            </Column>
+                            <Column hAlign="Left"
+                                    width="100px">
+                                <customData>
+                                    <core:CustomData key="p13nData"
+                                                     value='\{"columnKey": "Geschlecht","leadingProperty": "Geschlecht","columnIndex":"3", "sortProperty":"gender", "filterProperty":"gender", "type":"string"}' />
+                                </customData>
+                                <Text text="{i18n>labelGender}" />
+                            </Column>
+                            <Column hAlign="Left">
+                                <customData>
+                                    <core:CustomData key="p13nData"
+                                                     value='\{"columnKey": "Wohnort","leadingProperty": "Wohnort","columnIndex":"4", "sortProperty":"address-city", "type":"string"}' />
+                                </customData>
+                                <Text text="{i18n>labelCity}" />
+                            </Column>
+                            <Column hAlign="Left">
+                                <customData>
+                                    <core:CustomData key="p13nData"
+                                                     value='\{"columnKey": "Adresse","leadingProperty": "Adresse","columnIndex":"5", "sortProperty":"address", "type":"string"}' />
+                                </customData>
+                                <Text text="{i18n>labelAddress}" />
+                            </Column>
+                            <!-- <Column hAlign="Left" width="200px"> <customData> <core:CustomData 
+										key="p13nData" value='\{"columnKey": "org","leadingProperty": "org","columnIndex":"2", 
+										"type":"string"}'/> </customData> <Text text="{i18n>org}"/> </Column> -->
+                        </columns>
+                        <items>
+                            <ColumnListItem type="Navigation"
+                                            press="onListItemPress">
+                                <cells>
+                                    <Label text="{name/0/family}"
+                                           design="Bold" />
+                                    <Text text="{path: 'name/0/given', formatter: '.formatPatientFirstName'}" />
+                                    <Text text="{path: 'birthDate', formatter: '.utils.formatDate'}" />
+                                    <Text text="{= ${gender} === 'male' ? 'M' : (${gender} === 'female' ? 'F' : '') }" />
+                                    <Text text="{path: 'address/0/city'}" />
+                                    <Text text="{path: 'address/0/line/0'}" />
+                                    <!--<Text text="{path: 'managingOrganization/reference/name'}"/> -->
+                                </cells>
+                            </ColumnListItem>
+                        </items>
+                    </Table>
+                    <!-- layout data used to make the table growing but the filter bar 
+								fixed -->
+                    <smartTable:layoutData>
+                        <FlexItemData growFactor="1"
+                                      baseSize="0%" />
+                    </smartTable:layoutData>
+                    <smartTable:customToolbar>
+                        <Toolbar class="sapUiMediumMarginTop"
+                                 id="toolbar1">
+                            <ToolbarSpacer />
+                            <Button icon="sap-icon://delete"
+                                    id="btn_delete"
+                                    press="onDeleteClicked" />
+                            <Button icon="sap-icon://add"
+                                    id="btn_create"
+                                    press="onCreatePatientPress" />
+                        </Toolbar>
+                    </smartTable:customToolbar>
+                </smartTable:SmartTable>
+            </l:HorizontalLayout>
+        </content>
+    </Page>
+</mvc:View>

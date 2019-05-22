@@ -26,7 +26,7 @@ sap.ui.define(["sap/ui/core/util/MockServer"], function(MockServer) {
 
 	// configure the mock requests
 	var aRequests = [];
-	aRequests = addRequest(aRequests, "GET", "^.*(businessVersion).*$", "/sap-fhir-ui5-model/test/localService/BusinessVersion.json");
+	aRequests = addRequest(aRequests, "GET", "^.*(businessVersion).*$", "/openui5-fhir/test/localService/BusinessVersion.json");
 	oMockServer.setRequests(aRequests);
 
 	// start the mockserver
