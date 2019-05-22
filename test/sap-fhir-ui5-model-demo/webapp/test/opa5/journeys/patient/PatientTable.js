@@ -37,7 +37,7 @@ sap.ui.require([
 		When.iPressButton(sViewName, sSearchButton);
 		Then.theLabelShouldAppear("Cancer", sViewName);
 		Then.theTableHeaderShouldBe(4, sViewName, sTable);
-		When.iEnterDataInInput(Utils.formatDate("Jan 24, 2000"), sViewName, sSearchInputBd);
+		When.iEnterDataInInput("Jan 24, 2000", sViewName, sSearchInputBd);
 		When.iPressButton(sViewName, sSearchButton);
 		Then.theLabelShouldAppear("Cancer", sViewName);
 		Then.theTableHeaderShouldBe(2, sViewName, sTable);
