@@ -1,0 +1,24 @@
+language: java
+
+sudo: required
+
+os:
+ - linux
+
+services:
+ - docker
+
+jdk:
+ - openjdk8
+
+node_js:
+ - "10.15.1"
+
+install: "npm install"
+
+jobs:
+  include:
+    - stage: "JSLint Checks"
+      script: "npm run lint"
+    - stage: "Unit Tests"
+      script: "./setup_mock.sh && npm run test:unit"
