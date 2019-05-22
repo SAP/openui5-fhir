@@ -21,4 +21,4 @@ jobs:
     - stage: "JSLint Checks"
       script: "npm run lint"
     - stage: "Unit Tests"
-      script: "./setup_mock.sh && npm run test:unit"
+      script: "./setup_mock.sh && npm run test"

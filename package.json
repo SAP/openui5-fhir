@@ -1,11 +1,11 @@
 {
-  "name": "@sap/sap-fhir-ui5-model",
-  "version": "0.1.0-alpha",
+  "name": "openui5-fhir",
+  "version": "0.0.1",
   "author": "SAP SE",
-  "description": "UI5 Library providing the UI5 FHIRModel",
+  "description": "The OpenUI5-FHIR Library enables UI5 to the FHIR world",
   "repository": {
     "type": "git",
-    "url": "https://github.wdf.sap.corp/SAP-Health-PatientAdministration/sap-fhir-ui5-model"
+    "url": "https://github.com/SAP/openui5-fhir.git"
   },
   "devDependencies": {
     "eslint": "5.7.0",
