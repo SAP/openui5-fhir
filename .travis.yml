@@ -20,8 +20,8 @@ jobs:
   include:
     - stage: "JSLint Checks"
       script: "npm run lint"
-    - stage: "Unit Tests"
-      script: "./setup_mock.sh && npm run test"
+    - stage: "QUnit / QUnit Integration / OPA5 Tests"
+      script: "npm run test-mockserver"
 
 notifications:
   email:
