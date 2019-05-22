@@ -1,0 +1,67 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core"
+                         xmlns="sap.m"
+                         xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+                         xmlns:smartTable="sap.ui.comp.smarttable"
+                         xmlns:l="sap.ui.layout">
+    <l:HorizontalLayout>
+        <Table id="tblServices"
+               items="{item}">
+            <columns>
+                <Column hAlign="Left">
+                    <customData>
+                        <core:CustomData key="p13nData"
+                                         value='\{"columnKey": "service","leadingProperty": "service","columnIndex":"0", "type":"string"}' />
+                    </customData>
+                    <Text text="Service" />
+                </Column>
+                <Column hAlign="Left">
+                    <customData>
+                        <core:CustomData key="p13nData"
+                                         value='\{"columnKey": "description","leadingProperty": "description","columnIndex":"1", "type":"string"}' />
+                    </customData>
+                    <Text text="Description" />
+                </Column>
+                <Column hAlign="Left">
+                    <customData>
+                        <core:CustomData key="p13nData"
+                                         value='\{"columnKey": "amount","leadingProperty": "amount","columnIndex":"2", "type":"string"}' />
+                    </customData>
+                    <Text text="Amount" />
+                </Column>
+                <Column hAlign="Left">
+                    <customData>
+                        <core:CustomData key="p13nData"
+                                         value='\{"columnKey": "validFrom","leadingProperty": "validFrom","columnIndex":"3", "type":"string"}' />
+                    </customData>
+                    <Text text="Valid from" />
+                </Column>
+                <Column hAlign="Left">
+                    <customData>
+                        <core:CustomData key="p13nData"
+                                         value='\{"columnKey": "validTo","leadingProperty": "validTo","columnIndex":"4", "type":"string"}' />
+                    </customData>
+                    <Text text="Valid To" />
+                </Column>
+                <Column hAlign="Left">
+                    <customData>
+                        <core:CustomData key="p13nData"
+                                         value='\{"columnKey": "comment","leadingProperty": "comment","columnIndex":"5", "type":"string"}' />
+                    </customData>
+                    <Text text="Comment" />
+                </Column>
+            </columns>
+            <items>
+                <ColumnListItem>
+                    <cells>
+                        <Text text="{service/coding/0/code}" />
+                        <Text text="{service/coding/0/display}" />
+                        <Text text="{quantity/value}" />
+                        <Text text="{path: 'servicedPeriod/start', formatter: '.utils.formatDateTime'}" />
+                        <Text text="{path: 'servicedPeriod/end', formatter: '.utils.formatDateTime'}" />
+                        <Text text="{extension/[url=http://hl7.org/fhir/StructureDefinition/CommentForClaimItem]/extension/[url=code]/valueCodeableConcept/text}" />
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
+    </l:HorizontalLayout>
+</core:FragmentDefinition>

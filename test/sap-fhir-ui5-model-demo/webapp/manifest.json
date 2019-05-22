@@ -1,0 +1,247 @@
+	{
+	"_version": "1.0.0",
+	"sap.app": {
+		"id": "DemoFHIRModel",
+		"type": "application",
+		"i18n": "i18n/i18n.properties",
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"title": "{{appTitle}}",
+		"description": "{{appDescription}}",
+		"dataSources": {
+			"local": {
+				"uri": "http://localhost:8080/fhir/R4/",
+				"type": "FHIR"
+			},
+			"clientData": {
+				"uri": "model/clientData.json",
+				"type": "JSON"
+			}
+		}
+	},
+	"sap.ui": {
+		"technology": "UI5",
+		"icons": {
+			"icon": "",
+			"favIcon": "",
+			"phone": "",
+			"phone@2": "",
+			"tablet": "",
+			"tablet@2": ""
+		},
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		},
+		"supportedThemes": [
+			"sap_hcb",
+			"sap_belize"
+		]
+	},
+	"sap.ui5": {
+		"rootView": {
+			"viewName": "sap-fhir-ui5-model-demo.view.App",
+			"id": "appView",
+			"type": "XML"
+		},
+		"dependencies": {
+			"minUI5Version": "1.30.0",
+			"libs": {
+				"sap.ui.core": {
+					
+				},
+				"sap.m": {
+					
+				},
+				"sap.fhir": {
+					
+				}
+			}
+		},
+		"resourceRoots": {
+			"sap.fhir": "../../../src/sap/fhir"
+		},
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		},
+		"models": {
+			"": {
+				"type": "sap.fhir.model.r4.FHIRModel",
+				"dataSource": "local",
+				"settings": {
+					"groupProperties": {
+						"patientDetails": {
+							"submit": "Batch"
+						},
+						"patientList": {
+							"submit": "Batch"
+						},
+						"patientMasterData": {
+							"submit": "Direct"
+						},
+						"logInfo": {
+							"submit": "Direct"
+						},
+						"std": {
+							"submit": "Batch"
+						},
+						"stdChange": {
+							"submit": "Batch"
+						},
+						"structureDefinition": {
+							"submit": "Batch"
+						}
+					},
+					"x-csrf-token" : false,
+					"Prefer" : "return=representation"
+				}
+			},
+			"client": {
+				"type": "sap.ui.model.json.JSONModel",
+				"dataSource": "clientData"
+			},
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "sap-fhir-ui5-model-demo.i18n.i18n"
+				}
+			}
+		},
+		"routing": {
+			"config": {
+				"routerClass": "sap.m.routing.Router",
+				"viewType": "XML",
+				"viewPath": "sap-fhir-ui5-model-demo.view",
+				"controlId": "app",
+				"controlAggregation": "pages",
+				"transition": "slide"
+			},
+			"routes": [
+				{
+					"pattern": "",
+					"name": "home",
+					"target": "resourceOverview"
+				},
+				{
+					"pattern": "patients",
+					"name": "patientTable",
+					"target": "patientTable"
+				},
+				{
+					"pattern": "structuredefinitions",
+					"name": "structureDefinitionsOverview",
+					"target": "structureDefinitionsOverview"
+				},
+				{
+					"pattern": "patientDetails/{patientId}/{tab}",
+					"name": "patientDetails",
+					"target": "patientDetails"
+				},
+				{
+					"pattern": "patientCreate/{patientId}/{tab}",
+					"name": "patientCreate",
+					"target": "patientCreate"
+				},
+				{
+					"pattern": "structuredefinitions/list/{tab}",
+					"name": "structureDefinitionsListAndTables",
+					"target": "structureDefinitionsListAndTables"
+				},
+				{
+					"pattern": "structuredefinitions/list",
+					"name": "structureDefinitionsListAndTablesDefault",
+					"target": "structureDefinitionsListAndTables"
+				},
+				{
+					"pattern": "structuredefinitions/tree",
+					"name": "structureDefinitionsTree",
+					"target": "structureDefinitionsTree"
+				},
+				{
+					"pattern": "structuredefinitions/treeTable",
+					"name": "structureDefinitionsTreeTable",
+					"target": "structureDefinitionsTreeTable"
+				},
+				{
+					"pattern": "structuredefinitions/list/{tab}/{structId}",
+					"name": "structureDefinition",
+					"target": "structureDefinition"
+				},
+				{
+					"pattern": "structuredefinitions/includeExample",
+					"name": "includeExample",
+					"target": "includeExample"
+				},
+				{
+					"pattern": "history/habibi",
+					"name": "habibisHistory",
+					"target": "habibisHistory"
+				}
+			],
+			"targets": {
+				"resourceOverview": {
+					"viewName": "Home",
+					"viewId": "home",
+					"viewLevel": 1
+				},
+				"habibisHistory" : {
+					"viewName": "history.HabibisHistory",
+					"viewId": "habibisHistory",
+					"viewLevel": 2
+				},
+				"structureDefinitionsOverview": {
+					"viewName": "structureDefinition.StructureDefinitionsOverview",
+					"viewId": "structureDefinitionsOverview",
+					"viewLevel": 2
+				},
+				"structureDefinitionsListAndTables": {
+					"viewName": "structureDefinition.StructureDefinitionsListAndTables",
+					"viewId": "structureDefinitionsListAndTables",
+					"viewLevel": 3
+				},
+				"structureDefinition": {
+					"viewName": "structureDefinition.StructureDefinition",
+					"viewId": "structureDefinition",
+					"viewLevel": 4
+				},
+				"structureDefinitionsTree": {
+					"viewName": "structureDefinition.StructureDefinitionsTree",
+					"viewId": "structureDefinitionsTree",
+					"viewLevel": 3
+				},
+				"structureDefinitionsTreeTable": {
+					"viewName": "structureDefinition.StructureDefinitionsTreeTable",
+					"viewId": "structureDefinitionsTreeTable",
+					"viewLevel": 3
+				},
+				"patientTable": {
+					"viewName": "patient.PatientTable",
+					"viewId": "patientTable",
+					"viewLevel": 2
+				},
+				"patientDetails": {
+					"viewName": "patient.PatientDetails",
+					"viewId": "patientDetails",
+					"viewLevel": 3
+				},
+				"patientCreate": {
+					"viewName": "patient.PatientDetails",
+					"viewId": "patientDetails",
+					"viewLevel": 3
+				},
+				"includeExample": {
+					"viewName": "structureDefinition.IncludeExample",
+					"viewId": "includeExample",
+					"viewLevel": 3
+				}
+			}
+		}
+	},
+	"sap.platform.hcp": {
+		"uri": "webapp",
+		"_version": "1.1.0"
+	}
+}

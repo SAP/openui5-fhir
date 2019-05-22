@@ -1,0 +1,154 @@
+{
+  "resourceType": "Bundle",
+  "id": "e25d7eb6-ca2e-4633-9bd0-419eba3128f0",
+  "meta": {
+    "lastUpdated": "2018-05-23T07:24:14.760+00:00"
+  },
+  "type": "searchset",
+  "total": 31,
+  "link": [
+    {
+      "relation": "self",
+      "url": "sap-health-scala-poc.cfapps.sap.hana.ondemand.com/fhir/Patient?_format=json&_pretty=true"
+    }
+  ],
+  "entry": [
+    {
+      "fullUrl": "sap-health-scala-poc.cfapps.sap.hana.ondemand.com/fhir/Patient/04651cc9-1e82-4c6a-8721-e8d82ade05db",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "04651cc9-1e82-4c6a-8721-e8d82ade05db",
+        "meta": {
+          "versionId": "1"
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/patient-nationality",
+            "extension": [
+              {
+                "url": "code",
+                "valueCodeableConcept": {
+                  "text": "German"
+                }
+              }
+            ]
+          }
+        ],
+        "name": [
+          {
+            "family": "Ciobanu",
+            "given": [
+              "Vlad"
+            ]
+          }
+        ],
+        "gender": "male",
+        "birthDate": "1995-05-20"
+      }
+    },
+    {
+      "fullUrl": "sap-health-scala-poc.cfapps.sap.hana.ondemand.com/fhir/Patient/073b118e-e6ec-4d10-bacc-c53d32804bef",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "073b118e-e6ec-4d10-bacc-c53d32804bef",
+        "meta": {
+          "versionId": "1"
+        },
+        "name": [
+          {
+            "family": "Hasselholz",
+            "given": [
+              "Peterle"
+            ]
+          }
+        ],
+        "telecom": [
+          {
+            "system": "email",
+            "value": "dfdfdfdfd"
+          }
+        ],
+        "address": [
+          {
+            "line": [
+              "dfdfdfd",
+              "dfdfdfdfd"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "sap-health-scala-poc.cfapps.sap.hana.ondemand.com/fhir/Patient/1222f179-f921-4e7b-a222-19602b4659ca",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "1222f179-f921-4e7b-a222-19602b4659ca",
+        "meta": {
+          "versionId": "1"
+        },
+        "name": [
+          {
+            "family": "Henio",
+            "given": [
+              "Mett"
+            ]
+          },
+          {
+            "use": "maiden",
+            "family": "huhus"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "sap-health-scala-poc.cfapps.sap.hana.ondemand.com/fhir/Patient/127e23a0-6db1-4ced-b433-98c7a70646b8",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "127e23a0-6db1-4ced-b433-98c7a70646b8",
+        "meta": {
+          "versionId": "1"
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/patient-country",
+            "extension": [
+              {
+                "url": "code",
+                "valueCodeableConcept": {
+                  "text": "Canada"
+                }
+              }
+            ]
+          }
+        ],
+        "name": [
+          {
+            "family": "Müller",
+            "given": [
+              "Horst"
+            ]
+          }
+        ],
+        "gender": "male",
+        "birthDate": "2018-05-31",
+        "address": [
+          {
+            "line": [
+              "Hauptstrasse"
+            ]
+          }
+        ],
+        "contact": [
+          {
+            "name": {
+              "family": "Müller",
+              "given": [
+                "Peter"
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
