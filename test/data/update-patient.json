@@ -1,0 +1,45 @@
+{
+	"resourceType": "Bundle",
+	"type": "transaction",
+	"entry": [{
+			"fullUrl": "http://localhost:8080/fhir/R4/Patient/a2520",
+			"resource": {
+				"resourceType": "Patient",
+				"id": "a2520",
+				"meta": {
+					"versionId": "2",
+					"lastUpdated": "2018-09-25T10:33:59.030+02:00",
+					"profile": [
+						"http://example.org/fhir/StructureDefinition/SAPPatientExtended"
+					]
+				},
+				"text": {
+					"status": "generated",
+					"div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><div class=\"hapiHeaderText\">Gesichts <b>RÜDIGER </b></div><table class=\"hapiPropertyTable\"><tbody><tr><td>Date of birth</td><td><span>23 June 1990</span></td></tr></tbody></table></div>"
+				},
+				"active": true,
+				"name": [{
+						"use": "official",
+						"family": "Rüdiger",
+						"given": [
+							"Gesichts"
+						]
+					}, {
+						"use": "maiden",
+						"family": "Klamotten"
+					}
+				],
+				"gender": "female",
+				"birthDate": "1990-06-23",
+				"deceasedDateTime": "2002-06-14T13:42:00+10:00",
+				"managingOrganization": {
+					"reference": "Organization/a2523",
+					"display": "ACME Healthcare, Inc"
+				}
+			},
+			"request": {
+				"method": "PUT",
+				"url": "Patient/a2520"
+			}
+		}]
+}
