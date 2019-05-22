@@ -51,6 +51,7 @@ module.exports = function (grunt) {
 				},
 				singleRun: true,
 				browsers: ["ChromeHeadless"],
+				logLevel: config.LOG_WARN,
 				preprocessors: {
 					"src/**/!(library).js": ["coverage"]
 				},

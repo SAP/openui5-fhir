@@ -22,3 +22,8 @@ jobs:
       script: "npm run lint"
     - stage: "Unit Tests"
       script: "./setup_mock.sh && npm run test"
+
+notifications:
+  email:
+    on_failure: always
+    on_success: change
