@@ -10,7 +10,7 @@ Inside the healthcare community there are a few specifications for clinical/medi
 
 To develop UI5 applications based on FHIR backend applications, there is a need to provide an easy to use way to bind the UI to an model which takes care of creating, reading, updating and deleting the corresponding data in the FHIR backend. This is the reason for the brand new UI5 FHIRModel.
 
-# Includes
+## Includes
 The FHIRModel implementation includes following files:
 - `FHIRModel.js`: The model which provides functions to read, create, update and delete resources
 - `FHIRContextBinding.js`: The context binding provides functions to bind a single entity to an ui element such as */Patient/a234bc/*
@@ -32,7 +32,7 @@ The FHIRModel implementation includes following files:
 
 <a name="1-Import-OpenUI5-FHIR"></a>
 
-# 1 Import OpenUI5-FHIR
+## 1 Import OpenUI5-FHIR
 
 The easiest and most comfortable way of importing the UI5 FHIRModel is using the NPM dependency `openui5-fhir`, which includes all necessary files. Add following snippet to your project `package.json` and update the version of `openui5-fhir` to the desired [version](https://github.com/SAP/openui5-fhir/releases).
 ```json
@@ -64,19 +64,19 @@ Now, you can create the UI5 FHIRModel with a declaration in the *manifest.json* 
 
 <a name="3-Releases"></a>
 
-# 3 Releases
+## 3 Releases
 Overview about [all releases](https://github.com/SAP/openui5-fhir/releases).
 
 Get the [latest release](https://github.com/SAP/openui5-fhir/releases/latest).
 
 <a name="4-Development"></a>
 
-# 4 Development
+## 4 Development
 The following section describes how the *OpenUI5-FHIR* project internal test application can be deployed and which development tasks can be executed.
 
 <a name="4.1-Deployment-of-sap-fhir-test-app-project"></a>
 
-## 4.1 Deployment of *sap-fhir-test-app*-project
+### 4.1 Deployment of *sap-fhir-test-app*-project
 1. Go to the [latest release](https://github.com/SAP/openui5-fhir/releases/latest) and download the latest release *.zip*.
 2. Extract the *.zip* in your desired local location
 3. To deploy the *sap-fhir-test-app*-project you can use any HTTP server. We're using the node module [http-server](https://www.npmjs.com/package/http-server) or the chrome app [Web Server for Chrome](https://chrome.google.com/webstore/detail/web-server-for-chrome/ofhbbkphhbklhfoeikjpcbhemlocgigb).
@@ -95,12 +95,12 @@ The following section describes how the *OpenUI5-FHIR* project internal test app
 
 <a name="4.2-Development-Tasks"></a>
 
-## 4.2 Development Tasks
+### 4.2 Development Tasks
 The following sections describe, how useful development tasks can be executed.
 
 <a name="4.2.1-ESLinting"></a>
 
-### 4.2.1 ESLinting
+#### 4.2.1 ESLinting
 There are various lint-scripts in `package.json`. During development you will most likely want to use either:
 
 ```bash
@@ -117,7 +117,7 @@ The former script simply watches all files for changes and lints them immediatel
 
 <a name="4.2.2-Testing"></a>
 
-### 4.2.2 Testing
+#### 4.2.2 Testing
 
 The testsuite needs a mockserver. Therefore, the `setup_mock.sh` has to be used. Execute `./setup_mock.sh` when you start developing and/or testing.
 
@@ -129,7 +129,7 @@ Runs the QUnit and Opa5 tests.
 
 <a name="4.2.3-Documentation"></a>
 
-### 4.2.3 Documentation
+#### 4.2.3 Documentation
 
 ```bash
 npm run docs

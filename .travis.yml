@@ -15,12 +15,28 @@ jdk:
 
 install: npm install
 
+branches:
+  only:
+    - master
+
 jobs:
   include:
     - stage: "JSLint Checks"
       script: npm run lint
     - stage: "QUnit / QUnit Integration / OPA5 Tests"
       script: npm run test-mockserver
+    - stage: "API Documentation"
+      if: (branch = master) AND (NOT (type = pull_request))
+      name: "Generate API Documentation"
+      script: "npm run docs"
+      deploy:
+        local-dir: generated_docs/html
+        provider: pages
+        github-token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
+        skip-cleanup: true
+        keep-history: true
+        on:
+          branch: master
 
 notifications:
   email:
