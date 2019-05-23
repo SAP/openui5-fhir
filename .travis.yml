@@ -18,7 +18,7 @@ node_js:
 
 install:
 - npm i -g npm
-- npm -v
+- npm ci
 
 jobs:
   include:
