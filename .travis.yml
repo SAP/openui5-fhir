@@ -1,6 +1,8 @@
 language: java
 
-sudo: required
+cache:
+  directories:
+    - $HOME/.m2
 
 os:
  - linux
@@ -11,17 +13,29 @@ services:
 jdk:
  - openjdk8
 
-node_js:
- - "10.15.1"
+install: npm install
 
-install: "npm install"
+branches:
+  only:
+    - master
 
 jobs:
   include:
     - stage: "JSLint Checks"
-      script: "npm run lint"
-    - stage: "Unit Tests"
-      script: "./setup_mock.sh && npm run test"
+      script: npm run lint
+    - stage: "QUnit / QUnit Integration / OPA5 Tests"
+      script: npm run test-mockserver
+    - stage: "Generate API Documentation"
+      if: (branch = master) AND (NOT (type = pull_request))
+      script: "npm run docs"
+      deploy:
+        local-dir: generated_docs/html
+        provider: pages
+        github-token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
+        skip-cleanup: true
+        keep-history: true
+        on:
+          branch: master
 
 notifications:
   email:

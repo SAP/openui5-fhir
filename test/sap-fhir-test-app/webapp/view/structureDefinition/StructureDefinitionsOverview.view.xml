@@ -1,0 +1,46 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc"
+          xmlns:core="sap.ui.core"
+          xmlns="sap.m"
+          controllerName="sap-fhir-test-app.controller.structureDefinition.StructureDefinitionsOverview">
+    <Page title="{i18n>structureDefinitionsOverviewTitle}"
+          enableScrolling="false"
+          showNavButton="true"
+          navButtonPress="onNavBack">
+        <content>
+            <VBox fitContainer="true">
+                <HBox justifyContent="Center"
+                      alignItems="Center"
+                      fitContainer="true"
+                      height="100%">
+                    <GenericTile header="Lists and Tables"
+                                 press="onNavigateToListAndTables">
+                        <TileContent footer="resource">
+                            <ImageContent src="sap-icon://list" />
+                        </TileContent>
+                    </GenericTile>
+                    <GenericTile header="Tree"
+                                 class="sapUiSmallMarginBegin"
+                                 press="onNavigateToTree">
+                        <TileContent footer="resource">
+                            <ImageContent src="sap-icon://tree" />
+                        </TileContent>
+                    </GenericTile>
+                    <GenericTile header="TreeTable"
+                                 class="sapUiSmallMarginBegin"
+                                 press="onNavigateToTreeTable">
+                        <TileContent footer="resource">
+                            <ImageContent src="sap-icon://tree" />
+                        </TileContent>
+                    </GenericTile>
+                    <GenericTile header="IncludeExample"
+                                 class="sapUiSmallMarginBegin"
+                                 press="onNavigateToIncludeExample">
+                        <TileContent footer="resource">
+                            <ImageContent src="sap-icon://list" />
+                        </TileContent>
+                    </GenericTile>
+                </HBox>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

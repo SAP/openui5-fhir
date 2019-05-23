@@ -1,0 +1,36 @@
+<mvc:View xmlns:core="sap.ui.core"
+          xmlns:mvc="sap.ui.core.mvc"
+          xmlns="sap.m"
+          controllerName="sap-fhir-test-app.controller.history.HabibisHistory"
+          xmlns:html="http://www.w3.org/1999/xhtml"
+          xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+          xmlns:smartTable="sap.ui.comp.smarttable"
+          viewName="sap-fhir-test-app.view.history.HabibisHistory"
+          xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+    <Page id="HabibisHistory"
+          title="Habibi Cancers History"
+          showNavButton="true"
+          navButtonPress="onNavBack"
+          enableScrolling="false">
+        <content>
+            <List id="habibisHistoryList"
+                  headerText="Habibi Cancers History"
+                  items="{path :'/Patient/a2522/_history'}">
+                <items>
+                    <CustomListItem>
+                        <Text text="Version: {meta/versionId} -- Given: {name/0/given/0} -- Family: {name/0/family} -- Maiden: {name/[use=maiden]/family}" />
+                    </CustomListItem>
+                </items>
+            </List>
+            <List id="gesichtsRuedigerList"
+                  headerText="Gesichts Rüdiger's History"
+                  items="{path :'/Patient/a2520/_history'}">
+                <items>
+                    <CustomListItem>
+                        <Text text="Version: {meta/versionId} -- Given: {name/0/given/0} -- Family: {name/0/family} -- Maiden: {name/[use=maiden]/family}" />
+                    </CustomListItem>
+                </items>
+            </List>
+        </content>
+    </Page>
+</mvc:View>

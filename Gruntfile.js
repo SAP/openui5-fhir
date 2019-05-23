@@ -36,8 +36,8 @@ module.exports = function (grunt) {
 							preload: "async",
 							resourceroots: {
 								"sap.fhir": "./base/src/sap/fhir",
-								"sap-fhir-ui5-model.test": "./base/test",
-								"sap-fhir-ui5-model-demo": "./base/test/sap-fhir-ui5-model-demo/webapp"
+								"openui5-fhir.test": "./base/test",
+								"sap-fhir-test-app": "./base/test/sap-fhir-test-app/webapp"
 							}
 						}
 					}
@@ -47,7 +47,7 @@ module.exports = function (grunt) {
 					"/resources": "https://sapui5.hana.ondemand.com/1.65.1/test-resources",
 					"/test-resources": "https://sapui5.hana.ondemand.com/1.65.1/resources",
 					"/localService": "/base/test/localService",
-					"/sap-fhir-ui5-model/test/localService": "/base/test/localService"
+					"/openui5-fhir/test/localService": "/base/test/localService"
 				},
 				singleRun: true,
 				browsers: ["ChromeHeadless"],
@@ -94,9 +94,9 @@ module.exports = function (grunt) {
 				client: {
 					openui5: {
 						tests: [
-							"sap-fhir-ui5-model/test/createMockServer",
-							"sap-fhir-ui5-model/test/qunit/unit",
-							"sap-fhir-ui5-model-demo/test/opa5/journeys/all"
+							"openui5-fhir/test/createMockServer",
+							"openui5-fhir/test/qunit/unit",
+							"sap-fhir-test-app/test/opa5/journeys/all"
 						]
 					}
 				}
@@ -104,14 +104,14 @@ module.exports = function (grunt) {
 			unitTests: {
 				client: {
 					openui5: {
-						tests: ["sap-fhir-ui5-model/test/createMockServer", "sap-fhir-ui5-model/test/qunit/unit"]
+						tests: ["openui5-fhir/test/createMockServer", "openui5-fhir/test/qunit/unit"]
 					}
 				}
 			},
 			opaTests: {
 				client: {
 					openui5: {
-						tests: ["sap-fhir-ui5-model/test/createMockServer", "sap-fhir-ui5-model-demo/test/opa5/journeys/all"]
+						tests: ["openui5-fhir/test/createMockServer", "sap-fhir-test-app/test/opa5/journeys/all"]
 					}
 				}
 			}
