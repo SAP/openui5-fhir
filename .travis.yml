@@ -3,6 +3,7 @@ language: java
 sudo: required
 
 cache:
+  npm: true
   directories:
     - $HOME/.m2
 os:
