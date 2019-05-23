@@ -34,9 +34,12 @@ The underlaying FHIR endpoint has to full following requirements:
 
 ## Usage
 
-The *OpenUI5-FHIR* project is published at npm.
-
-*TODO: add here guide how to include project/library
+The *OpenUI5-FHIR* project is published at npm on package `openui5-fhir`, which includes all necessary files. Add following snippet to your project `package.json` and update the version of `openui5-fhir` to the desired [version](https://github.com/SAP/openui5-fhir/releases).
+```json
+"dependencies": {
+	"openui5-fhir": "1.0.X"
+}
+```
 
 ## Known Issues
 
