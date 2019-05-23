@@ -1,9 +1,11 @@
-language: java
+language: 
+- java
+- node_js
 
 cache:
+  npm: true
   directories:
     - $HOME/.m2
-    - $HOME/.npm
 os:
  - linux
 
@@ -15,9 +17,6 @@ jdk:
 
 node_js:
  - "12"
-
-install:
-- npm install
 
 jobs:
   include:
