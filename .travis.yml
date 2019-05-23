@@ -17,8 +17,7 @@ node_js:
  - "12"
 
 install:
-- npm i -g npm
-- npm ci
+- npm install
 
 jobs:
   include:
