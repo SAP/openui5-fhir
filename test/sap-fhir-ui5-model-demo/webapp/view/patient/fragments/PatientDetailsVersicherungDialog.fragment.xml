@@ -1,0 +1,58 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core"
+                         xmlns:l="sap.ui.layout"
+                         xmlns="sap.m">
+    <Dialog id="dialogAddInsurance"
+            contentWidth="550px"
+            contentHeight="300px"
+            showHeader="false"
+            confirm="handleInsuranceDialogClose"
+            cancel="handleInsuranceDialogClose">
+        <buttons>
+            <Button id="btnInsuranceAdd"
+                    text="{i18n>btnInsuranceAdd}"
+                    press="saveInsurance"
+                    type="Emphasized" />
+            <Button id="btnInsuranceClose"
+                    text="{i18n>btnInsuranceClose}"
+                    press="cancelInsurance" />
+        </buttons>
+        <content>
+            <Page id="insuranceAddPage"
+                  title="{i18n>insuranceAddPage}">
+                <VBox class="sapUiTinyMarginBegin sapUiTinyMarginEnd sapUiTinyMarginTop sapUiTinyMarginBottom">
+                    <Label text="{i18n>lbInsuranceAddPayer}" />
+                    <Input id="inpInsurance"
+                           value="{payor/0/reference/name}"
+                           showValueHelp="true"
+                           type="Text"
+                           showSuggestion="true"
+                           suggestionItemSelected="handleSuggestPayor"
+                           suggestionItems="{/Organization}"
+                           textFormatMode="Value"
+                           maxLength="50"
+                           valueHelpRequest="handleValueHelpInsurance"
+                           change="emptyCheck">
+                    <suggestionItems>
+                        <core:ListItem key="{name}"
+                                       text="{name}" />
+                    </suggestionItems>
+                    </Input>
+                    <Label text="{i18n>lbInsuranceAddNum}"
+                           class="sapUiTinyMarginTop" />
+                    <Input id="inpInsuranceNumber"
+                           value="{subscriberId}"
+                           type="Text"
+                           maxLength="16"
+                           change="checkInsuranceNumber" />
+                    <Label text="{i18n>lbInsurancePeriod}"
+                           class="sapUiTinyMarginTop" />
+                    <DateRangeSelection id="drsInsurancePeriod"
+                                        dateValue="{period/start}"
+                                        secondDateValue="{period/end}"
+                                        valueFormat="yyyy-MM-dd"
+                                        change="validCheck" />
+                </VBox>
+            </Page>
+        </content>
+    </Dialog>
+</core:FragmentDefinition>

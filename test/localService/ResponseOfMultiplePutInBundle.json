@@ -1,0 +1,29 @@
+{
+    "resourceType": "Bundle",
+    "id": "4b3180aa-59f7-4cf8-8126-c23f3f2215b1",
+    "type": "batch-response",
+    "link": [
+        {
+            "relation": "self",
+            "url": "http://localhost:8080/fhir"
+        }
+    ],
+    "entry": [
+        {
+            "response": {
+                "status": "200 OK",
+                "location": "Patient/253/_history/8",
+                "etag": "8",
+                "lastModified": "2018-08-09T17:12:07.383+02:00"
+            }
+        },
+        {
+            "response": {
+                "status": "200 OK",
+                "location": "Patient/254/_history/4",
+                "etag": "4",
+                "lastModified": "2018-08-09T17:12:07.383+02:00"
+            }
+        }
+    ]
+}

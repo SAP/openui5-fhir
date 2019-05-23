@@ -1,0 +1,17 @@
+{
+	"id": "32939f45-e494-4e2e-a29b-a931ca929dce",
+	"type": "batch",
+	"resourceType": "Bundle",
+	"entry": [{
+			"request": {
+				"method": "GET",
+				"url": "ValueSet/$expand?url=http://pm2cloud_scala/ValueSet/nationality&_format=json"
+			}
+		}, {
+			"request": {
+				"method": "GET",
+				"url": "ValueSet/$expand?url=http://hl7.org/fhir/ValueSet/v3-hl7Realm&_format=json"
+			}
+		}
+	]
+}

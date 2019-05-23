@@ -1,0 +1,97 @@
+<mvc:View xmlns:core="sap.ui.core"
+          xmlns="sap.m"
+          controllerName="sap-fhir-ui5-model-demo.controller.structureDefinition.StructureDefinition"
+          xmlns:form="sap.ui.layout.form">
+    <Page id="structureDefinitionPage"
+          title="{i18n>structureDefinitionTitle}: {name}"
+          showNavButton="true"
+          navButtonPress="onNavBack"
+          enableScrolling="true">
+        <headerContent>
+            <Button id="editButton"
+                    icon="sap-icon://edit"
+                    tooltip="Edit"
+                    press="onPressEdit"
+                    enabled="{= !${client>/isEditMode}}" />
+            <Button id="refreshButton"
+                    icon="sap-icon://refresh"
+                    tooltip="Refresh"
+                    press="onPressRefresh" />
+        </headerContent>
+        <content>
+            <form:SimpleForm id="structureDefinitionFormBasicsEdit"
+                             visible="{client>/isEditMode}"
+                             editable="true"
+                             layout="ResponsiveGridLayout"
+                             title="{i18n>structureDefinitionBasicTitle}"
+                             labelSpanXL="4"
+                             labelSpanL="3"
+                             labelSpanM="4"
+                             labelSpanS="12"
+                             adjustLabelSpan="false"
+                             emptySpanXL="0"
+                             emptySpanL="4"
+                             emptySpanM="0"
+                             emptySpanS="0"
+                             columnsXL="2"
+                             columnsL="1"
+                             columnsM="1"
+                             singleContainerFullSize="true">
+                <Label text="{i18n>structureDefinitionNameLabel}"
+                       labelFor="nameEdit" />
+                <Input id="nameEdit"
+                       value="{name}" />
+                <Label text="{i18n>structureDefinitionDescriptionLabel}"
+                       labelFor="descriptionEdit" />
+                <TextArea id="descriptionEdit"
+                          value="{description}" />
+                </form:SimpleForm>
+      <form:SimpleForm id="structureDefinitionFormBasicsDisplay" visible="{= !${client>/isEditMode}}" editable="false" layout="ResponsiveGridLayout"
+        title="{i18n>structureDefinitionBasicTitle}" labelSpanXL="4" labelSpanL="3" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4" emptySpanM="0" emptySpanS="0"
+        columnsXL="2" columnsL="1" columnsM="1" singleContainerFullSize="true">
+        <Label text="{i18n>structureDefinitionNameLabel}" labelFor="nameDisplay"/>
+        <Text id="nameDisplay" text="{name}"/>
+        <Label text="{i18n>structureDefinitionUrlLabel}" labelFor="urlDisplay"/>
+        <Text id="urlDisplay" text="{url}"/>
+        <Label text="{i18n>structureDefinitionIdLabel}" labelFor="idDisplay"/>
+        <Text id="idDisplay" text="{id}"/>
+        <Label text="{i18n>structureDefinitionBaseDefinitionLabel}" labelFor="baseDefinitionDisplay"/>
+        <Text id="baseDefinitionDisplay" text="{baseDefinition}"/>
+        <Label text="{i18n>structureDefinitionDescriptionLabel}" labelFor="descriptionDisplay"/>
+        <Text id="descriptionDisplay" text="{description}"/>
+        <Label text="{i18n>structureDefinitionLastUpdatedLabel}" labelFor="lastUpdatedDisplay"/>
+        <Text id="lastUpdatedDisplay" text="{path: 'meta/lastUpdated', formatter: '.formatter.formatDate'}"/>
+        <Label text="{i18n>structureDefinitionContactLabel}" labelFor="contactDisplay"/>
+      </form:SimpleForm>
+      <Panel id="contactDisplay" headerText="{i18n>structureDefinitionContactsTitle}:" visible="{= !${client>/isEditMode}}">
+        <List id="contactListDisplay" items="{path: 'contact', templateShareable:false}">
+          <CustomListItem>
+            <Text text="{= ${name} ? ${name} : '' }"/>
+            <List items="{path: 'telecom', templateShareable:false}">
+              <ObjectListItem title="{system}" icon="{path: 'system', formatter: '.formatter.formatContactPointSystemIcon'}">
+                <attributes>
+                  <ObjectAttribute text="{value}"/>
+                  <ObjectAttribute text="{use}"/>
+                  <ObjectAttribute text="{rank}"/>
+                </attributes>
+              </ObjectListItem>
+            </List>
+          </CustomListItem>
+        </List>
+      </Panel>
+      <Panel id="differntialDisplay" headerText="{i18n>structureDefinitionDifferentialTitle}:" visible="{= !${client>/isEditMode}}">
+        <List id="differntialListDisplay" items="{path: 'differential/element', templateShareable:false}">
+          <StandardListItem title="{id}" info="{path}" description="{definition}"/>
+        </List>
+      </Panel>
+    </content>
+    <footer>
+      <OverflowToolbar>
+        <ToolbarSpacer/>
+        <Button id="saveButton" type="Accept" text="{i18n>structureDefinitionSaveButtonText}" visible="{client>/isEditMode}" press="onPressSave"/>
+        <Button id="cancelButton" type="Reject" text="{i18n>structureDefinitionCancelButtonText}" visible="{client>/isEditMode}" press="onPressCancel"/>
+      </OverflowToolbar>
+    </footer>
+  </Page>
+  <BusyDialog id="structureDefinitionBusyDialog" title="Saving StructureDefinition" text="need some time" showCancelButton="true" close="onStructureDefinitionBusyDialogClosed"/>
+</mvc:View>

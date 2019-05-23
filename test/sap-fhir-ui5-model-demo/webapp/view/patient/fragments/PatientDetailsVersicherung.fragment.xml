@@ -1,0 +1,96 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core"
+                         xmlns="sap.m"
+                         xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+                         xmlns:smartTable="sap.ui.comp.smarttable"
+                         xmlns:l="sap.ui.layout"
+                         xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+    <l:HorizontalLayout>
+        <smartTable:SmartTable noData="{i18n>noData}"
+                               entitySet="Coverage"
+                               id="idVersSmartTable"
+                               editable="false"
+                               useVariantManagement="true"
+                               useTablePersonalisation="false"
+                               header="{i18n>insuranceTableTitle}"
+                               showRowCount="false"
+                               useExportToExcel="false"
+                               enableAutoBinding="true"
+                               tableType="ResponsiveTable"
+                               beforeRebindTable="onBeforeRebindTableVers"
+                               demandPopin="true"
+                               class="sapUiMediumMarginBegin sapUiMediumMarginEnd">
+            <Table class="ptmSmartTableBorder"
+                   id="tblVers">
+                <columns>
+                    <Column hAlign="Left">
+                        <customData>
+                            <core:CustomData key="p13nData"
+                                             value='\{"columnKey": "payor","leadingProperty": "payor","columnIndex":"0", "type":"string"}' />
+                        </customData>
+                        <Text text="{i18n>insuranceTableColPayer}" />
+                    </Column>
+                    <Column hAlign="Left">
+                        <customData>
+                            <core:CustomData key="p13nData"
+                                             value='\{"columnKey": "identifier","leadingProperty": "identifier","columnIndex":"1", "type":"string"}' />
+                        </customData>
+                        <Text text="{i18n>insuranceTableColInsNum}" />
+                    </Column>
+                    <Column hAlign="Left">
+                        <customData>
+                            <core:CustomData key="p13nData"
+                                             value='\{"columnKey": "period.start","leadingProperty": "period.start","columnIndex":"2", "type":"string"}' />
+                        </customData>
+                        <Text text="{i18n>insuranceTableColInsFrom}" />
+                    </Column>
+                    <Column hAlign="Left">
+                        <customData>
+                            <core:CustomData key="p13nData"
+                                             value='\{"columnKey": "period.end","leadingProperty": "period.end","columnIndex":"3", "type":"string"}' />
+                        </customData>
+                        <Text text="{i18n>insuranceTableColInsTo}" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem>
+                        <cells>
+                            <Label text="{payor/0/reference/name}"
+                                   design="Bold" />
+                            <Label text="{subscriberId}"
+                                   design="Bold" />
+                            <Label text="{path:'period/start' , formatter: '.utils.formatDate'}"
+                                   design="Bold" />
+                            <Label text="{path:'period/end', formatter: '.utils.formatDate'}"
+                                   design="Bold" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+            <!-- layout data used to make the table growing but the filter bar fixed -->
+            <smartTable:layoutData>
+                <FlexItemData growFactor="1"
+                              baseSize="0%" />
+            </smartTable:layoutData>
+            <smartTable:customToolbar>
+                <Toolbar class="sapUiMediumMarginTop"
+                         id="toolbar1">
+                    <ToolbarSpacer />
+                    <MenuButton text="{i18n>insuranceMenuButton}">
+                        <menu>
+                            <Menu itemSelected="onVersicherungMenuAction">
+                                <items>
+                                    <MenuItem text="{i18n>insuranceMenuItem1}"
+                                              key="Versicherung" />
+                                    <MenuItem text="{i18n>insuranceMenuItem2}"
+                                              key="Selbstzahler" />
+                                    <MenuItem text="{i18n>insuranceMenuItem3}"
+                                              key="Fremdregulierer" />
+                                </items>
+                            </Menu>
+                        </menu>
+                    </MenuButton>
+                </Toolbar>
+            </smartTable:customToolbar>
+        </smartTable:SmartTable>
+    </l:HorizontalLayout>
+</core:FragmentDefinition>

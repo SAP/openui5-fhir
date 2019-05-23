@@ -1,0 +1,25 @@
+{
+  "resourceType": "OperationOutcome",
+  "text": {
+    "status": "generated",
+    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><h1>Operation Outcome</h1><table border=\"0\"><tr><td style=\"font-weight: bold;\">WARNING</td><td>[Parameters.parameter[2].resource]</td><td><pre>A resource should have narrative for robust management [text.div.exists()]</pre></td>\n\t\t\t\t\t\n\t\t\t\t\n\t\t\t</tr>\n\t\t\t<tr>\n\t\t\t\t<td style=\"font-weight: bold;\">WARNING</td>\n\t\t\t\t<td>[Parameters.parameter[2].resource]</td>\n\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\t<td><pre>A resource should have narrative for robust management [text.div.exists()]</pre></td>\n\t\t\t\t\t\n\t\t\t\t\n\t\t\t</tr>\n\t\t</table>\n\t</div>"
+  },
+  "issue": [
+    {
+      "severity": "warning",
+      "code": "processing",
+      "diagnostics": "A resource should have narrative for robust management [text.div.exists()]",
+      "location": [
+        "Parameters.parameter[2].resource"
+      ]
+    },
+    {
+      "severity": "warning",
+      "code": "processing",
+      "diagnostics": "A resource should have narrative for robust management [text.div.exists()]",
+      "location": [
+        "Parameters.parameter[2].resource"
+      ]
+    }
+  ]
+}
