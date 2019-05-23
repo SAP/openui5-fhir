@@ -13,11 +13,9 @@ services:
 jdk:
  - openjdk8
 
-node_js: "12.3.1"
+node_js: 12
 
-before_install: npm i -g npm
- 
-install: npm install
+install: npm install && npm -v && node -v
 
 jobs:
   include:
