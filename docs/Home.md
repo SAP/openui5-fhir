@@ -119,13 +119,26 @@ The former script simply watches all files for changes and lints them immediatel
 
 #### 4.2.2 Testing
 
-The testsuite needs a mockserver. Therefore, the `setup_mock.sh` has to be used. Execute `./setup_mock.sh` when you start developing and/or testing.
+The testsuite needs a mockserver. Therefore various scripts are placed in the  `package.json`. `setup_mock.sh` has to be used. Execute `./setup_mock.sh` when you start developing and/or testing.
+
+```bash
+npm run serve:mockserver
+```
+
+Starts a mockerserver with test data.
 
 ```bash
 npm run test
 ```
 
-Runs the QUnit and Opa5 tests.
+Executes the QUnit and Opa5 tests.
+
+```bash
+npm run test-mockserver
+```
+
+Starts a mockerserver with test data and executes the QUnit and Opa5 tests.
+
 
 <a name="4.2.3-Documentation"></a>
 
