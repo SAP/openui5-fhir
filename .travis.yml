@@ -1,6 +1,4 @@
-language: 
-- java
-- node_js
+language: java
 
 cache:
   npm: true
@@ -15,8 +13,10 @@ services:
 jdk:
  - openjdk8
 
-node_js:
- - "12"
+node_js: "12.3.1"
+
+before_install:
+ - npm i -g npm@6.9.0
 
 jobs:
   include:
