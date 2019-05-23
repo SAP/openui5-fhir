@@ -14,7 +14,7 @@ jdk:
  - openjdk8
 
 node_js:
- - "10.15.1"
+ - "12"
 
 install:
 - npm ci
