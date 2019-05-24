@@ -1,0 +1,55 @@
+{
+  "resourceType": "ValueSet",
+  "status": "active",
+  "compose": {
+    "include": [
+      {
+        "valueSet": [
+          "ValueSet/AdmissionType"
+        ]
+      }
+    ]
+  },
+  "expansion": {
+    "identifier": "urn:uuid:fbfdffb2-c750-472b-ac85-e047563c4216",
+    "timestamp": "2018-05-08T07:13:13+00:00",
+    "total": 7,
+    "contains": [
+      {
+        "system": "CodeSystem/AdmissionType",
+        "code": "Admission from external hospital",
+        "display": "Admission from external hospital"
+      },
+      {
+        "system": "CodeSystem/AdmissionType",
+        "code": "Companion",
+        "display": "Companion"
+      },
+      {
+        "system": "CodeSystem/AdmissionType",
+        "code": "Referral",
+        "display": "Referral"
+      },
+      {
+        "system": "CodeSystem/AdmissionType",
+        "code": "Childbirth",
+        "display": "Childbirth"
+      },
+      {
+        "system": "CodeSystem/AdmissionType",
+        "code": "Emergency",
+        "display": "Emergency"
+      },
+      {
+        "system": "CodeSystem/AdmissionType",
+        "code": "Self-Admission",
+        "display": "Self-Admission"
+      },
+      {
+        "system": "CodeSystem/AdmissionType",
+        "code": "Preadmission Treatment",
+        "display": "Preadmission Treatment"
+      }
+    ]
+  }
+}

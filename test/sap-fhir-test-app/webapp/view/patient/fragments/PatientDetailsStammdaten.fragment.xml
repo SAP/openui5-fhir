@@ -1,0 +1,210 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core"
+                         xmlns="sap.m">
+    <VBox>
+        <Panel class="patientDetailsPanel">
+            <HBox justifyContent="SpaceBetween"
+                  class="patientDetailsContentPanelContent sapUiTinyMarginTop">
+                <VBox id="nameContext"
+                      binding="{name/0}">
+                    <VBox>
+                        <Label text="Family Name:" />
+                        <Input width="100%"
+                               value="{family}" />
+                    </VBox>
+                    <VBox>
+                        <Label class="sapUiSmallMarginTop"
+                               text="Given Name:" />
+                        <Input width="100%"
+                               value="{given/0}" />
+                    </VBox>
+                </VBox>
+                <VBox>
+                    <VBox>
+                        <Label text="Date of Birth:" />
+                        <DatePicker width="100%"
+                                    value="{birthDate}"
+                                    valueFormat="yyyy-MM-dd"
+                                    displayFormat="long" />
+                    </VBox>
+                    <VBox>
+                        <Label class="sapUiSmallMarginTop"
+                               text="Maiden Name:" />
+                        <Input width="100%"
+                               value="{name/[use=maiden]/family}" />
+                    </VBox>
+                </VBox>
+                <VBox>
+                    <VBox>
+                        <Label text="Gender:" />
+                        <Select id="genderSelect"
+                                width="100%"
+                                items="{gender}"
+                                selectedKey="{gender}"
+                                forceSelection="false">
+                            <core:Item key="{code}"
+                                       text="{display}" />
+                        </Select>
+                    </VBox>
+                    <VBox class="sapUiSmallMarginTop">
+                        <Label text="Nationality:" />
+                        <Input id="input_nationality"
+                               width="100%"
+                               type="Text"
+                               textFormatMode="Value"
+                               placeholder="Enter Nationality"
+                               maxSuggestionWidth="auto"
+                               showSuggestion="true"
+                               showValueHelp="true"
+                               valueHelpRequest="handleValueHelpNationality"
+                               suggestionItems="{path : '/ValueSet/nationality', parameters: {request: { blah: 'http://hl7.org/fhir/ValueSet/v3-hl7Realm'}, groupId: 'patientDetails'} }"
+                               selectedKey="{extension/[url=http://hl7.org/fhir/StructureDefinition/patient-nationality]/extension/[url=code]/valueCodeableConcept/text}">
+                        <suggestionItems>
+                            <core:ListItem key="{code}"
+                                           text="{display}"
+                                           additionalText="{code}" />
+                        </suggestionItems>
+                        </Input>
+                    </VBox>
+                </VBox>
+            </HBox>
+        </Panel>
+        <Panel class="patientDetailsPanel">
+            <Toolbar>
+                <Title text="Contact:"
+                       class="patientDetailsPanelTitle" />
+            </Toolbar>
+            <HBox justifyContent="SpaceBetween"
+                  class="patientDetailsContentPanelContent sapUiTinyMarginTop">
+                <VBox>
+                    <VBox>
+                        <Label text="Street / Number:" />
+                        <Input value="{address/0/line/0}" />
+                    </VBox>
+                    <VBox>
+                        <Label class="sapUiSmallMarginTop"
+                               text="Addition to Address:" />
+                        <Input value="{address/0/line/1}" />
+                    </VBox>
+                </VBox>
+                <VBox>
+                    <VBox>
+                        <Label text="Country:" />
+                        <Input id="input_country"
+                               type="Text"
+                               textFormatMode="Value"
+                               placeholder="Enter Country"
+                               showSuggestion="true"
+                               maxSuggestionWidth="auto"
+                               showValueHelp="true"
+                               valueHelpRequest="handleValueHelpCountry"
+                               suggestionItems="{path : '/ValueSet/v3-hl7Realm', parameters: {request: {url: 'http://hl7.org/fhir/ValueSet/v3-hl7Realm'}, groupId: 'patientDetails'} }"
+                               selectedKey="{address/0/country}">
+                        <suggestionItems>
+                            <core:ListItem key="{code}"
+                                           text="{display}"
+                                           additionalText="{code}" />
+                        </suggestionItems>
+                        </Input>
+                    </VBox>
+                    <VBox>
+                        <Label class="sapUiSmallMarginTop"
+                               text="Zip Code / City:" />
+                        <HBox alignContent="Start"
+                              alignItems="Start"
+                              fitContainer="true">
+                            <VBox width="25%"
+                                  class="sapUiTinyMarginEnd">
+                                <Input value="{address/0/postalCode}" />
+                            </VBox>
+                            <VBox width="75%">
+                                <Input value="{address/0/city}" />
+                            </VBox>
+                        </HBox>
+                    </VBox>
+                </VBox>
+                <VBox>
+                    <VBox>
+                        <Label text="Phone Number:" />
+                        <Input value="{telecom/[system=phone]/value}" />
+                    </VBox>
+                    <VBox>
+                        <Label class="sapUiSmallMarginTop"
+                               text="Email:" />
+                        <Input value="{telecom/[system=email]/value}" />
+                    </VBox>
+                </VBox>
+            </HBox>
+        </Panel>
+        <Panel class="patientDetailsPanel">
+            <Toolbar>
+                <Title text="Next of Kin:"
+                       class="patientDetailsPanelTitle" />
+            </Toolbar>
+            <HBox justifyContent="SpaceBetween"
+                  class="sapUiTinyMarginTop">
+                <Table mode="MultiSelect"
+                       id="tblContacts"
+                       items="{path : 'contact', parameters : {valueSetLookupInStructureDefinition : false}}"
+                       growing="true"
+                       growingThreshold="2"
+                       growingScrollToLoad="false"
+                       keyboardMode="Edit">
+                    <headerToolbar>
+                        <OverflowToolbar>
+                            <ToolbarSpacer />
+                            <Button icon="sap-icon://delete"
+                                    id="btn_delete"
+                                    press="onDeleteContactClicked" />
+                            <Button icon="sap-icon://add"
+                                    id="addContact"
+                                    press="onAddContactPressed">
+                                <layoutData>
+                                    <OverflowToolbarLayoutData priority="NeverOverflow" />
+                                </layoutData>
+                            </Button>
+                        </OverflowToolbar>
+                    </headerToolbar>
+                    <columns>
+                        <Column width="12em">
+                            <Text text="Family Name" />
+                        </Column>
+                        <Column minScreenWidth="Tablet"
+                                demandPopin="true">
+                            <Text text="Given Name" />
+                        </Column>
+                        <Column minScreenWidth="Tablet"
+                                demandPopin="true">
+                            <Text text="Street" />
+                        </Column>
+                        <Column minScreenWidth="Tablet"
+                                demandPopin="true">
+                            <Text text="City" />
+                        </Column>
+                        <Column>
+                            <Text text="Landline" />
+                        </Column>
+                        <Column>
+                            <Text text="Mobile Phone" />
+                        </Column>
+                        <Column>
+                            <Text text="Email" />
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem>
+                            <cells>
+                                <Input value="{name/family}" />
+                                <Input value="{name/given/0}" />
+                                <Input value="{address/line/0}" />
+                                <Input value="{address/city}" />
+                                <Input value="{telecom/[use=home &amp;&amp; system=phone]/value}" />
+                                <Input value="{telecom/[use=mobile &amp;&amp; system=phone]/value}" />
+                                <Input value="{telecom/[system=email]/value}" />
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+            </HBox>
+        </Panel>
+    </VBox>
+</core:FragmentDefinition>

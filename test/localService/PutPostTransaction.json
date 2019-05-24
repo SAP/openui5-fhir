@@ -1,0 +1,176 @@
+{
+	"resourceType": "Bundle",
+	"type": "transaction",
+	"entry": [
+		{
+			"fullUrl": "https://example.com/fhir/Patient/sPatientId2",
+			"request": {
+				"url": "Patient",
+				"method": "POST"
+			},
+			"resource": {
+				"name": [
+					{
+						"given": [
+							"Horst"
+						],
+						"family": "Mueller"
+					}
+				],
+				"birthDate": "2018-05-31",
+				"resourceType": "Patient",
+				"id": "127e23a0-6db1-4ced-b433-98c7a70646b8"
+			}
+		},
+		{
+			"fullUrl": "https://example.com/fhir/Patient/sPatientId",
+			"request": {
+				"url": "Patient",
+				"method": "PUT"
+			},
+			"resource": {
+				"updateProperty": "newValue",
+				"resourceType": "Patient",
+				"id": "27f89dba-b3ee-465d-aec4-b732da01ead5",
+				"meta": {
+					"versionId": "1"
+				},
+				"identifier": [
+					{
+						"system": "https://github.com/synthetichealth/synthea",
+						"value": "4e132cab-ce3e-4d8a-ab7d-318842f82118"
+					},
+					{
+						"type": {
+							"coding": [
+								{
+									"system": "http://hl7.org/fhir/identifier-type",
+									"code": "SB"
+								}
+							]
+						},
+						"system": "http://hl7.org/fhir/sid/us-ssn",
+						"value": "999492552"
+					},
+					{
+						"type": {
+							"coding": [
+								{
+									"system": "http://hl7.org/fhir/v2/0203",
+									"code": "MR"
+								}
+							]
+						},
+						"system": "http://hospital.smarthealthit.org",
+						"value": "4e132cab-ce3e-4d8a-ab7d-318842f82118"
+					}
+				],
+				"name": [
+					{
+						"use": "official",
+						"family": "Kraft",
+						"given": [
+							"newValue",
+							"Peterle",
+							"Klausi"
+						]
+					},
+					{
+						"use": "nickname",
+						"family": "Krafti"
+					},
+					{
+						"use": "old",
+						"family": "Kraftlos"
+					}
+				],
+				"telecom": [
+					{
+						"system": "phone",
+						"value": "967-224-1855 x62745",
+						"use": "home"
+					}
+				],
+				"gender": "male",
+				"birthDate": "2008-04-27",
+				"address": [
+					{
+						"line": [
+							"2123 Keebler Ridge"
+						],
+						"city": "Boston",
+						"state": "MA",
+						"postalCode": "02210",
+						"country": "US"
+					}
+				],
+				"maritalStatus": {
+					"coding": [
+						{
+							"system": "http://hl7.org/fhir/v3/MaritalStatus",
+							"code": "S"
+						}
+					],
+					"text": "Never Married"
+				},
+				"multipleBirthBoolean": false,
+				"contact": [
+					{
+						"name": {
+							"family": "1234",
+							"given": [
+								"newValue"
+							]
+						},
+						"telecom": [
+							{
+								"use": "mobile",
+								"system": "phone",
+								"value": "Kraft"
+							}
+						]
+					},
+					{
+						"name": {
+							"family": "34343"
+						}
+					},
+					{
+						"name": {
+							"family": "343434"
+						}
+					},
+					{
+						"name": {
+							"family": "3242"
+						}
+					},
+					{
+						"name": {
+							"family": "223"
+						}
+					}
+				],
+				"communication": [
+					{
+						"language": {
+							"coding": [
+								{
+									"code": "en-US",
+									"display": "English (United States)"
+								}
+							]
+						}
+					}
+				],
+				"generalPractitioner": [
+					{
+						"reference": "urn:uuid:41cc3588-837c-4375-b8b7-9bdf49c9ad17"
+					}
+				],
+				"foo": "bar",
+				"bar": "foo"
+			}
+		}
+	]
+}

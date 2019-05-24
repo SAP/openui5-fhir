@@ -1,8 +1,6 @@
-<p align="center"><img height="300px" src="docs/images/logo.png"></a></p>
-
-# OpenUI5-FHIR
+# OpenUI5-FHIR <a href="https://openui5.org/"><img height="30px" src="https://openui5.hana.ondemand.com/resources/sap/ui/documentation/sdk/images/logo_ui5.png"></a>🔥 
 [![npm version](https://badge.fury.io/js/openui5-fhir.svg)](//www.npmjs.com/package/openui5-fhir)
-[![Build Status](https://travis-ci.org/SAP/openui5-fhir.svg?branch=master)](https://travis-ci.org/SAP/openui5-fhir)
+[![Build Status](https://travis-ci.com/SAP/openui5-fhir.svg?branch=master)](https://travis-ci.com/SAP/openui5-fhir)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE.txt)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
@@ -36,9 +34,12 @@ The underlaying FHIR endpoint has to full following requirements:
 
 ## Usage
 
-The *OpenUI5-FHIR* project is published at npm.
-
-*TODO: add here guide how to include project/library
+The *OpenUI5-FHIR* project is published at npm on package `openui5-fhir`, which includes all necessary files. Add following snippet to your project `package.json` and update the version of `openui5-fhir` to the desired [version](https://github.com/SAP/openui5-fhir/releases).
+```json
+"dependencies": {
+	"openui5-fhir": "1.0.X"
+}
+```
 
 ## Known Issues
 
@@ -46,7 +47,7 @@ The list of current issues is available [here](https://github.com/SAP/openui5-fh
 
 ## Support
 
-Do you've any questions? Don't hesitate to raise a [new issue](https://github.com/SAP/openui5-fhir/issues/new).
+Do you've any questions? Don't hesitate to raise a [new issue](https://github.com/SAP/openui5-fhir/issues/new/choose).
 
 ## Contributing
 

@@ -1,10 +1,19 @@
-language: node_js
+language: java
 
-node_js:
-- "10.15.1"
+cache:
+  directories:
+    - $HOME/.m2
 
 os:
-- linux
+ - linux
+
+services:
+ - docker
+
+jdk:
+ - openjdk8
+
+install: npm install
 
 branches:
   only:
@@ -13,15 +22,16 @@ branches:
 jobs:
   include:
     - stage: "JSLint Checks"
-      script: "npm run lint"
-    - stage: "Unit Tests"
-      script: "npm run test:coverage"
-    - stage: "API Documentation"
+      script: npm run lint
+    - stage: "QUnit / QUnit Integration / OPA5 Tests"
+      script: npm run test-mockserver
+    - stage: "Generate API Documentation"
       if: (branch = master) AND (NOT (type = pull_request))
       script: "npm run docs"
       deploy:
         local-dir: generated_docs/html
         provider: pages
+        name: OpenUI5-FHIR-Bot
         github-token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
         skip-cleanup: true
         keep-history: true
@@ -36,3 +46,8 @@ jobs:
          # skip_cleanup: true
          # script:
            # - npx semantic-release
+
+notifications:
+  email:
+    on_failure: always
+    on_success: change

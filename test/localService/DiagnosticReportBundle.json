@@ -1,0 +1,119 @@
+{
+  "resourceType": "Bundle",
+  "id": "306d2f62-260c-40ec-a13c-4033547345c0",
+  "meta": {
+    "lastUpdated": "2018-05-08T07:15:01.072+00:00"
+  },
+  "type": "searchset",
+  "total": 3,
+  "link": [
+    {
+      "relation": "self",
+      "url": "sap-health-scala-poc.cfapps.sap.hana.ondemand.com/fhir/DiagnosticReport?_format=json&_pretty=true&_sort=&patient%3Aexact=Patient%2F27f89dba-b3ee-465d-aec4-b732da01ead5"
+    }
+  ],
+  "entry": [
+    {
+      "fullUrl": "sap-health-scala-poc.cfapps.sap.hana.ondemand.com/fhir/DiagnosticReport/37eceb82-9ec9-4452-a203-10ed4d8ef639",
+      "resource": {
+        "resourceType": "DiagnosticReport",
+        "id": "37eceb82-9ec9-4452-a203-10ed4d8ef639",
+        "meta": {
+          "versionId": "1"
+        },
+        "status": "registered",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "1-8"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/27f89dba-b3ee-465d-aec4-b732da01ead5"
+        },
+        "effectiveDateTime": "2018-05-08",
+        "codedDiagnosis": [
+          {
+            "coding": [
+              {
+                "system": "http://scala_poc/CodeSystem/ICD10",
+                "code": "E10.0",
+                "display": "Type 1 diabetes mellitus with coma"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "sap-health-scala-poc.cfapps.sap.hana.ondemand.com/fhir/DiagnosticReport/5b37f536-3b28-41c3-b657-1a824bc01440",
+      "resource": {
+        "resourceType": "DiagnosticReport",
+        "id": "5b37f536-3b28-41c3-b657-1a824bc01440",
+        "meta": {
+          "versionId": "1"
+        },
+        "status": "registered",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "1-8"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/27f89dba-b3ee-465d-aec4-b732da01ead5"
+        },
+        "effectiveDateTime": "2018-05-01",
+        "codedDiagnosis": [
+          {
+            "coding": [
+              {
+                "system": "http://scala_poc/CodeSystem/ICD10",
+                "code": "E10.9",
+                "display": "Type 1 diabetes mellitus without complications"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "sap-health-scala-poc.cfapps.sap.hana.ondemand.com/fhir/DiagnosticReport/e78adbfe-fa87-4d99-b427-98b191d2780b",
+      "resource": {
+        "resourceType": "DiagnosticReport",
+        "id": "e78adbfe-fa87-4d99-b427-98b191d2780b",
+        "meta": {
+          "versionId": "1"
+        },
+        "status": "registered",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "1-8"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/27f89dba-b3ee-465d-aec4-b732da01ead5"
+        },
+        "effectiveDateTime": "2018-05-07",
+        "codedDiagnosis": [
+          {
+            "coding": [
+              {
+                "system": "http://scala_poc/CodeSystem/ICD10",
+                "code": "E10.5",
+                "display": "Type 1 diabetes mellitus with peripheral circulatory complications"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

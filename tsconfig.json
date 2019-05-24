@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "module": "system",
+    "sourceMap": true,
+    "noEmit": true,
+    "allowJs": true,
+    "checkJs": true
+  },
+  "compileOnSave": false,
+  "include": ["./src/**/*.js", "./src/globals.ts"],
+  "exclude": ["node_modules"]
+}
