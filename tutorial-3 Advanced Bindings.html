@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>3 Advanced Bindings - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-custom.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav id="navigationBar">
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Tutorials</li><li class="nav-item"><a href="tutorial-1 Getting Started.html">1 Getting Started</a></li><li class="nav-item"><a href="tutorial-2 Bindings.html">2 Bindings</a></li><li class="nav-item"><a href="tutorial-3 Advanced Bindings.html">3 Advanced Bindings</a></li><li class="nav-item"><a href="tutorial-4 Request Handling.html">4 Request Handling</a></li><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="sap.fhir.model.r4.Context.html">Context</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.Context.html#refresh">refresh</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRContextBinding.html">FHIRContextBinding</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRContextBinding.html#refresh">refresh</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRListBinding.html">FHIRListBinding</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRListBinding.html#filter">filter</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRListBinding.html#getFilters">getFilters</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRListBinding.html#getLength">getLength</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRListBinding.html#getSorters">getSorters</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRListBinding.html#refresh">refresh</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRListBinding.html#sort">sort</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRModel.html">FHIRModel</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRModel.html#bindContext">bindContext</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRModel.html#bindList">bindList</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRModel.html#bindProperty">bindProperty</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRModel.html#bindTree">bindTree</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRModel.html#create">create</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRModel.html#destroy">destroy</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRModel.html#getBaseProfileUrl">getBaseProfileUrl</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRModel.html#getProperty">getProperty</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRModel.html#getServiceUrl">getServiceUrl</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRModel.html#hasResourceTypePendingChanges">hasResourceTypePendingChanges</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRModel.html#readLatestVersionOfResource">readLatestVersionOfResource</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRModel.html#refresh">refresh</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRModel.html#remove">remove</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRModel.html#resetChanges">resetChanges</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRModel.html#sendGetRequest">sendGetRequest</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRModel.html#sendPostRequest">sendPostRequest</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRModel.html#setProperty">setProperty</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRModel.html#submitChanges">submitChanges</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRPropertyBinding.html">FHIRPropertyBinding</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRPropertyBinding.html#getValue">getValue</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRPropertyBinding.html#setValue">setValue</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRTreeBinding.html">FHIRTreeBinding</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRTreeBinding.html#attachTreeLoadingCompleted">attachTreeLoadingCompleted</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRTreeBinding.html#attachTreeLoadingStarted">attachTreeLoadingStarted</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRTreeBinding.html#detachTreeLoadingCompleted">detachTreeLoadingCompleted</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRTreeBinding.html#detachTreeLoadingStarted">detachTreeLoadingStarted</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRTreeBinding.html#filter">filter</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRTreeBinding.html#getLength">getLength</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRTreeBinding.html#refresh">refresh</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRTreeBinding.html#sort">sort</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="sap.fhir.model.r4.lib.RequestHandle.html">RequestHandle</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.lib.RequestHandle.html#abort">abort</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.lib.RequestHandle.html#getBinding">getBinding</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.lib.RequestHandle.html#getBundle">getBundle</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.lib.RequestHandle.html#getData">getData</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.lib.RequestHandle.html#getId">getId</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.lib.RequestHandle.html#getRequest">getRequest</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.lib.RequestHandle.html#getUrl">getUrl</a></span></li><li class="nav-heading">Events</li><li class="nav-heading"><span class="nav-item-type type-event">E</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRModel.html#event:requestCompleted">requestCompleted</a></span></li><li class="nav-heading"><span class="nav-item-type type-event">E</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRModel.html#event:requestFailed">requestFailed</a></span></li><li class="nav-heading"><span class="nav-item-type type-event">E</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRModel.html#event:requestSent">requestSent</a></span></li><li class="nav-heading"><span class="nav-item-type type-event">E</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRTreeBinding.html#event:treeLoadingCompleted">treeLoadingCompleted</a></span></li><li class="nav-heading"><span class="nav-item-type type-event">E</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRTreeBinding.html#event:treeLoadingStarted">treeLoadingStarted</a></span></li><li class="nav-heading">Namespaces</li><li class="nav-heading"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="sap.fhir.model.r4.html">r4</a></span></li>
+</nav>
+
+<div id="main" class="content">
+    
+    <h1 class="page-title">3 Advanced Bindings</h1>
+    
+    <section>
+
+<header>
+    
+</header>
+
+<article>
+    <p>Beyond the basic binding concepts described in the previous chapter, there are some more advanced concepts that will be explained in this section.</p>
+<h3>Step 3.1 Slicing</h3>
+<p>The properties of a FHIR resource can have different cardinalities. A property with a 1:N (one-to-many) relationship formally contains a collection. The items of a collection can be addressed by their indexes, for example, <code>/Patient/XYZ/name/0/family</code>. However, addressing the items of a collection by their indexes is unreliable because the index of an item can be affected, for example, by when the item was stored or last updated. So, an application developer should not implement anything based on the index of an item of a collection. Therefore, the FHIR specification introduces a kind of secondary index. For example, to specify whether the name of a patient is the patient's official name, nickname, or maiden name, there is a property called <code>use</code>. This property is a secondary index in the collection because the value of this property is unique within the collection. To enable the use of a secondary index within a UI, the UI5 FHIRModel includes a concept called slicing. For a UI5 element bound to a property that can be addressed by a secondary index, the syntax is as follows: <code>/path/[secondaryIndex=myIndex]/property</code>. For example, a UI5 element bound to the official family name would have the following syntax: <code>/Patient/XYZ/name/[use=official]/family</code>. This feature enables application developers to write stable UIs without knowing the order of the collections.</p>
+<p><em>Example: Binding the Value of an Input Field to the Official Family Name of a Patient.</em></p>
+<pre class="prettyprint source lang-xml"><code>&lt;Page id=&quot;patientPage&quot; binding=&quot;{/Patient/123}&quot;>
+    &lt;Input id=&quot;myLastName&quot; value=&quot;{name/[use=official]/family}&quot;>
+&lt;/Page>
+</code></pre>
+<p>To filter the aggregation, developers can also use <code>sap.fhir.model.r4.FHIRFilterOperators</code> within the binding path.
+This is useful, for example, for references where you would like to get multiple entries of the aggregation.</p>
+<pre class="prettyprint source lang-xml"><code>&lt;HBox binding=&quot;{/Coverage/123}&quot;>
+	&lt;List items=&quot;{payor/[reference StartsWith Organization]}&quot;> ...
+	&lt;/List>
+&lt;/HBox>
+</code></pre>
+<p>Further the developer is allowed to use AND-Operators within the binding path. The use case could be to display a specific address entry of a patient.</p>
+<pre class="prettyprint source lang-xml"><code>&lt;HBox binding=&quot;{/Patient/123}&quot;>
+	&lt;Text text=&quot;{address/[use=home &amp;&amp; type=postal]/city}&quot;>
+&lt;/HBox>
+</code></pre>
+<p>Or in JS-Code <code>.bindText(&quot;address/[use=home &amp;&amp; type=postal]/city&quot;);</code></p>
+<p>This concept is also reused for <code>_revinclude</code> bindings, as you can see in the example below. Therefore the key has to contain the prefix pattern <em>revreference/</em> plus the resource type (<em>PractitionerRole</em> in the example). The value is the reference property path (<em>practitioner/reference</em> in the example) in the resource type.</p>
+<p>*Example: _revinclude Binding *</p>
+<pre class="prettyprint source lang-xml"><code>&lt;Table id=&quot;List&quot; items=&quot;{ path: '/Practitioner' , parameters: { request: {_revinclude: 'PractitionerRole:practitioner', '_has:PractitionerRole:practitioner:organization' : '2523'}}}&quot;>
+            &lt;columns>
+              &lt;Column width=&quot;12em&quot;>
+                &lt;Text text=&quot;Practitioner Givenname&quot; />
+              &lt;/Column>
+              &lt;Column width=&quot;12em&quot;>
+                &lt;Text text=&quot;Practitioner Familyname&quot; />
+              &lt;/Column>
+              &lt;Column minScreenWidth=&quot;Tablet&quot; demandPopin=&quot;true&quot;>
+                &lt;Text text=&quot;ResourceType&quot; />
+              &lt;/Column>
+            &lt;/columns>
+            &lt;items>
+              &lt;ColumnListItem>
+                &lt;cells>
+                  &lt;Text text=&quot;{name/0/given/0}&quot; />
+                  &lt;Text text=&quot;{name/0/family}&quot; />
+                  &lt;VBox items=&quot;{[revreference/PractitionerRole=practitioner/reference]}&quot;>
+                      &lt;Text text=&quot;{id}&quot; />
+                   &lt;/VBox>
+                &lt;/cells>
+              &lt;/ColumnListItem>
+</code></pre>
+<h3>Step 3.2 References</h3>
+<p>The FHIR specification allows references on properties of a FHIR resource. This means that rather than storing real data, the property stores a link to another resource. The UI5 FHIRModel allows binding to a reference that is not part of the FHIR resource. The syntax for this binding looks as follows: First of all, the context has to be bound to the resource itself. Therefore, you need to modify the existing binding syntax as follows:</p>
+<pre class="prettyprint source lang-javascript"><code> { path: 'resourceType', parameters: { request: { _include: 'resourceType: searchParameterReference'}}}
+</code></pre>
+<ul>
+<li><strong>path</strong>: The path parameter contains the binding path.</li>
+<li><strong>parameters</strong>: The parameters object holds any parameters that should be passed to the binding.</li>
+<li><strong>parameters.request</strong>: The request object contains parameters that should be directly added to the URL of the request triggered by the binding.</li>
+<li><strong>parameters.request._include</strong>: The include parameter specifies which references of the bound resource should be requested and stored. If a single reference should be included, the syntax looks as follows: <code>{ _include: 'resourceType: searchParameterReference'}</code>. If more than one reference should be included, the syntax is: <code>{ _include: ['resourceType: searchParameterReference', 'resourceType2: searchParameterReference2']}</code>.</li>
+</ul>
+<p><em>Example: Binding a List to the Official Family Names of all General Practictioners of a Patient</em></p>
+<pre class="prettyprint source lang-xml"><code>&lt;Page id=&quot;patientPage&quot; binding=&quot;{path: '/Patient', parameters: { request: { _id:'123', _include: 'Patient:general-practitioner'}}}}&quot;>
+   &lt;List items=&quot;{123/generalPractitioner}&quot;>
+        &lt;StandardListItem title=&quot;{reference/name/[use=official]/family}&quot;/>
+   &lt;/List>
+&lt;/Page>
+</code></pre>
+<h3>Step 3.3 Reverse Chaining</h3>
+<p>The FHIR specification provides reverse chaining with the <code>_has</code> parameter. Reverse chaining enables you to select resources based on the properties of resources that refer to them. The following syntax can be used:</p>
+<pre class="prettyprint source lang-javascript"><code>{ path: 'resourceType', parameters: { request: { _has: 'resourceType:resourceProperty:property=value'}}
+</code></pre>
+<p><em>Example: Binding a List to All Patients with at Least 1 Oberservation with the Code 1234</em></p>
+<pre class="prettyprint source lang-xml"><code>&lt;List items=&quot;{path: '/Patient', parameters: { request: { _has: 'Observation:patient:code=1234'}}&quot;>
+    &lt;StandardListItem title=&quot;{name/[use=official]/family}&quot;/>
+&lt;/List>
+</code></pre>
+<h3>Step 3.4 ValueSets</h3>
+<p>The FHIR specification provides code values as ValueSets, which can be bound to the UI with the UI5 FHIRModel in two different ways.</p>
+<p><strong>Option A</strong>:
+In many cases, you want to display codes of a ValueSet associated with a resource. The UI5 FHIRModel detects that a code of a ValueSet is stored on a bound resource property. In that case, the UI5 FHIRModel requests the desired ValueSet from the FHIR endpoint and provides it to the UI.</p>
+<p><em>Example: Binding a Page to a Specific Patient: Displaying the Gender of the Patient and Show All Available Gender Values</em></p>
+<pre class="prettyprint source lang-xml"><code>&lt;Page id=&quot;patientPage&quot; binding=&quot;{/Patient/123}&quot;>
+    &lt;Select id=&quot;genderSelect&quot; items=&quot;{gender}&quot; selectedKey=&quot;{gender}&quot; forceSelection=&quot;false&quot;>
+        &lt;core:Item key=&quot;{code}&quot; text=&quot;{display}&quot;/>
+    &lt;/Select>
+&lt;/Page>
+</code></pre>
+<p><strong>Option B</strong>:
+In other cases, the ValueSet should be displayed without its associated context. Therefore, the ValueSet can be bound to the UI with the <code>url</code> property of the ValueSet.</p>
+<p><em>Example: Binding a List to All Available Gender Values</em></p>
+<pre class="prettyprint source lang-xml"><code>&lt;List id=&quot;genderList&quot; items=&quot;{path : '/ValueSet/Gender', parameters: { request: { url: 'http://hl7.org/fhir/ValueSet/administrative-gender'}}}&quot;>
+    &lt;StandardListItem title=&quot;{display}&quot;/>
+&lt;/Select>
+</code></pre>
+<h3>Step 3.5 Paging</h3>
+<p>The FHIR specification provides a paging mechanism out of the box. Paging ensures that UI5 applications have to load and store only data that is actually needed. The UI5 FHIRModel supports the FHIR paging mechanism natively without any further configurations on the binding side. UI5 provides controls that are paging-ready, for example, <code>sap.m.List</code>and <code>sap.m.Table</code>. These controls can used in paging scenarios by configuring the growing properties: <code>growing</code> with value <code>true</code> and <code>growingThreshold</code> with the desired number of items that should be loaded from the server.</p>
+<p><em>Example: Binding a List to All Available Patients but Show 5nly 5 at the First Time</em></p>
+<pre class="prettyprint source lang-xml"><code>&lt;List id=&quot;patientList&quot; items=&quot;{/Patient}&quot; growing=&quot;true&quot; growingThreshold=&quot;5&quot;>
+     &lt;StandardListItem title=&quot;{name/[use=official]/family}&quot;/>
+&lt;/List>
+</code></pre>
+<blockquote>
+<p>Hint: Some controls support two different kinds of growing, which can be configured with the control property <code>growingScrollToLoad</code>. One is the more button at the bottom of the control (<code>false</code>) or growing by scrolling (<code>true</code>).</p>
+</blockquote>
+<h3>Step 3.6 Binding to a Number of Resources</h3>
+ <table>
+  <tr valign="top">
+    <td><img src="images/Tutorial_Step_3/tile_kpi_patients.PNG"/></td>
+    <td>
+	    There are use cases where the total number of resources should be displayed on the UI. The most common use case is the launchpad KPI tiles scenario (see picture aside). The UI5 FHIRModel provides a special binding syntax to enable binding on the total number of resources. The context of the UI5 control has to be bound to the desired aggregation, for example, `{/Patient}`, `{/Organization}`, or `{ path: '/Patient', parameters: { filters: [{ path : 'address', value1: 'germany', operator: 'Contains'}]}}`. Now, any controls that have access to this context can bind their value to `{%total%}`.
+    </td>
+  </tr>
+</table>
+<p><em>Example: Creating a Tile and Show the Total Number of Patients</em></p>
+<pre class="prettyprint source lang-xml"><code>&lt;GenericTile id=&quot;patientsTile&quot; binding=&quot;{/Patient}&quot; header=&quot;My Patients&quot;>
+	&lt;TileContent unit=&quot;Patients&quot;>
+		&lt;NumericContent value=&quot;{%total%}&quot; icon=&quot;sap-icon://stethoscope&quot;/>
+	&lt;/TileContent>
+&lt;/GenericTile>
+</code></pre>
+<h3>Step 3.7 Refreshing</h3>
+<p>An application might need to trigger a manual refresh of an existing binding. For example, there might be a button on the UI that refreshes a UI element after being selected. The UI5 FHIRModel supports the following refresh triggers:</p>
+<p><em>Example: Refreshing a List</em></p>
+<pre class="prettyprint source lang-javascript"><code>this.getView().byId(&quot;patientList&quot;).getBinding(&quot;items&quot;).refresh();
+</code></pre>
+<p><em>Example: Refreshing only the Third List Item</em></p>
+<pre class="prettyprint source lang-javascript"><code>this.getView().byId(&quot;patientList&quot;).getItems()[2].getBindingContext().refresh();
+</code></pre>
+<p><em>Example: Refreshing a Page</em></p>
+<pre class="prettyprint source lang-javascript"><code>this.getView().byId(&quot;patientPage&quot;).getObjectBinding().refresh();
+</code></pre>
+<p><em>Example: Refreshing a Tree</em></p>
+<pre class="prettyprint source lang-javascript"><code>this.getView().byId(&quot;tree&quot;).getBinding(&quot;tree&quot;).refresh();
+</code></pre>
+<p><em>Example: Refreshing the Whole Model and All Bindings</em></p>
+<pre class="prettyprint source lang-javascript"><code>this.getView().getModel().refresh();
+</code></pre>
+<h3>Step 3.8 Binding of FHIR operations</h3>
+<p>FHIR permits the creation of operations on the FHIR base URL (for example <code>/fhir/R4/$myoperation</code>), on resource types (for example, <code>/fhir/R4/Patient/$myoperation</code>) and on resource entities (for example, <code>/fhir/R4/Patient/123/$myoperation</code>).
+The UI5 FHIR Model also supports the binding of UI elements to the output of FHIR operations. If the operation returns a single or multiple resources, the following binding syntax can be used:</p>
+<p><em>Example: Binding a List to a FHIR Operation That Returns Multiple Patients</em></p>
+<pre class="prettyprint source lang-xml"><code>&lt;List id=&quot;myList&quot; items=&quot;{/Patient/$myoperation}&quot;>
+    &lt;StandardListItem title=&quot;{gender} &quot;description=&quot;{birthdate}&quot;/> 
+&lt;/List>
+</code></pre>
+<p><em>Example: Binding the Value of an Input Field to the Official Family Name of a Patient Returned by a FHIR Operation</em></p>
+<pre class="prettyprint source lang-xml"><code>&lt;Page id=&quot;patientPage&quot; binding=&quot;{/Patient/123/$myoperation}&quot;>
+    &lt;Input id=&quot;myLastName&quot; value=&quot;{name/[use=official]/family}&quot;>
+&lt;/Page>
+</code></pre>
+<p>A FHIR operation can also return a collection of versions of a specific FHIR resource. Therefore, every entry in the bundle has the same ID. To bind a UI element to such a FHIR operation, it's neccessary to specify the unique boolean to differentiate the bundle entries. This can be achieved by using the <code>unique</code> binding parameter.</p>
+<p><em>Example: Binding a List to a FHIR Operation That Returns Multiple Versions of a Patient</em></p>
+<pre class="prettyprint source lang-xml"><code>&lt;List id=&quot;myList&quot; items=&quot;{path: '/Patient/1234/$myoperation', parameters: { unique: true}}&quot;>
+    &lt;StandardListItem title=&quot;{gender} &quot;description=&quot;{birthdate}&quot;/> 
+&lt;/List>
+</code></pre>
+<h3>Step 3.9 Filtering in FHIR Resources</h3>
+<p><code>sap.fhir.model.r4.FHIRFilter</code>, which extends <code>sap.ui.model.Filter</code>, and necessary helper classes support the special syntax that the FHIR query language uses because of the different search parameter data types. The following example shows how these classes are used.</p>
+<p><em>Example: Filtering a Binding with FHIR-Specific Filters</em></p>
+<pre class="prettyprint source lang-javascript"><code>
+sap.ui.define([ ...
+	&quot;sap/ui/model/Filter&quot;,
+	&quot;sap/fhir/model/r4/FHIRFilter&quot;
+	&quot;sap/fhir/model/r4/FHIRFilterOperator&quot;,
+	&quot;sap/fhir/model/r4/FHIRFilterType&quot;,
+	...
+]
+...
+oBinding.filter(
+	[
+		new FHIRFilter({
+			path : &quot;birthDate&quot;,
+			operator : FHIRFilterOperator.EQ,
+			valueType : FHIRFilterType.date,
+			value1: &quot;2014&quot;
+		}),
+		new Filter({
+			path : &quot;foo&quot;,
+			operator : FHIRFilterOperator.Missing
+			value1: &quot;&quot;
+		})
+	]
+);
+</code></pre>
+</article>
+
+</section>
+
+</div>
+
+<br class="clear">
+
+<footer>
+Generated by <a href="https://github.com/jsdoc3/jsdoc" target="_blank">JSDoc 3.6.2</a> on Mon, 27 May 2019 07:27:02 GMT based on the <a href="https://github.com/nijikokun/minami/" target="_blank">Minami</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Home - Documentation</title>
+    <title>FHIRContextBinding.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -30,142 +30,118 @@
 
 <div id="main" class="content">
     
+    <h1 class="page-title">FHIRContextBinding.js</h1>
+    
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/*!
+ * ${copyright}
+ */
+
+// Provides class sap.fhir.model.r4.FHIRContextBinding
+sap.ui.define([
+	"sap/ui/model/ContextBinding",
+	"sap/ui/model/ChangeReason",
+	"sap/fhir/model/r4/FHIRUtils",
+	"sap/fhir/model/r4/Context",
+	"sap/base/Log"
+], function(ContextBinding, ChangeReason, FHIRUtils, Context, Log) {
+	"use strict";
+
+	/**
+	 * Constructor for a new FHIRContextBinding
+	 *
+	 * @class
+	 * @classdesc Context binding implementation for the FHIRModel
+	 * @alias sap.fhir.model.r4.FHIRContextBinding
+	 * @param {sap.ui.model.Model} oModel The assigned FHIR Model
+	 * @param {string} sPath The binding path in the model
+	 * @param {sap.fhir.model.r4.Context} oContext The context which is required as base for a relative path
+	 * @param {object} [mParameters] The map which contains additional parameters for the binding
+	 * @param {string} [mParameters.groupId] The group id
+	 * @param {object} [mParameters.request] The parameters which will be passed with the request as url parameters, Note: any additional url parameters can be mentioned here also
+	 * @param {string} [mParameters.request._include] The _include parameter, e.g. in a list which is bind to '/Patient' it's possible to include 'Coverage:payor'
+	 * @param {string} [mParameters.request._revinclude] The _revinclude parameter, e.g. in a list which is bind to '/Practitioner' it's possible to reverse include 'PractitionerRole:practitioner'
+	 * @param {number} [mParameters.request._count] The number of resources which should be requested from the server
+	 * @author SAP SE
+	 * @extends sap.ui.model.ContextBinding
+	 * @public
+	 * @since 0.0.1
+	 * @version ${version}
+	 */
+	var FHIRContextBinding = ContextBinding.extend("sap.fhir.model.r4.FHIRContextBinding", {
+
+		constructor : function(oModel, sPath, oContext, mParameters) {
+			ContextBinding.call(this, oModel, sPath, oContext, mParameters);
+			this.mParameters = mParameters;
+			this.sId = FHIRUtils.uuidv4();
+			this.sGroupId = mParameters &amp;&amp; mParameters.groupId || oContext &amp;&amp; oContext.sGroupId;
+			this.bUnique = mParameters &amp;&amp; mParameters.unique;
+			this.oElementContext = Context.create(this.oModel, this, this.sPath, this.sGroupId);
+			this.oElementContext._loadContext();
+		}
+	});
+
+	/**
+	 * Checks if the context binding needs to be updated
+	 *
+	 * @protected
+	 * @since 0.0.1
+	 */
+	FHIRContextBinding.prototype.checkUpdate = function() {
+		if (this.isRelative() || this.bIsCreatedResource || this.bIsLoaded){
+			this.oElementContext._markAsReady();
+		}
+	};
+
+	/**
+	 * Refreshes all depending bindings
+	 *
+	 * @param {sap.ui.model.ChangeReason} sChangeReason The reason for refreshing the binding
+	 * @public
+	 * @since 0.0.1
+	 */
+	FHIRContextBinding.prototype.refresh = function(sChangeReason) {
+		this.oElementContext.refresh(sChangeReason);
+	};
+
+	/**
+	 * Return the bound context.
+	 *
+	 * @returns {sap.fhir.model.r4.Context} Context object used by this context binding or &lt;code>null&lt;/code>
+	 * @protected
+	 * @since 0.0.2
+	 */
+	FHIRContextBinding.prototype.getBoundContext = function() {
+		return this.oElementContext;
+	};
+
+	/**
+	 * Sets the context to the given &lt;code>oContext&lt;/code>
+	 *
+	 * @param {sap.fhir.model.r4.Context} oContext the new context object
+	 * @protected
+	 * @since 0.0.1
+	 */
+	FHIRContextBinding.prototype.setContext = function(oContext) {
+		this.oContext = oContext;
+		this._fireChange({
+			reason : ChangeReason.Context
+		});
+	};
 
 
-    <section class="readme">
-        <article><h1>OpenUI5-FHIR <a href="https://openui5.org/"><img height="30px" src="https://openui5.hana.ondemand.com/resources/sap/ui/documentation/sdk/images/logo_ui5.png"></a>🔥</h1>
-<p>This is the documentation of the <em>OpenUI5-FHIR</em> project containing the <em>sap.fhir</em> UI5 library.</p>
-<p>UI5 provides models out of the box, which can be fragmented in client or server-side <a href="https://openui5.hana.ondemand.com/#/topic/e1b625940c104b558e52f47afe5ddb4f">models</a>.</p>
-<ul>
-<li>Client-side models: JSON, XML and Resource</li>
-<li>Server-side models: OData V2, OData V4</li>
-</ul>
-<p>Inside the healthcare community there are a few specifications for clinical/medical data. <a href="https://www.hl7.org/fhir/">FHIR</a> is one of them. Furthermore FHIR provides a query language to access and modify the data.</p>
-<p>To develop UI5 applications based on FHIR backend applications, there is a need to provide an easy to use way to bind the UI to an model which takes care of creating, reading, updating and deleting the corresponding data in the FHIR backend. This is the reason for the brand new UI5 FHIRModel.</p>
-<h2>Includes</h2>
-<p>The FHIRModel implementation includes following files:</p>
-<ul>
-<li><code>FHIRModel.js</code>: The model which provides functions to read, create, update and delete resources</li>
-<li><code>FHIRContextBinding.js</code>: The context binding provides functions to bind a single entity to an ui element such as <em>/Patient/a234bc/</em></li>
-<li><code>FHIRPropertyBinding.js</code>: The property binding provides functions to bind a single property in an entity to an ui element such as <em>/Patient/a234bc/gender</em></li>
-<li><code>FHIRListBinding.js</code>: The list binding provides functions to bind a collection of entities to an ui element such as <em>/Patient?gender=female</em></li>
-<li><code>FHIRTreeBinding.js</code>: The tree binding provides functions to bind a tree of entities to an ui element (Tree of organizations, etc.)</li>
-</ul>
-<h2>Table of Contents</h2>
-<ol>
-<li><a href="#1-Importing-OpenUI5-FHIR">Import OpenUI5-FHIR</a></li>
-<li><a href="#2-Create-UI5-FHIRModel">Create UI5 FHIRModel</a></li>
-<li><a href="#3-Releases">Releases</a></li>
-<li><a href="#4-Development">Development</a> (<em>only internal</em>)
-<ol>
-<li><a href="#4.1-Deployment-of-sap-fhir-test-app-project">Deployment of <em>sap-fhir-test-app</em>-project</a></li>
-<li><a href="#4.2-Development-Tasks">Development Tasks</a>
-<ol>
-<li><a href="#4.2.1-ESLinting">ESLinting</a></li>
-<li><a href="#4.2.2-Testing">Testing</a></li>
-<li><a href="#4.2.3-Documentation">Documentation</a></li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-<p><a name="1-Import-OpenUI5-FHIR"></a></p>
-<h2>1 Import OpenUI5-FHIR</h2>
-<p>The easiest and most comfortable way of importing the UI5 FHIRModel is using the NPM dependency <code>openui5-fhir</code>, which includes all necessary files. Add following snippet to your project <code>package.json</code> and update the version of <code>openui5-fhir</code> to the desired <a href="https://github.com/SAP/openui5-fhir/releases">version</a>.</p>
-<pre class="prettyprint source lang-json"><code>&quot;dependencies&quot;: {
-	&quot;openui5-fhir&quot;: &quot;1.0.X&quot;
-}
+	return FHIRContextBinding;
+
+});
 </code></pre>
-<p><a name="2-Create-UI5-FHIRModel"></a></p>
-<h2>2 Create UI5 FHIRModel</h2>
-<p>Now, you can create the UI5 FHIRModel with a declaration in the <em>manifest.json</em> of your UI5 application.</p>
-<pre class="prettyprint source lang-json"><code>	&quot;sap.app&quot;: {
-		&quot;dataSources&quot;: {
-			&quot;myFHIRService&quot;: {
-				&quot;uri&quot;: &quot;https://myfhirservicehost.com/fhir/&quot;,
-				&quot;type&quot;: &quot;FHIR&quot;
-			}
-		}
-	},
-	&quot;sap.ui5&quot;: {
-		&quot;fhirModel&quot;: {
-			&quot;type&quot;: &quot;sap.fhir.model.r4.FHIRModel&quot;,
-			&quot;dataSource&quot;: &quot;myFHIRService&quot;
-		}
-	}
-</code></pre>
-<p><a name="3-Releases"></a></p>
-<h2>3 Releases</h2>
-<p>Overview about <a href="https://github.com/SAP/openui5-fhir/releases">all releases</a>.</p>
-<p>Get the <a href="https://github.com/SAP/openui5-fhir/releases/latest">latest release</a>.</p>
-<p><a name="4-Development"></a></p>
-<h2>4 Development</h2>
-<p>The following section describes how the <em>OpenUI5-FHIR</em> project internal test application can be deployed and which development tasks can be executed.</p>
-<p><a name="4.1-Deployment-of-sap-fhir-test-app-project"></a></p>
-<h3>4.1 Deployment of <em>sap-fhir-test-app</em>-project</h3>
-<ol>
-<li>Go to the <a href="https://github.com/SAP/openui5-fhir/releases/latest">latest release</a> and download the latest release <em>.zip</em>.</li>
-<li>Extract the <em>.zip</em> in your desired local location</li>
-<li>To deploy the <em>sap-fhir-test-app</em>-project you can use any HTTP server. We're using the node module <a href="https://www.npmjs.com/package/http-server">http-server</a> or the chrome app <a href="https://chrome.google.com/webstore/detail/web-server-for-chrome/ofhbbkphhbklhfoeikjpcbhemlocgigb">Web Server for Chrome</a>.
-<ol>
-<li><em>http-server</em>:
-<ol>
-<li>Go to the folder which contains the <em>OpenUI5-FHIR</em>-folder</li>
-<li>Open the console (windows: CMD, linux/mac: terminal)</li>
-<li>Enter <code>npm install http-server -g</code></li>
-<li>Enter <code>http-server</code></li>
-<li>Open your desired browser and open <code>http://localhost:8080/openui5-fhir/test/sap-fhir-test-app/webapp/</code></li>
-</ol>
-</li>
-<li><em>Web Server for Chrome</em>:
-<ol>
-<li>Open your chrome browser and open <a href="https://chrome.google.com/webstore/detail/web-server-for-chrome/ofhbbkphhbklhfoeikjpcbhemlocgigb">link</a></li>
-<li>Click on the install button of the <em>Web Server for Chrome</em></li>
-<li>Open the <em>Web Server for Chrome</em> app</li>
-<li>Click on the <em>CHOOSE FOLDER</em> button and choose the folder contains the <em>OpenUI5-FHIR</em> folder</li>
-<li>Open your desired browser and open <code>http://localhost:8887/openui5-fhir/test/sap-fhir-test-app/webapp/</code></li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-<p><a name="4.2-Development-Tasks"></a></p>
-<h3>4.2 Development Tasks</h3>
-<p>The following sections describe, how useful development tasks can be executed.</p>
-<p><a name="4.2.1-ESLinting"></a></p>
-<h4>4.2.1 ESLinting</h4>
-<p>There are various lint-scripts in <code>package.json</code>. During development you will most likely want to use either:</p>
-<pre class="prettyprint source lang-bash"><code>npm run lint:watch
-</code></pre>
-<p>or</p>
-<pre class="prettyprint source lang-bash"><code>npm run lint:watch:fix
-</code></pre>
-<p>The former script simply watches all files for changes and lints them immediately. The result is written to the console. The latter script is also watching all files for changes but applies fixes automatically.</p>
-<p><a name="4.2.2-Testing"></a></p>
-<h4>4.2.2 Testing</h4>
-<p>The testsuite needs a mockserver. Therefore various scripts are placed in the  <code>package.json</code>. <code>setup_mock.sh</code> has to be used. Execute <code>./setup_mock.sh</code> when you start developing and/or testing.</p>
-<pre class="prettyprint source lang-bash"><code>npm run serve:mockserver
-</code></pre>
-<p>Starts a mockerserver with test data.</p>
-<pre class="prettyprint source lang-bash"><code>npm run test
-</code></pre>
-<p>Executes the QUnit and Opa5 tests.</p>
-<pre class="prettyprint source lang-bash"><code>npm run test-mockserver
-</code></pre>
-<p>Starts a mockerserver with test data and executes the QUnit and Opa5 tests.</p>
-<p><a name="4.2.3-Documentation"></a></p>
-<h4>4.2.3 Documentation</h4>
-<pre class="prettyprint source lang-bash"><code>npm run docs
-</code></pre>
-<p>The above command creates API documentation for thie FHIRModel project. All classes, which are considered to be part of the public API are explicitely named in the run-script itself.</p></article>
+        </article>
     </section>
-
-
 
 
 

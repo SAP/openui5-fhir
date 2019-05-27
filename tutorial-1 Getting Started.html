@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>1 Getting Started - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-custom.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav id="navigationBar">
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Tutorials</li><li class="nav-item"><a href="tutorial-1 Getting Started.html">1 Getting Started</a></li><li class="nav-item"><a href="tutorial-2 Bindings.html">2 Bindings</a></li><li class="nav-item"><a href="tutorial-3 Advanced Bindings.html">3 Advanced Bindings</a></li><li class="nav-item"><a href="tutorial-4 Request Handling.html">4 Request Handling</a></li><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="sap.fhir.model.r4.Context.html">Context</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.Context.html#refresh">refresh</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRContextBinding.html">FHIRContextBinding</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRContextBinding.html#refresh">refresh</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRListBinding.html">FHIRListBinding</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRListBinding.html#filter">filter</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRListBinding.html#getFilters">getFilters</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRListBinding.html#getLength">getLength</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRListBinding.html#getSorters">getSorters</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRListBinding.html#refresh">refresh</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRListBinding.html#sort">sort</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRModel.html">FHIRModel</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRModel.html#bindContext">bindContext</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRModel.html#bindList">bindList</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRModel.html#bindProperty">bindProperty</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRModel.html#bindTree">bindTree</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRModel.html#create">create</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRModel.html#destroy">destroy</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRModel.html#getBaseProfileUrl">getBaseProfileUrl</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRModel.html#getProperty">getProperty</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRModel.html#getServiceUrl">getServiceUrl</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRModel.html#hasResourceTypePendingChanges">hasResourceTypePendingChanges</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRModel.html#readLatestVersionOfResource">readLatestVersionOfResource</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRModel.html#refresh">refresh</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRModel.html#remove">remove</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRModel.html#resetChanges">resetChanges</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRModel.html#sendGetRequest">sendGetRequest</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRModel.html#sendPostRequest">sendPostRequest</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRModel.html#setProperty">setProperty</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRModel.html#submitChanges">submitChanges</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRPropertyBinding.html">FHIRPropertyBinding</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRPropertyBinding.html#getValue">getValue</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRPropertyBinding.html#setValue">setValue</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRTreeBinding.html">FHIRTreeBinding</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRTreeBinding.html#attachTreeLoadingCompleted">attachTreeLoadingCompleted</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRTreeBinding.html#attachTreeLoadingStarted">attachTreeLoadingStarted</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRTreeBinding.html#detachTreeLoadingCompleted">detachTreeLoadingCompleted</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRTreeBinding.html#detachTreeLoadingStarted">detachTreeLoadingStarted</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRTreeBinding.html#filter">filter</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRTreeBinding.html#getLength">getLength</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRTreeBinding.html#refresh">refresh</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRTreeBinding.html#sort">sort</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="sap.fhir.model.r4.lib.RequestHandle.html">RequestHandle</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.lib.RequestHandle.html#abort">abort</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.lib.RequestHandle.html#getBinding">getBinding</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.lib.RequestHandle.html#getBundle">getBundle</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.lib.RequestHandle.html#getData">getData</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.lib.RequestHandle.html#getId">getId</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.lib.RequestHandle.html#getRequest">getRequest</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="sap.fhir.model.r4.lib.RequestHandle.html#getUrl">getUrl</a></span></li><li class="nav-heading">Events</li><li class="nav-heading"><span class="nav-item-type type-event">E</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRModel.html#event:requestCompleted">requestCompleted</a></span></li><li class="nav-heading"><span class="nav-item-type type-event">E</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRModel.html#event:requestFailed">requestFailed</a></span></li><li class="nav-heading"><span class="nav-item-type type-event">E</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRModel.html#event:requestSent">requestSent</a></span></li><li class="nav-heading"><span class="nav-item-type type-event">E</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRTreeBinding.html#event:treeLoadingCompleted">treeLoadingCompleted</a></span></li><li class="nav-heading"><span class="nav-item-type type-event">E</span><span class="nav-item-name"><a href="sap.fhir.model.r4.FHIRTreeBinding.html#event:treeLoadingStarted">treeLoadingStarted</a></span></li><li class="nav-heading">Namespaces</li><li class="nav-heading"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="sap.fhir.model.r4.html">r4</a></span></li>
+</nav>
+
+<div id="main" class="content">
+    
+    <h1 class="page-title">1 Getting Started</h1>
+    
+    <section>
+
+<header>
+    
+</header>
+
+<article>
+    <p>This tutorial provides a step-by-step guide on how to include the <em>OpenUI5-FHIR</em> project in an UI5 application and shows some best practices. The following sections describe in detail what you need to do to code state-of-the-art UI5 applications based on a FHIR endpoint.</p>
+<h2>Table of Contents</h2>
+<ol>
+<li><a href="#1.1-Create-an-UI5-application">Creating a UI5 Application</a></li>
+<li><a href="#1.2-Include-UI5-FHIRModel">Including the UI5 FHIRModel</a>
+<ol>
+<li><a href="#1.2.1-Add-an-NPM-Dependency">Adding an NPM Dependency</a></li>
+<li><a href="#1.2.2-Run-the-NPM-Install-Command">Running the NPM Install Command</a></li>
+<li><a href="#1.2.3-Register-the-FHIR-server-and-the-UI5-FHIRModel-in-the-UI5-application">Registering the FHIR Server and the UI5 FHIRModel in the UI5 Application</a></li>
+<li><a href="#1.2.4-Adjust-UI5-application-to-show-real-data">Adjusting the UI5 Application to Show Real Data</a></li>
+</ol>
+</li>
+<li><a href="#1.3-Deploy-UI5-application-locally">Deploying the UI5 Application Locally</a></li>
+</ol>
+<p><a name="1.1-Create-an-UI5-application"></a></p>
+<h3>1.1 Creating a UI5 Application</h3>
+<p>First of all, create a UI5 application based on the following folder structure:</p>
+<table>
+  <tr valign="top">
+    <td><img src="images/Tutorial_Step_1/folder_structure.PNG"/></td>
+    <td>
+			<ol class="ignoreCustomListFormat noMargin">
+				<li>Create a folder with your project name, for example, <code>MyHealthApp</code>.</li>
+				<li>Inside this folder, create a folder called <code>webapp</code>.</li>
+				<li>Inside this folder, create the folders <code>controller</code>, <code>view</code>, <code>i18n</code>, and <code>css</code>.</li>
+				<li>Create a file called <code>manifest.json</code>, place it in the <code>webapp</code> folder, and </li> add the following content:
+			</ol>
+		</td>
+  </tr>
+</table>
+<pre class="prettyprint source lang-json"><code>{
+	&quot;_version&quot;: &quot;1.7.0&quot;,
+	&quot;sap.app&quot;: {
+		&quot;id&quot;: &quot;myhealthapp&quot;,
+		&quot;type&quot;: &quot;application&quot;,
+		&quot;i18n&quot;: &quot;i18n/i18n.properties&quot;,
+		&quot;applicationVersion&quot;: {
+			&quot;version&quot;: &quot;1.0.0&quot;
+		},
+		&quot;title&quot;: &quot;MyHealthApp&quot;,
+		&quot;description&quot;: &quot;This app provides an overview of how to work with the UI5 FHIRModel&quot;
+	},
+
+	&quot;sap.ui&quot;: {
+		&quot;supportedThemes&quot;: [
+			&quot;sap_hcb&quot;,
+			&quot;sap_belize&quot;
+
+		]
+	},
+
+	&quot;sap.ui5&quot;: {
+		&quot;rootView&quot;: {
+			&quot;viewName&quot;: &quot;myhealthapp.view.App&quot;,
+			&quot;type&quot;: &quot;XML&quot;,
+			&quot;id&quot;: &quot;appView&quot;
+		},
+		&quot;dependencies&quot;: {
+			&quot;minUI5Version&quot;: &quot;1.54.0&quot;,
+			&quot;libs&quot;: {
+				&quot;sap.ui.core&quot;: {},
+				&quot;sap.m&quot;: {}
+			}
+		},
+		&quot;contentDensities&quot;: {
+			&quot;compact&quot;: true,
+			&quot;cozy&quot;: true
+		},
+		&quot;models&quot;: {
+			&quot;i18n&quot;: {
+				&quot;type&quot;: &quot;sap.ui.model.resource.ResourceModel&quot;,
+				&quot;settings&quot;: {
+					&quot;bundleName&quot;: &quot;myhealthapp.i18n.i18n&quot;
+				}
+			}
+		},
+		&quot;resources&quot;: {
+			&quot;css&quot;: [{
+				&quot;uri&quot;: &quot;css/style.css&quot;
+			}]
+		},
+		&quot;routing&quot;: {
+			&quot;config&quot;: {
+				&quot;routerClass&quot;: &quot;sap.m.routing.Router&quot;,
+				&quot;viewType&quot;: &quot;XML&quot;,
+				&quot;viewPath&quot;: &quot;myhealthapp.view&quot;,
+				&quot;controlId&quot;: &quot;app&quot;,
+				&quot;controlAggregation&quot;: &quot;pages&quot;,
+				&quot;transition&quot;: &quot;slide&quot;
+			},
+			&quot;routes&quot;: [
+				{
+					&quot;pattern&quot;: &quot;&quot;,
+					&quot;name&quot;: &quot;home&quot;,
+					&quot;target&quot;: &quot;home&quot;
+				}
+			],
+			&quot;targets&quot;: {
+				&quot;home&quot;: {
+					&quot;viewName&quot;: &quot;Home&quot;,
+					&quot;viewId&quot;: &quot;home&quot;,
+					&quot;viewLevel&quot;: 1
+				}
+			}
+		}
+	}
+}
+</code></pre>
+<p class="fileName">webapp / manifest.json</p> 
+<p>Create a new file called <code>index.html</code>, place it in the <code>webapp</code> folder, and add the following content:</p>
+<pre class="prettyprint source lang-html"><code>&lt;!DOCTYPE HTML>
+&lt;html>
+	&lt;head>
+		&lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot; />
+		&lt;meta charset=&quot;UTF-8&quot;>
+		&lt;title>MyHealthApp&lt;/title>
+		&lt;script id=&quot;sap-ui-bootstrap&quot; src=&quot;resources/sap-ui-core.js&quot;
+			data-sap-ui-libs=&quot;sap.m&quot;
+			data-sap-ui-theme=&quot;sap_belize&quot;
+			data-sap-ui-compatVersion=&quot;edge&quot; data-sap-ui-preload=&quot;async&quot;
+			data-sap-ui-resourceroots='{&quot;myhealthapp&quot;: &quot;&quot;}'>
+		&lt;/script>
+		&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;css/style.css&quot;>
+		&lt;script>
+			sap.ui.getCore().attachInit(function() {
+				new sap.m.Shell({
+					app: new sap.ui.core.ComponentContainer(&quot;healthComponentContainer&quot;,{
+						height : &quot;100%&quot;,
+						name : &quot;myhealthapp&quot;,
+							settings : {
+								id : &quot;healthComponent&quot;
+							}
+					})
+				}).placeAt(&quot;content&quot;);
+			});
+		&lt;/script>
+	&lt;/head>
+	    &lt;body class=&quot;sapUiBody&quot; id=&quot;content&quot;>
+	&lt;/body>
+&lt;/html>
+</code></pre>
+<p class="fileName">webapp / index.html</p> 
+<p>Create a new file called <code>Component.js</code>, place it in the <code>webapp</code> folder, and add the following content:</p>
+<pre class="prettyprint source lang-javascript"><code>sap.ui.define([&quot;sap/ui/core/UIComponent&quot;], function(UIComponent) {
+	&quot;use strict&quot;;
+
+	return UIComponent.extend(&quot;myhealthapp.Component&quot;, {
+		
+		metadata: {
+			manifest: &quot;json&quot;
+		},
+
+		init: function() {
+			UIComponent.prototype.init.apply(this, arguments);
+			this.getRouter().initialize();
+		}
+	});
+});
+</code></pre>
+<p class="fileName">webapp / Component.js</p> 
+<p>Create a new file called <code>i18n.properties</code>, place it in the <code>webapp/i18n</code> folder, and add the following content:</p>
+<pre class="prettyprint source lang-INI"><code>title=My Health App
+patientsTileInfo=We have {0} patients
+organzationsTileInfo=We have {0} organizations
+</code></pre>
+<p class="fileName">webapp / i18n / i18n.properties</p> 
+<p>It's time to create the root UI5 view containing your UI5 application. Therefore, create a new file called <code>App.view.xml</code>, place it in the <code>webapp/view</code> folder, and add the following content:</p>
+<pre class="prettyprint source lang-xml"><code>&lt;core:View displayBlock=&quot;true&quot; xmlns:core=&quot;sap.ui.core&quot; xmlns:mvc=&quot;sap.ui.core.mvc&quot; xmlns=&quot;sap.m&quot; controllerName=&quot;myhealthapp.controller.App&quot; xmlns:html=&quot;http://www.w3.org/1999/xhtml&quot;>
+	&lt;App id=&quot;app&quot; />
+&lt;/core:View>
+</code></pre>
+<p class="fileName">webapp / view / App.view.xml</p> 
+<p>To add some actions to the view later, you need to create a controller. Therefore, create a new file called <code>App.controller.js</code>, place it in the <code>webapp/controller</code> folder, and add the following content:</p>
+<pre class="prettyprint source lang-javascript"><code>sap.ui.define([
+	&quot;sap/ui/core/mvc/Controller&quot;
+], function(Controller) {
+	&quot;use strict&quot;;
+
+	return Controller.extend(&quot;myhealth.controller.App&quot;, {
+
+	});
+
+});
+</code></pre>
+<p class="fileName">webapp / controller / App.controller.js</p> 
+<p>Nice! Let's create another view called <code>Home.view.xml</code>, place it in the <code>webapp/view</code> folder, and add the following content:</p>
+<pre class="prettyprint source lang-xml"><code>&lt;core:View xmlns:core=&quot;sap.ui.core&quot; xmlns:mvc=&quot;sap.ui.core.mvc&quot; xmlns=&quot;sap.m&quot; controllerName=&quot;myhealthapp.controller.Home&quot;
+	xmlns:html=&quot;http://www.w3.org/1999/xhtml&quot;>
+		&lt;Page title=&quot;{i18n>title}&quot;>
+			&lt;content>
+				&lt;GenericTile id=&quot;myPatientsTile&quot; class=&quot;sapUiTinyMarginBegin sapUiTinyMarginTop&quot; header=&quot;My Patients&quot; press=&quot;onMyPatientsTilePress&quot;>
+					&lt;TileContent unit=&quot;Patients&quot;>
+						&lt;NumericContent value=&quot;125&quot; icon=&quot;sap-icon://stethoscope&quot;/>
+					&lt;/TileContent>
+				&lt;/GenericTile>
+				&lt;GenericTile id=&quot;myOrganizationsTile&quot; class=&quot;sapUiTinyMarginBegin sapUiTinyMarginTop&quot; header=&quot;My Organizations&quot; press=&quot;onMyOrganzationsTilePress&quot;>
+					&lt;TileContent unit=&quot;Organizations&quot;>
+						&lt;NumericContent value=&quot;3&quot; icon=&quot;sap-icon://org-chart&quot;/>
+					&lt;/TileContent>
+				&lt;/GenericTile>
+		&lt;/content>
+		&lt;footer>
+			&lt;Toolbar>
+				&lt;Label text=&quot;{i18n>homeFooterText}&quot;/>
+			&lt;/Toolbar>
+		&lt;/footer>
+	&lt;/Page>
+&lt;/core:View>
+</code></pre>
+<p class="fileName">webapp / view / Home.view.xml</p> 
+<p>To enable some actions on the view, you need to create a new controller called <code>Home.controller.js</code>, place it in the <code>webapp/controller</code> folder, and add the following content:</p>
+<pre class="prettyprint source lang-javascript"><code>sap.ui.define([
+	&quot;sap/ui/core/mvc/Controller&quot;
+], function(Controller) {
+	&quot;use strict&quot;;
+
+	return Controller.extend(&quot;myhealth.controller.Home&quot;, {
+
+		onMyPatientsTilePress: function(oEvent) {
+			sap.m.MessageToast.show(this.getView().getModel(&quot;i18n&quot;).getResourceBundle().getText(&quot;patientsTileInfo&quot;, &quot;125&quot;))
+		},
+
+		onMyOrganzationsTilePress: function(oEvent) {
+			sap.m.MessageToast.show(this.getView().getModel(&quot;i18n&quot;).getResourceBundle().getText(&quot;organzationsTileInfo&quot;, &quot;3&quot;))
+		}
+	});
+});
+</code></pre>
+<p class="fileName">webapp / controller / Home.controller.js</p> 
+<p>You now have a running UI5 application that is ready to use.</p>
+<p><a name="1.2-Include-OpenUI5-FHIR"></a></p>
+<h3>1.2 Including the OpenUI5-FHIR</h3>
+<p>In the previous section, you set up a UI5 application that contains hard-coded patient and organization numbers. That's cheating. So let's get some real data into your UI5 application by including the UI5 FHIR Model.</p>
+<p><a name="1.2.1-Add-an-NPM-Dependency"></a></p>
+<h3>1.2.1 Adding an NPM Dependency</h3>
+<p>The <em>sap.fhir</em> library is included in the following NPM package: <code>openui5-fhir</code>. This NPM package enables you to include the <em>sap.fhir</em> UI5 library in an UI5 application. Create a new file called <code>package.json</code>, place it in the root folder of the UI5 application, and add the following content:</p>
+<pre class="prettyprint source lang-json"><code>{
+	&quot;name&quot;: &quot;@my/myhealthapp&quot;,
+	&quot;version&quot;: &quot;0.0.1&quot;,
+	&quot;devDependencies&quot;: {
+		&quot;@ui5/cli&quot;: &quot;^1.4.4&quot;
+	},
+	&quot;dependencies&quot;: {
+		&quot;@openui5/sap.m&quot;: &quot;1.65.1&quot;,
+		&quot;@openui5/sap.ui.core&quot;: &quot;^1.62.1&quot;,
+    &quot;@openui5/themelib_sap_belize&quot;: &quot;^1.62.1&quot;,
+		&quot;openui5-fhir&quot;: &quot;1.0.0&quot;
+	},
+	&quot;scripts&quot; : {
+		&quot;start&quot;: &quot;ui5 serve&quot;
+	}
+}
+</code></pre>
+<p class="fileName">package.json</p> 
+<p>Update the version of <code>openui5-fhir</code> to the desired <a href="https://github.com/SAP/openui5-fhir/releases">version</a>.</p>
+<p>Also, we've added the dependency to the <a href="https://github.com/SAP/ui5-tooling">UI5 Tooling</a>. The <em>UI5 Tooling</em> is neccessary to host the UI5 application.</p>
+<p><a name="1.2.2-Run-the-NPM-Install-Command"></a></p>
+<h3>1.2.2 Running the NPM Install Command</h3>
+<p>Open a new command prompt (Windows)/ terminal (Unix) and navigate to the root folder of your UI5 application. Execute the following command <code>npm install</code> to install <em>OpenUI5-fhir</em> and <em>UI5 Tooling</em> on your machine.</p>
+<p><a name="1.2.5-Register-the-FHIR-server-and-the-UI5-FHIRModel-in-the-UI5-application"></a></p>
+<h3>1.2.3 Registering the FHIR Server and the UI5 FHIRModel in the UI5 Application</h3>
+<p>To connect the UI5 application to the locally registered FHIR server and consume the FHIRModel you need to adjust the <code>manifest.json</code> of your UI5 application. You can change the URL to any other FHIR server that you want to use. If you take the existing one, your UI5 application will be connected to the <a href="http://test.fhir.org/r4">Health Intersections FHIR Server</a>.</p>
+<p>To register the FHIR server, add the following content to the <code>sap.app</code> property:</p>
+<pre class="prettyprint source lang-json"><code>…
+&quot;dataSources&quot;: {
+	&quot;fhir&quot;: {
+		&quot;uri&quot;: &quot;http://test.fhir.org/r4/&quot;,
+		&quot;type&quot;: &quot;FHIR&quot;
+	}
+}
+
+To declare and initialize the FHIRModel, add the following content to the `sap.ui5.models` property:
+```json
+&quot;&quot;: {
+	&quot;type&quot;: &quot;sap.fhir.model.r4.FHIRModel&quot;,
+	&quot;dataSource&quot;: &quot;fhir&quot;
+}
+</code></pre>
+<p class="fileName">webapp / manifest.json</p> 
+<p><a name="1.2.4-Adjust-UI5-application-to-show-real-data"></a></p>
+<h3>1.2.4 Adjusting Your UI5 Application to Show Real Data</h3>
+<p>Now, it's time to show real data provided by the UI5 FHIRModel in your UI5 application. Therefore, you need to adjust <code>Home.view.xml</code>:</p>
+<pre class="prettyprint source lang-xml"><code>&lt;core:View xmlns:core=&quot;sap.ui.core&quot; xmlns:mvc=&quot;sap.ui.core.mvc&quot; xmlns=&quot;sap.m&quot; controllerName=&quot;myhealthapp.controller.Home&quot; xmlns:html=&quot;http://www.w3.org/1999/xhtml&quot;>
+	&lt;Page title=&quot;{i18n>title}&quot;>
+		&lt;content>
+			&lt;GenericTile id=&quot;myPatientsTile&quot; binding=&quot;{/Patient}&quot; class=&quot;sapUiTinyMarginBegin sapUiTinyMarginTop&quot; header=&quot;My Patients&quot; press=&quot;onMyPatientsTilePress&quot;>
+				&lt;TileContent unit=&quot;Patients&quot;>
+					&lt;NumericContent value=&quot;{%total%}&quot; icon=&quot;sap-icon://stethoscope&quot;/>
+				&lt;/TileContent>
+			&lt;/GenericTile>
+			&lt;GenericTile id=&quot;myOrganizationsTile&quot; binding=&quot;{/Organization}&quot; class=&quot;sapUiTinyMarginBegin sapUiTinyMarginTop&quot; header=&quot;My Organizations&quot; press=&quot;onMyOrganzationsTilePress&quot;>
+				&lt;TileContent unit=&quot;Organizations&quot;>
+					&lt;NumericContent value=&quot;{%total%}&quot; icon=&quot;sap-icon://org-chart&quot;/>
+				&lt;/TileContent>
+			&lt;/GenericTile>
+		&lt;/content>
+		&lt;footer>
+			&lt;Toolbar>
+				&lt;Label text=&quot;{i18n>homeFooterText}&quot;/>
+			&lt;/Toolbar>
+		&lt;/footer>
+	&lt;/Page>
+&lt;/core:View>
+</code></pre>
+<p class="fileName">webapp / view / Home.view.xml</p> 
+<p><code>Home.controller.js</code> also has to be adjusted because you want to display the total number of patients and organizations when pressing on the corresponding tile:</p>
+<pre class="prettyprint source lang-javascript"><code>sap.ui.define([
+	&quot;sap/ui/core/mvc/Controller&quot;
+], function(Controller) {
+	&quot;use strict&quot;;
+
+	return Controller.extend(&quot;myhealth.controller.Home&quot;, {
+
+		onMyPatientsTilePress: function(oEvent) {
+			var iNumberOfPatients = oEvent.getSource().getTileContent()[0].getContent().getValue() || 0;
+			sap.m.MessageToast.show(this.getView().getModel(&quot;i18n&quot;).getResourceBundle().getText(&quot;patientsTileInfo&quot;, [iNumberOfPatients]));
+		},
+
+		onMyOrganzationsTilePress: function(oEvent) {
+			var iNumberOfOrganizations = oEvent.getSource().getTileContent()[0].getContent().getValue() || 0;
+			sap.m.MessageToast.show(this.getView().getModel(&quot;i18n&quot;).getResourceBundle().getText(&quot;organzationsTileInfo&quot;, [iNumberOfOrganizations]));
+		}
+	});
+});
+</code></pre>
+<p class="fileName">webapp / controller / Home.controller.js</p> 
+<p><a name="1.3-Deploy-UI5-application-locally"></a></p>
+<h3>1.3: Deploying Your UI5 Application Locally</h3>
+<p>You built a small stand-alone UI5 application which consumes data directly with the UI5 FHIRModel from a FHIR server. Let's start the UI5 application to see if everything works as expected. To do this, open a new command prompt (Windows)/ terminal (Unix) window and navigate to the root folder of your UI5 application.</p>
+<p>Now, your environment is ready, so you can start the UI5 application with the following command:</p>
+<pre class="prettyprint source lang-sh"><code>$ npm run start
+</code></pre>
+<p>The UI5 application is deployed and can be accessed at http://localhost:5000/MyHealthApp. Now, you can see  how many patients and organizations are stored in our clinicial system directly from the start page.</p>
+</article>
+
+</section>
+
+</div>
+
+<br class="clear">
+
+<footer>
+Generated by <a href="https://github.com/jsdoc3/jsdoc" target="_blank">JSDoc 3.6.2</a> on Mon, 27 May 2019 07:27:02 GMT based on the <a href="https://github.com/nijikokun/minami/" target="_blank">Minami</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>
