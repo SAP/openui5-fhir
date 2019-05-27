@@ -55,7 +55,6 @@ sap.ui.define([ "sap/ui/core/mvc/Controller" ], function(Controller) {
 
 		onStructAddItem : function() {
 			this.getView().getModel().create("StructureDefinition", {});
-			this.byId("structureDefintionListSmartTable").updateTableHeaderState();
 		},
 
 		onStructDefinitionIsPressed: function(oEvent){

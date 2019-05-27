@@ -38,13 +38,13 @@
   width: calc(100% - 1.5* 160px);
 }
 
-/* Determine the alignment and the padding of the items of the header title of the trial view*/
+/* Determine the alignment and the padding of the items of the header title of the patient details view*/
 .patientDetailsHeaderTitleWidth > .sapMFlexItem:not(:first-child) {
   padding-left: 3rem;
   text-align: end;
 }
 
-/* Determine the font-size of the title of the header of the trial view */
+/* Determine the font-size of the title of the header of the patient details view */
 .patientDetailsHeaderTitle {
   font-size: 1.375rem;
 }

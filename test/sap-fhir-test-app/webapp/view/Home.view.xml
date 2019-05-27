@@ -3,8 +3,7 @@
           xmlns="sap.m"
           controllerName="sap-fhir-test-app.controller.Home"
           viewName="sap-fhir-test-app.view.Home"
-          xmlns:html="http://www.w3.org/1999/xhtml"
-          xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+          xmlns:html="http://www.w3.org/1999/xhtml">
     <Page title="FHIR Demo App"
           enableScrolling="false">
         <content>

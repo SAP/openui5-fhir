@@ -3,10 +3,7 @@
           xmlns="sap.m"
           controllerName="sap-fhir-test-app.controller.history.HabibisHistory"
           xmlns:html="http://www.w3.org/1999/xhtml"
-          xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
-          xmlns:smartTable="sap.ui.comp.smarttable"
-          viewName="sap-fhir-test-app.view.history.HabibisHistory"
-          xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+          viewName="sap-fhir-test-app.view.history.HabibisHistory">
     <Page id="HabibisHistory"
           title="Habibi Cancers History"
           showNavButton="true"
