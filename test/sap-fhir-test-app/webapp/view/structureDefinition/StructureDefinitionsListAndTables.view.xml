@@ -3,8 +3,7 @@
           xmlns="sap.m"
           controllerName="sap-fhir-test-app.controller.structureDefinition.StructureDefinitionsListAndTables"
           xmlns:html="http://www.w3.org/1999/xhtml"
-          viewName="sap-fhir-test-app.view.structureDefinition.StructureDefinitionsListAndTables"
-          xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+          viewName="sap-fhir-test-app.view.structureDefinition.StructureDefinitionsListAndTables">
     <Page id="structureDefinitionsPage"
           title="StructureDefinitions"
           showNavButton="true"
@@ -33,73 +32,50 @@
                                          class="sapUiContentPadding">
                             <Button press="onStructAddItem"
                                     text="+" />
-                                <Table id="structureDefintionListTable"
-                                       enableBusyIndicator="true"
-                                       growing="true"
-                                       growingThreshold="5"
-                                       growingScrollToLoad="false" items="{/StructureDefinition}">
-                                    <columns>
-                                        <Column hAlign="Left">
-                                            <customData>
-                                                <core:CustomData key="p13nData"
-                                                                 value='\{"columnKey": "Title","leadingProperty": "Title","columnIndex":"0", "sortProperty":"title", "filterProperty":"title", "type":"string"}' />
-                                            </customData>
-                                            <Text text="{i18n>structureDefinitionTitle}" />
-                                        </Column>
-                                        <Column hAlign="Left">
-                                            <customData>
-                                                <core:CustomData key="p13nData"
-                                                                 value='\{"columnKey": "Name","leadingProperty": "Name","columnIndex":"1", "sortProperty":"name", "filterProperty":"name", "type":"string"}' />
-                                            </customData>
-                                            <Text text="{i18n>structureDefinitionName}" />
-                                        </Column>
-                                        <Column hAlign="Left">
-                                            <customData>
-                                                <core:CustomData key="p13nData"
-                                                                 value='\{"columnKey": "Type","leadingProperty": "Type","columnIndex":"2", "sortProperty":"type", "filterProperty":"type", "type":"string"}' />
-                                            </customData>
-                                            <Text text="{i18n>structureDefinitionType}" />
-                                        </Column>
-                                        <Column hAlign="Left"
-                                                width="50px">
-                                            <customData>
-                                                <core:CustomData key="p13nData"
-                                                                 value='\{"columnKey": "Status","leadingProperty": "Status","columnIndex":"3", "sortProperty":"status", "filterProperty":"status", "type":"string"}' />
-                                            </customData>
-                                            <Text text="{i18n>structureDefinitionStatus}" />
-                                        </Column>
-                                        <Column hAlign="Left"
-                                                width="250px">
-                                            <customData>
-                                                <core:CustomData key="p13nData"
-                                                                 value='\{"columnKey": "BaseDefinition","leadingProperty": "BaseDefinition","columnIndex":"4", "sortProperty":"base", "filterProperty":"base", "type":"string"}' />
-                                            </customData>
-                                            <Text text="{i18n>structureDefinitionBaseDefinition}" />
-                                        </Column>
-                                        <Column hAlign="Left"
-                                                width="250px">
-                                            <customData>
-                                                <core:CustomData key="p13nData"
-                                                                 value='\{"columnKey": "Date","leadingProperty": "Date","columnIndex":"5", "sortProperty":"date", "filterProperty":"date", "type":"date"}' />
-                                            </customData>
-                                            <Text text="{i18n>structureDefinitionDate}" />
-                                        </Column>
-                                    </columns>
-                                    <items>
-                                        <ColumnListItem type="Navigation"
-                                                        press="onListItemPress">
-                                            <cells>
-                                                <Label text="{title}"
-                                                       design="Bold" />
-                                                <Input value="{name}" />
-                                                <Text text="{type}" />
-                                                <Text text="{status}" />
-                                                <Text text="{baseDefinition}" />
-                                                <Text text="{date}" />
-                                            </cells>
-                                        </ColumnListItem>
-                                    </items>
-                                </Table>
+                            <Table id="structureDefintionListTable"
+                                   enableBusyIndicator="true"
+                                   growing="true"
+                                   growingThreshold="5"
+                                   growingScrollToLoad="false"
+                                   items="{/StructureDefinition}">
+                                <columns>
+                                    <Column hAlign="Left">
+                                        <Text text="{i18n>structureDefinitionTitle}" />
+                                    </Column>
+                                    <Column hAlign="Left">
+                                        <Text text="{i18n>structureDefinitionName}" />
+                                    </Column>
+                                    <Column hAlign="Left">
+                                        <Text text="{i18n>structureDefinitionType}" />
+                                    </Column>
+                                    <Column hAlign="Left"
+                                            width="50px">
+                                        <Text text="{i18n>structureDefinitionStatus}" />
+                                    </Column>
+                                    <Column hAlign="Left"
+                                            width="250px">
+                                        <Text text="{i18n>structureDefinitionBaseDefinition}" />
+                                    </Column>
+                                    <Column hAlign="Left"
+                                            width="250px">
+                                        <Text text="{i18n>structureDefinitionDate}" />
+                                    </Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem type="Navigation"
+                                                    press="onListItemPress">
+                                        <cells>
+                                            <Label text="{title}"
+                                                   design="Bold" />
+                                            <Input value="{name}" />
+                                            <Text text="{type}" />
+                                            <Text text="{status}" />
+                                            <Text text="{baseDefinition}" />
+                                            <Text text="{date}" />
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
                         </ScrollContainer>
                     </IconTabFilter>
                     <IconTabFilter text="sap.m.List - Threshold: 7"

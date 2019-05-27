@@ -1,17 +1,20 @@
 sap.ui.define([
 	"sap/ui/core/mvc/Controller",
 	"sap-fhir-test-app/utils/Utils",
+	"sap-fhir-test-app/utils/Formatter",
 	"sap/fhir/model/r4/FHIRFilterOperator",
 	"sap/fhir/model/r4/FHIRFilter",
 	"sap/fhir/model/r4/FHIRFilterType",
 	"sap/m/MessageBox",
 	"sap/m/MessageToast"
-], function(Controller, Utils, FHIRFilterOperator, FHIRFilter, FHIRFilterType, MessageBox, MessageToast) {
+], function(Controller, Utils, Formatter, FHIRFilterOperator, FHIRFilter, FHIRFilterType, MessageBox, MessageToast) {
 	"use strict";
 
 	return Controller.extend("sap-fhir-test-app.controller.patient.PatientTable", {
 
 		utils : Utils,
+
+		formatter: Formatter,
 
 		/**
 		 * Called when a controller is instantiated and its View controls (if available) are already created. Can be used to modify the View before it is displayed, to bind event handlers and do other
@@ -23,7 +26,6 @@ sap.ui.define([
 			var oView = this.getView();
 			this.oModel = oView.getModel();
 			this.oTable = this.byId("patientTable");
-			this.oSmartTable.setModel(this.oModel);
 			var fnKeyPressed = function(e) {
 				if (e.which === 13) {
 					this.onPatientSearchPress();
@@ -33,13 +35,15 @@ sap.ui.define([
 			this.byId("inPatientGivenName").attachBrowserEvent("keypress", fnKeyPressed);
 			this.byId("dpBirthDate").attachBrowserEvent("keypress", fnKeyPressed);
 			Utils.onAfterRenderingControllRedirectFocus(Utils.getControllByIdEndstring("btnShowHide"), this.byId("inPatientName"));
+			this.byId("patientTable").getBinding("items").attachChange(function(oEvent){
+				this._updateTableHeader(oEvent.getSource().getLength());
+			}.bind(this));
 		},
 
 
 		onInit : function() {
 			this.oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			this.oRouter.getRoute("patientTable").attachPatternMatched(this._onPatientTable, this);
-			this.oSmartTable = this.byId("idSmartTable");
 		},
 
 		onNavBack : function() {
@@ -47,8 +51,12 @@ sap.ui.define([
 		},
 
 		_onPatientTable : function() {
-			this.oSmartTable.updateTableHeaderState();
 			this.onReset();
+		},
+
+		_updateTableHeader: function(iNumberOfPatients){
+			var oHBox = this.byId("patientTableHeaderTitleContainer");
+			oHBox.getItems()[0].getItems()[0].setText(Utils.getI18nText(this.getView(), "tableHeader", iNumberOfPatients));
 		},
 
 		onListItemPress : function(oEvent) {
@@ -117,35 +125,30 @@ sap.ui.define([
 			return sName;
 		},
 
-		onBeforeRebindTable : function(oEvent) {
-			var mBindingParams = oEvent.getParameter("bindingParams");
-			var sLastName = this.byId("inPatientName").getValue();
-			var sFirstName = this.byId("inPatientGivenName").getValue();
-			var sBirthDay = this.byId("dpBirthDate").getValue();
+		onPatientSearchPress : function() {
+			var sPatientFamilyName = this.byId("inPatientName").getValue();
+			var sPatientGivenName = this.byId("inPatientGivenName").getValue();
+			var sBirthDate = this.byId("dpBirthDate").getValue();
 
-			if (sFirstName) {
-				mBindingParams.filters.push(new sap.ui.model.Filter("given", FHIRFilterOperator.Contains, sFirstName));
+			var aFilter = [];
+
+			if (sPatientFamilyName && sPatientFamilyName !== "") {
+				aFilter.push(new sap.ui.model.Filter("family", FHIRFilterOperator.Contains, sPatientFamilyName));
 			}
 
-			if (sLastName) {
-				mBindingParams.filters.push(new sap.ui.model.Filter("family", FHIRFilterOperator.Contains, sLastName));
+			if (sPatientGivenName && sPatientGivenName !== "") {
+				aFilter.push(new sap.ui.model.Filter("given", FHIRFilterOperator.Contains, sPatientGivenName));
 			}
 
-			if (sBirthDay) {
-				mBindingParams.filters.push(new FHIRFilter({
+			if (sBirthDate && sBirthDate !== "") {
+				aFilter.push(new FHIRFilter({
 					path: "birthdate",
 					operator : FHIRFilterOperator.EQ,
 					valueType : FHIRFilterType.date,
-					value1 : sBirthDay
+					value1 : sBirthDate
 				}));
 			}
-		},
-
-		onPatientSearchPress : function() {
-			if (Utils.areErrorMessagesCleared()) {
-				this.oSmartTable.rebindTable(true);
-				this.oSmartTable.setVisible(true);
-			}
+			this.byId("patientTable").getBinding("items").filter(aFilter);
 		},
 
 		onReset : function() {
@@ -156,17 +159,17 @@ sap.ui.define([
 
 		onDeleteClicked : function() {
 			var oItems = this.oTable.getSelectedItems();
-			this.openDeleteTrialDialog(oItems);
+			this.openDeletePatientDialog(oItems);
 		},
 
-		openDeleteTrialDialog : function(oItems) {
+		openDeletePatientDialog : function(oItems) {
 			MessageBox.warning("Are you sure to delete the selected Items?", {
 				actions : [sap.m.MessageBox.Action.OK, sap.m.MessageBox.Action.CANCEL],
-				onClose : this.deleteTrialDialogCallback(oItems).bind(this)
+				onClose : this.deletePatientDialogCallback(oItems).bind(this)
 			});
 		},
 
-		deleteTrialDialogCallback : function(oItems) {
+		deletePatientDialogCallback : function(oItems) {
 			return function(sAction) {
 				if (sAction === sap.m.MessageBox.Action.OK) {
 					this.deleteSelectedItems(oItems);
@@ -180,13 +183,23 @@ sap.ui.define([
 			});
 			this.oModel.submitChanges(undefined,
 				function(oResponse) {
-					this.oSmartTable.updateTableHeaderState();
 					MessageToast.show("Deletion successful");
-				}.bind(this),
+				},
 				function(oError) {
 					MessageBox.error(oError.getDescription());
 				}
 			);
+		},
+
+		onSettingsPress: function(){
+			var oPersonalizationDialog = sap.ui.xmlfragment(this.getView().getId(), "sap-fhir-test-app.view.patient.fragments.PersonalizationDialog", this);
+			this.oJSONModel.setProperty("/ShowResetEnabled", this._isChangedColumnsItems());
+			oPersonalizationDialog.setModel(this.oJSONModel);
+
+			this.getView().addDependent(oPersonalizationDialog);
+
+			this.oDataBeforeOpen = jQuery.extend(true, {}, this.oJSONModel.getData());
+			oPersonalizationDialog.open();
 		}
 	});
 

@@ -21,8 +21,6 @@ sap.ui.define([
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			oRouter.getRoute("patientDetails").attachPatternMatched(this._onObjectMatched, this);
 			oRouter.getRoute("patientCreate").attachPatternMatched(this._onObjectMatched, this);
-			this.oTable = this.oView.byId("idVersSmartTable");
-			this.oTableDiag = this.oView.byId("idDiagnosticSmartTable");
 		},
 
 		scrollToTab : function(sTabKey) {
@@ -68,16 +66,6 @@ sap.ui.define([
 					this.byId("tblServices").unbindElement();
 				}
 			}.bind(this);
-
-			if (sTabKey === "insurance") {
-				this.oTable.setModel(this.oModel);
-				this.oTable.rebindTable(true);
-			}
-
-			if (sTabKey === "diagnoses") {
-				this.oTableDiag.setModel(this.oModel);
-				this.oTableDiag.rebindTable(true);
-			}
 
 			if (sTabKey === "services") {
 				this.oModel.sendGetRequest("/Claim", {
