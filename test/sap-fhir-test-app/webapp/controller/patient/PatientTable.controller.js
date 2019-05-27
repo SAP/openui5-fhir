@@ -189,18 +189,6 @@ sap.ui.define([
 					MessageBox.error(oError.getDescription());
 				}
 			);
-		},
-
-		onSettingsPress: function(){
-			var oPersonalizationDialog = sap.ui.xmlfragment(this.getView().getId(), "sap-fhir-test-app.view.patient.fragments.PersonalizationDialog", this);
-			this.oJSONModel.setProperty("/ShowResetEnabled", this._isChangedColumnsItems());
-			oPersonalizationDialog.setModel(this.oJSONModel);
-
-			this.getView().addDependent(oPersonalizationDialog);
-
-			this.oDataBeforeOpen = jQuery.extend(true, {}, this.oJSONModel.getData());
-			oPersonalizationDialog.open();
 		}
 	});
-
 });
