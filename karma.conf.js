@@ -12,7 +12,7 @@ module.exports = function (config) {
 
 
 		ui5: {
-			url: "https://openui5.hana.ondemand.com",
+			url: "https://openui5.hana.ondemand.com/1.65.1/",
 			testpage: "test/testsuite.qunit.html"
 		},
 
@@ -48,8 +48,7 @@ module.exports = function (config) {
 		},
 
 		proxies: {
-			"/localService": "/base/test/localService",
-			"/openui5-fhir/test/localService": "/base/test/localService"
+			"/test-resources/localService": "/base/test/localService"
 		},
 
 		junitReporter: {
