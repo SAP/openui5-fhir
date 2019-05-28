@@ -61,7 +61,7 @@
 			}
 		},
 		"resourceRoots": {
-			"sap.fhir": "../../../src/sap/fhir"
+			"sap.fhir": "../../../resources/sap/fhir"
 		},
 		"contentDensities": {
 			"compact": true,
