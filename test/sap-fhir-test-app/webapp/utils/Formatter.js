@@ -1,4 +1,4 @@
-sap.ui.define([ "sap/ui/core/format/DateFormat" ], function(DateFormat) {
+sap.ui.define([ "sap/ui/core/format/DateFormat", "sap/base/strings/formatMessage" ], function(DateFormat, formatMessage) {
 	"use strict";
 	return {
 
@@ -43,7 +43,17 @@ sap.ui.define([ "sap/ui/core/format/DateFormat" ], function(DateFormat) {
 					return "sap-icon://internet-browser";
 			}
 
-		}
+		},
+
+		/**
+         * Creates a string from a pattern by replacing placeholders with concrete values.
+         *
+         * @see sap/base/strings/formatMessage
+	     * @param {string} sPattern A pattern string in the described syntax
+	     * @param {any[]} [aValues=[]] The values to be used instead of the placeholders.
+	     * @returns {string} The formatted result string
+         */
+		formatMessage: formatMessage
 
 	};
 });

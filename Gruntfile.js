@@ -24,7 +24,7 @@ module.exports = function (grunt) {
 				},
 				frameworks: ["qunit", "openui5"],
 				openui5: {
-					path: "https://sapui5.hana.ondemand.com/1.65.1/resources/sap-ui-core.js"
+					path: "https://openui5.hana.ondemand.com/1.65.1/resources/sap-ui-core.js"
 				},
 				client: {
 					openui5: {
@@ -44,8 +44,8 @@ module.exports = function (grunt) {
 				},
 				files: [{ pattern: "**", included: false, served: true, watched: true }],
 				proxies: {
-					"/resources": "https://sapui5.hana.ondemand.com/1.65.1/test-resources",
-					"/test-resources": "https://sapui5.hana.ondemand.com/1.65.1/resources",
+					"/resources": "https://openui5.hana.ondemand.com/1.65.1/test-resources",
+					"/test-resources": "https://openui5.hana.ondemand.com/1.65.1/resources",
 					"/localService": "/base/test/localService",
 					"/openui5-fhir/test/localService": "/base/test/localService"
 				},

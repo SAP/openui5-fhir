@@ -1,138 +1,98 @@
 <core:FragmentDefinition xmlns:core="sap.ui.core"
                          xmlns="sap.m"
-                         xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
-                         xmlns:smartTable="sap.ui.comp.smarttable"
                          xmlns:l="sap.ui.layout">
-    <l:HorizontalLayout>
-        <smartTable:SmartTable noData="{i18n>noData}"
-                               entitySet="DiagnosticReport"
-                               id="idDiagnosticSmartTable"
-                               editable="false"
-                               useVariantManagement="true"
-                               useTablePersonalisation="false"
-                               header="Diagnoses"
-                               showRowCount="false"
-                               useExportToExcel="false"
-                               enableAutoBinding="true"
-                               tableType="ResponsiveTable"
-                               demandPopin="true"
-                               beforeRebindTable="onBeforeRebindTableDiag"
-                               class="sapUiMediumMarginBegin sapUiMediumMarginEnd">
-            <Table class="ptmSmartTableBorder"
-                   id="tblDiagnostic">
-                <columns>
-                    <Column hAlign="Left"
-                            width="10%">
-                        <customData>
-                            <core:CustomData key="p13nData"
-                                             value='\{"columnKey": "icdCode","leadingProperty": "icdCode","columnIndex":"0", "type":"string"}' />
-                        </customData>
-                        <Text text="ICD Code" />
-                    </Column>
-                    <Column hAlign="Left"
-                            width="30%">
-                        <customData>
-                            <core:CustomData key="p13nData"
-                                             value='\{"columnKey": "diagnosis","leadingProperty": "diagnosis","columnIndex":"1", "type":"string"}' />
-                        </customData>
-                        <Text text="Diagnosis" />
-                    </Column>
-                    <Column hAlign="Left"
-                            width="20%">
-                        <customData>
-                            <core:CustomData key="p13nData"
-                                             value='\{"columnKey": "category","leadingProperty": "category","columnIndex":"2", "type":"string"}' />
-                        </customData>
-                        <Text text="Diagnostis Category" />
-                    </Column>
-                    <Column hAlign="Left"
-                            width="20%">
-                        <customData>
-                            <core:CustomData key="p13nData"
-                                             value='\{"columnKey": "type","leadingProperty": "type","columnIndex":"3", "type":"string"}' />
-                        </customData>
-                        <Text text="Type of Diagnosis" />
-                    </Column>
-                    <Column hAlign="Left"
-                            width="20%">
-                        <customData>
-                            <core:CustomData key="p13nData"
-                                             value='\{"columnKey": "date","leadingProperty": "date","columnIndex":"4", "type":"string"}' />
-                        </customData>
-                        <Text text="Date of Diagnosis" />
-                    </Column>
-                </columns>
-                <items>
-                    <ColumnListItem>
-                        <cells>
-                            <Input width="100%"
-                                   id="input_ICDCode"
-                                   class="icdCode"
-                                   type="Text"
-                                   textFormatMode="Key"
-                                   maxSuggestionWidth="auto"
-                                   showSuggestion="true"
-                                   showValueHelp="true"
-                                   suggestionItemSelected="handleSuggestIcdCode"
-                                   valueHelpRequest="handleValueHelpDiagnosisCode"
-                                   suggestionItems="{path : '/ValueSet/ICD10', parameters: {request: {url: 'scala_poc/ValueSet/ICD10'}}, templateShareable:false}"
-                                   value="{codedDiagnosis/0/coding/[system=http://scala_poc/CodeSystem/ICD10]/code}">
-                            <suggestionItems>
-                                <core:ListItem key="{code}"
-                                               text="{code}"
-                                               additionalText="{display}" />
-                            </suggestionItems>
-                            </Input>
-                            <Input width="100%"
-                                   id="input_ICDText"
-                                   class="icdText"
-                                   type="Text"
-                                   textFormatMode="Value"
-                                   maxSuggestionWidth="auto"
-                                   showSuggestion="true"
-                                   suggestionItemSelected="handleSuggestIcdText"
-                                   showValueHelp="true"
-                                   valueHelpRequest="handleValueHelpDiagnosis"
-                                   suggestionItems="{path : '/ValueSet/ICD10', parameters: {request: {url: 'scala_poc/ValueSet/ICD10'}} , templateShareable:false}"
-                                   value="{codedDiagnosis/0/coding/[system=http://scala_poc/CodeSystem/ICD10]/display}">
-                            <suggestionItems>
-                                <core:ListItem key="{code}"
-                                               text="{display}"
-                                               additionalText="{code}" />
-                            </suggestionItems>
-                            </Input>
-                            <Select width="100%"
-                                    items="{ path: '/ValueSet/DiagnosisCategory', parameters: {request: {url: 'http://scala_poc/ValueSet/DiagnosisCategory'}}, templateShareable:false}"
-                                    selectedKey="{category/coding/[system=http://scala_poc/CodeSystem/DiagnosisCategory]/code}">
-                                <core:Item key="{code}"
-                                           text="{display}" />
-                            </Select>
-                            <Select width="100%"
-                                    items="{ path: '/ValueSet/DiagnosisType', parameters: {request: {url: 'http://scala_poc/ValueSet/DiagnosisType'}}, templateShareable:false}"
-                                    selectedKey="{extension/[url=http://pm2cloud_scala_poc/Extension/DiagnosisType]/extension/[url=code]/valueCodeableConcept/coding/0/code}">
-                                <core:Item key="{code}"
-                                           text="{display}" />
-                            </Select>
-                            <DatePicker value="{effectiveDateTime}"
-                                        valueFormat="yyyy-MM-dd"
-                                        displayFormat="long" />
-                        </cells>
-                    </ColumnListItem>
-                </items>
-            </Table>
-            <smartTable:layoutData>
-                <FlexItemData growFactor="1"
-                              baseSize="0%" />
-            </smartTable:layoutData>
-            <smartTable:customToolbar>
+    <l:HorizontalLayout class="sapUiSmallMarginBegin sapUiSmallMarginEnd">
+        <Table id="tblDiagnostic"
+               items="{/DiagnosticReport}"
+               noDataText="{i18n>noData}">
+            <headerToolbar>
                 <Toolbar class="sapUiMediumMarginTop"
                          id="toolbarDiagnostic">
+                    <Title text="Diagnoses" />
                     <ToolbarSpacer />
                     <Button icon="sap-icon://add"
-                            press="onAddDiagnosticReportPressed">
-                    </Button>
+                            press="onAddDiagnosticReportPressed" />
                 </Toolbar>
-            </smartTable:customToolbar>
-        </smartTable:SmartTable>
+            </headerToolbar>
+            <columns>
+                <Column hAlign="Left"
+                        width="10%">
+                    <Text text="ICD Code" />
+                </Column>
+                <Column hAlign="Left"
+                        width="30%">
+                    <Text text="Diagnosis" />
+                </Column>
+                <Column hAlign="Left"
+                        width="20%">
+                    <Text text="Diagnostis Category" />
+                </Column>
+                <Column hAlign="Left"
+                        width="20%">
+                    <Text text="Type of Diagnosis" />
+                </Column>
+                <Column hAlign="Left"
+                        width="20%">
+                    <Text text="Date of Diagnosis" />
+                </Column>
+            </columns>
+            <items>
+                <ColumnListItem>
+                    <cells>
+                        <Input width="100%"
+                               id="input_ICDCode"
+                               class="icdCode"
+                               type="Text"
+                               textFormatMode="Key"
+                               maxSuggestionWidth="auto"
+                               showSuggestion="true"
+                               showValueHelp="true"
+                               suggestionItemSelected="handleSuggestIcdCode"
+                               valueHelpRequest="handleValueHelpDiagnosisCode"
+                               suggestionItems="{path : '/ValueSet/ICD10', parameters: {request: {url: 'scala_poc/ValueSet/ICD10'}}, templateShareable:false}"
+                               value="{codedDiagnosis/0/coding/[system=http://scala_poc/CodeSystem/ICD10]/code}">
+                        <suggestionItems>
+                            <core:ListItem key="{code}"
+                                           text="{code}"
+                                           additionalText="{display}" />
+                        </suggestionItems>
+                        </Input>
+                        <Input width="100%"
+                               id="input_ICDText"
+                               class="icdText"
+                               type="Text"
+                               textFormatMode="Value"
+                               maxSuggestionWidth="auto"
+                               showSuggestion="true"
+                               suggestionItemSelected="handleSuggestIcdText"
+                               showValueHelp="true"
+                               valueHelpRequest="handleValueHelpDiagnosis"
+                               suggestionItems="{path : '/ValueSet/ICD10', parameters: {request: {url: 'scala_poc/ValueSet/ICD10'}} , templateShareable:false}"
+                               value="{codedDiagnosis/0/coding/[system=http://scala_poc/CodeSystem/ICD10]/display}">
+                        <suggestionItems>
+                            <core:ListItem key="{code}"
+                                           text="{display}"
+                                           additionalText="{code}" />
+                        </suggestionItems>
+                        </Input>
+                        <Select width="100%"
+                                items="{ path: '/ValueSet/DiagnosisCategory', parameters: {request: {url: 'http://scala_poc/ValueSet/DiagnosisCategory'}}, templateShareable:false}"
+                                selectedKey="{category/coding/[system=http://scala_poc/CodeSystem/DiagnosisCategory]/code}">
+                            <core:Item key="{code}"
+                                       text="{display}" />
+                        </Select>
+                        <Select width="100%"
+                                items="{ path: '/ValueSet/DiagnosisType', parameters: {request: {url: 'http://scala_poc/ValueSet/DiagnosisType'}}, templateShareable:false}"
+                                selectedKey="{extension/[url=http://pm2cloud_scala_poc/Extension/DiagnosisType]/extension/[url=code]/valueCodeableConcept/coding/0/code}">
+                            <core:Item key="{code}"
+                                       text="{display}" />
+                        </Select>
+                        <DatePicker value="{effectiveDateTime}"
+                                    valueFormat="yyyy-MM-dd"
+                                    displayFormat="long" />
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
     </l:HorizontalLayout>
 </core:FragmentDefinition>

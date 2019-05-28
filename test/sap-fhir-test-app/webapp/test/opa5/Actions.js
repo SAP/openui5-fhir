@@ -73,10 +73,6 @@ sap.ui.define([
 			return this.iDoActionWithControl("sap.m.Select",fnSuccess);
 		},
 
-		iDoActionInP13nDialog : function(fnSuccess) {
-			return this.iDoActionWithControl("sap.m.P13nDialog",fnSuccess);
-		},
-
 		iScrollInTable : function(sView, sControlId, iRow) {
 			return this.iDoActionWithControlById(sView, sControlId, function(oTable){
 				iRow = (iRow || iRow === 0) ? iRow : oTable.getBinding("rows").getLength();
@@ -106,45 +102,6 @@ sap.ui.define([
 				} else {
 					oScrollContainer.scrollTo(0,iScrollHeight,0);
 				}
-			});
-		},
-
-		iPressOkInP13nDialog : function() {
-			return this.waitFor({
-				controlType : "sap.m.P13nDialog",
-				success : function(oP13nDialog){
-					oP13nDialog[0].fireOk();
-				},
-				error : function(oError){
-					Log.fatal(oError);
-				},
-				errorMessage : "iPressOkInP13nDialog failed."
-			});
-		},
-
-		iPressFilterInP13nDialog : function(){
-			return this.waitFor({
-				controlType : "sap.m.SegmentedButton",
-				success : function(aSegmentedButton) {
-					aSegmentedButton[0].getButtons()[2].firePress();
-				},
-				error : function(oError){
-					Log.fatal(oError);
-				},
-				errorMessage : "iPressFilterInP13nDialog failed."
-			});
-		},
-
-		iPressSortInP13nDialog : function() {
-			return this.waitFor({
-				controlType : "sap.m.SegmentedButton",
-				success : function(aSegmentedButton) {
-					aSegmentedButton[0].getButtons()[1].firePress();
-				},
-				error : function(oError){
-					Log.fatal(oError);
-				},
-				errorMessage : "iPressSortInP13nDialog failed."
 			});
 		},
 
@@ -257,12 +214,6 @@ sap.ui.define([
 					Log.fatal(oError);
 				},
 				errorMessage : "The given control wasn't found"
-			});
-		},
-
-		iSelectItemInTable : function(sView, sControlId, iIndex){
-			return this.iDoActionWithControlById(sView, sControlId, function(oTable){
-				oTable.setSelectedIndex(iIndex);
 			});
 		},
 

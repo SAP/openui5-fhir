@@ -153,12 +153,12 @@ sap.ui.define([
 			});
 		},
 
-		theTableHeaderShouldBe : function(iTableSize, sView, sControlId) {
+		theTableHeaderShouldBe : function(iTableSize, sView, sTableId) {
 			return this.waitFor({
-				id : sControlId,
+				id : sTableId,
 				viewName : sView,
-				success : function(oHeader) {
-					Opa5.assert.equal(oHeader.getText(), "Patients (" + iTableSize + ")", "The given table size does match");
+				success : function(oTable) {
+					Opa5.assert.equal(oTable.getHeaderToolbar().getContent()[0].getItems()[0].getItems()[0].getText(), "Patients (" + iTableSize + ")", "The given table size does match");
 				},
 				error : function(oError){
 					Log.fatal(oError);
