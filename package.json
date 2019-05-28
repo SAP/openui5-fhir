@@ -16,16 +16,19 @@
     "karma-chrome-launcher": "2.2.0",
     "karma-coverage": "1.1.2",
     "karma-junit-reporter": "1.2.0",
-    "karma-ui5": "^1.0.0"
+    "karma-ui5": "^1.0.0",
+    "@ui5/cli": "1.4.4"
   },
   "scripts": {
     "docs": "npx jsdoc --configure ./lib/jsdoc/create-api-documentation.js --verbose --access public",
     "docs:dev": "npx jsdoc --configure ./lib/jsdoc/create-api-documentation.js --verbose --access all",
+    "serve": "npm run serve:mockserver && npm run serve:ui5",
+    "serve:ui5": "ui5 serve",
+    "serve:mockserver": "./setup_mock.sh",
     "test": "karma start",
     "test:unit": "karma start karma-unit.conf.js",
     "test:opa5": "karma start karma-opa5.conf.js",
     "test-mockserver": "npm run serve:mockserver && npm test",
-    "serve:mockserver": "./setup_mock.sh",
     "lint": "eslint src test",
     "lint:console": "eslint src test || true",
     "lint:file:checkstyle": "eslint -o ./target/eslint/eslint.checkstyle.xml -f checkstyle src test",

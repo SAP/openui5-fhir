@@ -3,7 +3,6 @@ module.exports = function (config) {
 	require("./karma.conf")(config);
 	config.set({
 		ui5: {
-			url: "https://openui5.hana.ondemand.com",
 			testpage: "test/sap-fhir-test-app/webapp/test/opa5/all.opa5.html"
 		},
 		coverageReporter: {

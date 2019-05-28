@@ -26,9 +26,10 @@ The FHIRModel implementation includes following files:
 4. [Development](#4-Development) \(*only internal*\)
     1. [Deployment of *sap-fhir-test-app*-project](#4.1-Deployment-of-sap-fhir-test-app-project)
 	2. [Development Tasks](#4.2-Development-Tasks)
-		1. [ESLinting](#4.2.1-ESLinting)
-		2. [Testing](#4.2.2-Testing)
-		3. [Documentation](#4.2.3-Documentation)
+		1. [Development](#4.2.1-Development)
+		2. [ESLinting](#4.2.2-ESLinting)
+		3. [Testing](#4.2.3-Testing)
+		4. [Documentation](#4.2.4-Documentation)
 
 <a name="1-Import-OpenUI5-FHIR"></a>
 
@@ -79,28 +80,30 @@ The following section describes how the *OpenUI5-FHIR* project internal test app
 ### 4.1 Deployment of *sap-fhir-test-app*-project
 1. Go to the [latest release](https://github.com/SAP/openui5-fhir/releases/latest) and download the latest release *.zip*.
 2. Extract the *.zip* in your desired local location
-3. To deploy the *sap-fhir-test-app*-project you can use any HTTP server. We're using the node module [http-server](https://www.npmjs.com/package/http-server) or the chrome app [Web Server for Chrome](https://chrome.google.com/webstore/detail/web-server-for-chrome/ofhbbkphhbklhfoeikjpcbhemlocgigb).
-	1. *http-server*:
-		1. Go to the folder which contains the *OpenUI5-FHIR*-folder
-		2. Open the console (windows: CMD, linux/mac: terminal)
-		3. Enter `npm install http-server -g`
-		4. Enter `http-server`
-		5. Open your desired browser and open `http://localhost:8080/openui5-fhir/test/sap-fhir-test-app/webapp/`
-	2. *Web Server for Chrome*:
-		1. Open your chrome browser and open [link](https://chrome.google.com/webstore/detail/web-server-for-chrome/ofhbbkphhbklhfoeikjpcbhemlocgigb)
-		2. Click on the install button of the *Web Server for Chrome*
-		3. Open the *Web Server for Chrome* app
-		4. Click on the *CHOOSE FOLDER* button and choose the folder contains the *OpenUI5-FHIR* folder
-		5. Open your desired browser and open `http://localhost:8887/openui5-fhir/test/sap-fhir-test-app/webapp/`
+3. Go to the folder which contains the *OpenUI5-FHIR*-folder
+4. Open the console (windows: CMD, linux/mac: terminal)
+5. Enter `npm install`
+6. Enter `npm run serve`. This script starts the mockserver and hosts all needed UI5 resources
+7. *Optional*: If the mockserver is already startet, you can use `npm run serve:ui5` to only host the UI5 resources
+8. Open your desired browser and open [http://localhost:8081/test-resources/sap-fhir-test-app/webapp/index.html](http://localhost:8081/test-resources/sap-fhir-test-app/webapp/index.html)
 
 <a name="4.2-Development-Tasks"></a>
 
 ### 4.2 Development Tasks
 The following sections describe, how useful development tasks can be executed.
 
-<a name="4.2.1-ESLinting"></a>
+<a name="4.2.1-Development"></a>
 
-#### 4.2.1 ESLinting
+#### 4.2.1 Development
+Developing and debugging can't be easier. Therefore, execute `npm run serve` or if the mockserver is already started `npm run serve:ui5`.
+
+Following entry points are available:
+- QUnit tests: [http://localhost:8081/test-resources/qunit/unit.qunit.html](http://localhost:8081/test-resources/qunit/unit.qunit.html)
+- OPA5 tests: [http://localhost:8081/test-resources/sap-fhir-test-app/webapp/test/opa5/all.opa5.html](http://localhost:8081/test-resources/sap-fhir-test-app/webapp/test/opa5/all.opa5.html)
+
+<a name="4.2.2-ESLinting"></a>
+
+#### 4.2.2 ESLinting
 There are various lint-scripts in `package.json`. During development you will most likely want to use either:
 
 ```bash
@@ -115,11 +118,11 @@ npm run lint:watch:fix
 
 The former script simply watches all files for changes and lints them immediately. The result is written to the console. The latter script is also watching all files for changes but applies fixes automatically.
 
-<a name="4.2.2-Testing"></a>
+<a name="4.2.3-Testing"></a>
 
-#### 4.2.2 Testing
+#### 4.2.3 Testing
 
-The testsuite needs a mockserver. Therefore various scripts are placed in the  `package.json`. `setup_mock.sh` has to be used. Execute `./setup_mock.sh` when you start developing and/or testing.
+The testsuite needs a mockserver. Therefore various scripts are placed in the `package.json`.
 
 ```bash
 npm run serve:mockserver
@@ -128,21 +131,33 @@ npm run serve:mockserver
 Starts a mockerserver with test data.
 
 ```bash
+npm run test-mockserver
+```
+
+Starts a mockerserver with test data and executes the QUnit and Opa5 tests.
+
+```bash
 npm run test
 ```
 
 Executes the QUnit and Opa5 tests.
 
 ```bash
-npm run test-mockserver
+npm run test:unit
 ```
 
-Starts a mockerserver with test data and executes the QUnit and Opa5 tests.
+Executes the QUnit tests.
+
+```bash
+npm run test:opa5
+```
+
+Executes the OPA5 tests.
 
 
-<a name="4.2.3-Documentation"></a>
+<a name="4.2.4-Documentation"></a>
 
-#### 4.2.3 Documentation
+#### 4.2.4 Documentation
 
 ```bash
 npm run docs
