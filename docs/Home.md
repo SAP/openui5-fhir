@@ -1,4 +1,4 @@
-# OpenUI5-FHIR - The official API documentation <a href="https://openui5.org/"><img height="30px" src="https://openui5.hana.ondemand.com/resources/sap/ui/documentation/sdk/images/logo_ui5.png"></a>🔥
+# OpenUI5-FHIR - The Official API Documentation <a href="https://openui5.org/"><img height="30px" src="https://openui5.hana.ondemand.com/resources/sap/ui/documentation/sdk/images/logo_ui5.png"></a>🔥
 
 This is the documentation of the *OpenUI5-FHIR* project containing the *sap.fhir* UI5 library.
 
