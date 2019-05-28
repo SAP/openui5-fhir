@@ -1,6 +1,6 @@
 **/*.flow.js
 /dist
-target/**
+test-results/**
 bin/**
 generated_docs/**
 lib/**

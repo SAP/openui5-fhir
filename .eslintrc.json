@@ -6,7 +6,9 @@
 		"sap": true,
 		"jQuery": true,
 		"QUnit": false,
-		"$": false
+		"$": false,
+		"module": false,
+		"require": false
 	},
 	"rules": {
 		"array-element-newline": ["error", { "multiline": true, "minItems": 3 }],
