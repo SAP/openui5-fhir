@@ -24,7 +24,7 @@ jobs:
     - stage: "JSLint Checks"
       script: npm run lint
     - stage: "QUnit / QUnit Integration / OPA5 Tests"
-      script: npm run test-mockserver && npm run push:coverage
+      script: npm run test-mockserver && npm run deploy:coverage
     - stage: "Generate API Documentation"
       if: (branch = master) AND (NOT (type = pull_request))
       script: "npm run docs"

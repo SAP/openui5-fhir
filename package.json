@@ -27,7 +27,7 @@
     "serve:ui5": "ui5 serve",
     "serve:mockserver": "./setup_mock.sh",
     "test": "karma start",
-    "push:coverage": "cat ./test_results/coverage/all/lcov/lcov-all.info | coveralls",
+    "deploy:coverage": "cat ./test-results/coverage/all/lcov/lcov-all.info | coveralls || echo \"Deployment of coverage to coveralls.io failed.\"",
     "test:unit": "karma start karma-unit.conf.js",
     "test:opa5": "karma start karma-opa5.conf.js",
     "test-mockserver": "npm run serve:mockserver && npm test",
