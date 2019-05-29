@@ -38,6 +38,12 @@ module.exports = function (config) {
 				},
 				{
 					type: "text"
+				},
+				{
+					type: "lcovonly",
+					dir: "test-results",
+					subdir: "coverage/all/lcov",
+					file: "lcov-all.info"
 				}
 			],
 			check: {

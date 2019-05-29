@@ -20,6 +20,12 @@ module.exports = function (config) {
 				},
 				{
 					type: "text"
+				},
+				{
+					type: "lcovonly",
+					dir: "test-results",
+					subdir: "coverage/unit/lcov",
+					file: "lcov-unit.info"
 				}
 			],
 			check: {

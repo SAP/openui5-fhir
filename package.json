@@ -2,10 +2,21 @@
   "name": "openui5-fhir",
   "version": "0.0.1",
   "author": "SAP SE",
+  "license": "Apache-2.0",
   "description": "The OpenUI5-FHIR Library enables UI5 to the FHIR world",
   "repository": {
     "type": "git",
     "url": "https://github.com/SAP/openui5-fhir.git"
+  },
+  "keywords": [
+    "openui5",
+    "sapui5",
+    "ui5",
+    "fhir"
+  ],
+  "engines": {
+    "node": ">= 8.5",
+    "npm": ">= 5"
   },
   "devDependencies": {
     "eslint": "^5.16.0",
@@ -17,7 +28,8 @@
     "karma-coverage": "1.1.2",
     "karma-junit-reporter": "1.2.0",
     "karma-ui5": "^1.0.0",
-    "@ui5/cli": "1.4.4"
+    "@ui5/cli": "1.4.4",
+    "coveralls": "^3.0.3"
   },
   "scripts": {
     "docs": "npx jsdoc --configure ./lib/jsdoc/create-api-documentation.js --verbose --access public",
@@ -26,6 +38,7 @@
     "serve:ui5": "ui5 serve",
     "serve:mockserver": "./setup_mock.sh",
     "test": "karma start",
+    "deploy:coverage": "cat ./test-results/coverage/all/lcov/lcov-all.info | coveralls || echo \"Deployment of coverage to coveralls.io failed.\"",
     "test:unit": "karma start karma-unit.conf.js",
     "test:opa5": "karma start karma-opa5.conf.js",
     "test-mockserver": "npm run serve:mockserver && npm test",
