@@ -2,7 +2,7 @@ git clone https://github.com/hapifhir/hapi-fhir-jpaserver-starter.git hapi-fhir-
 cd hapi-fhir-jpaserver
 #checkout specific commit to stabilize pipeline
 git checkout a85beaf
-sed -i -e 's/config.addAllowedHeader("Origin");/config.addAllowedHeader("Origin");\nconfig.addAllowedHeader("cache-control");\nconfig.addAllowedHeader("Prefer");\nconfig.addAllowedHeader("If-Match");/g' src/main/java/ca/uhn/fhir/jpa/starter/JpaRestfulServer.java
+sed -i -e 's/config.addAllowedHeader("Origin");/config.addAllowedHeader("Origin");config.addAllowedHeader("cache-control");config.addAllowedHeader("Prefer");config.addAllowedHeader("If-Match");/g' src/main/java/ca/uhn/fhir/jpa/starter/JpaRestfulServer.java
 sed -i -e 's/"PATCH")/"PATCH", "HEAD")/g' src/main/java/ca/uhn/fhir/jpa/starter/JpaRestfulServer.java
 sed -i -e 's/fhir_version=DSTU3/fhir_version=R4/g' src/main/resources/hapi.properties
 sed -i -e 's/\/fhir/\/fhir\/R4/g' src/main/java/ca/uhn/fhir/jpa/starter/HapiProperties.java
