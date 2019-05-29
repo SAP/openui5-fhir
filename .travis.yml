@@ -31,7 +31,6 @@ jobs:
       deploy:
         local-dir: generated_docs/html
         provider: pages
-        name: OpenUI5-FHIR-Bot
         github-token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
         skip-cleanup: true
         keep-history: true
