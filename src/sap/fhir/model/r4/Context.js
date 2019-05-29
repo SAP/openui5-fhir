@@ -38,7 +38,6 @@ sap.ui.define([
 			BaseContext.call(this, oModel, sPath);
 			this.oBinding = oBinding;
 			this.sGroupId = sGroupId;
-			debugger;
 		}
 	});
 
