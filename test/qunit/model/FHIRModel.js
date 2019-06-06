@@ -126,8 +126,6 @@ sap.ui.define([
 			this.oPropertyBinding2 = this.oFhirModel1.bindProperty("gender", this.oContextBinding.getBoundContext());
 			this.oPropertyBinding3 = this.oFhirModel1.bindProperty("birthDate", this.oContextBinding2.getBoundContext());
 			this.oPropertyBinding4 = this.oFhirModel1.bindProperty("gender", this.oContextBinding2.getBoundContext());
-			mParameters = {rootSearch: "base:exact", rootValue: "http://hl7.org/fhir/StructureDefinition/DomainResource", rootProperty: "baseDefinition", nodeProperty: "url"};
-			this.oTreeBinding = this.oFhirModel1.bindTree("/StructureDefinition", undefined, undefined, mParameters);
 			this.oFhirModel1.aBindings.push(this.oPropertyBinding);
 			this.oFhirModel1.aBindings.push(this.oPropertyBinding2);
 			this.oFhirModel1.aBindings.push(this.oPropertyBinding3);
@@ -163,12 +161,9 @@ sap.ui.define([
 		var oNameFilter =  new sap.ui.model.Filter({path: "name", operator: FilterOperator.EQ, value1: ["Cancer", "Ruediger"]});
 		var aFilters = [oNameFilter];
 		this.oListBinding.filter(aFilters);
-		this.oTreeBinding.filter(aFilters);
 		var mParameters = this.oListBinding._buildParameters();
-		var mParameters2 = this.oTreeBinding._buildParameters();
 		var oRequestHandle = this.oFhirModel3.loadData("/Patient", mParameters);
 		assert.deepEqual(mParameters.urlParameters["name:exact"], ["Cancer", "Ruediger"], "The query parameter object is the same");
-		assert.deepEqual(mParameters2.urlParameters["name:exact"], ["Cancer", "Ruediger"], "The query parameter object is the same");
 		assert.strictEqual(oRequestHandle.getUrl().indexOf("name:exact=Ruediger") > -1, true, "The parameter was defined");
 		assert.strictEqual(oRequestHandle.getUrl().indexOf("name:exact=Cancer") > -1, true, "The parameter was defined");
 		var oNameFilter1 =  new sap.ui.model.Filter({path: "name", operator: FilterOperator.EQ, value1: "Habibi"});
@@ -382,23 +377,6 @@ sap.ui.define([
 		this.oContextBinding.getBoundContext()._loadContext();
 	});
 
-	QUnit.test("Attach Detach Model Events and client server mode check", function(assert) {
-		var fnDummyCallback = function(){};
-		this.oTreeBinding.detachTreeLoadingStarted(fnDummyCallback);
-		this.oTreeBinding.detachSelectionChanged(fnDummyCallback);
-		this.oTreeBinding.detachTreeLoadingCompleted(fnDummyCallback);
-		assert.strictEqual(this.oTreeBinding._isClientMode(), false);
-		assert.strictEqual(this.oTreeBinding._isServerMode(), true);
-		assert.ok(true, "All events could be attached / detached");
-	});
-
-	QUnit.test("Set context of the treebinding", function(assert) {
-		this.oTreeBinding.setCollapseRecursive(true);
-		assert.strictEqual(this.oTreeBinding.getCollapseRecursive(), true);
-		this.oTreeBinding.setCollapseRecursive(false);
-		assert.strictEqual(this.oTreeBinding.getCollapseRecursive(), false);
-	});
-
 	QUnit.test("Set/Get invalid property path", function(assert) {
 		assert.throws(function() {
 			this.oFhirModel1.setProperty("/foo//test", "test");
@@ -451,52 +429,6 @@ sap.ui.define([
 		oListBinding = this.oFhirModel1.bindList("/Patient", undefined, undefined, undefined, undefined);
 		assert.strictEqual(oListBinding._isClientMode(), false);
 		assert.strictEqual(oListBinding._isServerMode(), true);
-	});
-
-	QUnit.test("Should throw an error because creating a new FHIRTreeBinding without OperationMode.Server or undefined is not allowed", function(assert){
-		var mParameters = {operationMode: OperationMode.Client, rootSearch: "base:exact", rootValue: "http://hl7.org/fhir/StructureDefinition/DomainResource", rootProperty: "baseDefinition", nodeProperty: "url"};
-		assert.throws(function() {return this.oFhirModel1.bindTree("/StructureDefinition", undefined, undefined, mParameters);}, new Error("Unsupported OperationMode: Client. Only sap.fhir.model.r4.OperationMode.Server is supported."));
-
-		mParameters = {operationMode: "Random", rootSearch: "base:exact", rootValue: "http://hl7.org/fhir/StructureDefinition/DomainResource", rootProperty: "baseDefinition", nodeProperty: "url"};
-		assert.throws(function() {return this.oFhirModel1.bindTree("/StructureDefinition", undefined, undefined, mParameters);}, new Error("Unsupported OperationMode: Random. Only sap.fhir.model.r4.OperationMode.Server is supported."));
-	});
-
-	QUnit.test("Should throw errors because creating a new FHIRTreeBinding without tree specific properties is not allowed", function(assert){
-		assert.throws(function() {return this.oFhirModel1.bindTree("/StructureDefinition", undefined, undefined, undefined);}, new Error("Missing parameters: rootSearch, rootProperty, rootValue and nodeProperty have to be set in parameters."));
-		assert.throws(function() {return this.oFhirModel1.bindTree("/StructureDefinition", undefined, undefined, null);}, new Error("Missing parameters: rootSearch, rootProperty, rootValue and nodeProperty have to be set in parameters."));
-		assert.throws(function() {return this.oFhirModel1.bindTree("/StructureDefinition", undefined, undefined, {});}, new Error("Missing parameters: rootSearch, rootProperty, rootValue and nodeProperty have to be set in parameters."));
-		assert.throws(function() {return this.oFhirModel1.bindTree("/StructureDefinition", undefined, undefined, 0);}, new Error("Missing parameters: rootSearch, rootProperty, rootValue and nodeProperty have to be set in parameters."));
-		assert.throws(function() {return this.oFhirModel1.bindTree("/StructureDefinition", undefined, undefined, 1);}, new Error("Missing parameters: rootSearch, rootProperty, rootValue and nodeProperty have to be set in parameters."));
-
-		var mParameters = {rootValue: "http://hl7.org/fhir/StructureDefinition/DomainResource", rootProperty: "baseDefinition", nodeProperty: "url"};
-		assert.throws(function() {return this.oFhirModel1.bindTree("/StructureDefinition", undefined, undefined, mParameters);}, new Error("Missing parameter: 'rootSearch'."));
-
-		mParameters = {rootSearch: 0, rootValue: "http://hl7.org/fhir/StructureDefinition/DomainResource", rootProperty: "baseDefinition", nodeProperty: "url"};
-		assert.throws(function() {return this.oFhirModel1.bindTree("/StructureDefinition", undefined, undefined, mParameters);}, new Error("Unsupported parameter type: 'rootSearch'. Parameter has to be of type string."));
-
-		mParameters = {rootSearch: undefined, rootValue: "http://hl7.org/fhir/StructureDefinition/DomainResource", rootProperty: "baseDefinition", nodeProperty: "url"};
-		assert.throws(function() {return this.oFhirModel1.bindTree("/StructureDefinition", undefined, undefined, mParameters);}, new Error("Unsupported parameter type: 'rootSearch'. Parameter has to be of type string."));
-
-		mParameters = {rootSearch: null, rootValue: "http://hl7.org/fhir/StructureDefinition/DomainResource", rootProperty: "baseDefinition", nodeProperty: "url"};
-		assert.throws(function() {return this.oFhirModel1.bindTree("/StructureDefinition", undefined, undefined, mParameters);}, new Error("Unsupported parameter type: 'rootSearch'. Parameter has to be of type string."));
-
-		mParameters = {rootSearch: {}, rootValue: "http://hl7.org/fhir/StructureDefinition/DomainResource", rootProperty: "baseDefinition", nodeProperty: "url"};
-		assert.throws(function() {return this.oFhirModel1.bindTree("/StructureDefinition", undefined, undefined, mParameters);}, new Error("Unsupported parameter type: 'rootSearch'. Parameter has to be of type string."));
-
-		mParameters = {rootSearch: 1, rootValue: "http://hl7.org/fhir/StructureDefinition/DomainResource", rootProperty: "baseDefinition", nodeProperty: "url"};
-		assert.throws(function() {return this.oFhirModel1.bindTree("/StructureDefinition", undefined, undefined, mParameters);}, new Error("Unsupported parameter type: 'rootSearch'. Parameter has to be of type string."));
-
-		mParameters = {rootSearch: [], rootValue: "http://hl7.org/fhir/StructureDefinition/DomainResource", rootProperty: "baseDefinition", nodeProperty: "url"};
-		assert.throws(function() {return this.oFhirModel1.bindTree("/StructureDefinition", undefined, undefined, mParameters);}, new Error("Unsupported parameter type: 'rootSearch'. Parameter has to be of type string."));
-
-		mParameters = {rootSearch: "base:exact", rootProperty: "baseDefinition", nodeProperty: "url"};
-		assert.throws(function() {return this.oFhirModel1.bindTree("/StructureDefinition", undefined, undefined, mParameters);}, new Error("Missing parameter: 'rootValue'."));
-
-		mParameters = {rootSearch: "base:exact", rootValue: "http://hl7.org/fhir/StructureDefinition/DomainResource", nodeProperty: "url"};
-		assert.throws(function() {return this.oFhirModel1.bindTree("/StructureDefinition", undefined, undefined, mParameters);}, new Error("Missing parameter: 'rootProperty'."));
-
-		mParameters = {rootSearch: "base:exact", rootValue: "http://hl7.org/fhir/StructureDefinition/DomainResource", rootProperty: "baseDefinition"};
-		assert.throws(function() {return this.oFhirModel1.bindTree("/StructureDefinition", undefined, undefined, mParameters);}, new Error("Missing parameter: 'nodeProperty'."));
 	});
 
 	QUnit.test("Map Single Resource to Model", function(assert) {
