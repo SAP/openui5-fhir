@@ -1,7 +1,6 @@
 sap.ui.define([
 	"../utils/TestUtilsIntegration",
 	"../utils/TestUtils",
-	"sap/fhir/model/r4/FHIRModel",
 	"sap/fhir/model/r4/FHIRFilterOperator",
 	"sap/fhir/model/r4/OperationMode",
 	"sap/fhir/model/r4/lib/RequestHandle",
@@ -14,11 +13,11 @@ sap.ui.define([
 	"sap/base/util/each",
 	"sap/base/util/deepEqual",
 	"sap/ui/core/format/DateFormat"
-], function(TestUtilsIntegration, TestUtils, FHIRModel, FHIRFilterOperator, OperationMode, RequestHandle, Sliceable, FilterOperator, Filter, SubmitMode, FHIRBundleType, FHIRBundleRequest, each, deepEqual, DateFormat) {
+], function(TestUtilsIntegration, TestUtils, FHIRFilterOperator, OperationMode, RequestHandle, Sliceable, FilterOperator, Filter, SubmitMode, FHIRBundleType, FHIRBundleRequest, each, deepEqual, DateFormat) {
 	"use strict";
 
 	function createModel(mParameters) {
-		return new FHIRModel("http://localhost:8080/fhir/R4", mParameters);
+		return TestUtils.create("http://localhost:8080/fhir/R4", mParameters);
 	}
 
 	QUnit.module("Integration Test for the FHIRModel", {

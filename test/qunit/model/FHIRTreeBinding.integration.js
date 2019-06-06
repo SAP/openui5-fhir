@@ -1,13 +1,13 @@
 sap.ui.define([
     "../utils/TestUtilsIntegration",
-    "sap/fhir/model/r4/FHIRModel",
+    "../utils/TestUtils",
     "sap/fhir/model/r4/FHIRFilter",
     "sap/fhir/model/r4/FHIRFilterOperator",
-], function (TestUtilsIntegration, FHIRModel, FHIRFilter, FHIRFilterOperator) {
+], function (TestUtilsIntegration, TestUtils, FHIRFilter, FHIRFilterOperator) {
     "use strict";
 
     function createModel(mParameters) {
-        return new FHIRModel("http://localhost:8080/fhir/R4", mParameters);
+        return TestUtils.createFHIRModel("http://localhost:8080/fhir/R4", mParameters);
     }
 
     QUnit.module("Integration-Tests: FHIRTreeBinding", {

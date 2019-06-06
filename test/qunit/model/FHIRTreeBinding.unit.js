@@ -1,14 +1,14 @@
 sap.ui.define([
-    "sap/fhir/model/r4/FHIRModel",
+    "../utils/TestUtils",
     "sap/fhir/model/r4/FHIRFilter",
     "sap/fhir/model/r4/FHIRFilterOperator",
 	"sap/fhir/model/r4/OperationMode"
-], function (FHIRModel, FHIRFilter, FHIRFilterOperator, OperationMode) {
+], function (TestUtils, FHIRFilter, FHIRFilterOperator, OperationMode) {
 
     "use strict";
 
     function createModel(mParameters) {
-        return new FHIRModel("https://example.com/fhir", mParameters);
+        return TestUtils.createFHIRModel("https://example.com/fhir", mParameters);
     }
 
     function createEventCallbackObject(fnCallback, oData, oListener){

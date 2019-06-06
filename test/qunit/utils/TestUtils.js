@@ -1,4 +1,4 @@
-sap.ui.define(["sap/base/util/merge"], function (merge) {
+sap.ui.define(["sap/base/util/merge", "sap/fhir/model/r4/FHIRModel"], function (merge, FHIRModel) {
 	"use strict";
 	var TestUtils = {};
 
@@ -164,6 +164,11 @@ sap.ui.define(["sap/base/util/merge"], function (merge) {
 			mUrlParameters[aUrlParameter[0]] = aUrlParameter[1];
 		});
 		return mUrlParameters;
+	};
+
+
+	TestUtils.createFHIRModel = function(sServiceBaseUrl, mParameters) {
+		return new FHIRModel(sServiceBaseUrl, mParameters);
 	};
 
 	return TestUtils;
