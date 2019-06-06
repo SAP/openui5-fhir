@@ -2,7 +2,7 @@ FHIR provides two different kinds of requests. Resources can either be created, 
 > Hint: For UI5 applications based on a FHIR endpoint, the recommendation is to use bundle requests to reduce the number of requests and to avoid potentially patient-specific data in the URL. Nevertheless, there might be use cases where the application developer will use direct HTTP requests,for example, when the FHIR endpoint cannot process bundle requests.
 
 ### Step 4.1: Direct Requests
-Out of the box, the UI5 FHIRModel requests and submits data as direct requests. This mode lets the URL contain the following syntax: 
+Out of the box, the UI5 FHIR Model requests and submits data as direct requests. This mode lets the URL contain the following syntax: 
 
 ```
 VERB [base]/[type]/[id] {?_format=[mime-type]}
