@@ -1,4 +1,4 @@
-In UI5, four different types of bindings can be consumed by controls. To learn more about the general concept of binding in UI5, see [UI5 Binding](https://openui5.hana.ondemand.com/#/topic/e5310932a71f42daa41f3a6143efca9c). The UI5 FHIR Model provides a corresponding FHIR® implementation for each of these UI5 bindings. The following sections explain these bindings by using examples. 
+In UI5, four different types of bindings can be consumed by controls. To learn more about the general concept of binding in UI5, see [UI5 Binding](https://openui5.hana.ondemand.com/#/topic/e5310932a71f42daa41f3a6143efca9c). The *UI5 FHIR Model* provides a corresponding FHIR® implementation for each of these UI5 bindings. The following sections explain these bindings by using examples. 
 > Hint: In this section, binding paths with simple strings, for example, `binding="/Patient/123"`. But you can also use the new binding syntax, which allows additional configurations, for example, `binding="{path: '/Patient/123'}"`.
 
 ### Step 2.1: FHIRContextBinding
