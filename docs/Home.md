@@ -8,7 +8,7 @@ UI5 provides models out of the box, which can be fragmented in client or server-
 
 Inside the healthcare community there are a few specifications for clinical/medical data. [FHIR®](https://www.hl7.org/fhir/) is one of them. Furthermore FHIR® provides a query language to access and modify the data.
 
-To develop UI5 applications based on FHIR® backend applications, there is a need to provide an easy to use way to bind the UI to an model which takes care of creating, reading, updating and deleting the corresponding data in the FHIR® backend. This is the reason for the brand new UI5 FHIR Model.
+To develop UI5 applications based on FHIR® backend applications, there is a need to provide an easy to use way to bind the UI to an model which takes care of creating, reading, updating and deleting the corresponding data in the FHIR® backend. This is the reason for the brand new *UI5 FHIR Model*.
 
 ## Includes
 The FHIRModel implementation includes following files:
@@ -21,7 +21,7 @@ The FHIRModel implementation includes following files:
 ## Table of Contents
 
 1. [Import OpenUI5-FHIR](#1-Importing-OpenUI5-FHIR)
-2. [Create UI5 FHIR Model](#2-Create-UI5-FHIRModel)
+2. [Create *UI5 FHIR Model*](#2-Create-UI5-FHIRModel)
 3. [Releases](#3-Releases)
 4. [Development](#4-Development) \(*only internal*\)
     1. [Deployment of *sap-fhir-test-app*-project](#4.1-Deployment-of-sap-fhir-test-app-project)
@@ -35,7 +35,7 @@ The FHIRModel implementation includes following files:
 
 ## 1 Import OpenUI5-FHIR
 
-The easiest and most comfortable way of importing the UI5 FHIR Model is using the NPM dependency `openui5-fhir`, which includes all necessary files. Add following snippet to your project `package.json` and update the version of `openui5-fhir` to the desired [version](https://github.com/SAP/openui5-fhir/releases).
+The easiest and most comfortable way of importing the *UI5 FHIR Model* is using the NPM dependency `openui5-fhir`, which includes all necessary files. Add following snippet to your project `package.json` and update the version of `openui5-fhir` to the desired [version](https://github.com/SAP/openui5-fhir/releases).
 ```json
 "dependencies": {
 	"openui5-fhir": "1.0.X"
@@ -44,8 +44,8 @@ The easiest and most comfortable way of importing the UI5 FHIR Model is using th
 
 <a name="2-Create-UI5-FHIRModel"></a>
 
-## 2 Create UI5 FHIR Model
-Now, you can create the UI5 FHIR Model with a declaration in the *manifest.json* of your UI5 application.
+## 2 Create *UI5 FHIR Model*
+Now, you can create the *UI5 FHIR Model* with a declaration in the *manifest.json* of your UI5 application.
 ```json
 	"sap.app": {
 		"dataSources": {
@@ -163,4 +163,4 @@ Executes the OPA5 tests.
 npm run docs
 ```
 
-The above command creates API documentation for thie FHIRModel project. All classes, which are considered to be part of the public API are explicitely named in the run-script itself.
+The above command creates API documentation for thie `openui5-fhir` project. All classes, which are considered to be part of the public API are explicitely named in the run-script itself.
