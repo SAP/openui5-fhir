@@ -22,35 +22,9 @@ sap.ui.define([
 		return TestUtils.createFHIRModel("https://example.com/fhir", mParameters);
 	}
 
-	function createRequestHandle(){
-		var oRequestHandle = new RequestHandle();
-		oRequestHandle.setRequest(createAjaxCallMock());
-		return oRequestHandle;
-	}
-
-	function createAjaxCallMock(mResponseHeaders){
-		var jqXHRMock = {};
-		var sResponseHeaders = "";
-		for (var sKey in mResponseHeaders){
-			if (mResponseHeaders.hasOwnProperty(sKey)){
-				sResponseHeaders += sKey + ": " + mResponseHeaders[sKey] + "\r\n";
-			}
-		}
-		jqXHRMock.getAllResponseHeaders = function(){
-			return sResponseHeaders;
-		};
-		jqXHRMock.getResponseHeader = function(sKey){
-			return mResponseHeaders[sKey];
-		};
-		jqXHRMock.state = function(){
-			return "";
-		};
-		return jqXHRMock;
-	}
-
 	var sChangingTextAfterUpdate = "initial";
 
-	QUnit.module("Test for the FHIRModel", {
+	QUnit.module("Unit-Tests: FHIRModel", {
 
 		/**
 		 * Runs before the first test
@@ -79,7 +53,7 @@ sap.ui.define([
 				}
 			};
 
-			this.oRequestHandle = createRequestHandle();
+			this.oRequestHandle = TestUtils.createRequestHandle();
 			this.oFhirModel1 = createModel(mParameters);
 			this.oFhirModel2 = createModel({"x-csrf-token" : true});
 			this.oFhirModel3 = createModel(mParameters);
@@ -87,7 +61,7 @@ sap.ui.define([
 				var mResponseHeaders = {"etag" : "W/\"1\""};
 				var oJSONData = TestUtils.loadJSONFile(sFilePath);
 				this.oRequestHandle.setUrl("https://example.com/fhir/" + sResourcePath);
-				this.oRequestHandle.setRequest(createAjaxCallMock(mResponseHeaders));
+				this.oRequestHandle.setRequest(TestUtils.createAjaxCallMock(mResponseHeaders));
 				this.oFhirModel1._onSuccessfulRequest(this.oRequestHandle, oJSONData, undefined, undefined, undefined, sMethod, mParams);
 				return TestUtils.deepClone(oJSONData);
 			};
@@ -320,11 +294,11 @@ sap.ui.define([
 		var oRequestHandle = this.oFhirModel1.loadData(this.sPatientPath);
 		oRequestHandle.setData(JSON.stringify(oPatient));
 		oRequestHandle.setUrl(oRequestHandle.getUrl().substring(0, oRequestHandle.getUrl().indexOf("?"))  + "/_history/3");
-		oRequestHandle.setRequest(createAjaxCallMock({ location: oRequestHandle.getUrl()}));
+		oRequestHandle.setRequest(TestUtils.createAjaxCallMock({ location: oRequestHandle.getUrl()}));
 		var oRequestHandle2 = this.oFhirModel1.loadData(this.sPatientPath2);
 		oRequestHandle2.setData(JSON.stringify(oPatient2));
 		oRequestHandle2.setUrl(oRequestHandle2.getUrl().substring(0, oRequestHandle2.getUrl().indexOf("?")) + "/_history/1");
-		oRequestHandle2.setRequest(createAjaxCallMock({ location: oRequestHandle2.getUrl()}));
+		oRequestHandle2.setRequest(TestUtils.createAjaxCallMock({ location: oRequestHandle2.getUrl()}));
 		this.oFhirModel1._onSuccessfulRequest(oRequestHandle,"", undefined, undefined, undefined, "POST");
 		this.oFhirModel1._onSuccessfulRequest(oRequestHandle2, "", undefined, undefined, undefined, "PUT");
 		assert.strictEqual(this.oFhirModel1.oData.Patient.hasOwnProperty(this.sPatientId), true, "There was no change in the id");

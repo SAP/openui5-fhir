@@ -20,7 +20,7 @@ sap.ui.define([
 		return TestUtils.createFHIRModel("http://localhost:8080/fhir/R4", mParameters);
 	}
 
-	QUnit.module("Integration Test for the FHIRModel", {
+	QUnit.module("Integration-Tests: FHIRModel", {
 
 		/**
 		 * Runs before the first test
@@ -51,53 +51,19 @@ sap.ui.define([
 		},
 
 		/**
-		 * Runs after the last test
-		 */
-		after: function() {
-		},
-
-		/**
 		 * Runs before each test
 		 */
 		beforeEach: function() {
 			this.oFhirModel.aBindings = [];
 			this.oFhirModel.refresh();
 			this.oFhirModel.mChangedResources = {};
-		},
-
-		/**
-		 * Runs after each test
-		 */
-		afterEach: function() {
-
 		}
 	});
-
-	function checkSendRequest(sRequestedUrl, oModel, fnDoCheck){
-		var fnCheckRequest = function(oEvent){
-			var oRequestHandle = oEvent.getParameter("requestHandle");
-			if (oRequestHandle.getUrl() === sRequestedUrl){
-				fnDoCheck(oRequestHandle);
-			}
-		};
-		oModel.attachRequestSent(fnCheckRequest);
-	}
-
-
-
-	function setTotalOfValueSetOperationUndefined(oRequestHandle){
-		delete oRequestHandle.getRequest().responseJSON.expansion.total;
-	}
-
-	function setValueSetPropertiesUndefined(oRequestHandle){
-		setTotalOfValueSetOperationUndefined(oRequestHandle);
-		delete oRequestHandle.getRequest().responseJSON.expansion.contains;
-	}
 
 	QUnit.test("check if response has no total property that error in list binding is thrown", function(assert) {
 		var sPath = "/Patient";
 		var oListBinding = this.oFhirModel.bindList(sPath);
-		TestUtilsIntegration.manipulateResponse("http://localhost:8080/fhir/R4/Patient?_count=10&_format=json&_total=accurate", this.oFhirModel, TestUtilsIntegration.setTotalUndefined, TestUtilsIntegration.checkErrorMsg.bind(undefined, this.oFhirModel, assert, sPath));
+		TestUtilsIntegration.manipulateResponse("http://localhost:8080/fhir/R4/Patient?_count=10&_format=json&_total=accurate", this.oFhirModel, TestUtilsIntegration.setTotalUndefined, TestUtilsIntegration.checkErrorMsg.bind(undefined, this.oFhirModel, assert, "FHIR Server error: The \"total\" property is missing in the response for the requested FHIR resource " + sPath));
 		oListBinding.getContexts();
 	});
 
@@ -436,7 +402,7 @@ sap.ui.define([
 			};
 			oListBinding.attachDataReceived(fnCheck);
 		};
-		TestUtilsIntegration.manipulateResponse("http://localhost:8080/fhir/R4/ValueSet/$expand?_count=10&url=http://hl7.org/fhir/ValueSet/v3-hl7Realm&displayLanguage=" + sap.ui.getCore().getConfiguration().getLanguage() + "&_format=json", this.oFhirModel, setTotalOfValueSetOperationUndefined, fnAssertion);
+		TestUtilsIntegration.manipulateResponse("http://localhost:8080/fhir/R4/ValueSet/$expand?_count=10&url=http://hl7.org/fhir/ValueSet/v3-hl7Realm&displayLanguage=" + sap.ui.getCore().getConfiguration().getLanguage() + "&_format=json", this.oFhirModel, TestUtilsIntegration.setTotalOfValueSetOperationUndefined, fnAssertion);
 		oListBinding.getContexts();
 	});
 
@@ -451,7 +417,7 @@ sap.ui.define([
 			};
 			oListBinding.attachDataReceived(fnCheck);
 		};
-		TestUtilsIntegration.manipulateResponse("http://localhost:8080/fhir/R4/ValueSet/$expand?_count=10&url=http://hl7.org/fhir/ValueSet/v3-hl7Realm&displayLanguage=" + sap.ui.getCore().getConfiguration().getLanguage() + "&_format=json", this.oFhirModel, setValueSetPropertiesUndefined, fnAssertion);
+		TestUtilsIntegration.manipulateResponse("http://localhost:8080/fhir/R4/ValueSet/$expand?_count=10&url=http://hl7.org/fhir/ValueSet/v3-hl7Realm&displayLanguage=" + sap.ui.getCore().getConfiguration().getLanguage() + "&_format=json", this.oFhirModel, TestUtilsIntegration.setValueSetPropertiesUndefined, fnAssertion);
 		oListBinding.getContexts();
 	});
 
@@ -522,7 +488,7 @@ sap.ui.define([
 			done();
 			assert.strictEqual(TestUtils.getQueryParameters(oRequestHandle.getUrl())._total, undefined);
 		};
-		checkSendRequest("http://localhost:8080/fhir/R4/Patient/a2522?_format=json", this.oFhirModel, fnCheck);
+		TestUtilsIntegration.checkSendRequest("http://localhost:8080/fhir/R4/Patient/a2522?_format=json", this.oFhirModel, fnCheck);
 		this.oFhirModel.bindContext("/Patient/a2522");
 	});
 
@@ -532,7 +498,7 @@ sap.ui.define([
 			done();
 			assert.strictEqual(TestUtils.getQueryParameters(oRequestHandle.getUrl())._total, "accurate");
 		};
-		checkSendRequest("http://localhost:8080/fhir/R4/Patient?_format=json&_total=accurate", this.oFhirModel, fnCheck);
+		TestUtilsIntegration.checkSendRequest("http://localhost:8080/fhir/R4/Patient?_format=json&_total=accurate", this.oFhirModel, fnCheck);
 		this.oFhirModel.bindContext("/Patient");
 	});
 
@@ -543,7 +509,7 @@ sap.ui.define([
 			assert.strictEqual(oRequestHandle.getHeaders()["cache-control"], "no-cache");
 			done();
 		};
-		checkSendRequest("http://localhost:8080/fhir/R4/Patient/a2523?_format=json", this.oFhirModel, fnCheck);
+		TestUtilsIntegration.checkSendRequest("http://localhost:8080/fhir/R4/Patient/a2523?_format=json", this.oFhirModel, fnCheck);
 		this.oFhirModel.bindContext("/Patient/a2523");
 	});
 

@@ -1,10 +1,7 @@
-sap.ui.define([
-	"../utils/TestUtils",
-	"sap/fhir/model/r4/FHIRUtils",
-], function(TestUtils, FHIRUtils) {
+sap.ui.define(["../utils/TestUtils", "sap/fhir/model/r4/FHIRUtils"], function(TestUtils, FHIRUtils) {
 	"use strict";
 
-	QUnit.module("Test for FHIRUtils", {});
+	QUnit.module("Unit-Tests: FHIRUtils", {});
 
 	QUnit.test("Test function Quantity", function(assert) {
 		// have to enhanced if quantity is supported
