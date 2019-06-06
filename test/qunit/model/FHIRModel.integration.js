@@ -17,7 +17,7 @@ sap.ui.define([
 	"use strict";
 
 	function createModel(mParameters) {
-		return TestUtils.create("http://localhost:8080/fhir/R4", mParameters);
+		return TestUtils.createFHIRModel("http://localhost:8080/fhir/R4", mParameters);
 	}
 
 	QUnit.module("Integration Test for the FHIRModel", {
