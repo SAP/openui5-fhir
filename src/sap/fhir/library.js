@@ -3,7 +3,7 @@ sap.ui.define(function() {
 	"use strict";
 
 	/**
-	 * The UI5 FHIR library provides a model to build state of the art UI5 applications in context of health industries
+	 * The sap.fhir library provides a model to build state of the art UI5 applications in context of health industries
 	 *
 	 * @namespace
 	 * @name sap.fhir.model.r4
