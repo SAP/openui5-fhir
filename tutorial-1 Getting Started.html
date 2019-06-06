@@ -39,15 +39,15 @@
 </header>
 
 <article>
-    <p>This tutorial provides a step-by-step guide on how to include the <em>OpenUI5-FHIR</em> project in an UI5 application and shows some best practices. The following sections describe in detail what you need to do to code state-of-the-art UI5 applications based on a FHIR endpoint.</p>
+    <p>This tutorial provides a step-by-step guide on how to include the <em>OpenUI5-FHIR</em> project in an UI5 application and shows some best practices. The following sections describe in detail what you need to do to code state-of-the-art UI5 applications based on a FHIR® server.</p>
 <h2>Table of Contents</h2>
 <ol>
 <li><a href="#1.1-Create-an-UI5-application">Creating a UI5 Application</a></li>
-<li><a href="#1.2-Include-UI5-FHIRModel">Including the UI5 FHIRModel</a>
+<li><a href="#1.2-Include-UI5-FHIRModel">Including the UI5 FHIR Model</a>
 <ol>
 <li><a href="#1.2.1-Add-an-NPM-Dependency">Adding an NPM Dependency</a></li>
 <li><a href="#1.2.2-Run-the-NPM-Install-Command">Running the NPM Install Command</a></li>
-<li><a href="#1.2.3-Register-the-FHIR-server-and-the-UI5-FHIRModel-in-the-UI5-application">Registering the FHIR Server and the UI5 FHIRModel in the UI5 Application</a></li>
+<li><a href="#1.2.3-Register-the-FHIR-server-and-the-UI5-FHIRModel-in-the-UI5-application">Registering the FHIR® Server and the UI5 FHIR Model in the UI5 Application</a></li>
 <li><a href="#1.2.4-Adjust-UI5-application-to-show-real-data">Adjusting the UI5 Application to Show Real Data</a></li>
 </ol>
 </li>
@@ -79,7 +79,7 @@
 			&quot;version&quot;: &quot;1.0.0&quot;
 		},
 		&quot;title&quot;: &quot;MyHealthApp&quot;,
-		&quot;description&quot;: &quot;This app provides an overview of how to work with the UI5 FHIRModel&quot;
+		&quot;description&quot;: &quot;This app provides an overview of how to work with the UI5 FHIR Model&quot;
 	},
 
 	&quot;sap.ui&quot;: {
@@ -271,7 +271,7 @@ organzationsTileInfo=We have {0} organizations
 <p>You now have a running UI5 application that is ready to use.</p>
 <p><a name="1.2-Include-OpenUI5-FHIR"></a></p>
 <h3>1.2 Including the OpenUI5-FHIR</h3>
-<p>In the previous section, you set up a UI5 application that contains hard-coded patient and organization numbers. That's cheating. So let's get some real data into your UI5 application by including the UI5 FHIR Model.</p>
+<p>In the previous section, you set up a UI5 application that contains hard-coded patient and organization numbers. That's cheating. So let's get some real data into your UI5 application by including the <code>openui5-fhir</code> project.</p>
 <p><a name="1.2.1-Add-an-NPM-Dependency"></a></p>
 <h3>1.2.1 Adding an NPM Dependency</h3>
 <p>The <em>sap.fhir</em> library is included in the following NPM package: <code>openui5-fhir</code>. This NPM package enables you to include the <em>sap.fhir</em> UI5 library in an UI5 application. Create a new file called <code>package.json</code>, place it in the root folder of the UI5 application, and add the following content:</p>
@@ -299,13 +299,13 @@ organzationsTileInfo=We have {0} organizations
 <h3>1.2.2 Running the NPM Install Command</h3>
 <p>Open a new command prompt (Windows)/ terminal (Unix) and navigate to the root folder of your UI5 application. Execute the following command <code>npm install</code> to install <em>OpenUI5-fhir</em> and <em>UI5 Tooling</em> on your machine.</p>
 <p><a name="1.2.5-Register-the-FHIR-server-and-the-UI5-FHIRModel-in-the-UI5-application"></a></p>
-<h3>1.2.3 Registering the FHIR Server and the UI5 FHIRModel in the UI5 Application</h3>
-<p>To connect the UI5 application to the locally registered FHIR server and consume the FHIRModel you need to adjust the <code>manifest.json</code> of your UI5 application. You can change the URL to any other FHIR server that you want to use. If you take the existing one, your UI5 application will be connected to the <a href="http://test.fhir.org/r4">Health Intersections FHIR Server</a>.</p>
-<p>To register the FHIR server, add the following content to the <code>sap.app</code> property:</p>
+<h3>1.2.3 Registering the FHIR Server and the UI5 FHIR Model in the UI5 Application</h3>
+<p>To connect the UI5 application to the locally registered FHIR® server and consume the FHIRModel you need to adjust the <code>manifest.json</code> of your UI5 application. You can change the URL to any other FHIR® server that you want to use. If you take the existing one, your UI5 application will be connected to the <a href="http://hapi.fhir.org/baseR4/">UHN_HAPI Server (R4 FHIR)</a>.</p>
+<p>To register the FHIR® server, add the following content to the <code>sap.app</code> property:</p>
 <pre class="prettyprint source lang-json"><code>…
 &quot;dataSources&quot;: {
 	&quot;fhir&quot;: {
-		&quot;uri&quot;: &quot;http://test.fhir.org/r4/&quot;,
+		&quot;uri&quot;: &quot;http://hapi.fhir.org/baseR4/&quot;,
 		&quot;type&quot;: &quot;FHIR&quot;
 	}
 }
@@ -320,7 +320,7 @@ To declare and initialize the FHIRModel, add the following content to the `sap.u
 <p class="fileName">webapp / manifest.json</p> 
 <p><a name="1.2.4-Adjust-UI5-application-to-show-real-data"></a></p>
 <h3>1.2.4 Adjusting Your UI5 Application to Show Real Data</h3>
-<p>Now, it's time to show real data provided by the UI5 FHIRModel in your UI5 application. Therefore, you need to adjust <code>Home.view.xml</code>:</p>
+<p>Now, it's time to show real data provided by the UI5 FHIR Model in your UI5 application. Therefore, you need to adjust <code>Home.view.xml</code>:</p>
 <pre class="prettyprint source lang-xml"><code>&lt;core:View xmlns:core=&quot;sap.ui.core&quot; xmlns:mvc=&quot;sap.ui.core.mvc&quot; xmlns=&quot;sap.m&quot; controllerName=&quot;myhealthapp.controller.Home&quot; xmlns:html=&quot;http://www.w3.org/1999/xhtml&quot;>
 	&lt;Page title=&quot;{i18n>title}&quot;>
 		&lt;content>
@@ -367,11 +367,11 @@ To declare and initialize the FHIRModel, add the following content to the `sap.u
 <p class="fileName">webapp / controller / Home.controller.js</p> 
 <p><a name="1.3-Deploy-UI5-application-locally"></a></p>
 <h3>1.3: Deploying Your UI5 Application Locally</h3>
-<p>You built a small stand-alone UI5 application which consumes data directly with the UI5 FHIRModel from a FHIR server. Let's start the UI5 application to see if everything works as expected. To do this, open a new command prompt (Windows)/ terminal (Unix) window and navigate to the root folder of your UI5 application.</p>
+<p>You built a small stand-alone UI5 application which consumes data directly with the UI5 FHIR Model from a FHIR® server. Let's start the UI5 application to see if everything works as expected. To do this, open a new command prompt (Windows)/ terminal (Unix) window and navigate to the root folder of your UI5 application.</p>
 <p>Now, your environment is ready, so you can start the UI5 application with the following command:</p>
 <pre class="prettyprint source lang-sh"><code>$ npm run start
 </code></pre>
-<p>The UI5 application is deployed and can be accessed at http://localhost:5000/MyHealthApp. Now, you can see  how many patients and organizations are stored in our clinicial system directly from the start page.</p>
+<p>The UI5 application is deployed and can be accessed at http://localhost:8080/index.html. Now, you can see  how many patients and organizations are stored in our clinicial system directly from the start page.</p>
 </article>
 
 </section>
@@ -381,7 +381,7 @@ To declare and initialize the FHIRModel, add the following content to the `sap.u
 <br class="clear">
 
 <footer>
-Generated by <a href="https://github.com/jsdoc3/jsdoc" target="_blank">JSDoc 3.6.2</a> on Wed, 29 May 2019 13:17:22 GMT based on the <a href="https://github.com/nijikokun/minami/" target="_blank">Minami</a> theme.
+Generated by <a href="https://github.com/jsdoc3/jsdoc" target="_blank">JSDoc 3.6.2</a> on Thu, 06 Jun 2019 09:18:30 GMT based on the <a href="https://github.com/nijikokun/minami/" target="_blank">Minami</a> theme.
 </footer>
 
 <script>prettyPrint();</script>
