@@ -41,7 +41,7 @@
 <article>
     <p>Beyond the basic binding concepts described in the previous chapter, there are some more advanced concepts that will be explained in this section.</p>
 <h3>Step 3.1 Slicing</h3>
-<p>The properties of a FHIR® resource can have different cardinalities. A property with a 1:N (one-to-many) relationship formally contains a collection. The items of a collection can be addressed by their indexes, for example, <code>/Patient/XYZ/name/0/family</code>. However, addressing the items of a collection by their indexes is unreliable because the index of an item can be affected, for example, by when the item was stored or last updated. So, an application developer should not implement anything based on the index of an item of a collection. Therefore, the FHIR® specification introduces a kind of secondary index. For example, to specify whether the name of a patient is the patient's official name, nickname, or maiden name, there is a property called <code>use</code>. This property is a secondary index in the collection because the value of this property is unique within the collection. To enable the use of a secondary index within a UI, the UI5 FHIR Model includes a concept called slicing. For a UI5 element bound to a property that can be addressed by a secondary index, the syntax is as follows: <code>/path/[secondaryIndex=myIndex]/property</code>. For example, a UI5 element bound to the official family name would have the following syntax: <code>/Patient/XYZ/name/[use=official]/family</code>. This feature enables application developers to write stable UIs without knowing the order of the collections.</p>
+<p>The properties of a FHIR® resource can have different cardinalities. A property with a 1:N (one-to-many) relationship formally contains a collection. The items of a collection can be addressed by their indexes, for example, <code>/Patient/XYZ/name/0/family</code>. However, addressing the items of a collection by their indexes is unreliable because the index of an item can be affected, for example, by when the item was stored or last updated. So, an application developer should not implement anything based on the index of an item of a collection. Therefore, the FHIR® specification introduces a kind of secondary index. For example, to specify whether the name of a patient is the patient's official name, nickname, or maiden name, there is a property called <code>use</code>. This property is a secondary index in the collection because the value of this property is unique within the collection. To enable the use of a secondary index within a UI, the <em>UI5 FHIR Model</em> includes a concept called slicing. For a UI5 element bound to a property that can be addressed by a secondary index, the syntax is as follows: <code>/path/[secondaryIndex=myIndex]/property</code>. For example, a UI5 element bound to the official family name would have the following syntax: <code>/Patient/XYZ/name/[use=official]/family</code>. This feature enables application developers to write stable UIs without knowing the order of the collections.</p>
 <p><em>Example: Binding the Value of an Input Field to the Official Family Name of a Patient.</em></p>
 <pre class="prettyprint source lang-xml"><code>&lt;Page id=&quot;patientPage&quot; binding=&quot;{/Patient/123}&quot;>
     &lt;Input id=&quot;myLastName&quot; value=&quot;{name/[use=official]/family}&quot;>
@@ -86,7 +86,7 @@ This is useful, for example, for references where you would like to get multiple
               &lt;/ColumnListItem>
 </code></pre>
 <h3>Step 3.2 References</h3>
-<p>The FHIR® specification allows references on properties of a FHIR® resource. This means that rather than storing real data, the property stores a link to another resource. The UI5 FHIR Model allows binding to a reference that is not part of the FHIR® resource. The syntax for this binding looks as follows: First of all, the context has to be bound to the resource itself. Therefore, you need to modify the existing binding syntax as follows:</p>
+<p>The FHIR® specification allows references on properties of a FHIR® resource. This means that rather than storing real data, the property stores a link to another resource. The <em>UI5 FHIR Model</em> allows binding to a reference that is not part of the FHIR® resource. The syntax for this binding looks as follows: First of all, the context has to be bound to the resource itself. Therefore, you need to modify the existing binding syntax as follows:</p>
 <pre class="prettyprint source lang-javascript"><code> { path: 'resourceType', parameters: { request: { _include: 'resourceType: searchParameterReference'}}}
 </code></pre>
 <ul>
@@ -112,9 +112,9 @@ This is useful, for example, for references where you would like to get multiple
 &lt;/List>
 </code></pre>
 <h3>Step 3.4 ValueSets</h3>
-<p>The FHIR® specification provides code values as ValueSets, which can be bound to the UI with the UI5 FHIR Model in two different ways.</p>
+<p>The FHIR® specification provides code values as ValueSets, which can be bound to the UI with the <em>UI5 FHIR Model</em> in two different ways.</p>
 <p><strong>Option A</strong>:
-In many cases, you want to display codes of a ValueSet associated with a resource. The UI5 FHIR Model detects that a code of a ValueSet is stored on a bound resource property. In that case, the UI5 FHIR Model requests the desired ValueSet from the FHIR® server and provides it to the UI.</p>
+In many cases, you want to display codes of a ValueSet associated with a resource. The <em>UI5 FHIR Model</em> detects that a code of a ValueSet is stored on a bound resource property. In that case, the <em>UI5 FHIR Model</em> requests the desired ValueSet from the FHIR® server and provides it to the UI.</p>
 <p><em>Example: Binding a Page to a Specific Patient: Displaying the Gender of the Patient and Show All Available Gender Values</em></p>
 <pre class="prettyprint source lang-xml"><code>&lt;Page id=&quot;patientPage&quot; binding=&quot;{/Patient/123}&quot;>
     &lt;Select id=&quot;genderSelect&quot; items=&quot;{gender}&quot; selectedKey=&quot;{gender}&quot; forceSelection=&quot;false&quot;>
@@ -130,7 +130,7 @@ In other cases, the ValueSet should be displayed without its associated context.
 &lt;/Select>
 </code></pre>
 <h3>Step 3.5 Paging</h3>
-<p>The FHIR® specification provides a paging mechanism out of the box. Paging ensures that UI5 applications have to load and store only data that is actually needed. The UI5 FHIR Model supports the FHIR® paging mechanism natively without any further configurations on the binding side. UI5 provides controls that are paging-ready, for example, <code>sap.m.List</code>and <code>sap.m.Table</code>. These controls can used in paging scenarios by configuring the growing properties: <code>growing</code> with value <code>true</code> and <code>growingThreshold</code> with the desired number of items that should be loaded from the server.</p>
+<p>The FHIR® specification provides a paging mechanism out of the box. Paging ensures that UI5 applications have to load and store only data that is actually needed. The <em>UI5 FHIR Model</em> supports the FHIR® paging mechanism natively without any further configurations on the binding side. UI5 provides controls that are paging-ready, for example, <code>sap.m.List</code>and <code>sap.m.Table</code>. These controls can used in paging scenarios by configuring the growing properties: <code>growing</code> with value <code>true</code> and <code>growingThreshold</code> with the desired number of items that should be loaded from the server.</p>
 <p><em>Example: Binding a List to All Available Patients but Show 5nly 5 at the First Time</em></p>
 <pre class="prettyprint source lang-xml"><code>&lt;List id=&quot;patientList&quot; items=&quot;{/Patient}&quot; growing=&quot;true&quot; growingThreshold=&quot;5&quot;>
      &lt;StandardListItem title=&quot;{name/[use=official]/family}&quot;/>
@@ -144,7 +144,7 @@ In other cases, the ValueSet should be displayed without its associated context.
   <tr valign="top">
     <td><img src="images/Tutorial_Step_3/tile_kpi_patients.PNG"/></td>
     <td>
-	    There are use cases where the total number of resources should be displayed on the UI. The most common use case is the launchpad KPI tiles scenario (see picture aside). The UI5 FHIR Model provides a special binding syntax to enable binding on the total number of resources. The context of the UI5 control has to be bound to the desired aggregation, for example, `{/Patient}`, `{/Organization}`, or `{ path: '/Patient', parameters: { filters: [{ path : 'address', value1: 'germany', operator: 'Contains'}]}}`. Now, any controls that have access to this context can bind their value to `{%total%}`.
+	    There are use cases where the total number of resources should be displayed on the UI. The most common use case is the launchpad KPI tiles scenario (see picture aside). The *UI5 FHIR Model* provides a special binding syntax to enable binding on the total number of resources. The context of the UI5 control has to be bound to the desired aggregation, for example, `{/Patient}`, `{/Organization}`, or `{ path: '/Patient', parameters: { filters: [{ path : 'address', value1: 'germany', operator: 'Contains'}]}}`. Now, any controls that have access to this context can bind their value to `{%total%}`.
     </td>
   </tr>
 </table>
@@ -156,7 +156,7 @@ In other cases, the ValueSet should be displayed without its associated context.
 &lt;/GenericTile>
 </code></pre>
 <h3>Step 3.7 Refreshing</h3>
-<p>An application might need to trigger a manual refresh of an existing binding. For example, there might be a button on the UI that refreshes a UI element after being selected. The UI5 FHIR Model supports the following refresh triggers:</p>
+<p>An application might need to trigger a manual refresh of an existing binding. For example, there might be a button on the UI that refreshes a UI element after being selected. The <em>UI5 FHIR Model</em> supports the following refresh triggers:</p>
 <p><em>Example: Refreshing a List</em></p>
 <pre class="prettyprint source lang-javascript"><code>this.getView().byId(&quot;patientList&quot;).getBinding(&quot;items&quot;).refresh();
 </code></pre>
@@ -174,7 +174,7 @@ In other cases, the ValueSet should be displayed without its associated context.
 </code></pre>
 <h3>Step 3.8 Binding of FHIR® operations</h3>
 <p>FHIR® permits the creation of operations on the FHIR® base URL (for example <code>/fhir/R4/$myoperation</code>), on resource types (for example, <code>/fhir/R4/Patient/$myoperation</code>) and on resource entities (for example, <code>/fhir/R4/Patient/123/$myoperation</code>).
-The UI5 FHIR Model also supports the binding of UI elements to the output of FHIR® operations. If the operation returns a single or multiple resources, the following binding syntax can be used:</p>
+The <em>UI5 FHIR Model</em> also supports the binding of UI elements to the output of FHIR® operations. If the operation returns a single or multiple resources, the following binding syntax can be used:</p>
 <p><em>Example: Binding a List to a FHIR® Operation That Returns Multiple Patients</em></p>
 <pre class="prettyprint source lang-xml"><code>&lt;List id=&quot;myList&quot; items=&quot;{/Patient/$myoperation}&quot;>
     &lt;StandardListItem title=&quot;{gender} &quot;description=&quot;{birthdate}&quot;/> 
@@ -228,7 +228,7 @@ oBinding.filter(
 <br class="clear">
 
 <footer>
-Generated by <a href="https://github.com/jsdoc3/jsdoc" target="_blank">JSDoc 3.6.2</a> on Thu, 06 Jun 2019 09:18:30 GMT based on the <a href="https://github.com/nijikokun/minami/" target="_blank">Minami</a> theme.
+Generated by <a href="https://github.com/jsdoc3/jsdoc" target="_blank">JSDoc 3.6.2</a> on Thu, 06 Jun 2019 11:58:31 GMT based on the <a href="https://github.com/nijikokun/minami/" target="_blank">Minami</a> theme.
 </footer>
 
 <script>prettyPrint();</script>

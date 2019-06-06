@@ -39,22 +39,22 @@
 </header>
 
 <article>
-    <p>FHIR provides two different kinds of requests. Resources can either be created, read, updated and deleted with a direct HTTP call, or one or more requests can be packed in bundles. The following chapter explains the configuration of request handling.</p>
+    <p>FHIR® provides two different kinds of requests. Resources can either be created, read, updated and deleted with a direct HTTP call, or one or more requests can be packed in bundles. The following chapter explains the configuration of request handling.</p>
 <blockquote>
-<p>Hint: For UI5 applications based on a FHIR endpoint, the recommendation is to use bundle requests to reduce the number of requests and to avoid potentially patient-specific data in the URL. Nevertheless, there might be use cases where the application developer will use direct HTTP requests,for example, when the FHIR endpoint cannot process bundle requests.</p>
+<p>Hint: For UI5 applications based on a FHIR® server, the recommendation is to use bundle requests to reduce the number of requests and to avoid potentially patient-specific data in the URL. Nevertheless, there might be use cases where the application developer will use direct HTTP requests,for example, when the FHIR® server cannot process bundle requests.</p>
 </blockquote>
 <h3>Step 4.1: Direct Requests</h3>
-<p>Out of the box, the UI5 FHIR Model requests and submits data as direct requests. This mode lets the URL contain the following syntax:</p>
+<p>Out of the box, the <em>UI5 FHIR Model</em> requests and submits data as direct requests. This mode lets the URL contain the following syntax:</p>
 <pre class="prettyprint source"><code>VERB [base]/[type]/[id] {?_format=[mime-type]}
 </code></pre>
 <ul>
 <li><code>VERB</code>: The HTTP verb used for the interaction (GET, POST, PUT, DELETE)</li>
-<li><code>base</code>: The FHIR endpoint base URL (http://myfhirservice.com/fhir/)</li>
+<li><code>base</code>: The FHIR® server base URL (http://myfhirservice.com/fhir/)</li>
 <li><code>type</code>: The name of a resource type (for example, &quot;Patient&quot;)</li>
 <li><code>id</code>: The logical ID of a resource</li>
 <li><code>mime-type</code>: The mime-type (JSON or XML)</li>
 </ul>
-<p>For more information about the FHIR RESTful API, see the <a href="https://www.hl7.org/fhir/http.html#read">FHIR-Documentation</a>.</p>
+<p>For more information about the FHIR® RESTful API, see the <a href="https://www.hl7.org/fhir/http.html#read">FHIR®-Documentation</a>.</p>
 <p><em>Example: Binding a Panel to a Specific Patient and Show a List of All Patients Below</em></p>
 <pre class="prettyprint source lang-xml"><code>&lt;Panel id=&quot;myPatient&quot; binding=&quot;{/Patient/XYZ}&quot;>
     &lt;Input value=&quot;{name/[use=official]/family}&quot;/>
@@ -68,7 +68,7 @@
 <table>
   <tr valign="top">
     <td>With this UI, the model detects one FHIRContextBinding and one FHIRListBinding. Both are requesting their needed data in a separate HTTP call. The first call is `http://myfhirservice.com/fhir/Patient/XYZ`, the second call is `http://myfhirservice.com/fhir/Patient`.
-    Direct requests support all functionalities of the FHIR RESTful API. When you use this type of request, every binding triggers individual requests. So, the number of requests depends on how many bindings are declared on an UI. </br> </br>
+    Direct requests support all functionalities of the FHIR® RESTful API. When you use this type of request, every binding triggers individual requests. So, the number of requests depends on how many bindings are declared on an UI. </br> </br>
     Now, a user can change the name of a single patient and save all changes by pressing the save button. This is possible by executing the `submitChanges` method of the model:
     </td>
     <td><img src="images/Tutorial_Step_4/request_sample_direct.PNG" class="side_picture"/></td>
@@ -82,8 +82,8 @@
 <table>
   <tr valign="top">
     <td>
-FHIR bundle requests have some advantages over direct requests. The number of requests between the UI and the FHIR endpoint can be reduced to a minimum, and the requested URL only contains the service base URL. FHIR provides two different types of bundle requests (`batch` and `transaction`). Both types submit a set of one or more actions via an HTTP request to the FHIR endpoint, which performs the different actions either independently as a batch or as a single atomic transaction. This implicates that if one or more actions fail, the other actions will be performed anyway (`batch`) or all other actions will not be performed at all (`transaction`).
- For more information about FHIR bundle requests, see the [FHIR-Documentation](https://www.hl7.org/fhir/http.html#transaction).
+FHIR® bundle requests have some advantages over direct requests. The number of requests between the UI and the FHIR® server can be reduced to a minimum, and the requested URL only contains the service base URL. FHIR® provides two different types of bundle requests (`batch` and `transaction`). Both types submit a set of one or more actions via an HTTP request to the FHIR® server, which performs the different actions either independently as a batch or as a single atomic transaction. This implicates that if one or more actions fail, the other actions will be performed anyway (`batch`) or all other actions will not be performed at all (`transaction`).
+ For more information about FHIR® bundle requests, see the [FHIR®-Documentation](https://www.hl7.org/fhir/http.html#transaction).
  </td>
     <td><img src="images/Tutorial_Step_4/request_sample_bundle.PNG" class="side_picture"/></td>
  </tr>
@@ -122,7 +122,7 @@ FHIR bundle requests have some advantages over direct requests. The number of re
 &lt;/List>
 </code></pre>
 <h4>Step 4.2.3: Submitting Changes</h4>
-<p>By introducing of the group concept, you can also control which changes will be send to the FHIR endpoint by mentioning the <code>groupId</code> when submitting the changes. Now, only the changes that are triggered by bindings assigned to group <code>A</code> are send to the FHIR endpoint.</p>
+<p>By introducing of the group concept, you can also control which changes will be send to the FHIR® server by mentioning the <code>groupId</code> when submitting the changes. Now, only the changes that are triggered by bindings assigned to group <code>A</code> are send to the FHIR® server.</p>
 <pre class="prettyprint source lang-javascript"><code>onSavePress: function(){
     this.getView().getModel().submitChanges(&quot;A&quot;);
 }
@@ -160,7 +160,7 @@ FHIR bundle requests have some advantages over direct requests. The number of re
 <br class="clear">
 
 <footer>
-Generated by <a href="https://github.com/jsdoc3/jsdoc" target="_blank">JSDoc 3.6.2</a> on Thu, 06 Jun 2019 09:18:30 GMT based on the <a href="https://github.com/nijikokun/minami/" target="_blank">Minami</a> theme.
+Generated by <a href="https://github.com/jsdoc3/jsdoc" target="_blank">JSDoc 3.6.2</a> on Thu, 06 Jun 2019 11:58:31 GMT based on the <a href="https://github.com/nijikokun/minami/" target="_blank">Minami</a> theme.
 </footer>
 
 <script>prettyPrint();</script>
