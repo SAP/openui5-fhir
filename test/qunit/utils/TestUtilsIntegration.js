@@ -15,6 +15,7 @@ sap.ui.define(["sap/base/util/merge"], function (merge) {
 	TestUtilsIntegration.manipulateResponse = function (sRequestedUrl, oModel, fnSetResponse, fnDoCheck) {
 		var fnManipulateResponse = function (oEvent) {
 			if (oEvent.getParameter("requestHandle").getUrl() === sRequestedUrl) {
+				oModel.detachRequestSent(fnManipulateResponse);
 				oEvent.getParameter("requestHandle").getRequest().success(function (oRequestHandle) {
 					fnSetResponse(oRequestHandle);
 				}.bind(this, oEvent.getParameter("requestHandle")));
