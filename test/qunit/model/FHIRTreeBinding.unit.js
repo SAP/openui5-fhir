@@ -137,4 +137,27 @@ sap.ui.define([
 		assert.throws(function () { return this.oFhirModel1.bindTree("/StructureDefinition", undefined, undefined, mParameters); }, new Error("Missing parameter: 'nodeProperty'."));
 	});
 
+	QUnit.test("Test getContextByIndex", function(assert){
+		var oFirstContext = this.oTreeBinding.getContextByIndex(0);
+		assert.strictEqual(oFirstContext, undefined, "The context is 'undefined' because binding is in initial state.");
+	});
+
+	QUnit.test("Test findNode", function(assert){
+		var oFirstNode = this.oTreeBinding.findNode(0);
+		assert.strictEqual(oFirstNode, undefined, "The node is 'undefined' because binding is in initial state.");
+	});
+
+	QUnit.test("Test isGrouped", function(assert){
+		assert.strictEqual(this.oTreeBinding.isGrouped(), true, "Everytime true, only AnalyticalBindings might differ");
+	});
+	
+	QUnit.test("Test nodeHasChildren", function(assert){
+		assert.strictEqual(this.oTreeBinding.nodeHasChildren(undefined), false, "If the node is 'undefined', no children can be determined.");
+	});
+
+	QUnit.test("Test setNodeSelection", function(assert){
+		var oMockedNodeState = {};
+		assert.deepEqual(this.oTreeBinding.setNodeSelection(oMockedNodeState, true), undefined, "If the nodestate has no property 'groupID' defined, no selection is performed.");
+	});
+
 });
