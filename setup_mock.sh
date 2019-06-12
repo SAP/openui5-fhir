@@ -4,11 +4,8 @@ cd hapi-fhir-jpaserver
 git checkout 4471b32b7beaa8cfa10eec34a9b440dff1b85577
 sed -i -e 's/config.addAllowedHeader("Origin");/config.addAllowedHeader("Origin");config.addAllowedHeader("cache-control");config.addAllowedHeader("Prefer");config.addAllowedHeader("If-Match");/g' src/main/java/ca/uhn/fhir/jpa/starter/JpaRestfulServer.java
 sed -i -e 's/"PATCH")/"PATCH", "HEAD")/g' src/main/java/ca/uhn/fhir/jpa/starter/JpaRestfulServer.java
-sed -i -e 's/fhir_version=DSTU3/fhir_version=R4/g' src/main/resources/hapi.properties
-sed -i -e 's/\/fhir/\/fhir\/R4/g' src/main/java/ca/uhn/fhir/jpa/starter/HapiProperties.java
 sed -i -e 's/\/fhir\//\/fhir\/R4\//g' src/main/webapp/WEB-INF/web.xml
-sed -i -e 's/server_address=http:\/\/localhost:8080\/fhir\//server_address=http:\/\/localhost:8080\/fhir\/R4\//g' src/main/resources/hapi.properties
-sed -i -e 's/server.base=\/fhir/server.base=\/fhir\/R4/g' src/main/resources/hapi.properties
+sed -i -e 's/server_address=http:\/\/localhost:8080\/hapi-fhir-jpaserver/\fhir\//server_address=http:\/\/localhost:8080\/fhir\/R4\//g' src/main/resources/hapi.properties
 mvn clean install -DskipTests
 docker build -t hapi-fhir-jpaserver .
 docker run -p 8080:8080 -d hapi-fhir-jpaserver
