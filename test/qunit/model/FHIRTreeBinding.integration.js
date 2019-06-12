@@ -40,13 +40,13 @@ sap.ui.define([
 
 	QUnit.test("Test setSelectedIndex", function(assert){
 		var sPath = "/StructureDefinition";
-		var mParameters = {rootSearch: 'base:exact', rootProperty: 'baseDefinition', rootValue: 'http://hl7.org/fhir/StructureDefinition/DomainResource', nodeProperty: 'url'};
+		var mParameters = {rootSearch: "base:exact", rootProperty: "baseDefinition", rootValue: "http://hl7.org/fhir/StructureDefinition/DomainResource", nodeProperty: "url"};
 		var oTreeBinding = this.oFhirModel.bindTree(sPath, undefined, undefined, mParameters);
 		var done = assert.async();
 		var fnDataReceivedCheck = function () {
 			oTreeBinding.detachDataReceived(fnDataReceivedCheck);
 			assert.strictEqual(false, oTreeBinding.isInitial(), "Treebinding is not longer in initial state.");
-			// test here the setSelectedIndex method - go to opa tests and debug how nodes are generated at this point in time nodes are not there			
+			// test here the setSelectedIndex method - go to opa tests and debug how nodes are generated at this point in time nodes are not there
 			done();
 		};
 		oTreeBinding.attachDataReceived(fnDataReceivedCheck);

@@ -150,7 +150,7 @@ sap.ui.define([
 	QUnit.test("Test isGrouped", function(assert){
 		assert.strictEqual(this.oTreeBinding.isGrouped(), true, "Everytime true, only AnalyticalBindings might differ");
 	});
-	
+
 	QUnit.test("Test nodeHasChildren", function(assert){
 		assert.strictEqual(this.oTreeBinding.nodeHasChildren(undefined), false, "If the node is 'undefined', no children can be determined.");
 	});
