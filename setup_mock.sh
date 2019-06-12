@@ -6,6 +6,7 @@ sed -i -e 's/config.addAllowedHeader("Origin");/config.addAllowedHeader("Origin"
 sed -i -e 's/"PATCH")/"PATCH", "HEAD")/g' src/main/java/ca/uhn/fhir/jpa/starter/JpaRestfulServer.java
 sed -i -e 's/\/fhir\//\/fhir\/R4\//g' src/main/webapp/WEB-INF/web.xml
 sed -i -e 's/server_address=http:\/\/localhost:8080\/hapi-fhir-jpaserver/\fhir\//server_address=http:\/\/localhost:8080\/fhir\/R4\//g' src/main/resources/hapi.properties
+sed -i -e 's/<contextPath>\/hapi-fhir-jpaserver<\/contextPath>/<contextPath>\/<\/contextPath>'
 mvn clean install -DskipTests
 docker build -t hapi-fhir-jpaserver .
 docker run -p 8080:8080 -d hapi-fhir-jpaserver
