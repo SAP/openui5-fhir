@@ -4,6 +4,8 @@
 [![Coverage Status](https://coveralls.io/repos/github/SAP/openui5-fhir/badge.svg?branch=master)](https://coveralls.io/github/SAP/openui5-fhir?branch=master)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE.txt)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+[![Dependency Status](https://david-dm.org/SAP/openui5-fhir/master.svg)](https://david-dm.org/SAP/openui5-fhir/master)
+[![devDependency Status](https://david-dm.org/SAP/openui5-fhir/master/dev-status.svg)](https://david-dm.org/SAP/openui5-fhir/master#info=devDependencies)
 
 **The OpenUI5-FHIR project connects the worlds of UI5 and FHIR®. Build beautiful and enterprise-ready web applications based on the FHIR® specification.**
 
