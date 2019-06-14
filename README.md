@@ -2,6 +2,8 @@
 [![npm version](https://badge.fury.io/js/openui5-fhir.svg)](//www.npmjs.com/package/openui5-fhir)
 [![Build Status](https://travis-ci.org/SAP/openui5-fhir.svg?branch=master)](https://travis-ci.org/SAP/openui5-fhir)
 [![Coverage Status](https://coveralls.io/repos/github/SAP/openui5-fhir/badge.svg?branch=master)](https://coveralls.io/github/SAP/openui5-fhir?branch=master)
+[![Dependency Status](https://david-dm.org/SAP/openui5-fhir/master.svg)](https://david-dm.org/SAP/openui5-fhir/master)
+[![devDependency Status](https://david-dm.org/SAP/openui5-fhir/master/dev-status.svg)](https://david-dm.org/SAP/openui5-fhir/master#info=devDependencies)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE.txt)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
