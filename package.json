@@ -28,7 +28,7 @@
     "karma-coverage": "^1.1.2",
     "karma-junit-reporter": "^1.2.0",
     "karma-ui5": "^1.0.0",
-    "@ui5/cli": "^1.5.0",
+    "@ui5/cli": "^1.5.1",
     "coveralls": "^3.0.3"
   },
   "scripts": {
