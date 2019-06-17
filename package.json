@@ -18,6 +18,9 @@
     "node": ">= 8.5",
     "npm": ">= 5"
   },
+  "dependencies": {
+    "@openui5/sap.ui.core": "1.66.1"
+  },
   "devDependencies": {
     "eslint": "^5.16.0",
     "eslint-watch": "^5.1.2",
