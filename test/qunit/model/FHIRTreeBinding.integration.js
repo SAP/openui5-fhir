@@ -5,7 +5,7 @@ sap.ui.define([
 	"sap/fhir/model/r4/FHIRFilterOperator"
 ], function (TestUtilsIntegration, TestUtils, FHIRFilter, FHIRFilterOperator) {
 	"use strict";
-	
+
 	var oModel, oTreeBinding;
 
 	function createModel(mParameters) {
@@ -48,9 +48,16 @@ sap.ui.define([
 
 	QUnit.test("Test getNodeContexts", function(assert){
 		var mParameters = {rootSearch: "base", rootProperty: "baseDefinition", rootValue: "http://hl7.org/fhir/StructureDefinition/DomainResource", nodeProperty: "url"};
-		createTreeBinding("/StructureDefinition", undefined, undefined, mParameters)
-		
+		createTreeBinding("/StructureDefinition", undefined, undefined, mParameters);
+
 		var done = assert.async();
+
+		var fnChangeHandler2 = function(){
+			oTreeBinding.getContexts(0, 10);
+			var oAccountNode = oTreeBinding.getNodeByIndex(0);
+			assert.strictEqual(oAccountNode.nodeState.expanded, false, "The first node is not expanded.");
+			done();
+		};
 
 		var fnChangeHandler1 = function () {
 			oTreeBinding.detachChange(fnChangeHandler1);
@@ -61,12 +68,7 @@ sap.ui.define([
 			oTreeBinding.getNodeContexts(oAccountContext, fnChangeHandler2);
 		};
 
-		var fnChangeHandler2 = function(){
-			var aContexts = oTreeBinding.getContexts(0, 10);
-			var oAccountNode = oTreeBinding.getNodeByIndex(0);
-			assert.strictEqual(oAccountNode.nodeState.expanded, false, "The first node is not expanded.");
-			done();
-		};
+
 		oTreeBinding.attachChange(fnChangeHandler1);
 		oTreeBinding.getContexts(0, 10);
 	});
