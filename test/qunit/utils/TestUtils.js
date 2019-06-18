@@ -1,14 +1,20 @@
-sap.ui.define(["sap/base/util/merge"], function (merge) {
+sap.ui.define([
+	"sap/ui/thirdparty/jquery",
+	"sap/base/util/merge",
+	"sap/fhir/model/r4/FHIRModel",
+	"sap/fhir/model/r4/lib/RequestHandle"
+], function (jQuery, merge, FHIRModel, RequestHandle) {
 	"use strict";
 	var TestUtils = {};
 
 	/**
 	 * Creates a new object with random data Note: creation of objects with deeper levels than 8, will lead to overflow the memory stack (tested with google chorme)
 	 *
-	 * @public
-	 * @param {number} iNumberOfFields - The number of fields which the object contains shall contain
-	 * @param {number} iLevel - The number of levels which a object structure can have as field value
+	 * @protected
+	 * @param {number} iNumberOfFields The number of fields which the object contains shall contain
+	 * @param {number} iLevel The number of levels which a object structure can have as field value
 	 * @returns {object} oRandomObject
+	 * @since 0.0.2
 	 */
 	TestUtils.createRandomObject = function (iNumberOfFields, iLevel) {
 		var oRandomObject = {};
@@ -19,27 +25,27 @@ sap.ui.define(["sap/base/util/merge"], function (merge) {
 				case 0:
 					oGeneratedField = null;
 					break;
-				// boolean
+					// boolean
 				case 1:
 					oGeneratedField = Math.random() < 0.5 ? true : false;
 					break;
-				// integer
+					// integer
 				case 2:
 					oGeneratedField = this.randomInt(0, 1000);
 					break;
-				// float
+					// float
 				case 3:
 					oGeneratedField = Math.random();
 					break;
-				// string
+					// string
 				case 4:
 					oGeneratedField = this.randomString(this.randomInt(0, 20));
 					break;
-				// array
+					// array
 				case 5:
 					oGeneratedField = this.createArray(this.createSimpleRandomObject.bind(this), this.randomInt(0, 10));
 					break;
-				// object
+					// object
 				case 6:
 					oGeneratedField = this.createRandomObject(iNumberOfFields, iLevel - 1);
 					break;
@@ -55,10 +61,11 @@ sap.ui.define(["sap/base/util/merge"], function (merge) {
 	/**
 	 * Creates a random integer value between two digits
 	 *
-	 * @public
-	 * @param {number} iLowerLimit - The lower limit (inclusive)
-	 * @param {number} iUpperLimit - The upper limit (exclusive)
+	 * @protected
+	 * @param {number} iLowerLimit The lower limit (inclusive)
+	 * @param {number} iUpperLimit The upper limit (exclusive)
 	 * @returns {number} iRandomInteger
+	 * @since 0.0.2
 	 */
 	TestUtils.randomInt = function (iLowerLimit, iUpperLimit) {
 		return Math.floor((Math.random() * (iUpperLimit - iLowerLimit)) + iLowerLimit);
@@ -67,9 +74,10 @@ sap.ui.define(["sap/base/util/merge"], function (merge) {
 	/**
 	 * Creates random string with upper and lower case chars
 	 *
-	 * @public
-	 * @param {number} iLength - The length of the string
+	 * @protected
+	 * @param {number} iLength The length of the string
 	 * @returns {string} iRandomString
+	 * @since 0.0.2
 	 */
 	TestUtils.randomString = function (iLength) {
 		var sChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -84,10 +92,11 @@ sap.ui.define(["sap/base/util/merge"], function (merge) {
 	/**
 	 * Creates an array with entities created by the given function
 	 *
-	 * @public
+	 * @protected
 	 * @param {function} fGenerateEntity - The function to create an entity
 	 * @param {number} iLength - The length of the array
 	 * @returns {array} oRandomArray
+	 * @since 0.0.2
 	 */
 	TestUtils.createArray = function (fGenerateEntity, iLength) {
 		var aGeneratedArray = [];
@@ -100,8 +109,9 @@ sap.ui.define(["sap/base/util/merge"], function (merge) {
 	/**
 	 * Creates an object with one random string property
 	 *
-	 * @public
+	 * @protected
 	 * @returns {object} oRandomObject
+	 * @since 0.0.2
 	 */
 	TestUtils.createSimpleRandomObject = function () {
 		// create an object with one field
@@ -113,9 +123,10 @@ sap.ui.define(["sap/base/util/merge"], function (merge) {
 	/**
 	 * Creates a full copy of the given <code>oObject</code>
 	 *
+	 * @protected
 	 * @param {object} oObject The object to be cloned
 	 * @returns {object} The cloned object
-	 * @public
+	 * @since 0.0.2
 	 */
 	TestUtils.deepClone = function (oObject) {
 		if (oObject && typeof oObject === "object") {
@@ -132,6 +143,15 @@ sap.ui.define(["sap/base/util/merge"], function (merge) {
 		return undefined;
 	};
 
+
+	/**
+	 * Loads the JSON file located on the given <code>sFilePath</code>
+	 *
+	 * @protected
+	 * @param {string} sFilePath The path to the JSON file
+	 * @returns {object} The JSON object contained by the loaded file
+	 * @since 0.0.2
+	 */
 	TestUtils.loadJSONFile = function (sFilePath) {
 		var oJSON;
 		jQuery.ajax({
@@ -148,9 +168,9 @@ sap.ui.define(["sap/base/util/merge"], function (merge) {
 	/**
 	 * Determines the url parameters by the url
 	 *
+	 * @protected
 	 * @param {string} sUrl The url which might contain url parameters
 	 * @returns {object} The map containing the url parameters
-	 * @private
 	 * @since 0.0.2
 	 */
 	TestUtils.getQueryParameters = function (sUrl) {
@@ -164,6 +184,60 @@ sap.ui.define(["sap/base/util/merge"], function (merge) {
 			mUrlParameters[aUrlParameter[0]] = aUrlParameter[1];
 		});
 		return mUrlParameters;
+	};
+
+	/**
+	 * Creates a new FHIRModel instance
+	 *
+	 * @protected
+	 * @param {string} sServiceBaseUrl The FHIR service base url
+	 * @param {object} mParameters The model parameters
+	 * @returns {sap.fhir.model.r4.FHIRModel} The newly created FHIRModel instance
+	 * @since 0.0.2
+	 */
+	TestUtils.createFHIRModel = function (sServiceBaseUrl, mParameters) {
+		return new FHIRModel(sServiceBaseUrl, mParameters);
+	};
+
+	/**
+ 	 * Creates a request handle with a mocked ajax request
+	 *
+	 * @protected
+	 * @returns {sap.fhir.model.r4.lib.RequestHandle} The request handle
+	 * @since 0.0.2
+	 */
+	TestUtils.createRequestHandle = function () {
+		var oRequestHandle = new RequestHandle();
+		oRequestHandle.setRequest(TestUtils.createAjaxCallMock());
+		return oRequestHandle;
+	};
+
+	/**
+	 * Creates a mocked ajax request with given <code>mResponseHeaders</code>
+	 *
+	 * @protected
+	 * @param {object} mResponseHeaders The map of response headers
+	 * @returns {object} The mocked ajax request
+	 * @since 0.0.2
+	 */
+	TestUtils.createAjaxCallMock = function (mResponseHeaders) {
+		var jqXHRMock = {};
+		var sResponseHeaders = "";
+		for (var sKey in mResponseHeaders) {
+			if (mResponseHeaders.hasOwnProperty(sKey)) {
+				sResponseHeaders += sKey + ": " + mResponseHeaders[sKey] + "\r\n";
+			}
+		}
+		jqXHRMock.getAllResponseHeaders = function () {
+			return sResponseHeaders;
+		};
+		jqXHRMock.getResponseHeader = function (sKey) {
+			return mResponseHeaders[sKey];
+		};
+		jqXHRMock.state = function () {
+			return "";
+		};
+		return jqXHRMock;
 	};
 
 	return TestUtils;
