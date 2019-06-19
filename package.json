@@ -41,7 +41,7 @@
     "docs:dev": "npx jsdoc --configure ./lib/jsdoc/create-api-documentation.js --verbose --access all",
     "serve": "npm run serve:mockserver && npm run serve:ui5",
     "serve:ui5": "ui5 serve",
-    "serve:mockserver": "./setup_mock.sh",
+    "serve:mockserver": "./scripts/setup_mock.sh",
     "test": "karma start",
     "test:unit": "karma start karma-unit.conf.js",
     "test:opa5": "karma start karma-opa5.conf.js",
@@ -53,7 +53,8 @@
     "lint:watch": "esw . --watch",
     "lint:watch:fix": "esw . --watch --fix",
     "lint:watch:fix:debug": "esw . --watch --fix --debug",
-    "format:xml": "js-beautify --wrap-attributes force-aligned --replace --type html test/**/*.xml"
+    "format:xml": "js-beautify --wrap-attributes force-aligned --replace --type html test/**/*.xml",
+    "build": "ui5 build --include-task=replaceCopyright replaceVersion generateLibraryManifest --exclude-task=*"
   },
   "files": [
     "src/sap/fhir/**/*.js",
