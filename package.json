@@ -54,7 +54,7 @@
     "lint:watch:fix": "esw . --watch --fix",
     "lint:watch:fix:debug": "esw . --watch --fix --debug",
     "format:xml": "js-beautify --wrap-attributes force-aligned --replace --type html test/**/*.xml",
-    "build": "ui5 build --include-task=replaceCopyright replaceVersion generateLibraryManifest --exclude-task=*"
+    "prepublishOnly": "ui5 build --include-task=replaceCopyright replaceVersion generateLibraryManifest --exclude-task=*"
   },
   "files": [
     "src/sap/fhir/**/*.js",
