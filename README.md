@@ -67,7 +67,7 @@ The following table displays the versions of *OpenUI5-FHIR* and the correspondin
 
 | *OpenUI5-FHIR*	| *OpenUI5*	|
 | -----------------	| ---------	|
-| 1.X 				| > 1.58.0	|
+| 1.X.Y				| > 1.58.0	|
 
 ## License
 
