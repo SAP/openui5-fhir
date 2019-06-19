@@ -116,7 +116,7 @@ The example above shows four parameters that are necessary to configure the tran
 
 *Example: Bind a sap.m.Tree to a Tree of Structure Definitions and Display the Name of the Structure Definitions*
 ```xml
-<Tree id="tree" items="{path: '/StructureDefinition', parameters: {rootSearch: 'base:exact', rootProperty: 'baseDefinition', rootValue: 'http://hl7.org/fhir/StructureDefinition/DomainResource', nodeProperty: 'url'}}">
+<Tree id="tree" items="{path: '/StructureDefinition', parameters: {rootSearch: 'base', rootProperty: 'baseDefinition', rootValue: 'http://hl7.org/fhir/StructureDefinition/DomainResource', nodeProperty: 'url'}}">
 	<StandardTreeItem title="{name}" />
 </Tree>
 ```

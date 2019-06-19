@@ -21,7 +21,7 @@
                       mode="SingleSelectMaster"
                       includeItemInSelection="true"
                       selectionChange="onItemPress"
-                      items="{path: '/StructureDefinition', length: 10,  parameters: {rootSearch: 'base:exact', rootProperty: 'baseDefinition', rootValue: 'http://hl7.org/fhir/StructureDefinition/DomainResource', nodeProperty: 'url'}, sorter: [{ path : 'name'}]}">
+                      items="{path: '/StructureDefinition', length: 10,  parameters: {rootSearch: 'base', rootProperty: 'baseDefinition', rootValue: 'http://hl7.org/fhir/StructureDefinition/DomainResource', nodeProperty: 'url'}, sorter: [{ path : 'name'}]}">
                     <StandardTreeItem title="{name}" />
                 </Tree>
             </ScrollContainer>
