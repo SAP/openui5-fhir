@@ -8,6 +8,11 @@
     "type": "git",
     "url": "https://github.com/SAP/openui5-fhir.git"
   },
+  "contributors": [
+    {
+      "url": "https://github.com/SAP/openui5-fhir/graphs/contributors"
+    }
+  ],
   "keywords": [
     "openui5",
     "sapui5",
@@ -38,10 +43,10 @@
     "serve:ui5": "ui5 serve",
     "serve:mockserver": "./setup_mock.sh",
     "test": "karma start",
-    "deploy:coverage": "cat ./test-results/coverage/all/lcov/lcov-all.info | coveralls || echo \"Deployment of coverage to coveralls.io failed.\"",
     "test:unit": "karma start karma-unit.conf.js",
     "test:opa5": "karma start karma-opa5.conf.js",
     "test-mockserver": "npm run serve:mockserver && npm test",
+    "deploy:coverage": "cat ./test-results/coverage/all/lcov/lcov-all.info | coveralls || echo \"Deployment of coverage to coveralls.io failed.\"",
     "lint": "eslint src test",
     "lint:console": "eslint src test || true",
     "lint:file:checkstyle": "eslint -o ./target/eslint/eslint.checkstyle.xml -f checkstyle src test",
@@ -52,6 +57,7 @@
   },
   "files": [
     "src/sap/fhir/**/*.js",
-    "ui5.yaml"
+    "ui5.yaml",
+    "LICENSE.txt"
   ]
 }

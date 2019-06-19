@@ -14,6 +14,7 @@ sap.ui.define(function() {
 	sap.ui.getCore().initLibrary({
 		name : "sap.fhir",
 		version : "${version}",
+		noLibraryCSS: true,
 		dependencies : [ "sap.ui.core" ],
 		controls : [ ],
 		types : [ ]
