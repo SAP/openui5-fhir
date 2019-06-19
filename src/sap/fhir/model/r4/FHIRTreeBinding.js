@@ -27,7 +27,7 @@ sap.ui.define([
 	 * @param {object} [mParameters] The map which contains additional parameters for the binding
 	 * @param {string} [mParameters.groupId] The group id
 	 * @param {sap.fhir.model.r4.OperationMode} [mParameters.operationMode] The operation mode, how to handle operations like filtering and sorting
-	 * @param {string} [mParameters.rootSearch] The search parameter to identify the root node, e.g. 'base:exact'
+	 * @param {string} [mParameters.rootSearch] The search parameter to identify the root node, e.g. 'base'
 	 * @param {string} [mParameters.rootValue] The value of the search parameter to identify the root node, e.g. 'http://hl7.org/fhir/StructureDefinition/DomainResource'
 	 * @param {string} [mParameters.rootProperty] The property of a FHIR resource which represents the link to the parent in the tree, e.g. 'baseDefinition'
 	 * @param {string} [mParameters.nodeProperty] The property of a FHIR resource which identifies the resource as a node in the tree, e.g. 'url', Note: The `rootProperty` of a child, is the value of the `nodeProperty` of the parent
