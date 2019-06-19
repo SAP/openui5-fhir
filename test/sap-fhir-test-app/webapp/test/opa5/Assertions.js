@@ -1,9 +1,11 @@
 sap.ui.define([
 	"sap/ui/test/Opa5",
+	"sap/base/Log",
 	"sap/ui/test/matchers/Properties",
 	"sap/ui/test/matchers/BindingPath",
-	"sap/base/Log"
-], function(Opa5, Properties, BindingPath, Log) {
+	"sap/ui/test/matchers/AggregationFilled",
+	"sap/ui/test/matchers/AggregationContainsPropertyEqual"
+], function(Opa5, Log, Properties, BindingPath, AggregationFilled, AggregationContainsPropertyEqual) {
 	"use strict";
 
 	var textMatcher = function(oItem) {
@@ -32,7 +34,7 @@ sap.ui.define([
 			return this.waitFor({
 				viewName : sView,
 				id: sControlId,
-				matchers : new sap.ui.test.matchers.Properties(mSettings),
+				matchers : new Properties(mSettings),
 				success : function(){
 					Opa5.assert.ok(true, "The tile content fullfills the expected value");
 				},
@@ -185,7 +187,7 @@ sap.ui.define([
 			return this.waitFor({
 				viewName : sView,
 				id : sControlId,
-				matchers : new sap.ui.test.matchers.AggregationFilled({name : "items"}),
+				matchers : new AggregationFilled({name : "items"}),
 				success : fnSuccess,
 				error : function(oError){
 					Log.fatal(oError);
@@ -250,7 +252,7 @@ sap.ui.define([
 			return this.waitFor({
 				viewName : sView,
 				id : sControlId,
-				matchers : new sap.ui.test.matchers.AggregationContainsPropertyEqual({aggregationName : "items", propertyName: "title", propertyValue: sExpectedPath}),
+				matchers : new AggregationContainsPropertyEqual({aggregationName : "items", propertyName: "title", propertyValue: sExpectedPath}),
 				success : function(oControl){
 					Opa5.assert.ok(true, "The control: " + sControlId + " was found.");
 				},
@@ -298,7 +300,7 @@ sap.ui.define([
 			return this.waitFor({
 				viewName : sView,
 				check : function() {
-					return sap.ui.test.Opa5.getJQuery()(".sapMMessageToast")[0] && sap.ui.test.Opa5.getJQuery()(".sapMMessageToast")[0].outerText === sText;
+					return Opa5.getJQuery()(".sapMMessageToast")[0] && Opa5.getJQuery()(".sapMMessageToast")[0].outerText === sText;
 				},
 				success : function() {
 					Opa5.assert.ok(true, "The message toast is shown.");
