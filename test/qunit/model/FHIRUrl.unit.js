@@ -1,7 +1,7 @@
 sap.ui.define(["sap/fhir/model/r4/lib/FHIRUrl"], function(FHIRUrl) {
 	"use strict";
 
-	QUnit.module("Test for FHIRUrl", {});
+	QUnit.module("Unit-Tests: FHIRUrl", {});
 	QUnit.test("Test FHIRUrl", function(assert){
 
 		/*
