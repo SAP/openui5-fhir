@@ -63,10 +63,11 @@ Please read [this document](CONTRIBUTING.md) to read more about your options:
 - [Contribute Code](CONTRIBUTING.md#contribute-code) (fixes and features)
 
 ## Compatibility
-The following table displays the versions of *OpenUI5-FHIR* and the corresponding compatible OpenUI5 versions.
+The following table displays the versions of *OpenUI5-FHIR* and the corresponding compatible *OpenUI5* versions:
+
 | *OpenUI5-FHIR*	| *OpenUI5*	|
-|---				|---		|
-| 1.X 				| > 1.58.0	|
+| -----------------	| ---------	|
+| 1.X.Y				| > 1.58.0	|
 
 ## License
 
