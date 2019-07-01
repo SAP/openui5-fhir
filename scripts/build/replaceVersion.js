@@ -1,6 +1,6 @@
 const patternReplacer = require("./patternReplacer");
 
-module.exports = function ({ version = process.env.npm_package_version }) {
+module.exports = function (version = process.env.npm_package_version) {
     console.log("OpenUI5-FHIR builder task replaceVersion started with: " + version + "...");
 
     const options = {
