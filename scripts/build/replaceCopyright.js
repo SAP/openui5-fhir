@@ -4,9 +4,13 @@ const fs = require('fs');
 const yamlPath = "ui5.yaml";
 
 function getDefaultCopyRight() {
-    const content = fs.readFileSync(yamlPath, 'utf8');
+    const content = replaceCurrentYear(fs.readFileSync(yamlPath, 'utf8'));
     const yamlContent = yaml.safeLoad(content);
     return yamlContent.metadata.copyright;
+}
+
+function replaceCurrentYear(content) {
+    return content.replace(/\$\{currentYear\}/g, new Date().getFullYear());
 }
 
 module.exports = function (copyright = getDefaultCopyRight()) {
