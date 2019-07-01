@@ -9,5 +9,5 @@ module.exports = function (version = process.env.npm_package_version) {
         to: version,
     };
 
-    patternReplacer("replaceVersion", options);
+    return patternReplacer("replaceVersion", options);
 };

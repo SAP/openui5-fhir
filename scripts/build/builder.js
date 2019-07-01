@@ -3,7 +3,6 @@ const replaceCopyright = require("./replaceCopyright");
 
 console.log("OpenUI5-FHIR builder started...");
 
-replaceVersion();
-replaceCopyright();
-
-console.log("OpenUI5-FHIR builder finished.");
+replaceVersion()
+    .then(replaceCopyright)
+    .then(() => console.log("OpenUI5-FHIR builder finished successfully."));

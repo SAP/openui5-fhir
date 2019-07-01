@@ -13,5 +13,5 @@ module.exports = function (copyright = getDefaultCopyRight()) {
         to: copyright,
     };
 
-    patternReplacer("replaceCopyright", options);
+    return patternReplacer("replaceCopyright", options);
 };
