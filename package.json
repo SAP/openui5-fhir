@@ -35,7 +35,8 @@
     "karma-ui5": "^1.0.0",
     "@ui5/cli": "^1.5.1",
     "coveralls": "^3.0.3",
-    "replace-in-file": "^4.1.0"
+    "replace-in-file": "^4.1.0",
+    "js-yaml": "^3.13.1"
   },
   "scripts": {
     "docs": "npx jsdoc --configure ./lib/jsdoc/create-api-documentation.js --verbose --access public",
