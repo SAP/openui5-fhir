@@ -4,8 +4,8 @@ const fs = require('fs');
 const yamlPath = "ui5.yaml";
 
 function getDefaultCopyRight() {
-    var content = fs.readFileSync(yamlPath, 'utf8'),
-    var yamlContent = yaml.safeLoad(content);
+    const content = fs.readFileSync(yamlPath, 'utf8');
+    const yamlContent = yaml.safeLoad(content);
     return yamlContent.metadata.copyright;
 }
 
