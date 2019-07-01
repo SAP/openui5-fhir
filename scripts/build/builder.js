@@ -1,5 +1,5 @@
 const replaceVersion = require("./replaceVersion");
-const replaceVersion = require("./replaceCopyright");
+const replaceCopyright = require("./replaceCopyright");
 
 console.log(`OpenUI5-FHIR builder started...`);
 
