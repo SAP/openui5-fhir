@@ -1,9 +1,7 @@
-const replace = require("replace-in-file");
+const patternReplacer = require("./patternReplacer");
 
-const version = process.env.npm_package_version;
-
-function replaceVersion() {
-    console.log(`OpenUI5-FHIR builder started with version: ${version}`);
+module.exports = function ({ version = process.env.npm_package_version }) {
+    console.log("OpenUI5-FHIR builder task replaceVersion started with: " + version + "...");
 
     const options = {
         files: ["src/sap/fhir/**/*.js", "src/sap/fhir/.library"],
@@ -11,13 +9,5 @@ function replaceVersion() {
         to: version,
     };
 
-    replace(options)
-        .then(results => {
-            console.log("Replacement results:", results);
-        })
-        .catch(error => {
-            console.error("Error occurred:", error);
-        });
-}
-
-module.exports = replaceVersion;
+    patternReplacer("replaceVersion", options);
+};
