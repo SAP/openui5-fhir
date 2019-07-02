@@ -25,7 +25,7 @@ sap.ui.define([], function() {
 	 * @author SAP SE
 	 * @constructs {BindingInfo} implementation for binding paths, resource types etc of a FHIR binding.
 	 * @protected
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 * @version ${version}
 	 */
 	var BindingInfo = function(sResourceId, sResourceType, sResourcePath, sRelativePath, sAbsolutePath, aBinding, sGroupId, sRequestPath, aResourcePath, sResourceServerPath, sEtag) {
@@ -50,7 +50,7 @@ sap.ui.define([], function() {
 	 *
 	 * @returns {string} The FHIR resource id e.g. 123
 	 * @protected
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	BindingInfo.prototype.getResourceId = function() {
 		return this._sResourceId;
@@ -61,7 +61,7 @@ sap.ui.define([], function() {
 	 *
 	 * @returns {string} The FHIR resource type e.g. Patient
 	 * @protected
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	BindingInfo.prototype.getResourceType = function() {
 		return this._sResourceType;
@@ -72,7 +72,7 @@ sap.ui.define([], function() {
 	 *
 	 * @returns {string} The resource binding path e.g. /Patient/123
 	 * @protected
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	BindingInfo.prototype.getResourcePath = function() {
 		return this._sResourcePath;
@@ -83,7 +83,7 @@ sap.ui.define([], function() {
 	 *
 	 * @returns {string} The relative binding path e.g. gender
 	 * @protected
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	BindingInfo.prototype.getRelativePath = function() {
 		return this._sRelativePath;
@@ -94,7 +94,7 @@ sap.ui.define([], function() {
 	 *
 	 * @returns {string} The absolute binding path e.g. /Patient/123/gender
 	 * @protected
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	BindingInfo.prototype.getAbsolutePath = function() {
 		return this._sAbsolutePath;
@@ -105,7 +105,7 @@ sap.ui.define([], function() {
 	 *
 	 * @returns {string} The groupId
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	BindingInfo.prototype.getGroupId = function() {
 		return this._sGroupId;
@@ -116,7 +116,7 @@ sap.ui.define([], function() {
 	 *
 	 * @returns {string[]} The absolute path as an array e.g. ["Patient", "123", "gender"] or ["$_history", "Patient", "123", "1", "gender"]
 	 * @protected
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	BindingInfo.prototype.getBinding = function() {
 		return this._aBinding;
@@ -127,7 +127,7 @@ sap.ui.define([], function() {
 	 *
 	 * @returns {string} The request path e.g. /Patient/123 or e.g. /Patient/123/_history/1
 	 * @protected
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	BindingInfo.prototype.getRequestPath = function() {
 		return this._sRequestPath;
@@ -138,7 +138,7 @@ sap.ui.define([], function() {
 	 *
 	 * @returns {string} The resource path as an array e.g. ["Patient", "123"] or ["$_history", "Patient", "123", "1"]
 	 * @protected
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	BindingInfo.prototype.getResourcePathArray = function() {
 		return this._aResourcePath;
@@ -149,7 +149,7 @@ sap.ui.define([], function() {
 	 *
 	 * @returns {string} The original resource path e.g. /Patient/123
 	 * @protected
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	BindingInfo.prototype.getResourceServerPath = function() {
 		return this._sResourceServerPath;
@@ -160,7 +160,7 @@ sap.ui.define([], function() {
 	 *
 	 * @returns {string} The eTag of the resource
 	 * @protected
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	BindingInfo.prototype.getEtag = function() {
 		return this._sEtag;

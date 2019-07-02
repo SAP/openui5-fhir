@@ -27,7 +27,7 @@ sap.ui.define([
 	 * @author SAP SE
 	 * @extends sap.ui.model.PropertyBinding
 	 * @public
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 * @version ${version}
 	 */
 	var FHIRPropertyBinding = PropertyBinding.extend("sap.fhir.model.r4.FHIRPropertyBinding", {
@@ -46,7 +46,7 @@ sap.ui.define([
 	 *
 	 * @see sap.ui.model.Binding.prototype.initialize
 	 * @protected
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	FHIRPropertyBinding.prototype.initialize = function() {
 		this.checkUpdate();
@@ -59,7 +59,7 @@ sap.ui.define([
 	 * @see sap.ui.model.Binding#checkUpdate
 	 * @param {string} sChangeReason The reason for the fireChange event
 	 * @protected
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	FHIRPropertyBinding.prototype.checkUpdate = function(sChangeReason) {
 		var oValue = this._getValue();
@@ -75,7 +75,7 @@ sap.ui.define([
 	 * @param {sap.fhir.model.r4.Context} [oContext] The context which is required as base for a relative path
 	 * @see sap.ui.model.Binding#setContext
 	 * @protected
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	FHIRPropertyBinding.prototype.setContext = function(oContext) {
 		this.oContext = oContext;
@@ -88,7 +88,7 @@ sap.ui.define([
 	 * @returns {object} The current value of the property binding
 	 * @see sap.ui.model.PropertyBinding#getValue
 	 * @public
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	FHIRPropertyBinding.prototype.getValue = function() {
 		return this.oValue;
@@ -99,7 +99,7 @@ sap.ui.define([
 	 *
 	 * @returns {object} The model value of the property binding
 	 * @private
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	FHIRPropertyBinding.prototype._getValue = function() {
 		if (this.sPath === "%total%" && this.oContext){
@@ -116,7 +116,7 @@ sap.ui.define([
 	 *
 	 * @param {object} oValue The new value of the property binding
 	 * @public
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	FHIRPropertyBinding.prototype.setValue = function(oValue) {
 		this.oModel.setProperty(this.sPath, oValue, this.oContext, this);

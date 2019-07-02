@@ -21,7 +21,7 @@ sap.ui.define([
 	 * @class
 	 * @classdesc Implementation of functions which can be reused in context of the FHIR standard
 	 * @public
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 * @version ${version}
 	 */
 	var FHIRUtils = {};
@@ -32,7 +32,7 @@ sap.ui.define([
 	 * @param {sap.ui.model.Sorter[]} aSorters The given sorting parameters
 	 * @returns {string} The part of the FHIR request URL containing the sorting parameters
 	 * @protected
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	FHIRUtils.createSortParams = function(aSorters) {
 		var sSorterURLPart;
@@ -60,7 +60,7 @@ sap.ui.define([
 	 * @param {sap.fhir.model.r4.FHIRContextBinding|sap.fhir.model.r4.FHIRTreeBinding|sap.fhir.model.r4.FHIRListBinding} oBinding That potentially contains request query parameters
 	 * @param {object} mParametersRequest The request parameter object
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRUtils.addRequestQueryParameters = function(oBinding, mParametersRequest){
 		if (oBinding.mParameters && oBinding.mParameters.hasOwnProperty("request")){
@@ -80,7 +80,7 @@ sap.ui.define([
 	 * @param {object[]} aSubArray The array which should be inserted into the main array <code>aArray</code>
 	 * @param {number} iPos The position where the <code>aSubArray</code> should be inserted
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRUtils.insertArrayIntoArray = function(aArray, aSubArray, iPos) {
 		Array.prototype.splice.apply(aArray, [iPos, 0].concat(aSubArray));
@@ -93,7 +93,7 @@ sap.ui.define([
 	 * @param {object[]} aSubArray The array which should be removed from the main array <code>aArray</code>
 	 * @returns {object[]} Array without the elements contained in aSubArray.
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRUtils.removeArrayFromArray = function(aArray, aSubArray) {
 		return aArray.filter(function(x) {
@@ -108,7 +108,7 @@ sap.ui.define([
 	 * @param {any[]} aValue The array might contains the <code>vValue</code>
 	 * @returns {number} The index of the first occurrence of <code>vValue</code> in the <code>aValue</code>
 	 * @protected
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	FHIRUtils.getIndexOfValueInArray = function(vValue, aValue){
 		if (aValue && Array.isArray(aValue)){
@@ -131,7 +131,7 @@ sap.ui.define([
 	 * @param {string[] | number[]} aCollection The array which might include the <code>aSubCollection</code>
 	 * @returns {boolean} True if the <code>aSubCollection</code> is part of the <code>aCollection</code>
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRUtils.isSubset = function(aSubCollection, aCollection) {
 		return aSubCollection.every(function(vValue) {
@@ -145,7 +145,7 @@ sap.ui.define([
 	 * @param {any} vValue The value to be checked as a FHIR quantity
 	 * @returns {boolean} false
 	 * @public
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	FHIRUtils.isQuantity = function(vValue) {
 		return false;
@@ -157,7 +157,7 @@ sap.ui.define([
 	 * @param {any} vValue The value to be checked as a string
 	 * @returns {boolean} True if the value is a string.
 	 * @public
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	FHIRUtils.isString = function(vValue) {
 		return typeof vValue === "string";
@@ -169,7 +169,7 @@ sap.ui.define([
 	 * @param {any} vValue The value to be checked as an object
 	 * @returns {boolean} True if the value is an object.
 	 * @public
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRUtils.isObject = function(vValue) {
 		return typeof vValue === "object";
@@ -181,7 +181,7 @@ sap.ui.define([
 	 * @param {any} vValue The value to be checked as an number
 	 * @returns {boolean} True if the value is an number.
 	 * @public
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRUtils.isNumber = function(vValue) {
 		return typeof vValue === "number";
@@ -194,7 +194,7 @@ sap.ui.define([
 	 * @param {object} oObject The object to be checked as empty
 	 * @returns {boolean} True if the <code>oObject</code> is empty, false if not.
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRUtils.isEmptyObject = function(oObject) {
 		for (var sName in oObject) {
@@ -218,7 +218,7 @@ sap.ui.define([
 	 * @param {FilterCallback=} fnCallback The custom filter test.
 	 * @returns {object[]} The filtered array
 	 * @protected
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	FHIRUtils.filterArray = function(aArray, sAttribute, sFilterValue, fnCallback) {
 		return aArray.filter(function(oArrayAttribute) {
@@ -241,7 +241,7 @@ sap.ui.define([
 	 * @param {function} fnPreprocessResult If the result objects should be preprocessed
 	 *
 	 * @protected
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	FHIRUtils.filterObject = function(oObject, sAttribute, sFilterValue, iLevel, aObjects, fnPreprocessResult) {
 		if (iLevel > 0) {
@@ -265,7 +265,7 @@ sap.ui.define([
 	 * @param {object} oObject The object to be cloned
 	 * @returns {object} The cloned object
 	 * @protected
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	FHIRUtils.deepClone = function(oObject) {
 		if (oObject && typeof oObject === "object") {
@@ -287,7 +287,7 @@ sap.ui.define([
 	 *
 	 * @returns {string} The generated Universally Unique Identifier Version 4 (UUID V4)
 	 * @protected
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	FHIRUtils.uuidv4 = function() {
 		return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(c) {
@@ -303,7 +303,7 @@ sap.ui.define([
 	 * @param {string} sRelation The relation self, next, previous
 	 * @returns {string} The URL of the link
 	 * @protected
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	FHIRUtils.getLinkUrl = function(aLinks, sRelation) {
 		var oLink = this.filterArray(aLinks, "relation", sRelation)[0];
@@ -316,7 +316,7 @@ sap.ui.define([
 	 * @param {string} sPath The sPath
 	 * @returns {number} Number of levels defined by the given path.
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRUtils.getNumberOfLevelsByPath = function(sPath) {
 		return this.countOccurrence(sPath, "/");
@@ -329,7 +329,7 @@ sap.ui.define([
 	 * @param {string} sSearch The search string
 	 * @returns {number} Number of occurrences of <code>sSearch</code> in <code>sBase</code>
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRUtils.countOccurrence = function(sBase, sSearch) {
 		var iCount = -1;
@@ -356,7 +356,7 @@ sap.ui.define([
 	 * @param {string} sParameter The given parameter
 	 * @throws {Error} if <code>sParameter</code> is not valid
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRUtils.checkStringParameter = function(mParameters, sParameter) {
 		if (!mParameters.hasOwnProperty(sParameter)) {
@@ -373,7 +373,7 @@ sap.ui.define([
 	 * @param {string} sParameter The given parameter
 	 * @throws {Error} if <code>sParameter</code> is not valid
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRUtils.checkPathParameter = function(mParameters, sParameter) {
 		this.checkStringParameter(mParameters, sParameter);
@@ -391,7 +391,7 @@ sap.ui.define([
 	 * @param {string} sParameter The given parameter
 	 * @throws {Error} if <code>sParameter</code> is not valid
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRUtils.checkFHIRSearchParameter = function(mParameters, sParameter) {
 		this.checkStringParameter(mParameters, sParameter);
@@ -404,7 +404,7 @@ sap.ui.define([
 	 * @param {RegExp} rRegExp The regular expression
 	 * @returns {boolean} True if the given text matches the regular expression.
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRUtils.checkRegularExpression = function(sText, rRegExp) {
 		if (!sText) {
@@ -422,7 +422,7 @@ sap.ui.define([
 	 * @param {string} sPath The path inside the model
 	 * @returns {string[]} The array representing the path inside a model e.g. ["Patient","123","gender"]
 	 * @public
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRUtils.splitPath = function(sPath) {
 		var rSliceableExpression = /((\s*(\[|§)(.*?)(\]|§)\s*)+)/g;
@@ -448,7 +448,7 @@ sap.ui.define([
 	 * @param {boolean} bLogicalConnection If it's an indicated group
 	 * @param {boolean} bLogicalOperator If the group is grouped by an "and" or "or" operator
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRUtils.filterBuilder = function(aFilters, mParameters, iSupportedFilterDepth, bIsValueSet, iLvl, bLogicalConnection, bLogicalOperator){
 		if (iLvl === undefined){
@@ -477,7 +477,7 @@ sap.ui.define([
 	 * @param {boolean} bLogicalConnection If it's an indicated group
 	 * @param {boolean} bLogicalOperator If the group is grouped by an "and" or "or" operator
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRUtils._filterBuilder = function(oFilter, mParameters, bIsValueSet, bLogicalConnection, bLogicalOperator){
 		var sPath = oFilter.sPath;
@@ -512,7 +512,7 @@ sap.ui.define([
 	 * @param {sap.ui.model.Filter[]} [aFilters] The filters defined for the list binding
 	 * @param {sap.fhir.model.r4.FHIRListBinding | sap.fhir.model.r4.FHIRTreeBinding} oBinding The binding which triggered the filter
 	 * @public
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRUtils.filter = function(aFilters, oBinding){
 		if (oBinding.bPendingRequest){
@@ -542,7 +542,7 @@ sap.ui.define([
 	 * @param {sap.fhir.model.r4.FHIRListBinding | sap.fhir.model.r4.FHIRTreeBinding} oBinding The binding which triggered the sort
 	 * @param {boolean} bRefresh If the binding should directly send a call or wait for the filters, for p13ndialog
 	 * @public
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRUtils.sort = function(aSorters, oBinding, bRefresh){
 		if (oBinding.bPendingRequest){
@@ -575,7 +575,7 @@ sap.ui.define([
 	 * @param {string} sPath The FHIR resource which should be requested
 	 * @returns {boolean} true if the absolute path can be requested
 	 * @protected
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	FHIRUtils.isRequestable = function(sPath) {
 		return sPath && (sPath.indexOf("$") > -1 || (sPath.match(/\//g) || []).length <= 2 || sPath.indexOf("_history") > -1);
@@ -587,7 +587,7 @@ sap.ui.define([
 	 * @param {sap.ui.base.ManagedObject} oContext FHIR Context
 	 * @returns {boolean} true if it's a FHIR context
 	 * @protected
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	FHIRUtils.isContextBinding = function(oContext) {
 		return oContext && oContext.getMetadata().getName() === "sap.fhir.model.r4.FHIRContextBinding";
@@ -599,7 +599,7 @@ sap.ui.define([
 	 * @param {sap.ui.base.ManagedObject} oBinding FHIR Binding
 	 * @returns {boolean} true if it's a property binding
 	 * @protected
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	FHIRUtils.isPropertyBinding = function(oBinding) {
 		return oBinding && oBinding.getMetadata().getName() === "sap.fhir.model.r4.FHIRPropertyBinding";

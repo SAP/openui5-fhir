@@ -14,7 +14,7 @@ sap.ui.define(function() {
 	 * @author SAP SE
 	 * @enum {string}
 	 * @public
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 * @version ${version}
 	 */
 	var HTTPMethod = {

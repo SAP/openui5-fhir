@@ -8,7 +8,7 @@
  * @name sap.fhir.model.r4
  * @namespace
  * @public
- * @since 0.0.1
+ * @since 1.0.0
  */
 
 // Provides class sap.fhir.model.r4.FHIRModel
@@ -60,7 +60,7 @@ sap.ui.define([
 	 * @throws {Error} If no service URL is given, if the given service URL does not end with a forward slash
 	 * @author SAP SE
 	 * @public
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 * @version ${version}
 	 */
 	var FHIRModel = Model.extend("sap.fhir.model.r4.FHIRModel", {
@@ -103,7 +103,7 @@ sap.ui.define([
 	 * @prop {object} [headers] Additional HTTP Headers which should be added to the request
 	 * @prop {string} [groupId] Identifier for the creation of a bundle which contains several requests
 	 * @public
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 
 	/**
@@ -112,7 +112,7 @@ sap.ui.define([
 	 * @prop {boolean} [bManualSubmit] The switch if a bundle will be manually submitted
 	 * @prop {boolean} [forceDirectCall] Flag that the request is send directly and not in a bundle with other requests
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 
 	/**
@@ -120,7 +120,7 @@ sap.ui.define([
 	 * @prop {sap.fhir.model.r4.HTTPMethod} method e.g. POST, PUT, DELETE, GET
 	 * @prop {string} url The request goes to
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 
 	/**
@@ -132,7 +132,7 @@ sap.ui.define([
 	 * @param {object} oEvent.getParameters
 	 * @param {sap.fhir.model.r4.lib.RequestHandle} oEvent.getParameters.requestHandle Wrapper for the jqXHR request object, binding which potentially triggered the request and the request URL
 	 * @public
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 
 	/**
@@ -144,7 +144,7 @@ sap.ui.define([
 	 * @param {object} oEvent.getParameters
 	 * @param {sap.fhir.model.r4.lib.RequestHandle} oEvent.getParameters.requestHandle Wrapper for the jqXHR request object, binding which potentially triggered the request and the request URL
 	 * @public
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 
 	/**
@@ -156,7 +156,7 @@ sap.ui.define([
 	 * @param {object} oEvent.getParameters
 	 * @param {sap.fhir.model.r4.lib.RequestHandle} oEvent.getParameters.requestHandle Wrapper for the jqXHR request object, binding which potentially triggered the request and the request URL
 	 * @public
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 
 
@@ -164,7 +164,7 @@ sap.ui.define([
 	 * Setups the data , server state and client changes
 	 *
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRModel.prototype._setupData = function(){
 		this.oData = {};
@@ -181,7 +181,7 @@ sap.ui.define([
 	 *
 	 * @public
 	 * @returns {string} The base profile URL
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	FHIRModel.prototype.getBaseProfileUrl = function() {
 		return this.sBaseProfileUrl;
@@ -192,7 +192,7 @@ sap.ui.define([
 	 *
 	 * @public
 	 * @returns {string} The service URL
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRModel.prototype.getServiceUrl = function() {
 		return this.sServiceUrl;
@@ -214,7 +214,7 @@ sap.ui.define([
 	 * @throws {Error} if an unsupported operation mode is used
 	 * @public
 	 * @see sap.ui.model.Model#bindList
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	FHIRModel.prototype.bindList = function(sPath, oContext, aSorters, aFilters, mParameters) {
 		var oBinding = new FHIRListBinding(this, sPath, oContext, aSorters, aFilters, mParameters);
@@ -230,7 +230,7 @@ sap.ui.define([
 	 * @returns {sap.fhir.model.r4.FHIRPropertyBinding} The property binding
 	 * @public
 	 * @see sap.ui.model.Model#bindProperty
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	FHIRModel.prototype.bindProperty = function(sPath, oContext, mParameters) {
 		var oBinding = new FHIRPropertyBinding(this, sPath, oContext, mParameters);
@@ -249,7 +249,7 @@ sap.ui.define([
 	 * @throws {Error} if an unsupported operation mode is used
 	 * @public
 	 * @see sap.ui.model.Model#bindTree
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRModel.prototype.bindTree = function(sPath, oContext, aFilters, mParameters, aSorters) {
 		var oBinding = new FHIRTreeBinding(this, sPath, oContext, aFilters, mParameters, aSorters);
@@ -265,7 +265,7 @@ sap.ui.define([
 	 * @returns {sap.fhir.model.r4.FHIRContextBinding} The context binding
 	 * @public
 	 * @see sap.ui.model.Model#bindContext
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	FHIRModel.prototype.bindContext = function(sPath, oContext, mParameters) {
 		var oBinding = new FHIRContextBinding(this, sPath, oContext, mParameters);
@@ -281,7 +281,7 @@ sap.ui.define([
 	 * @param {sap.fhir.model.r4.FHIRContextBinding | sap.fhir.model.r4.FHIRListBinding | sap.fhir.model.r4.FHIRTreeBinding} [oBinding] The binding which triggered the request
 	 * @param {string} sGroupId The group which triggered the mapping of response
 	 * @private
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	FHIRModel.prototype._mapFHIRResponse = function(oData, mResponseHeaders, oBundleEntry, oBinding, sGroupId) {
 		if (oData.entry && oData.resourceType === "Bundle") {
@@ -305,7 +305,7 @@ sap.ui.define([
 	 * @param {sap.fhir.model.r4.FHIRContextBinding | sap.fhir.model.r4.FHIRListBinding | sap.fhir.model.r4.FHIRTreeBinding} [oBinding] The binding which triggered the request
 	 * @param {string} sGroupId The group which triggered the mapping of response
 	 * @private
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	FHIRModel.prototype._storeResourceInModel = function(oResource, oBinding, sGroupId) {
 		var aResourcePath;
@@ -339,7 +339,7 @@ sap.ui.define([
 	 * @param {sap.fhir.model.r4.lib.FHIRBundleEntry} oFHIRBundleEntry FHIR Bundle entry object
 	 * @returns {object} FHIR resource object
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRModel.prototype._getUpdatedResourceFromFHIRResponse = function(mResponseHeaders, oFHIRBundleEntry){
 		var oBindingInfo = this.getBindingInfo("/" + mResponseHeaders.location);
@@ -361,7 +361,7 @@ sap.ui.define([
 	 * @param {sap.fhir.model.r4.lib.FHIRBundleEntry} oFHIRBundleEntry FHIR Bundle entry object
 	 * @returns {object} FHIR resource object
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRModel.prototype._updateResourceFromFHIRResponse = function(mResponseHeaders, sRequestUrl, oFHIRBundleEntry){
 		var oRes = this._getUpdatedResourceFromFHIRResponse(mResponseHeaders, oFHIRBundleEntry);
@@ -376,7 +376,7 @@ sap.ui.define([
 	 * @param {array} aBundleEntries The set of bundle arrays
 	 * @returns {object} The map of resources
 	 * @private
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	FHIRModel.prototype._mapBundleEntriesToResourceMap = function(aBundleEntries) {
 		var mResources = {};
@@ -405,7 +405,7 @@ sap.ui.define([
 	 * @param {object} oData The FHIR resource
 	 * @returns {object} The map of resources
 	 * @private
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	FHIRModel.prototype._mapResourceToResourceMap = function(oData) {
 		var mResources = {};
@@ -430,7 +430,7 @@ sap.ui.define([
 	 * @param {sap.fhir.model.r4.HTTPMethod} sMethod The HTTP method which was used by the request e.g. GET, HTTPMethod.POST, etc.
 	 * @param {object} mParameters The URL parameters which are send by the request e.g. _count, _summary
 	 * @private
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	FHIRModel.prototype._onSuccessfulRequest = function(oRequestHandle, oResponse, oBundleEntry, fnSuccessCallbackBeforeMapping, fnSuccessCallbackAfterMapping, sMethod, mParameters) {
 		var sRequestUrl;
@@ -496,7 +496,7 @@ sap.ui.define([
 	 * @param {string} sMethod The HTTP method which was used by the request e.g. GET, HTTPMethod.POST, etc.
 	 * @param {Error} oError stacktrace with error message which occured in a callback
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRModel.prototype._processError = function(oRequestHandle, oResponse, oBundleEntry, oBinding, fnErrorCallback, sMethod, oError) {
 		var oMessage = this._publishMessage(oRequestHandle, oResponse, oBundleEntry, oBinding, oError);
@@ -517,7 +517,7 @@ sap.ui.define([
 	 * @param {Error} [oError] stacktrace with error message which occured in a callback
 	 * @returns {object} oMessage The message which was created
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRModel.prototype._publishMessage = function(oRequestHandle, oResponse, oBundleEntry, oBinding, oError){
 		var mParameters;
@@ -569,7 +569,7 @@ sap.ui.define([
 	 * @param {object} [oPayload] The data which will be send in the request header
 	 * @returns {sap.fhir.model.r4.lib.FHIRBundle | sap.fhir.model.r4.lib.RequestHandle} A request handle or a bundle.
 	 * @protected
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	FHIRModel.prototype.loadData =
 			function(sPath, mParameters, sMethod, oPayload) {
@@ -614,7 +614,7 @@ sap.ui.define([
 	 * @returns {object} mRequestHandles contains all request groups and direct requests which where submitted, e.g. {"patientDetails": oFHIRBundle1, "direct": [oRequestHandle1, oRequestHandle2],
 	 *          "patientList": oFHIRBundle2}, if there are no changes undefined is returned
 	 * @public
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	FHIRModel.prototype.submitChanges =
 			function(sGroupId, fnSuccessCallback, fnErrorCallback) {
@@ -742,7 +742,7 @@ sap.ui.define([
 	 * @param {sap.fhir.model.r4.FHIRContextBinding | sap.fhir.model.r4.FHIRListBinding | sap.fhir.model.r4.FHIRTreeBinding} [oTriggerBinding] The binding which triggered the check update
 	 * @param {sap.fhir.model.r4.HTTPMethod} [sMethod] The http method which triggered the checkupdate()
 	 * @protected
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	FHIRModel.prototype.checkUpdate = function(mChangedResources, oTriggerBinding, sMethod) {
 		var aBindings = this.aBindings.slice(0);
@@ -757,7 +757,7 @@ sap.ui.define([
 	 *
 	 * @param {function} fnAfterUpdate The function which shall be executed after the update of the model has been performed
 	 * @protected
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	FHIRModel.prototype.attachAfterUpdate = function(fnAfterUpdate) {
 		this.aCallAfterUpdate.push(fnAfterUpdate);
@@ -767,7 +767,7 @@ sap.ui.define([
 	 * Executes all registered after update functions
 	 *
 	 * @private
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	FHIRModel.prototype._processAfterUpdate = function() {
 		var aCallAfterUpdate = this.aCallAfterUpdate;
@@ -785,7 +785,7 @@ sap.ui.define([
 	 * @see sap.fhir.model.r4.FHIRListBinding#refresh
 	 * @see sap.fhir.model.r4.FHIRTreeBinding#refresh
 	 * @public
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRModel.prototype.refresh = function() {
 		this._setupData();
@@ -802,7 +802,7 @@ sap.ui.define([
 	 * @param {object} [oDataExt] The data object containing the desired property
 	 * @returns {object} the value behind the path
 	 * @public
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	FHIRModel.prototype.getProperty = function(sPath, oContext, oDataExt) {
 		var oData = this.oData;
@@ -823,7 +823,7 @@ sap.ui.define([
 	 * @param {string[]} aPath The path to the desired property e.g ["Patient", "132627", "gender"]
 	 * @returns {any} the value behind the path
 	 * @private
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	FHIRModel.prototype._getProperty = function(vObject, aPath) {
 
@@ -871,7 +871,7 @@ sap.ui.define([
 	 * @param {sap.fhir.model.r4.lib.BindingInfo} oBindingInfo The binding info containing path and context
 	 * @param {string} [sGroupId] The group id for the changed resource
 	 * @private
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	FHIRModel.prototype._handleClientChanges = function(oBindingInfo, sGroupId){
 		if (!sGroupId){
@@ -904,7 +904,7 @@ sap.ui.define([
 	 * @param {sap.fhir.model.r4.Context} [oContext] The context which will be used to set the property
 	 * @param {sap.fhir.model.r4.PropertyBinding} oBinding That the checkupdate method doesn't run in not associated bindings less round trips
 	 * @public
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	FHIRModel.prototype.setProperty = function(sPath, vValue, oContext, oBinding) {
 		var oBindingInfo = this.getBindingInfo(sPath, oContext);
@@ -924,7 +924,7 @@ sap.ui.define([
 	 * @param {string} [sGroupId] The group id for the changed resource
 	 * @param {number} [iIndex] The index of the property in the <code>aPath</code> which should get a new value
 	 * @private
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	FHIRModel.prototype._setProperty = function(oObject, aPath, vValue, bForceResourceCreation, sGroupId, iIndex) {
 		if (iIndex === undefined){
@@ -987,7 +987,7 @@ sap.ui.define([
 	 * @param {string} sUrl The request goes to
 	 * @returns {sap.fhir.model.r4.RequestInfo} oRequestInfo
 	 * @private
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	FHIRModel.prototype._createRequestInfo = function(sMethod, sUrl) {
 		return {
@@ -1003,7 +1003,7 @@ sap.ui.define([
 	 * @param {sap.fhir.model.r4.Context}[oContext] The context which resolves a relative <code>sPath</code>
 	 * @returns {string} The absolute path to a model property
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRModel.prototype._resolvePath = function(sPath, oContext){
 		if (oContext && (!sPath || sPath && !sPath.startsWith("/"))){
@@ -1027,7 +1027,7 @@ sap.ui.define([
 	 * @param {object} [oResource] The FHIR resource
 	 * @returns {sap.fhir.model.r4.lib.BindingInfo} The binding info to the given sPath and context
 	 * @protected
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	FHIRModel.prototype.getBindingInfo = function(sPath, oContext, bUnique, oResource) {
 		var sCompletePath = this._resolvePath(sPath, oContext);
@@ -1120,7 +1120,7 @@ sap.ui.define([
 	 * @param {string} sPath The path request path
 	 * @returns {string} Empty string if no operation is found or \"$operation\"
 	 * @protected
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	FHIRModel.prototype.determineOperation = function(sPath){
 		var sOperation = "";
@@ -1145,7 +1145,7 @@ sap.ui.define([
 	 * @param {boolean} bIsEnd If the slice is not at the end of the absolute path
 	 * @returns {object} The property of the given<code>vObject</code> which contains a sliceable object
 	 * @private
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	FHIRModel.prototype._findMatchingSlice = function(vObject, mSliceables, bIsEnd) {
 		var mEntries = {};
@@ -1188,7 +1188,7 @@ sap.ui.define([
 	 * @param {string} sResourceType The FHIR resource type
 	 * @returns {boolean} true there are changes for the given resource type.
 	 * @public
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	FHIRModel.prototype.hasResourceTypePendingChanges = function(sResourceType) {
 		return this.mChangedResources[sResourceType] !== undefined;
@@ -1200,7 +1200,7 @@ sap.ui.define([
 	 * @see sap.ui.model.Model#destroy
 	 * @public
 	 * @override
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	FHIRModel.prototype.destroy = function() {
 		this.oRequestor.destroy();
@@ -1218,7 +1218,7 @@ sap.ui.define([
 	 * @throws {Error} If the name of the group property is not 'submit'
 	 * @protected
 	 * @see sap.ui.model.odata.v4.ODataModel#constructor
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	FHIRModel.prototype.getGroupProperty = function(sGroupId, sPropertyName) {
 		switch (sPropertyName) {
@@ -1237,7 +1237,7 @@ sap.ui.define([
 	 * @param {string} sGroupId The group id
 	 * @returns {sap.fhir.model.r4.SubmitMode} the mode for the given group
 	 * @protected
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	FHIRModel.prototype.getGroupSubmitMode = function(sGroupId) {
 		return (this.mGroupProperties && this.mGroupProperties[sGroupId] && this.mGroupProperties[sGroupId].submit) || this.sDefaultSubmitMode;
@@ -1249,7 +1249,7 @@ sap.ui.define([
 	 * @param {object} mParameters The parameters
 	 * @throws {Error} if parameters are not valid
 	 * @private
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	FHIRModel.prototype._buildGroupProperties =
 			function(mParameters) {
@@ -1280,7 +1280,7 @@ sap.ui.define([
 	 * @param {sap.fhir.model.r4.RequestParameters} [mParameters] The additional request parameters
 	 * @returns {sap.fhir.model.r4.lib.RequestHandle} A request handle.
 	 * @public
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRModel.prototype.sendGetRequest = function(sPath, mParameters) {
 		return this.loadData(sPath, mParameters);
@@ -1294,7 +1294,7 @@ sap.ui.define([
 	 * @param {sap.fhir.model.r4.RequestParameters} [mParameters] The additional request parameters
 	 * @returns {sap.fhir.model.r4.lib.RequestHandle} A request handle.
 	 * @public
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRModel.prototype.sendPostRequest = function(sPath, oPayload, mParameters) {
 		return this.loadData(sPath, mParameters, HTTPMethod.POST, oPayload);
@@ -1306,7 +1306,7 @@ sap.ui.define([
 	 * @param {string} sPath A string containing the path to the resource which should be requested.
 	 * @param {function} [fnSuccess] The callback function which is executed after the version read was successfully
 	 * @public
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRModel.prototype.readLatestVersionOfResource = function(sPath, fnSuccess) {
 		var oRequestHandle;
@@ -1339,7 +1339,7 @@ sap.ui.define([
 	 * @param {string} [sGroupId] The group where the resource should belongs to
 	 * @returns {string} The uuidv4 of the created resource
 	 * @public
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	FHIRModel.prototype.create = function(sResourceType, oData, sGroupId) {
 		var sResourceId = FHIRUtils.uuidv4();
@@ -1368,7 +1368,7 @@ sap.ui.define([
 	 * @param {string[]} aResources the resources which shall be deleted, e.g. ["/Patient/123", "/Organization/XYZ"]
 	 * @param {function} [fnPreProcess] to preprocess the objects of the given aResources
 	 * @public
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRModel.prototype.remove = function(aResources, fnPreProcess){
 		for (var i = 0; i < aResources.length; i++){
@@ -1396,7 +1396,7 @@ sap.ui.define([
 	 * @param {string} [sGroupId] The groupId which identifies the changes of a specific group
 	 * @param {boolean} [bAvoidUpdate] If true then checkupdate() won't be called, because it will anyway get called in furthers steps
 	 * @public
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRModel.prototype.resetChanges = function(sGroupId, bAvoidUpdate) {
 		var oBindingInfo;
@@ -1463,7 +1463,7 @@ sap.ui.define([
 	 * @throws {Error}
 	 * @protected
 	 * @see sap.ui.model.Model#getContext
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 * @override
 	 */
 	FHIRModel.prototype.getContext = function(){

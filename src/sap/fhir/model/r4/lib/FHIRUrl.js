@@ -16,7 +16,7 @@ sap.ui.define([], function() {
 	 * @author SAP SE
 	 * @private
 	 * @constructs {FHIRUrl}
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 * @version ${version}
 	 */
 	var FHIRUrl = function(sUrl, sServiceUrl) {
@@ -43,7 +43,7 @@ sap.ui.define([], function() {
 	 *
 	 * @returns {string} The relative url without the query parameters
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRUrl.prototype.getRelativeUrlWithoutQueryParameters = function(){
 		return this._sRelativeUrlWithoutQueryParameters;
@@ -54,7 +54,7 @@ sap.ui.define([], function() {
 	 *
 	 * @returns {string} The relative url with the query parameters
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRUrl.prototype.getRelativeUrlWithQueryParameters = function(){
 		return this._sRelativeUrlWithQueryParameters;
@@ -66,7 +66,7 @@ sap.ui.define([], function() {
 	 *
 	 * @returns {string} The FHIR resource type
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRUrl.prototype.getResourceType = function(){
 		return this._sResourceType;
@@ -77,7 +77,7 @@ sap.ui.define([], function() {
 	 *
 	 * @returns {string} The FHIR resource id
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRUrl.prototype.getResourceId = function(){
 		return this._sResourceId;
@@ -88,7 +88,7 @@ sap.ui.define([], function() {
 	 *
 	 * @returns {object} The map of query paramaters
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRUrl.prototype.getQueryParameters = function(){
 		return this._mQueryParameter;
@@ -99,7 +99,7 @@ sap.ui.define([], function() {
 	 *
 	 * @returns {string} The history version
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRUrl.prototype.getHistoryVersion = function(){
 		return this._sHistoryVersion;
@@ -112,7 +112,7 @@ sap.ui.define([], function() {
 	 * @param {string} sAbsoluteUrl The absolute url
 	 * @returns {string} The full url
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRUrl.prototype.getFullUrl = function(sAbsoluteUrl){
 		if (sAbsoluteUrl && sAbsoluteUrl.substring(0, 4) === "http"){
@@ -131,7 +131,7 @@ sap.ui.define([], function() {
 	 * @param {string} sUrl The url
 	 * @returns {object} The map containing all query parameters as {key: value}
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRUrl.getQueryParametersByUrl = function(sUrl){
 		if (sUrl){

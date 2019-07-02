@@ -30,7 +30,7 @@ sap.ui.define([
 	 * @author SAP SE
 	 * @extends sap.ui.model.ContextBinding
 	 * @public
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 * @version ${version}
 	 */
 	var FHIRContextBinding = ContextBinding.extend("sap.fhir.model.r4.FHIRContextBinding", {
@@ -50,7 +50,7 @@ sap.ui.define([
 	 * Checks if the context binding needs to be updated
 	 *
 	 * @protected
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	FHIRContextBinding.prototype.checkUpdate = function() {
 		if (this.isRelative() || this.bIsCreatedResource || this.bIsLoaded){
@@ -63,7 +63,7 @@ sap.ui.define([
 	 *
 	 * @param {sap.ui.model.ChangeReason} sChangeReason The reason for refreshing the binding
 	 * @public
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	FHIRContextBinding.prototype.refresh = function(sChangeReason) {
 		this.oElementContext.refresh(sChangeReason);
@@ -74,7 +74,7 @@ sap.ui.define([
 	 *
 	 * @returns {sap.fhir.model.r4.Context} Context object used by this context binding or <code>null</code>
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRContextBinding.prototype.getBoundContext = function() {
 		return this.oElementContext;
@@ -85,7 +85,7 @@ sap.ui.define([
 	 *
 	 * @param {sap.fhir.model.r4.Context} oContext the new context object
 	 * @protected
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	FHIRContextBinding.prototype.setContext = function(oContext) {
 		this.oContext = oContext;

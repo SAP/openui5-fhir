@@ -19,7 +19,7 @@ sap.ui.define([
 	 * @alias sap.fhir.model.r4.FHIRFilterOperatorUtils
 	 * @author SAP SE
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 * @version ${version}
 	 */
 	var FHIRFilterOperatorUtils = {};
@@ -30,7 +30,7 @@ sap.ui.define([
 	 * @param {sap.ui.model.Filter} oFilter The given filter
 	 * @returns {string} The FHIR filter operator
 	 * @protected
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	FHIRFilterOperatorUtils.getFHIRSearchParameterModifier = function(oFilter) {
 		var sFHIRSearchModifier = "";
@@ -61,7 +61,7 @@ sap.ui.define([
 	 * @param {sap.ui.model.Filter} oFilter The given filter.
 	 * @returns {boolean} true if the given filter is modifiable.
 	 * @public
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRFilterOperatorUtils.isSearchParameterModifiable = function(oFilter) {
 		return oFilter.sValueType !== FHIRFilterType.date && oFilter.sValueType !== FHIRFilterType.number && (typeof oFilter.oValue1 === "string" || Array.isArray(oFilter.oValue1));
@@ -73,7 +73,7 @@ sap.ui.define([
 	 * @param {sap.ui.model.Filter} oFilter The given filter.
 	 * @returns {boolean} True if the given filter is prefixable.
 	 * @public
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRFilterOperatorUtils.isSearchParameterPrefixable = function(oFilter) {
 		return !(typeof oFilter.oValue1 === "string" || Array.isArray(oFilter.oValue1)) || oFilter.sValueType === FHIRFilterType.date || !isNaN(oFilter.oValue1);
@@ -85,7 +85,7 @@ sap.ui.define([
 	 * @param {any} oValue The value of a filter object
 	 * @returns {string} Formatted FHIR filter value
 	 * @public
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	FHIRFilterOperatorUtils.getFilterValue = function(oValue) {
 		var sValue = oValue;
@@ -101,7 +101,7 @@ sap.ui.define([
 	 * @param {sap.ui.model.Filter} oFilter The given filter
 	 * @returns {string} The date FHIR search prefix
 	 * @protected
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	FHIRFilterOperatorUtils.getFHIRSearchPrefix = function(oFilter) {
 		var sFHIRSearchPrefix;

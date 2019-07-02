@@ -25,7 +25,7 @@ sap.ui.define([], function() {
 	 * @constructs {FHIRBundleRequest} Provides the implementation of a FHIR bundle request
 	 * @author SAP SE
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 * @version ${version}
 	 */
 	var FHIRBundleRequest = function(oBinding, sMethod, sUrl, fnSuccess, fnError, sIfMatch, sIfNoneMatch, sIfNoneExist, sIfModifiedSince) {
@@ -45,7 +45,7 @@ sap.ui.define([], function() {
 	 *
 	 * @returns {object} FHIR bundle entry request
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRBundleRequest.prototype.getBundleRequestData = function() {
 		var oBundleRequestData = {};
@@ -63,7 +63,7 @@ sap.ui.define([], function() {
 	 *
 	 * @returns {sap.fhir.model.r4ContextBinding | sap.fhir.model.r4ListBinding | sap.fhir.model.r4TreeBinding} Binding associated with this FHIR bundle.
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRBundleRequest.prototype.getBinding = function() {
 		return this._oBinding;
@@ -74,7 +74,7 @@ sap.ui.define([], function() {
 	 *
 	 * @returns {string} The requested URL
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRBundleRequest.prototype.getUrl = function() {
 		return this._sUrl;
@@ -84,7 +84,7 @@ sap.ui.define([], function() {
 	 * Executes the defined success callback for this FHIR bundle entry request
 	 *
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRBundleRequest.prototype.executeSuccessCallback = function() {
 		this._fnSuccess.apply(undefined, arguments);
@@ -94,7 +94,7 @@ sap.ui.define([], function() {
 	 * Executes the defined error callback for this FHIR bundle entry request
 	 *
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRBundleRequest.prototype.executeErrorCallback = function() {
 		this._fnError.apply(undefined, arguments);

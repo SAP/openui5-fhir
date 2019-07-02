@@ -28,7 +28,7 @@ sap.ui.define([
 	 * @author SAP SE
 	 * @extends sap.ui.model.Context
 	 * @public
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 * @version ${version}
 	 *
 	 * @see sap.fhir.model.r4.Context.create
@@ -46,7 +46,7 @@ sap.ui.define([
 	 *
 	 * @param {sap.ui.model.ChangeReason} sChangeReason The reason for refreshing the binding
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	Context.prototype._loadContext = function(sChangeReason) {
 		var oBindingInfo = this.oModel.getBindingInfo(this.sPath, this.oBinding.oContext, this.oBinding.bUnique);
@@ -84,7 +84,7 @@ sap.ui.define([
 	 *
 	 * @returns {sap.fhir.model.r4.FHIRContextBinding|sap.fhir.model.r4.FHIRListBinding|sap.fhir.model.r4.FHIRTreeBinding} oBinding The dependent binding
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	Context.prototype.getBinding = function() {
 		return this.oBinding;
@@ -96,7 +96,7 @@ sap.ui.define([
 	 * @param {number} iTotal The total number of bound resources. This information is needed to enable the property binding %total%
 	 * @param {sap.ui.model.ChangeReason} sChangeReason The reason for refreshing the binding
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	Context.prototype._markAsReady = function(iTotal, sChangeReason){
 		this.iTotal = iTotal;
@@ -112,7 +112,7 @@ sap.ui.define([
 	 *
 	 * @param {sap.ui.model.ChangeReason} sChangeReason The reason for refreshing the context
 	 * @public
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	Context.prototype.refresh = function(sChangeReason) {
 		this.oBinding.bInitial = true;
@@ -132,7 +132,7 @@ sap.ui.define([
 	 *   The group where the context belongs to
 	 * @returns {sap.fhir.model.r4.Context} Context object used by this context binding or <code>null</code>
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	Context.create = function(oModel, oBinding, sPath, sGroupId){
 		if (oModel.mContexts.hasOwnProperty(sPath) && !oModel.mContexts[sPath].hasOwnProperty(oBinding.sId)){
