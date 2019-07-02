@@ -26,15 +26,15 @@ sap.ui.define([
 
 	QUnit.test("check if response has no total property that error in tree binding is thrown", function (assert) {
 		var sPath = "/StructureDefinition";
-		var mParameters = { rootSearch: "base:exact", rootProperty: "baseDefinition", rootValue: "http://hl7.org/fhir/StructureDefinition/DomainResource", nodeProperty: "url", refreshByExpand: "true" };
+		var mParameters = { rootSearch: "base", rootProperty: "baseDefinition", rootValue: "http://hl7.org/fhir/StructureDefinition/DomainResource", nodeProperty: "url", refreshByExpand: "true" };
 		createTreeBinding(sPath, undefined, undefined, mParameters);
-		TestUtilsIntegration.manipulateResponse("http://localhost:8080/fhir/R4/StructureDefinition?base:exact=http://hl7.org/fhir/StructureDefinition/DomainResource&_count=10&_format=json&_total=accurate", oModel, TestUtilsIntegration.setTotalUndefined, TestUtilsIntegration.checkErrorMsg.bind(undefined, oModel, assert, "FHIR Server error: The \"total\" property is missing in the response for the requested FHIR resource " + sPath));
+		TestUtilsIntegration.manipulateResponse("http://localhost:8080/fhir/R4/StructureDefinition?base=http://hl7.org/fhir/StructureDefinition/DomainResource&_count=10&_format=json&_total=accurate", oModel, TestUtilsIntegration.setTotalUndefined, TestUtilsIntegration.checkErrorMsg.bind(undefined, oModel, assert, "FHIR Server error: The \"total\" property is missing in the response for the requested FHIR resource " + sPath));
 		oTreeBinding.getContexts();
 	});
 
 	QUnit.test("check that pending request is terminated in treebinding if no entry is found in the response object", function (assert) {
 		var oBaseFilter = new FHIRFilter({ path: "type", operator: FHIRFilterOperator.Contains, value1: "FakeResourceType" });
-		var mParameters = { rootSearch: "base:exact", rootProperty: "baseDefinition", rootValue: "http://hl7.org/fhir/StructureDefinition/DomainResource", nodeProperty: "url", refreshByExpand: "true" };
+		var mParameters = { rootSearch: "base", rootProperty: "baseDefinition", rootValue: "http://hl7.org/fhir/StructureDefinition/DomainResource", nodeProperty: "url", refreshByExpand: "true" };
 		createTreeBinding("StructureDefinition", undefined, [oBaseFilter], mParameters);
 		var done1 = assert.async();
 		var fnDataReceivedCheck = function () {

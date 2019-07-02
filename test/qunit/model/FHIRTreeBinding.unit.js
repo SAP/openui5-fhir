@@ -18,7 +18,7 @@ sap.ui.define([
 	QUnit.module("Unit-Tests: FHIRTreeBinding", {
 		before: function () {
 			this.oFhirModel1 = createModel();
-			var mParameters = { rootSearch: "base:exact", rootValue: "http://hl7.org/fhir/StructureDefinition/DomainResource", rootProperty: "baseDefinition", nodeProperty: "url" };
+			var mParameters = { rootSearch: "base", rootValue: "http://hl7.org/fhir/StructureDefinition/DomainResource", rootProperty: "baseDefinition", nodeProperty: "url" };
 			this.oTreeBinding = this.oFhirModel1.bindTree("/StructureDefinition", undefined, undefined, mParameters);
 		}
 	});
@@ -92,10 +92,10 @@ sap.ui.define([
 	});
 
 	QUnit.test("Should throw an error because creating a new FHIRTreeBinding without OperationMode.Server or undefined is not allowed", function (assert) {
-		var mParameters = { operationMode: OperationMode.Client, rootSearch: "base:exact", rootValue: "http://hl7.org/fhir/StructureDefinition/DomainResource", rootProperty: "baseDefinition", nodeProperty: "url" };
+		var mParameters = { operationMode: OperationMode.Client, rootSearch: "base", rootValue: "http://hl7.org/fhir/StructureDefinition/DomainResource", rootProperty: "baseDefinition", nodeProperty: "url" };
 		assert.throws(function () { return this.oFhirModel1.bindTree("/StructureDefinition", undefined, undefined, mParameters); }, new Error("Unsupported OperationMode: Client. Only sap.fhir.model.r4.OperationMode.Server is supported."));
 
-		mParameters = { operationMode: "Random", rootSearch: "base:exact", rootValue: "http://hl7.org/fhir/StructureDefinition/DomainResource", rootProperty: "baseDefinition", nodeProperty: "url" };
+		mParameters = { operationMode: "Random", rootSearch: "base", rootValue: "http://hl7.org/fhir/StructureDefinition/DomainResource", rootProperty: "baseDefinition", nodeProperty: "url" };
 		assert.throws(function () { return this.oFhirModel1.bindTree("/StructureDefinition", undefined, undefined, mParameters); }, new Error("Unsupported OperationMode: Random. Only sap.fhir.model.r4.OperationMode.Server is supported."));
 	});
 
@@ -127,13 +127,13 @@ sap.ui.define([
 		mParameters = { rootSearch: [], rootValue: "http://hl7.org/fhir/StructureDefinition/DomainResource", rootProperty: "baseDefinition", nodeProperty: "url" };
 		assert.throws(function () { return this.oFhirModel1.bindTree("/StructureDefinition", undefined, undefined, mParameters); }, new Error("Unsupported parameter type: 'rootSearch'. Parameter has to be of type string."));
 
-		mParameters = { rootSearch: "base:exact", rootProperty: "baseDefinition", nodeProperty: "url" };
+		mParameters = { rootSearch: "base", rootProperty: "baseDefinition", nodeProperty: "url" };
 		assert.throws(function () { return this.oFhirModel1.bindTree("/StructureDefinition", undefined, undefined, mParameters); }, new Error("Missing parameter: 'rootValue'."));
 
-		mParameters = { rootSearch: "base:exact", rootValue: "http://hl7.org/fhir/StructureDefinition/DomainResource", nodeProperty: "url" };
+		mParameters = { rootSearch: "base", rootValue: "http://hl7.org/fhir/StructureDefinition/DomainResource", nodeProperty: "url" };
 		assert.throws(function () { return this.oFhirModel1.bindTree("/StructureDefinition", undefined, undefined, mParameters); }, new Error("Missing parameter: 'rootProperty'."));
 
-		mParameters = { rootSearch: "base:exact", rootValue: "http://hl7.org/fhir/StructureDefinition/DomainResource", rootProperty: "baseDefinition" };
+		mParameters = { rootSearch: "base", rootValue: "http://hl7.org/fhir/StructureDefinition/DomainResource", rootProperty: "baseDefinition" };
 		assert.throws(function () { return this.oFhirModel1.bindTree("/StructureDefinition", undefined, undefined, mParameters); }, new Error("Missing parameter: 'nodeProperty'."));
 	});
 
