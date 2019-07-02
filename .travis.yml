@@ -37,15 +37,15 @@ jobs:
         keep-history: true
         on:
           branch: master
-    # The following stage is needed if the project is hosted on the public github and travis
-    # - stage: "Release"
-      # name: "Generate a new Release"
-      # if: (branch = master) AND (NOT (type = pull_request))
-      # deploy:
-         # provider: script
-         # skip_cleanup: true
-         # script:
-           # - npx semantic-release
+    - stage: "Release"
+      name: "Generate a new Release"
+      if: (branch = master) AND (NOT (type = pull_request))
+      script: echo \"Skipping second test execution but keep NPM hooks alive.\"
+      deploy:
+        provider: script
+        skip_cleanup: true
+        script:
+          - npx semantic-release
 
 notifications:
   email:
