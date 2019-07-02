@@ -24,7 +24,7 @@
     "npm": ">= 5"
   },
   "devDependencies": {
-    "eslint": "^5.16.0",
+    "eslint": "^6.0.1",
     "eslint-watch": "^5.1.2",
     "js-beautify": "^1.10.0",
     "jsdoc": "^3.6.2",
@@ -32,16 +32,18 @@
     "karma-chrome-launcher": "^2.2.0",
     "karma-coverage": "^1.1.2",
     "karma-junit-reporter": "^1.2.0",
-    "karma-ui5": "^1.0.0",
-    "@ui5/cli": "^1.5.1",
-    "coveralls": "^3.0.3"
+    "karma-ui5": "^1.0.1",
+    "@ui5/cli": "^1.5.5",
+    "coveralls": "^3.0.4",
+    "replace-in-file": "^4.1.0",
+    "js-yaml": "^3.13.1"
   },
   "scripts": {
     "docs": "npx jsdoc --configure ./lib/jsdoc/create-api-documentation.js --verbose --access public",
     "docs:dev": "npx jsdoc --configure ./lib/jsdoc/create-api-documentation.js --verbose --access all",
     "serve": "npm run serve:mockserver && npm run serve:ui5",
     "serve:ui5": "ui5 serve",
-    "serve:mockserver": "./setup_mock.sh",
+    "serve:mockserver": "./scripts/setup_mock.sh",
     "test": "karma start",
     "test:unit": "karma start karma-unit.conf.js",
     "test:opa5": "karma start karma-opa5.conf.js",
@@ -53,11 +55,11 @@
     "lint:watch": "esw . --watch",
     "lint:watch:fix": "esw . --watch --fix",
     "lint:watch:fix:debug": "esw . --watch --fix --debug",
-    "format:xml": "js-beautify --wrap-attributes force-aligned --replace --type html test/**/*.xml"
+    "format:xml": "js-beautify --wrap-attributes force-aligned --replace --type html test/**/*.xml",
+    "prepublishOnly": "node ./scripts/build/builder.js"
   },
   "files": [
     "src/sap/fhir/**/*.js",
-    "ui5.yaml",
-    "LICENSE.txt"
+    "ui5.yaml"
   ]
 }
