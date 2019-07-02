@@ -1,0 +1,38 @@
+{
+    "_version": "1.9.0",
+    "sap.app": {
+        "id": "sap.fhir",
+        "type": "library",
+        "embeds": [],
+        "applicationVersion": {
+            "version": "${version}"
+        },
+        "title": "The sap.fhir library provides a model to build state of the art UI5 applications in context of health industries.",
+        "description": "The sap.fhir library provides a model to build state of the art UI5 applications in context of health industries.",
+        "offline": true
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "supportedThemes": []
+    },
+    "sap.ui5": {
+        "dependencies": {
+            "minUI5Version": "1.58.0",
+            "libs": {
+                "sap.ui.core": {
+                    "minVersion": "1.58.0"
+                }
+            }
+        },
+        "library": {
+            "i18n": false,
+            "css": false,
+            "content": {
+                "controls": [],
+                "elements": [],
+                "types": [],
+                "interfaces": []
+            }
+        }
+    }
+}

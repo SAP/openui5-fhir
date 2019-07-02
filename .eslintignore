@@ -4,3 +4,4 @@ test-results/**
 bin/**
 generated_docs/**
 lib/**
+scripts/**
