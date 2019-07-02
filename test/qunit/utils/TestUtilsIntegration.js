@@ -10,7 +10,7 @@ sap.ui.define(["sap/base/util/merge"], function (merge) {
 	 * @param {sap.fhir.model.r4.FHIRModel} oModel The FHIRModel instance
 	 * @param {function} fnSetResponse The function which overrides the response
 	 * @param {function} fnDoCheck The function which performs the asserts
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	TestUtilsIntegration.manipulateResponse = function (sRequestedUrl, oModel, fnSetResponse, fnDoCheck) {
 		var fnManipulateResponse = function (oEvent) {
@@ -30,7 +30,7 @@ sap.ui.define(["sap/base/util/merge"], function (merge) {
 	 *
 	 * @protected
 	 * @param {sap.fhir.model.r4.lib.RequestHandle} oRequestHandle The affected request
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	TestUtilsIntegration.setTotalUndefined = function (oRequestHandle) {
 		delete oRequestHandle.getRequest().responseJSON.total;
@@ -41,7 +41,7 @@ sap.ui.define(["sap/base/util/merge"], function (merge) {
 	 *
 	 * @protected
 	 * @param {sap.fhir.model.r4.lib.RequestHandle} oRequestHandle The affected request
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	TestUtilsIntegration.setTotalOfValueSetOperationUndefined = function (oRequestHandle) {
 		delete oRequestHandle.getRequest().responseJSON.expansion.total;
@@ -52,7 +52,7 @@ sap.ui.define(["sap/base/util/merge"], function (merge) {
 	 *
 	 * @protected
 	 * @param {sap.fhir.model.r4.lib.RequestHandle} oRequestHandle The affected request
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	TestUtilsIntegration.setValueSetPropertiesUndefined = function (oRequestHandle) {
 		TestUtilsIntegration.setTotalOfValueSetOperationUndefined(oRequestHandle);

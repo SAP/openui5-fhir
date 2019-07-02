@@ -18,7 +18,7 @@ sap.ui.define([
 	 * @author SAP SE
 	 * @private
 	 * @constructs {Sliceable}
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 * @version ${version}
 	 */
 	var Sliceable = {};
@@ -45,7 +45,7 @@ sap.ui.define([
 	 * @param {string} sExpression The expression containing one ore more sliceable objects
 	 * @returns {sap.fhir.model.r4.lib.SliceableMap} The map containing one ore more sliceable objects
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	Sliceable.getSliceables = function(sExpression) {
 		var mSliceables;
@@ -119,7 +119,7 @@ sap.ui.define([
 	 * @param {string} sExpression The expression containing 0 or more sliceable objects, e.g. /Patient/1234/gender
 	 * @returns {boolean} True, if the expression contains at least one sliceable object.
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	Sliceable.containsSliceable = function(sExpression) {
 		// checks if expression contains '[', '=' and 0 or more characters, ']' and allow any whitespace characters between all characters

@@ -19,7 +19,7 @@ sap.ui.define([
 	 * @author SAP SE
 	 * @alias sap.fhir.model.r4.FHIRFilterProcessor
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 * @version ${version}
 	 */
 	var FHIRFilterProcessor = {};
@@ -33,7 +33,7 @@ sap.ui.define([
 	 * @param {function} fnGetValue The function to get the value from the list entry
 	 * @returns {boolean} Whether the filter matches or not
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRFilterProcessor._evaluateFilter = function(oFilter, vRef, fnGetValue){
 		var oValue, fnTest;
@@ -56,7 +56,7 @@ sap.ui.define([
 	 * @param {sap.ui.model.Filter} oFilter The filter object
 	 * @returns {function} JS filter function For the given filter
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRFilterProcessor.getFilterFunction = function(oFilter) {
 		 if (oFilter.sOperator === FHIRFilterOperator.Missing){
@@ -78,7 +78,7 @@ sap.ui.define([
 	  * @param {function} fnGetValue the function to get the value from the list entry
 	  * @return {boolean} whether the filter matches or not
 	  * @protected
-	  * @since 0.0.2
+	  * @since 1.0.0
 	  */
 	 FHIRFilterProcessor._evaluateMultiFilter = function(oMultiFilter, vRef, fnGetValue){
 		var that = this,

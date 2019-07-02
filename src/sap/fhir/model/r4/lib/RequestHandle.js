@@ -16,7 +16,7 @@ sap.ui.define([ "sap/fhir/model/r4/FHIRUtils" ], function(FHIRUtils) {
 	 * @param {sap.fhir.model.r4.FHIRContextBinding | sap.fhir.model.r4.FHIRListBinding | sap.fhir.model.r4.FHIRTreeBinding} [oBinding] The binding which triggered the request
 	 * @author SAP SE
 	 * @public
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 * @version ${version}
 	 */
 	var RequestHandle = function(oBinding) {
@@ -30,7 +30,7 @@ sap.ui.define([ "sap/fhir/model/r4/FHIRUtils" ], function(FHIRUtils) {
 	 * @param {sap.fhir.model.r4.FHIRContextBinding | sap.fhir.model.r4.FHIRListBinding | sap.fhir.model.r4.FHIRTreeBinding} oBinding The binding which is associated with this request
 	 *            handle
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	RequestHandle.prototype.setBinding = function(oBinding) {
 		this._oBinding = oBinding;
@@ -41,7 +41,7 @@ sap.ui.define([ "sap/fhir/model/r4/FHIRUtils" ], function(FHIRUtils) {
 	 *
 	 * @param {sap.fhir.model.r4.lib.FHIRBundle} oBundle The bundle which triggered the request
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	RequestHandle.prototype.setBundle = function(oBundle) {
 		this._oBundle = oBundle;
@@ -52,7 +52,7 @@ sap.ui.define([ "sap/fhir/model/r4/FHIRUtils" ], function(FHIRUtils) {
 	 *
 	 * @param {string} sUrl The url of the request
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	RequestHandle.prototype.setUrl = function(sUrl) {
 		this._sUrl = sUrl;
@@ -63,7 +63,7 @@ sap.ui.define([ "sap/fhir/model/r4/FHIRUtils" ], function(FHIRUtils) {
 	 *
 	 * @param {object} jqXHR The request object
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	RequestHandle.prototype.setRequest = function(jqXHR) {
 		this._jqRequest = jqXHR;
@@ -74,7 +74,7 @@ sap.ui.define([ "sap/fhir/model/r4/FHIRUtils" ], function(FHIRUtils) {
 	 *
 	 * @param {string} sData The sent data
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	RequestHandle.prototype.setData = function(sData) {
 		this._sData = sData;
@@ -85,7 +85,7 @@ sap.ui.define([ "sap/fhir/model/r4/FHIRUtils" ], function(FHIRUtils) {
 	 *
 	 * @param {object} mHeaders The HTTP headers
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	RequestHandle.prototype.setHeaders = function(mHeaders) {
 		this._mHeaders = mHeaders;
@@ -96,7 +96,7 @@ sap.ui.define([ "sap/fhir/model/r4/FHIRUtils" ], function(FHIRUtils) {
 	 *
 	 * @returns {sap.fhir.model.r4.FHIRContextBinding | sap.fhir.model.r4.FHIRListBinding | sap.fhir.model.r4.FHIRTreeBinding} Binding associated with this request handle
 	 * @public
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	RequestHandle.prototype.getBinding = function() {
 		return this._oBinding;
@@ -107,7 +107,7 @@ sap.ui.define([ "sap/fhir/model/r4/FHIRUtils" ], function(FHIRUtils) {
 	 *
 	 * @returns {sap.fhir.model.r4.lib.FHIRBundle} Bundle which triggered the request
 	 * @public
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	RequestHandle.prototype.getBundle = function() {
 		return this._oBundle;
@@ -118,7 +118,7 @@ sap.ui.define([ "sap/fhir/model/r4/FHIRUtils" ], function(FHIRUtils) {
 	 *
 	 * @returns {string} Url of the request which is associated with this request handle
 	 * @public
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	RequestHandle.prototype.getUrl = function() {
 		return this._sUrl;
@@ -129,7 +129,7 @@ sap.ui.define([ "sap/fhir/model/r4/FHIRUtils" ], function(FHIRUtils) {
 	 *
 	 * @returns {object} Request object(jqXHR) of the request handle
 	 * @public
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	RequestHandle.prototype.getRequest = function() {
 		return this._jqRequest;
@@ -140,7 +140,7 @@ sap.ui.define([ "sap/fhir/model/r4/FHIRUtils" ], function(FHIRUtils) {
 	 *
 	 * @returns {string} Data which was send by the request
 	 * @public
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	RequestHandle.prototype.getData = function() {
 		return this._sData;
@@ -151,7 +151,7 @@ sap.ui.define([ "sap/fhir/model/r4/FHIRUtils" ], function(FHIRUtils) {
 	 *
 	 * @returns {object} The HTTP headers
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	RequestHandle.prototype.getHeaders = function() {
 		return this._mHeaders;
@@ -162,7 +162,7 @@ sap.ui.define([ "sap/fhir/model/r4/FHIRUtils" ], function(FHIRUtils) {
 	 *
 	 * @returns {string} Id of the request handle
 	 * @public
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	RequestHandle.prototype.getId = function() {
 		return this._sId;
@@ -172,7 +172,7 @@ sap.ui.define([ "sap/fhir/model/r4/FHIRUtils" ], function(FHIRUtils) {
 	 * Aborts the request
 	 *
 	 * @public
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	RequestHandle.prototype.abort = function() {
 		this.getRequest().abort();

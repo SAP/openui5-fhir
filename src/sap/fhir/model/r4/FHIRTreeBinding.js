@@ -39,7 +39,7 @@ sap.ui.define([
 	 * @author SAP SE
 	 * @extends sap.ui.model.TreeBinding
 	 * @public
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 * @version ${version}
 	*/
 	var FHIRTreeBinding = TreeBinding.extend("sap.fhir.model.r4.FHIRTreeBinding", {
@@ -104,7 +104,7 @@ sap.ui.define([
 	 * @param {object} [oListener] Object on which to call the given function. If empty, the global context (window) is used.
 	 * @returns {sap.fhir.model.r4.FHIRTreeBinding} <code>this</code> to allow method chaining
 	 * @public
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype.attachTreeLoadingStarted = function(oData, fnFunction, oListener) {
 		this.attachEvent("treeLoadingStarted", oData, fnFunction, oListener);
@@ -119,7 +119,7 @@ sap.ui.define([
 	 * @param {object} oListener Object on which the given function had to be called.
 	 * @returns {sap.fhir.model.r4.FHIRTreeBinding} <code>this</code> to allow method chaining
 	 * @public
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype.detachTreeLoadingStarted = function(fnFunction, oListener) {
 		this.detachEvent("treeLoadingStarted", fnFunction, oListener);
@@ -132,7 +132,7 @@ sap.ui.define([
 	 * @param {any} mArguments Arguments to be fired alongside the event.
 	 * @returns {sap.fhir.model.r4.FHIRTreeBinding} <code>this</code> to allow method chaining
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype.fireTreeLoadingStarted = function(mArguments) {
 		this.fireEvent("treeLoadingStarted", mArguments);
@@ -147,7 +147,7 @@ sap.ui.define([
 	 * @param {object} [oListener] Object on which to call the given function. If empty, the global context (window) is used.
 	 * @returns {sap.fhir.model.r4.FHIRTreeBinding} <code>this</code> to allow method chaining
 	 * @public
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype.attachTreeLoadingCompleted = function(oData, fnFunction, oListener) {
 		this.attachEvent("treeLoadingCompleted", oData, fnFunction, oListener);
@@ -162,7 +162,7 @@ sap.ui.define([
 	 * @param {object} oListener Object on which the given function had to be called.
 	 * @returns {sap.fhir.model.r4.FHIRTreeBinding} <code>this</code> to allow method chaining
 	 * @public
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype.detachTreeLoadingCompleted = function(fnFunction, oListener) {
 		this.detachEvent("treeLoadingCompleted", fnFunction, oListener);
@@ -174,7 +174,7 @@ sap.ui.define([
 	 * @param {any} mArguments Arguments to be fired alongside the event.
 	 * @returns {sap.fhir.model.r4.FHIRTreeBinding} <code>this</code> to allow method chaining
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype.fireTreeLoadingCompleted = function(mArguments) {
 		this.fireEvent("treeLoadingCompleted", mArguments);
@@ -185,7 +185,7 @@ sap.ui.define([
 	 * Checks if rootSearch, rootProperty, rootValue and nodeProperty are set in <code>mParameters</code>
 	 * @param {object} mParameters Parameters to check.
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype._checkParameters = function(mParameters) {
 		if (!mParameters || !FHIRUtils.isObject(mParameters) || FHIRUtils.isEmptyObject(mParameters)) {
@@ -207,7 +207,7 @@ sap.ui.define([
 	 * @param {number} bReturnNodes The flag if the method should return the nodes for the tree table
 	 * @returns {sap.fhir.model.r4.Context[]} The array of all binding contexts
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype.getContexts =
 			function(iStartIndex, iLength, iThreshold, bReturnNodes) {
@@ -336,7 +336,7 @@ sap.ui.define([
 	* Normally this is the last selected node/table row.
 	* @returns {number} returns the lead selection index or -1 if none is set
 	* @protected
-	* @since 0.0.2
+	* @since 1.0.0
 	*/
 	FHIRTreeBinding.prototype.getSelectedIndex = function () {
 		//if we have no nodes selected, the lead selection index is -1
@@ -368,7 +368,7 @@ sap.ui.define([
 	 * @param {number} iIndex The index of a node in the tree
 	 * @returns {object} the context of a node
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype.getContextByIndex = function (iIndex) {
 		if (this.isInitial()) {
@@ -384,7 +384,7 @@ sap.ui.define([
 	 *
 	 * @param {function} [fnSuccess] the call back after next link was called
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype._callNextLink = function(fnSuccess) {
 		if (FHIRUtils.isEmptyObject(this.mRequestHandle)) {
@@ -402,7 +402,7 @@ sap.ui.define([
 	 * @param {object} [aRootChildItems] contains all children of the node
 	 * @param {function} [oNode] to build the context and organize child relations
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype._buildFilteredTree =
 			function(aRootChildItems, oNode) {
@@ -445,7 +445,7 @@ sap.ui.define([
 	 * @param {object} oNode to build the contexts and organize child relations
 	 * @returns {undefined | object} Child node if oNode is expanded, otherwise undefined.
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype._buildFilteredChildContexts = function(oResource, i, oNode) {
 		if (oNode.nodeState.expanded) {
@@ -472,7 +472,7 @@ sap.ui.define([
 	 * Checks if the root aggregation can be resolved when there are no more pending requests in the queue and builds after that the filtered tree
 	 *
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype._canRootAggregationsBeResolved = function() {
 		if (FHIRUtils.isEmptyObject(this.mRequestHandle)) {
@@ -492,7 +492,7 @@ sap.ui.define([
 	 * @param {number} [iLength] The number of contexts to retrieve beginning from the start index
 	 * @returns {object} The map of parameters
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype._buildParameters = function(iLength) {
 		var mParameters = {
@@ -517,7 +517,7 @@ sap.ui.define([
 	 *
 	 * @param {object} oData meta information of the response about the next previous link
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype._handlePaging = function(oData) {
 		if (oData && oData.link) {
@@ -531,7 +531,7 @@ sap.ui.define([
 	 * @param {object} oData The data retrieved from the server
 	 * @param {number} iTotalLength The number of resources retrieved from the server
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype._markSuccessRequest = function(oData, iTotalLength) {
 		this._handlePaging(oData);
@@ -551,7 +551,7 @@ sap.ui.define([
 	 *
 	 * @returns {number} The number of entities contained by the current list binding
 	 * @public
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype.getLength = function() {
 		return this.iTotalLength;
@@ -562,7 +562,7 @@ sap.ui.define([
 	 *
 	 * @param {sap.ui.model.ChangeReason} sChangeReason The reason for refreshing the binding
 	 * @public
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype.refresh = function(sChangeReason) {
 		this._resetData();
@@ -575,7 +575,7 @@ sap.ui.define([
 	 * Resets the data of the tree binding
 	 *
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype._resetData = function() {
 		for (var key in this.mRequestHandle){
@@ -606,7 +606,7 @@ sap.ui.define([
 	 *
 	 * @returns {boolean} if the model is initialized with the client mode
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype._isClientMode = function() {
 		return this.sOperationMode === OperationMode.Client;
@@ -617,7 +617,7 @@ sap.ui.define([
 	 *
 	 * @returns {boolean} if the model is initialized with the server mode
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype._isServerMode = function() {
 		return this.sOperationMode === OperationMode.Server;
@@ -628,7 +628,7 @@ sap.ui.define([
 	 *
 	 * @param {sap.ui.model.Filter[]} [aFilters] The filters defined for the list binding
 	 * @public
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype.filter = function(aFilters) {
 		FHIRUtils.filter(aFilters, this);
@@ -640,7 +640,7 @@ sap.ui.define([
 	 * @param {sap.ui.model.Sorter[]} aSorters The sorters defined for the list binding
 	 * @param {boolean} bRefresh If the binding should directly send a call or wait for the filters, for p13ndialog
 	 * @public
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype.sort = function(aSorters, bRefresh) {
 		FHIRUtils.sort(aSorters, this, bRefresh);
@@ -651,7 +651,7 @@ sap.ui.define([
 	 *
 	 * @param {sap.fhir.model.r4.Context} oContext The context object
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype.setContext = function(oContext) {
 		if (this.oContext !== oContext && this.isRelative()) {
@@ -671,7 +671,7 @@ sap.ui.define([
 	 * @param {boolean} [bForceDirectCall] Determines if this binding should avoid the bundle request
 	 * @returns {sap.fhir.model.r4.lib.RequestHandle} A request handle.
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype._submitRequest = function(sPath, mParameters, fnSuccessCallbackBeforeMapping, fnSuccessCallbackAfterMapping, bForceDirectCall) {
 		this.bPendingRequest = true;
@@ -701,7 +701,7 @@ sap.ui.define([
 	 * Builds the binding context array for the list
 	 *
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype._buildContexts = function() {
 		if (!this.aContexts) {
@@ -721,7 +721,7 @@ sap.ui.define([
 	 * @param {number} iIndex The index of the node
 	 * @returns {object} Node
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype.getNodeByIndex = function(iIndex) {
 		if (this.bInitial) {
@@ -742,7 +742,7 @@ sap.ui.define([
 	 * @param {any} vParam Node to find.
 	 * @returns {object | undefined} The found node or undefined.
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype.findNode = function(vParam) {
 		if (this.bInitial) {
@@ -791,7 +791,7 @@ sap.ui.define([
 	 * @param {object} [oParentNode] the parent node of the oNode parameter, handed to the fnMatchFunction
 	 * @returns {boolean} if generally a math was found
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype._match = function(oNode, aResults, iMaxNumberOfMatches, fnMatchFunction, iPositionInParent, oParentNode) {
 		// recursion end if max number of matches have been collected
@@ -836,7 +836,7 @@ sap.ui.define([
 	 * @returns {object[]} an array containing all collected nodes, for which the absolute node index is greater than iStartIndex the length of the array will be iLength (or less if the tree does not
 	 *         have that many nodes).
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype._retrieveNodeSection = function(oNode, iStartIndex, iLength) {
 		var iNodeCounter = -1;
@@ -863,7 +863,7 @@ sap.ui.define([
 	 * @param {number} iStartIndex the start of the tree section
 	 * @param {number} iLength the end of the tree section
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype._createRootNode = function(iStartIndex, iLength) {
 		if (!this._oRootNode) {
@@ -919,7 +919,7 @@ sap.ui.define([
 	 * @param {number} iStartIndex the start of the tree section
 	 * @param {number} iLength the end of the tree section
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype._buildTree = function() {
 		// expanded the root node if requested
@@ -941,7 +941,7 @@ sap.ui.define([
 	 * @param {object} aNodes the nodes which shall be indented
 	 * @param {number} iStartIndex from where the indentions have to be handled
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype._updateRowIndexMap = function(aNodes, iStartIndex) {
 		// throw away the old mapping index
@@ -958,7 +958,7 @@ sap.ui.define([
 	 * @param {object} mParameters a set of parameters which might differ from the default values
 	 * @returns {object} a newly created tree node
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype._createNode = function(mParameters) {
 		mParameters = mParameters || {};
@@ -996,7 +996,7 @@ sap.ui.define([
 	 * @param {object} sGroupID ID of a group node.
 	 * @returns {object} node state
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype._getNodeState = function(sGroupID) {
 		var oExpanded = this._mTreeState.expanded[sGroupID];
@@ -1016,7 +1016,7 @@ sap.ui.define([
 	 * @returns {string} Group ID for oNode
 	 * @override
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype._calculateGroupID = function(oNode) {
 		var sBindingPath = this.getPath();
@@ -1081,7 +1081,7 @@ sap.ui.define([
 	 * @returns {object} node state
 	 * @override
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype._createNodeState = function(mParameters) {
 		if (!mParameters.groupID) {
@@ -1145,7 +1145,7 @@ sap.ui.define([
 	 * @returns {object} node state
 	 * @override
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype._updateTreeState = function(mParameters) {
 		mParameters = mParameters || {};
@@ -1181,7 +1181,7 @@ sap.ui.define([
 	 * @param {object} oNode the node for which the group size should be determined
 	 * @override
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype._getGroupSize = function(oNode) {
 		return this.getChildCount(oNode.context);
@@ -1192,7 +1192,7 @@ sap.ui.define([
 	 *
 	 * @param {object} oNode creates the child contexts for the given node
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype._loadChildContexts = function(oNode) {
 		var oNodeState = oNode.nodeState;
@@ -1258,7 +1258,7 @@ sap.ui.define([
 	 * Removes the children and their childrens from the tree by the given node
 	 * @param {object} oNode - to remove its children and children's children
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype._removeFromKeysAndContexts = function(oNode) {
 		var aContexts = [];
@@ -1287,7 +1287,7 @@ sap.ui.define([
 	 * @param {function} fnPreProcessResult preprocess the objects which are stored in aArray
 	 * @param {function} fnDoProcessOfChildren inlucde e.g. only expanded nodes in the aArray
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype._flatTree = function(oNode, aArray, oRootNode, fnPreProcessResult, fnDoProcessOfChildren) {
 		if (oNode !== oRootNode) {
@@ -1307,7 +1307,7 @@ sap.ui.define([
 	 * @param {object} oCurrentSection  current section
 	 * @param {object} oNode for processing its children
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype._iterateChildContexts = function(aChildContexts, oCurrentSection, oNode) {
 		// for each child context we create a new node
@@ -1344,7 +1344,7 @@ sap.ui.define([
 	 * @param {ProcessChildrenData} oData Data to process.
 	 * @returns {object} Built child node from oNode
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype._processChildren = function(oNode, oChildContext, iChildIndex, oData) {
 		var oChildNode = oNode.children[iChildIndex];
@@ -1433,7 +1433,7 @@ sap.ui.define([
 	 * Returns true if the binding is grouped, default is true.
 	 * @returns {boolean} True if the binding is grouped, otherwise false.
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype.isGrouped = function() {
 		return true;
@@ -1444,7 +1444,7 @@ sap.ui.define([
 	 *
 	 * @param {boolean} bReset if the tree should be rested
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype._createTreeState = function(bReset) {
 		if (!this._mTreeState || bReset) {
@@ -1464,7 +1464,7 @@ sap.ui.define([
 	 *
 	 * @returns {number} Number of expanded levels.
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype.getNumberOfExpandedLevels = function() {
 		return this.iNumberOfExpandedLevels;
@@ -1474,7 +1474,7 @@ sap.ui.define([
 	 * Sets the max depth of expanded levels
 	 * @param {number} iNumberOfExpandedLevels Number of expanded levels.
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype.setNumberOfExpandedLevels = function(iNumberOfExpandedLevels) {
 		this.iNumberOfExpandedLevels = parseInt(iNumberOfExpandedLevels, 10);
@@ -1485,7 +1485,7 @@ sap.ui.define([
 	 *
 	 * @param {number} iIndex the absolute row index
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype.toggleIndex = function(iIndex) {
 		var oNode = this.findNode(iIndex);
@@ -1508,7 +1508,7 @@ sap.ui.define([
 	 * @param {boolean} bSuppressChange if set to true, no change event will be fired
 	 * @param {object} oNode last interacted node
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype._handleLastNodeInteraction = function(bSuppressChange, oNode){
 		if (this.vNodeLastInteraction === this._oRootNode){
@@ -1527,7 +1527,7 @@ sap.ui.define([
 	 * @param {number} vParam the row index of the tree node
 	 * @param {boolean} bSuppressChange if set to true, no change event will be fired
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype.collapse = function(vParam, bSuppressChange) {
 		this._mTreeStateOld = FHIRUtils.deepClone(this._mTreeState);
@@ -1616,7 +1616,7 @@ sap.ui.define([
 	 * @param {number} iIndex the absolute row index
 	 * @param {boolean} bSuppressChange if set to true, no change event will be fired
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype.expand = function(iIndex, bSuppressChange) {
 		this._mTreeStateOld = FHIRUtils.deepClone(this._mTreeState);
@@ -1647,7 +1647,7 @@ sap.ui.define([
 	 * @param {number} iThreshold @see sap.fhir.model.r4.FHIRTreeBinding#getContexts
 	 * @returns {object} Tree Node
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype.getNodes = function(iStartIndex, iLength, iThreshold) {
 		return this.getContexts(iStartIndex, iLength, iThreshold, true);
@@ -1660,7 +1660,7 @@ sap.ui.define([
 	 * @param {number} iNumberOfChildren The number of children the node will have
 	 * @returns {boolean} True if the node has children
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype.nodeHasChildren = function(oNode, iNumberOfChildren) {
 		// check if the node has children
@@ -1683,7 +1683,7 @@ sap.ui.define([
 	 * @param {function} fCallback The callback to process the response, fill the aKeys
 	 * @returns {sap.fhir.model.r4.lib.RequestHandle} A request handle.
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype._loadNumberOfChildren = function(oChildContext, fCallback) {
 		var oResource = this.oModel.getProperty(undefined, oChildContext);
@@ -1700,7 +1700,7 @@ sap.ui.define([
 	 * @param {object} oContext to use for retrieving the node contexts
 	 * @param {function} fCallback The callback which is executed after the mapping of the data
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype.getNodeContexts = function(oContext, fCallback) {
 		var oResource = this.oModel.getProperty(undefined, oContext);
@@ -1714,7 +1714,7 @@ sap.ui.define([
 	 * @param {number} iIndex the index for which the expansion state should be retrieved
 	 * @returns {boolean} if the given index is expanded
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype.isExpanded = function (iIndex) {
 		var oNode = this.findNode(iIndex);
@@ -1727,7 +1727,7 @@ sap.ui.define([
 	 * @param {object} oNode the starting node for the function mapping
 	 * @param {function} fnMapFunction the function which should be mapped for each node in the sub-tree
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype._map = function (oNode, fnMapFunction) {
 
@@ -1757,7 +1757,7 @@ sap.ui.define([
 	 * @param {object} oNodeState the node state for which the selection should be changed
 	 * @param {boolean} bIsSelected the selection state for the given node
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype.setNodeSelection = function (oNodeState, bIsSelected) {
 
@@ -1783,7 +1783,7 @@ sap.ui.define([
 	 * @param {number} iRowIndex the row index to check for selection state
 	 * @returns {boolean} If row is selected
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype.isIndexSelected = function (iRowIndex) {
 		var oNode = this.getNodeByIndex(iRowIndex);
@@ -1796,7 +1796,7 @@ sap.ui.define([
 	 * @param {number} iRowIndex the row index which should be checked for "selectability"
 	 * @returns {boolean} If row is selectable
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype.isIndexSelectable = function (iRowIndex) {
 		var oNode = this.getNodeByIndex(iRowIndex);
@@ -1808,7 +1808,7 @@ sap.ui.define([
 	 * @param {object} oNode The node which should be checked
 	 * @returns {boolean} If the node is selectable
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype._isNodeSelectable = function (oNode) {
 		return !!oNode && !oNode.isArtificial;
@@ -1819,7 +1819,7 @@ sap.ui.define([
 	 * Also sets the lead selection index to this node.
 	 * @param {number} iRowIndex the absolute row index which should be selected
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype.setSelectedIndex = function (iRowIndex) {
 		var oNode = this.findNode(iRowIndex);
@@ -1855,7 +1855,7 @@ sap.ui.define([
 	 * Only absolute row indices for nodes known to the client will can be retrieved this way
 	 * @returns {number[]} an array with all selected indices
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype.getSelectedIndices = function () {
 		var aResultIndices = [];
@@ -1896,7 +1896,7 @@ sap.ui.define([
 	 * Returns the number of selected nodes (including not-yet loaded)
 	 * @returns {number} How many nodes are selected
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype.getSelectedNodesCount = function () {
 		var iSelectedNodes;
@@ -1964,7 +1964,7 @@ sap.ui.define([
 	 * @param {object} oNode the node with it selectable subnodes information
 	 * @returns {number} Number of currently selectable nodes
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype._getSelectableNodesCount = function (oNode) {
 		if (oNode) {
@@ -1978,7 +1978,7 @@ sap.ui.define([
 	 * Returns an array containing all selected contexts, ordered by their appearance in the tree.
 	 * @returns {sap.fhir.model.r4.Context[]} an array containing the binding contexts for all selected nodes
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype.getSelectedContexts = function () {
 		var aResultContexts = [];
@@ -2023,7 +2023,7 @@ sap.ui.define([
 	 * @param {number} iFromIndex The start of the selection interval
 	 * @param {number} iToIndex The end of the selection interval
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype.setSelectionInterval = function (iFromIndex, iToIndex) {
 		// clears the selection but suppresses the selection change event
@@ -2074,7 +2074,7 @@ sap.ui.define([
 	 * @param {boolean} bSelectionValue the selection state which should be applied to all indices between 'from' and 'to' index
 	 * @returns {object} The selection interval parameters
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype._setSelectionInterval = function (iFromIndex, iToIndex, bSelectionValue) {
 		//make sure the "From" Index is always lower than the "To" Index
@@ -2151,7 +2151,7 @@ sap.ui.define([
 	 * @param {number} iFromIndex the starting index of the selection range
 	 * @param {number} iToIndex the end index of the selection range
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype.addSelectionInterval = function (iFromIndex, iToIndex) {
 		var mParams = this._setSelectionInterval(iFromIndex, iToIndex, true);
@@ -2163,7 +2163,7 @@ sap.ui.define([
 	 * @param {number} iFromIndex the starting index of the selection range
 	 * @param {number} iToIndex the end index of the selection range
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype.removeSelectionInterval = function (iFromIndex, iToIndex) {
 		var mParams = this._setSelectionInterval(iFromIndex, iToIndex, false);
@@ -2173,7 +2173,7 @@ sap.ui.define([
 	/**
 	 * Selects all avaliable nodes
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype.selectAll = function () {
 
@@ -2229,7 +2229,7 @@ sap.ui.define([
 	 * Removes the selection from all nodes
 	 * @returns {object} The selection interval parameters
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype._clearSelection = function () {
 		var iNodeCounter = -1;
@@ -2293,7 +2293,7 @@ sap.ui.define([
 	 * Removes the complete selection.
 	 * @param {boolean} bSuppressSelectionChangeEvent if this is set to true, no selectionChange event will be fired
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype.clearSelection = function (bSuppressSelectionChangeEvent) {
 		var oChanges = this._clearSelection();
@@ -2309,7 +2309,7 @@ sap.ui.define([
 	 * Also performs a sanity check on the parameters.
 	 * @param {object} mParams The selection interval parameters
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype._publishSelectionChanges = function (mParams) {
 
@@ -2343,7 +2343,7 @@ sap.ui.define([
 	 * Sets the node hierarchy to collapse recursive. When set to true, all child nodes will get collapsed as well.
 	 * @param {boolean} bCollapseRecursive If the tree should be collapse recursively
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype.setCollapseRecursive = function (bCollapseRecursive) {
 		this.bCollapseRecursive = !!bCollapseRecursive;
@@ -2353,7 +2353,7 @@ sap.ui.define([
 	 * Gets the collapsing behavior when parent nodes are collapsed.
 	 * @returns {boolean} If the current tree binding will be collapsed recursively
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype.getCollapseRecursive = function () {
 		return this.bCollapseRecursive;
@@ -2372,7 +2372,7 @@ sap.ui.define([
 	 *            [oListener] Object on which to call the given function.
 	 * @returns {sap.ui.model.SelectionModel} <code>this</code> to allow method chaining
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype.attachSelectionChanged = function(oData, fnFunction, oListener) {
 		this.attachEvent("selectionChanged", oData, fnFunction, oListener);
@@ -2390,7 +2390,7 @@ sap.ui.define([
 	 *            oListener Object on which the given function had to be called.
 	 * @returns {sap.ui.model.SelectionModel} <code>this</code> to allow method chaining
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype.detachSelectionChanged = function(fnFunction, oListener) {
 		this.detachEvent("selectionChanged", fnFunction, oListener);
@@ -2411,7 +2411,7 @@ sap.ui.define([
 	 * @param {number[]} [mArguments.rowIndices] Other selected indices (if available)
 	 * @returns {sap.ui.model.SelectionModel} <code>this</code> to allow method chaining
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRTreeBinding.prototype.fireSelectionChanged = function(mArguments) {
 		this.fireEvent("selectionChanged", mArguments);

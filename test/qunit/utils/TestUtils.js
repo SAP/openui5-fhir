@@ -14,7 +14,7 @@ sap.ui.define([
 	 * @param {number} iNumberOfFields The number of fields which the object contains shall contain
 	 * @param {number} iLevel The number of levels which a object structure can have as field value
 	 * @returns {object} oRandomObject
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	TestUtils.createRandomObject = function (iNumberOfFields, iLevel) {
 		var oRandomObject = {};
@@ -65,7 +65,7 @@ sap.ui.define([
 	 * @param {number} iLowerLimit The lower limit (inclusive)
 	 * @param {number} iUpperLimit The upper limit (exclusive)
 	 * @returns {number} iRandomInteger
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	TestUtils.randomInt = function (iLowerLimit, iUpperLimit) {
 		return Math.floor((Math.random() * (iUpperLimit - iLowerLimit)) + iLowerLimit);
@@ -77,7 +77,7 @@ sap.ui.define([
 	 * @protected
 	 * @param {number} iLength The length of the string
 	 * @returns {string} iRandomString
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	TestUtils.randomString = function (iLength) {
 		var sChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -96,7 +96,7 @@ sap.ui.define([
 	 * @param {function} fGenerateEntity - The function to create an entity
 	 * @param {number} iLength - The length of the array
 	 * @returns {array} oRandomArray
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	TestUtils.createArray = function (fGenerateEntity, iLength) {
 		var aGeneratedArray = [];
@@ -111,7 +111,7 @@ sap.ui.define([
 	 *
 	 * @protected
 	 * @returns {object} oRandomObject
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	TestUtils.createSimpleRandomObject = function () {
 		// create an object with one field
@@ -126,7 +126,7 @@ sap.ui.define([
 	 * @protected
 	 * @param {object} oObject The object to be cloned
 	 * @returns {object} The cloned object
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	TestUtils.deepClone = function (oObject) {
 		if (oObject && typeof oObject === "object") {
@@ -150,7 +150,7 @@ sap.ui.define([
 	 * @protected
 	 * @param {string} sFilePath The path to the JSON file
 	 * @returns {object} The JSON object contained by the loaded file
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	TestUtils.loadJSONFile = function (sFilePath) {
 		var oJSON;
@@ -171,7 +171,7 @@ sap.ui.define([
 	 * @protected
 	 * @param {string} sUrl The url which might contain url parameters
 	 * @returns {object} The map containing the url parameters
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	TestUtils.getQueryParameters = function (sUrl) {
 		if (!sUrl || sUrl.split("?").length !== 2) {
@@ -193,7 +193,7 @@ sap.ui.define([
 	 * @param {string} sServiceBaseUrl The FHIR service base url
 	 * @param {object} mParameters The model parameters
 	 * @returns {sap.fhir.model.r4.FHIRModel} The newly created FHIRModel instance
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	TestUtils.createFHIRModel = function (sServiceBaseUrl, mParameters) {
 		return new FHIRModel(sServiceBaseUrl, mParameters);
@@ -204,7 +204,7 @@ sap.ui.define([
 	 *
 	 * @protected
 	 * @returns {sap.fhir.model.r4.lib.RequestHandle} The request handle
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	TestUtils.createRequestHandle = function () {
 		var oRequestHandle = new RequestHandle();
@@ -218,7 +218,7 @@ sap.ui.define([
 	 * @protected
 	 * @param {object} mResponseHeaders The map of response headers
 	 * @returns {object} The mocked ajax request
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	TestUtils.createAjaxCallMock = function (mResponseHeaders) {
 		var jqXHRMock = {};
