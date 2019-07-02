@@ -15,7 +15,7 @@ sap.ui.define([ "sap/fhir/model/r4/FHIRUtils" ], function(FHIRUtils) {
 	 * @alias sap.fhir.model.r4.lib.FHIRBundle
 	 * @author SAP SE
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 * @version ${version}
 	 */
 	var FHIRBundle = function(sBundleType, sGroupId) {
@@ -30,7 +30,7 @@ sap.ui.define([ "sap/fhir/model/r4/FHIRUtils" ], function(FHIRUtils) {
 	 *
 	 * @returns {object} FHIR bundle
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRBundle.prototype.getBundleData = function() {
 		var oBundle = {};
@@ -46,7 +46,7 @@ sap.ui.define([ "sap/fhir/model/r4/FHIRUtils" ], function(FHIRUtils) {
 	 *
 	 * @returns {array} FHIR bundle entry array
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRBundle.prototype.getBundleEntriesData = function() {
 		var aBundleEntriesData = [];
@@ -62,7 +62,7 @@ sap.ui.define([ "sap/fhir/model/r4/FHIRUtils" ], function(FHIRUtils) {
 	 * @param {number} iIndex The index of the desired bundle entry
 	 * @returns {object} FHIR bundle
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRBundle.prototype.getBundlyEntry = function(iIndex) {
 		return this._aBundleEntries[iIndex];
@@ -73,7 +73,7 @@ sap.ui.define([ "sap/fhir/model/r4/FHIRUtils" ], function(FHIRUtils) {
 	 *
 	 * @param {sap.fhir.model.r4.lib.FHIRBundleEntry} oBundleEntry The FHIR Bundle Entry
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRBundle.prototype.addBundleEntry = function(oBundleEntry) {
 		this._aBundleEntries.push(oBundleEntry);
@@ -84,7 +84,7 @@ sap.ui.define([ "sap/fhir/model/r4/FHIRUtils" ], function(FHIRUtils) {
 	 *
 	 * @returns {string} The bundle id.
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRBundle.prototype.getId = function() {
 		return this._sId;
@@ -95,7 +95,7 @@ sap.ui.define([ "sap/fhir/model/r4/FHIRUtils" ], function(FHIRUtils) {
 	 *
 	 * @returns {string} The bundle type.
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRBundle.prototype.getBundleType = function() {
 		return this._sBundleType;
@@ -106,7 +106,7 @@ sap.ui.define([ "sap/fhir/model/r4/FHIRUtils" ], function(FHIRUtils) {
 	 *
 	 * @returns {sap.fhir.model.r4.lib.FHIRBundleEntry[]} All bundle entries.
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRBundle.prototype.getBundleEntries = function() {
 		return this._aBundleEntries;
@@ -117,7 +117,7 @@ sap.ui.define([ "sap/fhir/model/r4/FHIRUtils" ], function(FHIRUtils) {
 	 *
 	 * @returns {number} Number of bundle entries.
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRBundle.prototype.getNumberOfBundleEntries = function() {
 		return this._aBundleEntries.length;
@@ -128,7 +128,7 @@ sap.ui.define([ "sap/fhir/model/r4/FHIRUtils" ], function(FHIRUtils) {
 	 *
 	 * @returns {string} Group Id which is assigned to the FHIR bundle.
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRBundle.prototype.getGroupId = function() {
 		return this._sGroupId;

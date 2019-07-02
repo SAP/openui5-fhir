@@ -42,7 +42,7 @@ sap.ui.define([
 	 *
 	 * @extends sap.ui.model.ListBinding
 	 * @public
-	 * @since 0.0.1
+	 * @since 1.0.0
 	 * @version ${version}
 	 */
 	var FHIRListBinding = ListBinding.extend("sap.fhir.model.r4.FHIRListBinding", {
@@ -74,7 +74,7 @@ sap.ui.define([
 					 * @param {number} [iLength] The number of contexts to retrieve beginning from the start index
 					 * @returns {object} The map of parameters
 					 * @private
-					 * @since 0.0.1
+					 * @since 1.0.0
 					 */
 	FHIRListBinding.prototype._buildParameters = function(iLength) {
 		var mParameters = {
@@ -96,7 +96,7 @@ sap.ui.define([
 					 * @param {number} [iLength] The number of contexts to retrieve beginning from the start index
 					 * @returns {sap.fhir.model.r4.Context[]} The array of all binding contexts
 					 * @protected
-					 * @since 0.0.1
+					 * @since 1.0.0
 					 */
 	FHIRListBinding.prototype.getContexts = function(iStartIndex, iLength) {
 		if (!this.iLength && iLength !== undefined){
@@ -193,7 +193,7 @@ sap.ui.define([
 			 *
 			 * @param {number} iLength The requested length of data
 			 * @private
-			 * @since 0.0.1
+			 * @since 1.0.0
 			 */
 	FHIRListBinding.prototype._loadResources = function(iLength) {
 		var oBindingInfo = this.oModel.getBindingInfo(this.sPath, this.oContext, this.bUnique);
@@ -232,7 +232,7 @@ sap.ui.define([
 					 *
 					 * @param {number} iLength the current requested length of the paging
 					 * @private
-					 * @since 0.0.1
+					 * @since 1.0.0
 					 */
 	FHIRListBinding.prototype._buildContexts = function(iLength) {
 		if (!this.aContexts) {
@@ -258,7 +258,7 @@ sap.ui.define([
 					 * @param {function} fnSuccessCallback The callback function which is executed if the request was successful
 					 * @param {boolean} [bForceDirectCall] Determines if this binding should avoid the bundle request
 					 * @private
-					 * @since 0.0.1
+					 * @since 1.0.0
 					 */
 	FHIRListBinding.prototype._submitRequest = function(sPath, mParameters, fnSuccessCallback, bForceDirectCall) {
 		var fnErrorCallback = function(oData) {
@@ -289,7 +289,7 @@ sap.ui.define([
 					 * @param {any} vValues The data of the whole list
 					 * @param {number} iNumberOfKeys The number of keys which will be created
 					 * @private
-					 * @since 0.0.1
+					 * @since 1.0.0
 					 */
 	FHIRListBinding.prototype._buildKeys = function(sUri, vValues, iNumberOfKeys) {
 		this.aKeys = [];
@@ -310,7 +310,7 @@ sap.ui.define([
 					 * @param {object} oData The data retrieved from the server
 					 * @param {number} iTotalLength The number of resources retrieved from the server
 					 * @private
-					 * @since 0.0.1
+					 * @since 1.0.0
 					 */
 	FHIRListBinding.prototype._markSuccessRequest = function(oData, iTotalLength) {
 		if (oData && oData.hasOwnProperty("link")) {
@@ -337,7 +337,7 @@ sap.ui.define([
 					 * @param {object} mParameters The URL parameters which are send by the request, e.g. _count, _summary
 					 * @param {number} iLength The requested data length for this list binding
 					 * @private
-					 * @since 0.0.1
+					 * @since 1.0.0
 					 */
 	FHIRListBinding.prototype._loadProfile = function(fnSuccessCallbackStructureDefintion, fnLoadResources, fnSuccessCallback, mParameters, iLength) {
 		if (!this.isRelative()) {
@@ -370,7 +370,7 @@ sap.ui.define([
 			 * @param {object} [mChangedEntities] The map of changed entities
 			 * @param {string} [sMethod] The URL request method
 			 * @protected
-			 * @since 0.0.1
+			 * @since 1.0.0
 			 */
 	FHIRListBinding.prototype.checkUpdate = function(mChangedEntities, sMethod) {
 		var oBindingInfo = this.oModel.getBindingInfo(this.sPath, this.oContext, this.bUnique);
@@ -406,7 +406,7 @@ sap.ui.define([
 			 *
 			 * @returns {boolean} if this binding has a hard coded value set url
 			 * @private
-			 * @since 0.0.1
+			 * @since 1.0.0
 			 */
 	FHIRListBinding.prototype._isValueSetHardCoded = function() {
 		return this.mParameters && this.mParameters.request && this.mParameters.request.hasOwnProperty("url");
@@ -417,7 +417,7 @@ sap.ui.define([
 			 *
 			 * @returns {string} The URI of an ValueSet
 			 * @private
-			 * @since 0.0.1
+			 * @since 1.0.0
 			 */
 	FHIRListBinding.prototype._getValueSetUriFromStructureDefinition = function() {
 		var aElement = this.oModel._getProperty(this.oStructureDefinition, ["snapshot", "element"]);
@@ -446,7 +446,7 @@ sap.ui.define([
 			 *
 			 * @returns {boolean} if this binding is binded to a valueset
 			 * @private
-			 * @since 0.0.1
+			 * @since 1.0.0
 			 */
 	FHIRListBinding.prototype._isValueSet = function() {
 		if (this.aKeys && this.aKeys.length > 0) {
@@ -462,7 +462,7 @@ sap.ui.define([
 					 *
 					 * @returns {number} The number of entities contained by the current list binding
 					 * @public
-					 * @since 0.0.1
+					 * @since 1.0.0
 					 */
 	FHIRListBinding.prototype.getLength = function() {
 		if ( this.iTotalLength !== undefined ){
@@ -477,7 +477,7 @@ sap.ui.define([
 			 *
 			 * @param {sap.ui.model.Filter[]} [aFilters] The filters defined for the list binding
 			 * @public
-			 * @since 0.0.1
+			 * @since 1.0.0
 			 */
 	FHIRListBinding.prototype.filter = function(aFilters) {
 		FHIRUtils.filter(aFilters, this);
@@ -489,7 +489,7 @@ sap.ui.define([
 					 * @param {sap.ui.model.Sorter[]} aSorters The sorters defined for the list binding
 					 * @param {boolean} bRefresh If the binding should directly send a call or wait for the filters, for p13ndialog
 					 * @public
-					 * @since 0.0.1
+					 * @since 1.0.0
 					 */
 	FHIRListBinding.prototype.sort = function(aSorters, bRefresh) {
 		FHIRUtils.sort(aSorters, this, bRefresh);
@@ -500,7 +500,7 @@ sap.ui.define([
 					 *
 					 * @param {sap.fhir.model.r4.Context} oContext The context object
 					 * @protected
-					 * @since 0.0.1
+					 * @since 1.0.0
 					 */
 	FHIRListBinding.prototype.setContext = function(oContext) {
 		if (this.oContext !== oContext && this.isRelative()){
@@ -514,7 +514,7 @@ sap.ui.define([
 					 *
 					 * @param {sap.ui.model.ChangeReason} sChangeReason The reason for refreshing the binding
 					 * @public
-					 * @since 0.0.1
+					 * @since 1.0.0
 					 */
 	FHIRListBinding.prototype.refresh = function(sChangeReason) {
 		this._resetData();
@@ -527,7 +527,7 @@ sap.ui.define([
 					 * Resets the data of the list binding
 					 *
 					 * @private
-					 * @since 0.0.1
+					 * @since 1.0.0
 					 */
 	FHIRListBinding.prototype._resetData = function() {
 		this.aKeys = undefined;
@@ -549,7 +549,7 @@ sap.ui.define([
 					 *
 					 * @returns {boolean} if the model is initialized with the client mode
 					 * @private
-					 * @since 0.0.1
+					 * @since 1.0.0
 					 */
 	FHIRListBinding.prototype._isClientMode = function() {
 		return this.sOperationMode === OperationMode.Client;
@@ -560,7 +560,7 @@ sap.ui.define([
 					 *
 					 * @returns {boolean} if the model is initialized with the server mode
 					 * @private
-					 * @since 0.0.2
+					 * @since 1.0.0
 					 */
 	FHIRListBinding.prototype._isServerMode = function() {
 		return this.sOperationMode === OperationMode.Server;
@@ -571,7 +571,7 @@ sap.ui.define([
 					 *
 					 * @returns {sap.ui.model.Filter[]} The array containing the actual filters
 					 * @public
-					 * @since 0.0.1
+					 * @since 1.0.0
 					 */
 	FHIRListBinding.prototype.getFilters = function() {
 		return this.aFilters;
@@ -582,7 +582,7 @@ sap.ui.define([
 					 *
 					 * @returns {sap.ui.model.Sorter[]} The array containing the actual sorters
 					 * @public
-					 * @since 0.0.1
+					 * @since 1.0.0
 					 */
 	FHIRListBinding.prototype.getSorters = function() {
 		return this.aSorters;

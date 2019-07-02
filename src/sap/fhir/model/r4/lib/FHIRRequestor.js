@@ -30,7 +30,7 @@ sap.ui.define([
 	 * @author SAP SE
 	 * @constructs {FHIRRequestor} Provides the implementation of the FHIR Requestor to send and retrieve content from a FHIR server
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 * @version ${version}
 	 */
 	var FHIRRequestor = function(sServiceUrl, oModel, bCSRF, sPrefer) {
@@ -52,7 +52,7 @@ sap.ui.define([
 	 * @typedef {object} sap.fhir.model.r4.RequestEventParameters
 	 * @prop {sap.fhir.model.r4.lib.RequestHandle} requestHandle
 	 * @public
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 
 	/**
@@ -61,7 +61,7 @@ sap.ui.define([
 	 * @param {string} sGroupId The group id
 	 * @returns {sap.fhir.model.r4.lib.RequestHandle} oRequesthandle
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRRequestor.prototype.submitBundle = function(sGroupId) {
 		var oFHIRBundle = this._mBundleQueue[sGroupId];
@@ -84,7 +84,7 @@ sap.ui.define([
 	 * @param {boolean} [bManualSubmit] The switch if a bundle will be manually submitted
 	 * @returns {sap.fhir.model.r4.lib.FHIRBundle | sap.fhir.model.r4.lib.RequestHandle} A request handle or a bundle.
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRRequestor.prototype._request = function(sMethod, sPath, bForceDirectCall, mParameters, sGroupId, mHeaders, oPayload, fnSuccess, fnError, oBinding, bManualSubmit) {
 		if (!FHIRUtils.isRequestable(sPath) && !bForceDirectCall){
@@ -127,7 +127,7 @@ sap.ui.define([
 	 * @param {sap.fhir.model.r4.FHIRContextBinding | sap.fhir.model.r4.FHIRListBinding | sap.fhir.model.r4.FHIRTreeBinding} [oBinding] The binding which triggered the request
 	 * @returns {sap.fhir.model.r4.lib.FHIRBundleEntry} A FHIRBundleEntry instance.
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRRequestor.prototype._createBundleEntry = function(sMethod, sResourcePath, mParameters, oResource, fnSuccess, fnError, oBinding) {
 		// remove possible slash at the beginning
@@ -153,7 +153,7 @@ sap.ui.define([
 	 * @param {sap.fhir.model.r4.lib.FHIRBundle} oFHIRBundle The bundle to send
 	 * @returns {sap.fhir.model.r4.lib.RequestHandle} A request handle.
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRRequestor.prototype._sendBundle = function(oFHIRBundle) {
 		var fnSuccess = function(oGivenFHIRBundle, oRequestHandle) {
@@ -195,7 +195,7 @@ sap.ui.define([
 	 * @param {sap.fhir.model.r4.FHIRContextBinding | sap.fhir.model.r4.FHIRListBinding | sap.fhir.model.r4.FHIRTreeBinding} [oBinding] The binding which triggered the request
 	 * @returns {sap.fhir.model.r4.lib.RequestHandle} A request handle.
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRRequestor.prototype._sendRequest = function(sMethod, sPath, mParameters, mHeaders, oPayload, fnSuccess, fnError, oBinding) {
 		var oRequestHandle = new RequestHandle(oBinding);
@@ -260,7 +260,7 @@ sap.ui.define([
 	 * @param {string} sStatusText The status text of the response
 	 * @param {object} jqXHR The request object
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRRequestor.prototype._callBackForXcsrfToken = function(fnOriginSuccess, oRequestHandle, oData, sStatusText, jqXHR){
 		this.sToken = this.getResponseHeaders(jqXHR)["x-csrf-token"];
@@ -276,7 +276,7 @@ sap.ui.define([
 	 * @param {function} [fnError] The callback which will be executed when the request failed
 	 * @returns {sap.fhir.model.r4.lib.RequestHandle} The request handle object to identify the executed request
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRRequestor.prototype._ajax = function(oRequestHandle, mParameters, fnSuccess, fnError) {
 		var jqXHR = jQuery.ajax(mParameters);
@@ -298,7 +298,7 @@ sap.ui.define([
 	 * @param {function} fnSuccess The callback which will be executed when the request was successful
 	 * @param {function} fnError The callback which will be executed when the request failed
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRRequestor.prototype._add = function(oRequestHandle, fnSuccess, fnError) {
 		var jqXHR = oRequestHandle.getRequest();
@@ -317,7 +317,7 @@ sap.ui.define([
 	 * @param {sap.fhir.model.r4.lib.RequestHandle} oRequestHandle The request handle object to identify the executed request
 	 * @returns {sap.fhir.model.r4.RequestEventParameters} The event parameters object
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRRequestor.prototype._createEventParameters = function(oRequestHandle){
 		return {requestHandle: oRequestHandle};
@@ -329,7 +329,7 @@ sap.ui.define([
 	 * @param {string} sGroupId The group id
 	 * @returns {sap.fhir.model.r4.SubmitMode} The submit mode.
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRRequestor.prototype._getGroupSubmitMode = function(sGroupId) {
 		return this.oModel.getGroupProperty(sGroupId, "submit");
@@ -341,7 +341,7 @@ sap.ui.define([
 	 * @param {string} sGroupId The group id
 	 * @returns {sap.fhir.model.r4.lib.FHIRBundle} Returns an existing bundle or a newly created bundle for the given group id.
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRRequestor.prototype._getBundleByGroup = function(sGroupId) {
 		var oFHIRBundle = this._mBundleQueue[sGroupId];
@@ -360,7 +360,7 @@ sap.ui.define([
 	 * @returns {sap.fhir.model.r4.lib.FHIRBundleType} The type for the given submit mode.
 	 * @throws {Error} if an unsupported submit mode is used
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRRequestor.prototype._getBundleTypeBySubmitMode = function(sSubmitMode) {
 		switch (sSubmitMode) {
@@ -378,7 +378,7 @@ sap.ui.define([
 	 *
 	 * @param {string} sGroupId The group id
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRRequestor.prototype._deleteBundleFromQueue = function(sGroupId) {
 		delete this._mBundleQueue[sGroupId];
@@ -394,7 +394,7 @@ sap.ui.define([
 	 * @param {sap.fhir.model.r4.HTTPMethod} [sMethod=HTTPMethod.GET] HTTP method, e.g. HTTPMethod.GET
 	 * @returns {string} The query string, it is empty if there are no parameters
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRRequestor.prototype._buildQueryParameters = function(mParameters, oBindingInfo, sMethod) {
 		var aQuery;
@@ -434,7 +434,7 @@ sap.ui.define([
 	 * @param {string} sValue The sValue
 	 * @returns {string} The encoded key-value pair in the form "key=value"
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRRequestor.prototype._encodePair = function(sKey, sValue) {
 		return this._encode(sKey, true) + "=" + this._encode(sValue, false);
@@ -447,7 +447,7 @@ sap.ui.define([
 	 * @param {boolean} bEncodeEquals If true, "=" is encoded, too
 	 * @returns {string} The encoded query part
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRRequestor.prototype._encode = function(sPart, bEncodeEquals) {
 		var sEncoded = encodeURI(sPart).replace(this._oRegex.rAmpersand, "%26").replace(this._oRegex.rHash, "%23").replace(this._oRegex.rPlus, "%2B");
@@ -462,7 +462,7 @@ sap.ui.define([
 	 *
 	 * @param {sap.fhir.model.r4.lib.RequestHandle} oRequestHandle The request handle object to identify the executed request
 	 * @private
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRRequestor.prototype._deleteRequestHandle = function(oRequestHandle) {
 		var iIndex = FHIRUtils.getIndexOfValueInArray(oRequestHandle, this._aPendingRequestHandles);
@@ -473,7 +473,7 @@ sap.ui.define([
 	 * Destroys the FHIRRequestor object and all children
 	 *
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRRequestor.prototype.destroy = function() {
 		this._mBundleQueue = {};
@@ -488,7 +488,7 @@ sap.ui.define([
 	 * @param {object} jqXHR The request object
 	 * @returns {object} Response headers for the given code.
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRRequestor.prototype.getResponseHeaders = function(jqXHR) {
 		var mResponseHeaders = {};

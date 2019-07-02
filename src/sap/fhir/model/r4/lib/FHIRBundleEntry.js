@@ -17,7 +17,7 @@ sap.ui.define([], function() {
 	 * @constructs {FHIRBundleEntry} Provides the implementation of a FHIR bundle entry
 	 * @author SAP SE
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 * @version ${version}
 	 */
 	var FHIRBundleEntry = function(sFullUrl, oResource, oRequest) {
@@ -31,7 +31,7 @@ sap.ui.define([], function() {
 	 *
 	 * @returns {object} FHIR bundle entry
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRBundleEntry.prototype.getBundleEntryData = function() {
 		var oBundleEntry = {};
@@ -46,7 +46,7 @@ sap.ui.define([], function() {
 	 *
 	 * @returns {sap.fhir.model.r4.lib.FHIRBundleRequest} The bundle request of the entry.
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRBundleEntry.prototype.getRequest = function() {
 		return this._oRequest;
@@ -57,7 +57,7 @@ sap.ui.define([], function() {
 	 *
 	 * @returns {object} oFHIRResource
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRBundleEntry.prototype.getResource = function() {
 		return this._oResource;
@@ -68,7 +68,7 @@ sap.ui.define([], function() {
 	 *
 	 * @returns {string} sFullUrl
 	 * @protected
-	 * @since 0.0.2
+	 * @since 1.0.0
 	 */
 	FHIRBundleEntry.prototype.getFullUrl = function() {
 		return this._sFullUrl;
