@@ -28,7 +28,7 @@
                            selectionMode="MultiToggle"
                            enableColumnReordering="false"
                            expandFirstLevel="true"
-                           rows="{path: '/StructureDefinition', threshold: 200, parameters: {rootSearch: 'base:exact', rootProperty: 'baseDefinition', rootValue: 'http://hl7.org/fhir/StructureDefinition/DomainResource', nodeProperty: 'url' }, sorter : [{ path : 'name'}]}">
+                           rows="{path: '/StructureDefinition', threshold: 200, parameters: {rootSearch: 'base', rootProperty: 'baseDefinition', rootValue: 'http://hl7.org/fhir/StructureDefinition/DomainResource', nodeProperty: 'url' }, sorter : [{ path : 'name'}]}">
                     <columns>
                         <Column label="Id">
                             <template>

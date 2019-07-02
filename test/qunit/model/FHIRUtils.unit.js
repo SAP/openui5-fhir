@@ -1,11 +1,7 @@
-sap.ui.define([
-	"../utils/TestUtils",
-	"sap/fhir/model/r4/FHIRUtils",
-	"sap/fhir/model/r4/FHIRModel"
-], function(TestUtils, FHIRUtils, FHIRModel) {
+sap.ui.define(["../utils/TestUtils", "sap/fhir/model/r4/FHIRUtils"], function(TestUtils, FHIRUtils) {
 	"use strict";
 
-	QUnit.module("Test for FHIRUtils", {});
+	QUnit.module("Unit-Tests: FHIRUtils", {});
 
 	QUnit.test("Test function Quantity", function(assert) {
 		// have to enhanced if quantity is supported
@@ -271,7 +267,7 @@ sap.ui.define([
 	});
 
 	QUnit.test("Test isBinding methods", function(assert) {
-		var oModel = new FHIRModel("https://example.com/fhir");
+		var oModel = TestUtils.createFHIRModel("https://example.com/fhir");
 		var oContextBinding = oModel.bindContext("/Patient");
 		var oPropertyBinding = oModel.bindProperty("/Patient/123/name");
 		assert.strictEqual(FHIRUtils.isPropertyBinding(oPropertyBinding), true);

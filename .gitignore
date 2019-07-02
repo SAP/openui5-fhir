@@ -2,13 +2,12 @@
 package-lock.json
 
 # generated Folders
-/target/
+/test-results/
 /bin/
 .settings/
 node_modules/
 generated_docs/
 gen/
-coverage/
 /.vscode
 
 # Node

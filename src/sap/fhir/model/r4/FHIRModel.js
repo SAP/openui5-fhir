@@ -3,7 +3,7 @@
  */
 
 /**
- * Model and related classes like bindings for FHIR Release 4 (R4).
+ * Model and related classes like bindings for FHIR® Release 4 (R4).
  *
  * @name sap.fhir.model.r4
  * @namespace

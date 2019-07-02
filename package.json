@@ -2,38 +2,54 @@
   "name": "openui5-fhir",
   "version": "0.0.1",
   "author": "SAP SE",
+  "license": "Apache-2.0",
   "description": "The OpenUI5-FHIR Library enables UI5 to the FHIR world",
   "repository": {
     "type": "git",
     "url": "https://github.com/SAP/openui5-fhir.git"
   },
+  "contributors": [
+    {
+      "url": "https://github.com/SAP/openui5-fhir/graphs/contributors"
+    }
+  ],
+  "keywords": [
+    "openui5",
+    "sapui5",
+    "ui5",
+    "fhir"
+  ],
+  "engines": {
+    "node": ">= 8.5",
+    "npm": ">= 5"
+  },
   "devDependencies": {
-    "eslint": "5.7.0",
-    "eslint-watch": "4.0.2",
-    "grunt": "^1.0.4",
-    "grunt-cli": "1.3.1",
-    "grunt-karma": "3.0.0",
-    "js-beautify": "^1.8.9",
+    "eslint": "^5.16.0",
+    "eslint-watch": "^5.1.2",
+    "js-beautify": "^1.10.0",
     "jsdoc": "^3.6.2",
-    "karma": "3.1.1",
-    "karma-chrome-launcher": "2.2.0",
-    "karma-coverage": "1.1.2",
-    "karma-junit-reporter": "1.2.0",
-    "karma-openui5": "0.2.3",
-    "karma-qunit": "2.1.0",
-    "qunit": "2.6.2"
+    "karma": "^4.1.0",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-coverage": "^1.1.2",
+    "karma-junit-reporter": "^1.2.0",
+    "karma-ui5": "^1.0.0",
+    "@ui5/cli": "^1.5.1",
+    "coveralls": "^3.0.3"
   },
   "scripts": {
     "docs": "npx jsdoc --configure ./lib/jsdoc/create-api-documentation.js --verbose --access public",
     "docs:dev": "npx jsdoc --configure ./lib/jsdoc/create-api-documentation.js --verbose --access all",
-    "test": "grunt test",
-    "test:unit": "grunt test-unit",
-    "test:opa5": "grunt test-opa5",
-    "test-mockserver": "npm run serve:mockserver && npm test",
+    "serve": "npm run serve:mockserver && npm run serve:ui5",
+    "serve:ui5": "ui5 serve",
     "serve:mockserver": "./setup_mock.sh",
+    "test": "karma start",
+    "test:unit": "karma start karma-unit.conf.js",
+    "test:opa5": "karma start karma-opa5.conf.js",
+    "test-mockserver": "npm run serve:mockserver && npm test",
+    "deploy:coverage": "cat ./test-results/coverage/all/lcov/lcov-all.info | coveralls || echo \"Deployment of coverage to coveralls.io failed.\"",
+    "lint": "eslint src test",
     "lint:console": "eslint src test || true",
     "lint:file:checkstyle": "eslint -o ./target/eslint/eslint.checkstyle.xml -f checkstyle src test",
-    "lint": "eslint src test",
     "lint:watch": "esw . --watch",
     "lint:watch:fix": "esw . --watch --fix",
     "lint:watch:fix:debug": "esw . --watch --fix --debug",
@@ -41,6 +57,7 @@
   },
   "files": [
     "src/sap/fhir/**/*.js",
-    "ui5.yaml"
+    "ui5.yaml",
+    "LICENSE.txt"
   ]
 }

@@ -95,7 +95,7 @@ sap.ui.require(["sap/ui/test/Opa5", "sap/ui/test/opaQunit"], function(Opa5, opaT
 		When.iPressButton(sViewTable, sExpandToLvlBtn);
 		Then.theTextShouldAppear("TestAppointmentExtended", sViewTable);
 		When.iScrollInTableToBottom(sViewTable, sTreeTable);
-		Then.theTextShouldAppear("ProductPlan", sViewTable);
+		Then.theTextShouldAppear("ProcessResponse", sViewTable);
 		When.iScrollInTableToBottom(sViewTable, sTreeTable);
 		Then.theTextShouldAppear("ValueSet", sViewTable);
 		Then.theTreeTableSizeShouldBe(176,sViewTable);

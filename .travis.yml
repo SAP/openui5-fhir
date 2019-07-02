@@ -21,18 +21,18 @@ branches:
 
 jobs:
   include:
-    - stage: "JSLint Checks"
+    - stage: "Checks and Tests"
+      name: "JSLint Checks"
       script: npm run lint
-    - stage: "QUnit / QUnit Integration / OPA5 Tests"
-      script: npm run test-mockserver
+    - script: npm run test-mockserver && npm run deploy:coverage
+      name: "QUnit / QUnit Integration / OPA5 Tests"
     - stage: "Generate API Documentation"
       if: (branch = master) AND (NOT (type = pull_request))
       script: "npm run docs"
       deploy:
         local-dir: generated_docs/html
         provider: pages
-        name: OpenUI5-FHIR-Bot
-        github-token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
+        github-token: $GITHUB_TOKEN
         skip-cleanup: true
         keep-history: true
         on:
@@ -51,3 +51,4 @@ notifications:
   email:
     on_failure: always
     on_success: change
+  webhooks: https://coveralls.io/webhook
