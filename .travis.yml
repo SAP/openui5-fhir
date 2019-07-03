@@ -37,6 +37,15 @@ jobs:
         keep-history: true
         on:
           branch: master
+    - stage: "Release"
+      name: "Generate a new Release"
+      if: (branch = master) AND (NOT (type = pull_request))
+      script: echo \"Skipping second test execution but keep NPM hooks alive.\"
+      deploy:
+        provider: script
+        skip_cleanup: true
+        script:
+          - npx semantic-release
 
 notifications:
   email:

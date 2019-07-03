@@ -36,7 +36,9 @@
     "@ui5/cli": "^1.5.5",
     "coveralls": "^3.0.4",
     "replace-in-file": "^4.1.0",
-    "js-yaml": "^3.13.1"
+    "js-yaml": "^3.13.1",
+    "@semantic-release/git": "^7.0.16",
+    "@semantic-release/changelog": "^3.0.4"
   },
   "scripts": {
     "docs": "npx jsdoc --configure ./lib/jsdoc/create-api-documentation.js --verbose --access public",
