@@ -101,7 +101,7 @@ sap.ui.define([
 				return oFHIRBundle;
 			} else {
 				oRequestHandle = this._mBundleQueue[sGroupId];
-				if (oRequestHandle && oRequestHandle.constructor.name === "RequestHandle"){
+				if (oRequestHandle && oRequestHandle instanceof RequestHandle){
 					oRequestHandle.getRequest().abort();
 				}
 				oRequestHandle = this._sendBundle(oFHIRBundle);
@@ -347,7 +347,7 @@ sap.ui.define([
 		var oFHIRBundle = this._mBundleQueue[sGroupId];
 		if (!oFHIRBundle) {
 			oFHIRBundle = new FHIRBundle(this._getBundleTypeBySubmitMode(this._getGroupSubmitMode(sGroupId)), sGroupId);
-		} else if (oFHIRBundle.constructor.name === "RequestHandle"){
+		} else if (oFHIRBundle instanceof RequestHandle){
 			oFHIRBundle = oFHIRBundle.getBundle();
 		}
 		return oFHIRBundle;

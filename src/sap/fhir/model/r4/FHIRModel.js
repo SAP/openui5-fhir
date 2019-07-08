@@ -26,6 +26,7 @@ sap.ui.define([
 	"sap/fhir/model/r4/SubmitMode",
 	"sap/fhir/model/r4/lib/FHIRRequestor",
 	"sap/fhir/model/r4/lib/HTTPMethod",
+	"sap/fhir/model/r4/lib/FHIRBundle",
 	"sap/ui/model/ChangeReason",
 	"sap/fhir/model/r4/lib/FHIRUrl",
 	"sap/base/Log",
@@ -37,7 +38,7 @@ sap.ui.define([
 	"sap/fhir/model/r4/FHIRFilterProcessor",
 	"sap/fhir/model/r4/FHIRFilterOperator"
 ], function(Model, FHIRListBinding, FHIRPropertyBinding,
-	FHIRContextBinding, FHIRTreeBinding, FHIRUtils, OperationMode, URI, BindingInfo, Sliceable, SubmitMode, FHIRRequestor, HTTPMethod, ChangeReason, FHIRUrl, Log, deepEqual, each, Context, Message, coreLibrary, FHIRFilterProcessor, FHIRFilterOperator) {
+	FHIRContextBinding, FHIRTreeBinding, FHIRUtils, OperationMode, URI, BindingInfo, Sliceable, SubmitMode, FHIRRequestor, HTTPMethod, FHIRBundle, ChangeReason, FHIRUrl, Log, deepEqual, each, Context, Message, coreLibrary, FHIRFilterProcessor, FHIRFilterOperator) {
 
 	"use strict";
 
@@ -674,7 +675,7 @@ sap.ui.define([
 								};
 								var vRequestHandle = this.loadData(oRequestInfo.url, mParameters, oRequestInfo.method, oResourceNew);
 								mRequestHandles = mRequestHandles ? mRequestHandles : {};
-								if (vRequestHandle.constructor.name === "FHIRBundle" && !mRequestHandles[vRequestHandle.getGroupId()]) {
+								if (vRequestHandle instanceof FHIRBundle && !mRequestHandles[vRequestHandle.getGroupId()]) {
 									mRequestHandles[vRequestHandle.getGroupId()] = {};
 								} else if (!mRequestHandles.direct) {
 									mRequestHandles.direct = [];
