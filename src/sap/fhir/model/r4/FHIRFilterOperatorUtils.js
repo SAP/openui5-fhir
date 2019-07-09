@@ -3,11 +3,7 @@
  */
 
 // Provides class sap.fhir.model.r4.FHIRFilterOperatorUtils
-sap.ui.define([
-	"sap/fhir/model/r4/FHIRFilterOperator",
-	"sap/fhir/model/r4/FHIRFilterType",
-	"sap/fhir/model/r4/FHIRUtils"
-], function(FHIRFilterOperator, FHIRFilterType, FHIRUtils) {
+sap.ui.define(["sap/fhir/model/r4/FHIRFilterOperator", "sap/fhir/model/r4/FHIRFilterType"], function(FHIRFilterOperator, FHIRFilterType) {
 
 	"use strict";
 
