@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/SAP/openui5-fhir/compare/v1.0.1...v1.0.2) (2019-07-09)
+
+
+### Bug Fixes
+
+* enable self-contained bundling of consuming apps ([d33efdd](https://github.com/SAP/openui5-fhir/commit/d33efdd))
+
 ## [1.0.1](https://github.com/SAP/openui5-fhir/compare/v1.0.0...v1.0.1) (2019-07-09)
 
 
