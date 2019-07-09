@@ -34,6 +34,9 @@
 		"no-negated-in-lhs": 2,
 		"no-obj-calls": 2,
 		"no-regex-spaces": 2,
+		"no-restricted-properties": [2, {
+			"property": "constructor"
+		}],
 		"no-sparse-arrays": 2,
 		"no-trailing-spaces": 2,
 		"no-unreachable": 2,
