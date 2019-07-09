@@ -57,13 +57,6 @@
 }
 
 /*
-  The main content
-*/
-.content {
-    width: calc(100% - 400px) !important;
-}
-
-/*
   The headline
 */
 #headline {
@@ -81,11 +74,30 @@
     color: gray;
 }
 
-/*
-  The navigation bar
-*/
-#navigationBar {
-    width: 400px;
+/* For tablet screen size*/
+@media only screen and (min-width: 600px){
+  #navigationBar {
+    width: 250px;
+  }
+  footer {
+    margin-left: 250px;
+  }
+  .content {
+    width: calc(100% - 250px) !important;
+  }
+}
+
+/* For desktop screen size */
+@media only screen and (min-width: 800px){
+  #navigationBar {
+    width: 300px;
+  }
+  footer {
+    margin-left: 300px;
+  }
+  .content {
+    width: calc(100% - 300px) !important;
+  }
 }
 
 /*
@@ -95,9 +107,3 @@
     width: 560px
 }
 
-/*
-  footer configuration
-*/
-footer {
-    margin-left: 400px;
-}
