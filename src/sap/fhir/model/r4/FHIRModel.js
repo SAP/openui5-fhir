@@ -45,7 +45,7 @@ sap.ui.define([
 	var MessageType = coreLibrary.MessageType;
 
 	/**
-	 * Constructor for a new FHIRModel. Model implementation for FHIR Release 3 (STU).
+	 * Constructor for a new FHIRModel. Model implementation for FHIR R4.
 	 *
 	 * @class
 	 * @classdesc The implementation of the FHIRModel
