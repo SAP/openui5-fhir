@@ -96,17 +96,17 @@
 
 @media only screen and (max-width: 1100px){
   /* Add a line break after the first part of the headline */
-  .home_headline_1:after {
+  .home-headline-1:after {
     content: '\A';
     white-space: pre;
     line-height: 50px;
   }
 
-  .home_headline_2 {
+  .home-headline-2 {
     display: none;
   }
 
-  .home_headline_3 {
+  .home-headline-3 {
     line-height: 50px;
   }
 }
