@@ -47,7 +47,7 @@ The *OpenUI5-FHIR* project is published at npm on package `openui5-fhir`, which 
 ```
 
 ## Sample App
-TODO continue here to link to sample app
+There is already a [sample app](https://github.com/SAP-samples/openui5-fhir-sample-app) available, which illustrates the use of *OpenUI5-FHIR*. Check it out and have fun!
 
 ## Known Issues
 
