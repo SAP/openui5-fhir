@@ -1,4 +1,4 @@
-This tutorial provides a step-by-step guide on how to include the *OpenUI5-FHIR* project in an UI5 application and shows some best practices. The following sections describe in detail what you need to do to code state-of-the-art UI5 applications based on a FHIR® server. 
+This tutorial provides a step-by-step guide on how to include the *OpenUI5-FHIR* project in an UI5 application and shows some best practices. The following sections describe in detail what you need to do to code state-of-the-art UI5 applications based on a FHIR® server. The sample app containing the resources of this tutorial can be accessed on <a href="https://github.com/SAP-samples/openui5-fhir-sample-app" target="_blank">this repository</a>.
 
 ## Table of Contents
 1. [Creating a UI5 Application](#1.1-Create-an-UI5-application)
