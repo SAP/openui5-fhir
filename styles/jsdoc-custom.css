@@ -74,21 +74,15 @@
     color: gray;
 }
 
-/* For tablet screen size*/
-@media only screen and (min-width: 600px){
-  #navigationBar {
-    width: 250px;
-  }
-  footer {
-    margin-left: 250px;
-  }
-  .content {
-    width: calc(100% - 250px) !important;
-  }
+#version-header {
+  padding-bottom: 20px
 }
 
-/* For desktop screen size */
-@media only screen and (min-width: 800px){
+.package-version {
+  font-weight: bold;
+}
+
+@media only screen and (min-width: 1100px){
   #navigationBar {
     width: 300px;
   }
@@ -97,6 +91,23 @@
   }
   .content {
     width: calc(100% - 300px) !important;
+  }
+}
+
+@media only screen and (max-width: 1100px){
+  /* Add a line break after the first part of the headline */
+  .home-headline-1:after {
+    content: '\A';
+    white-space: pre;
+    line-height: 50px;
+  }
+
+  .home-headline-2 {
+    display: none;
+  }
+
+  .home-headline-3 {
+    line-height: 50px;
   }
 }
 

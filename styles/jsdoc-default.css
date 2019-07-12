@@ -519,6 +519,7 @@ dl.param-type {
   cursor: pointer;
   user-select: none;
   opacity: .8;
+  right: -14px;
 }
 .navicon-button .navicon:before, .navicon-button .navicon:after {
   transition: 0.25s;
@@ -635,20 +636,20 @@ dl.param-type {
   border-bottom: 1px solid #eee;
 }
 
-@media only screen and (min-width: 320px) and (max-width: 680px) {
+@media only screen and (min-width: 320px) and (max-width: 1100px) {
   body {
     overflow-x: hidden;
   }
 
   nav {
     background: #FFF;
-    width: 250px;
+    width: 300px;
     height: 100%;
     position: fixed;
     top: 0;
     right: 0;
     bottom: 0;
-    left: -250px;
+    left: -300px;
     z-index: 3;
     padding: 0 10px;
     transition: left 0.2s;
@@ -658,7 +659,7 @@ dl.param-type {
     display: inline-block;
     position: fixed;
     top: 1.5em;
-    right: 0;
+    right: -14px;
     z-index: 2;
   }
 
