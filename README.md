@@ -42,7 +42,7 @@ The underlaying FHIR® server has to full following requirements:
 The *OpenUI5-FHIR* project is published at npm on package `openui5-fhir`, which includes all necessary files. Add following snippet to your project `package.json` and update the version of `openui5-fhir` to the desired [version](https://github.com/SAP/openui5-fhir/releases).
 ```json
 "dependencies": {
-	"openui5-fhir": "1.0.X"
+	"openui5-fhir": "X.Y.Z"
 }
 ```
 
