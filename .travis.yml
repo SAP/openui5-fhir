@@ -26,15 +26,6 @@ jobs:
       script: npm run lint
     - script: npm run test-mockserver && npm run deploy:coverage
       name: "QUnit / QUnit Integration / OPA5 Tests"
-    - stage: "Release"
-      name: "Generate a new Release"
-      if: (branch = master) AND (NOT (type = pull_request))
-      script: echo \"Skipping second test execution but keep NPM hooks alive.\"
-      deploy:
-        provider: script
-        skip_cleanup: true
-        script:
-          - npx semantic-release
     - stage: "Generate API Documentation"
       if: (branch = master) AND (NOT (type = pull_request))
       script: "npm run docs"
@@ -46,6 +37,15 @@ jobs:
         keep-history: true
         on:
           branch: master
+    - stage: "Release"
+      name: "Generate a new Release"
+      if: (branch = master) AND (NOT (type = pull_request))
+      script: echo \"Skipping second test execution but keep NPM hooks alive.\"
+      deploy:
+        provider: script
+        skip_cleanup: true
+        script:
+          - npx semantic-release
 
 notifications:
   email:
