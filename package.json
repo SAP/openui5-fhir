@@ -41,7 +41,8 @@
     "@semantic-release/changelog": "^3.0.4"
   },
   "scripts": {
-    "docs": "npx jsdoc --configure ./lib/jsdoc/create-api-documentation.js --verbose --access public",
+    "docs": "npm run docs:prod --releaseVersion=$(npm view $npm_package_name version)",
+    "docs:prod": "npx jsdoc --configure ./lib/jsdoc/create-api-documentation.js --verbose --access public",
     "docs:dev": "npx jsdoc --configure ./lib/jsdoc/create-api-documentation.js --verbose --access all",
     "serve": "npm run serve:mockserver && npm run serve:ui5",
     "serve:ui5": "ui5 serve",
