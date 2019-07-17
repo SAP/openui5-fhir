@@ -38,7 +38,7 @@ The *sap.fhir* UI5 library includes following files:
 The easiest and most comfortable way of importing the *UI5 FHIR Model* is using the NPM dependency `openui5-fhir`, which includes all necessary files. Add following snippet to your project `package.json` and update the version of `openui5-fhir` to the desired [version](https://github.com/SAP/openui5-fhir/releases).
 ```json
 "dependencies": {
-	"openui5-fhir": "${view.package_version}"
+	"openui5-fhir": "${version}"
 }
 ```
 
