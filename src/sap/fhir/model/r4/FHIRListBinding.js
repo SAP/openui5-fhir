@@ -428,7 +428,7 @@ sap.ui.define([
 				"[id=" + aElement[0].id + "." + this.sPath + "]",
 				"type"
 			]);
-			if (aType && aType[0].code === "code"){
+			if (aType && (aType[0].code === "code" || aType[0].code === "CodeableConcept")){
 				return this.oModel._getProperty(this.oStructureDefinition, [
 					"snapshot",
 					"element",
