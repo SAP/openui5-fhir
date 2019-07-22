@@ -1,8 +1,8 @@
 # OpenUI5-FHIR <a href="https://openui5.org/"><img height="30px" src="https://openui5.hana.ondemand.com/resources/sap/ui/documentation/sdk/images/logo_ui5.png"></a>🔥 
-[![NPM Version](https://badge.fury.io/js/openui5-fhir.svg)](www.npmjs.com/package/openui5-fhir)
+[![NPM Version](https://badge.fury.io/js/openui5-fhir.svg)](https://npmjs.com/package/openui5-fhir)
 [![Build Status](https://img.shields.io/travis/SAP/openui5-fhir.svg)](https://travis-ci.org/SAP/openui5-fhir)
 [![Coverage Status](https://img.shields.io/coveralls/github/SAP/openui5-fhir.svg)](https://coveralls.io/github/SAP/openui5-fhir?branch=master)
-[![Monthly Downloads](https://img.shields.io/npm/dm/openui5-fhir.svg)](https://coveralls.io/github/SAP/openui5-fhir?branch=master)
+[![Monthly Downloads](https://img.shields.io/npm/dm/openui5-fhir.svg)](https://npmjs.com/package/openui5-fhir)
 [![Dependency Status](https://img.shields.io/david/SAP/openui5-fhir.svg)](https://david-dm.org/SAP/openui5-fhir/master)
 [![devDependency Status](https://img.shields.io/david/dev/SAP/openui5-fhir.svg)](https://david-dm.org/SAP/openui5-fhir?type=dev)
 [![License](https://img.shields.io/npm/l/openui5-fhir.svg?color=blue)](LICENSE.txt)
