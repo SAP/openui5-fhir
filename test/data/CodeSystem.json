@@ -1,0 +1,5085 @@
+{
+    "resourceType": "Bundle",
+    "type": "transaction",
+    "entry": [
+        {
+            "fullUrl": "http://localhost:8080/fhir/R4/CodeSystem/2525",
+            "resource": {
+                "resourceType": "CodeSystem",
+                "id": "2525",
+                "meta": {
+                    "versionId": "1",
+                    "lastUpdated": "2018-09-19T16:05:18.620+02:00"
+                },
+                "url": "CodeSystem/CaseType",
+                "status": "draft",
+                "content": "complete",
+                "concept": [
+                    {
+                        "code": "Inpatient",
+                        "display": "Inpatient"
+                    },
+                    {
+                        "code": "Outpatient",
+                        "display": "Outpatient"
+                    },
+                    {
+                        "code": "Daypatient",
+                        "display": "Daypatient"
+                    }
+                ]
+            },
+            "request": {
+                "method": "POST",
+                "url": "CodeSystem"
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8080/fhir/R4/CodeSystem/2526",
+            "resource": {
+                "resourceType": "CodeSystem",
+                "id": "2526",
+                "meta": {
+                    "versionId": "1",
+                    "lastUpdated": "2018-09-19T16:05:18.620+02:00"
+                },
+                "url": "CodeSystem/AdmissionType",
+                "status": "draft",
+                "content": "complete",
+                "concept": [
+                    {
+                        "code": "Admission from external hospital",
+                        "display": "Admission from external hospital"
+                    },
+                    {
+                        "code": "Companion",
+                        "display": "Companion"
+                    },
+                    {
+                        "code": "Referral",
+                        "display": "Referral"
+                    },
+                    {
+                        "code": "Childbirth",
+                        "display": "Childbirth"
+                    },
+                    {
+                        "code": "Emergency",
+                        "display": "Emergency"
+                    },
+                    {
+                        "code": "Self-Admission",
+                        "display": "Self-Admission"
+                    },
+                    {
+                        "code": "Preadmission Treatment",
+                        "display": "Preadmission Treatment"
+                    }
+                ]
+            },
+            "request": {
+                "method": "POST",
+                "url": "CodeSystem"
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8080/fhir/R4/CodeSystem/2524",
+            "resource": {
+                "resourceType": "CodeSystem",
+                "id": "2524",
+                "meta": {
+                    "versionId": "1",
+                    "lastUpdated": "2018-09-19T16:05:18.620+02:00"
+                },
+                "extension": [
+                    {
+                        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-ballot-status",
+                        "valueString": "Informative"
+                    },
+                    {
+                        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-fmm",
+                        "valueInteger": 5
+                    },
+                    {
+                        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-wg",
+                        "valueCode": "pc"
+                    }
+                ],
+                "url": "http://hl7.org/fhir/gender",
+                "identifier": {
+                    "system": "urn:ietf:rfc:3986",
+                    "value": "urn:oid:2.16.840.1.113883.4.642.1.2"
+                },
+                "version": "3.0.1",
+                "name": "Gender",
+                "status": "draft",
+                "experimental": false,
+                "date": "2017-04-17T17:38:22-04:00",
+                "description": "The gender of a person used for administrative purposes.",
+                "caseSensitive": true,
+                "valueSet": "http://hl7.org/fhir/ValueSet/gender",
+                "content": "complete",
+                "concept": [
+                    {
+                        "extension": [
+                            {
+                                "url": "http://hl7.org/fhir/StructureDefinition/codesystem-comments",
+                                "valueString": "Male"
+                            }
+                        ],
+                        "code": "male",
+                        "display": "Male",
+                        "definition": "Male"
+                    },
+                    {
+                        "extension": [
+                            {
+                                "url": "http://hl7.org/fhir/StructureDefinition/codesystem-comments",
+                                "valueString": "Female"
+                            }
+                        ],
+                        "code": "female",
+                        "display": "Female",
+                        "definition": "Female"
+                    },
+                    {
+                        "extension": [
+                            {
+                                "url": "http://hl7.org/fhir/StructureDefinition/codesystem-comments",
+                                "valueString": "The gender of a person could not be uniquely defined as male or female, such as hermaphrodite."
+                            }
+                        ],
+                        "code": "both",
+                        "display": "Both",
+                        "definition": "Both"
+                    },
+                    {
+                        "extension": [
+                            {
+                                "url": "http://hl7.org/fhir/StructureDefinition/codesystem-comments",
+                                "valueString": "Description:A proper value is applicable, but not known. Usage Notes: This means the actual value is not known. If the only thing that is unknown is how to properly express the value in the necessary constraints (value set, datatype, etc.), then the OTH or UNC flavor should be used. No properties should be included for a datatype with this property unless: Those properties themselves directly translate to a semantic of 'unknown '. (E.g. a local code sent as a translation that conveys 'unknown') Those properties further qualify the nature of what is unknown. (E.g. specifying a use code of ' H ' and a URL prefix of ' tel: ' to convey that it is the home phone number that is unknown.)"
+                            }
+                        ],
+                        "code": "unknown",
+                        "display": "Unknown",
+                        "definition": "Unknown"
+                    }
+                ]
+            },
+            "request": {
+                "method": "POST",
+                "url": "CodeSystem"
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8080/fhir/R4/CodeSystem/2527",
+            "resource": {
+                "resourceType": "CodeSystem",
+                "id": "2527",
+                "meta": {
+                    "versionId": "1",
+                    "lastUpdated": "2018-09-19T16:05:18.620+02:00"
+                },
+                "url": "scala_poc/CodeSystem/CareCategory",
+                "status": "active",
+                "experimental": false,
+                "caseSensitive": false,
+                "content": "complete",
+                "concept": [
+                    {
+                        "code": "A",
+                        "display": "Allg. Behandlg"
+                    },
+                    {
+                        "code": "A1",
+                        "display": "1-Bett"
+                    },
+                    {
+                        "code": "B1",
+                        "display": "2-Bett"
+                    },
+                    {
+                        "code": "B2",
+                        "display": "3-/4-Bett"
+                    },
+                    {
+                        "code": "B2B",
+                        "display": "Beleg - 2Bett"
+                    },
+                    {
+                        "code": "BOAHNE",
+                        "display": "B.op./-an/-heb."
+                    },
+                    {
+                        "code": "BOP",
+                        "display": "Belegoperateur"
+                    },
+                    {
+                        "code": "BOPAN",
+                        "display": "B.op./-anĂ¤sth."
+                    },
+                    {
+                        "code": "BOPHEB",
+                        "display": "B.op./-hebamme"
+                    },
+                    {
+                        "code": "C",
+                        "display": "6-Bett"
+                    },
+                    {
+                        "code": "HAHEB",
+                        "display": "H.abt/Bel.heb."
+                    },
+                    {
+                        "code": "NB",
+                        "display": "NachstBeh."
+                    },
+                    {
+                        "code": "NP",
+                        "display": "Normalpatient"
+                    },
+                    {
+                        "code": "NP1B",
+                        "display": "Normalpat.1Bett"
+                    },
+                    {
+                        "code": "NP2B",
+                        "display": "Normalpat.2Bett"
+                    },
+                    {
+                        "code": "P1B",
+                        "display": "Privatpatient/1"
+                    },
+                    {
+                        "code": "P2B",
+                        "display": "Privat - 2Bett"
+                    },
+                    {
+                        "code": "PR1B",
+                        "display": "Privatpatient/1"
+                    },
+                    {
+                        "code": "VB1",
+                        "display": "VorstBeh. 1.Bes"
+                    },
+                    {
+                        "code": "VBF",
+                        "display": "VorstBeh. FoBes"
+                    }
+                ]
+            },
+            "request": {
+                "method": "POST",
+                "url": "CodeSystem"
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8080/fhir/R4/Organization/a2523",
+            "resource": {
+                "resourceType": "Organization",
+                "id": "a2523",
+                "meta": {
+                    "versionId": "1",
+                    "lastUpdated": "2018-09-19T16:05:18.620+02:00"
+                },
+                "identifier": [
+                    {
+                        "use": "official",
+                        "system": "urn:oid:2.16.528.1",
+                        "value": "91654"
+                    },
+                    {
+                        "use": "usual",
+                        "system": "urn:oid:2.16.840.1.113883.2.4.6.1",
+                        "value": "17-0112278"
+                    }
+                ],
+                "type": [
+                    {
+                        "coding": [
+                            {
+                                "system": "urn:oid:2.16.840.1.113883.2.4.15.1060",
+                                "code": "V6",
+                                "display": "University Medical Hospital"
+                            },
+                            {
+                                "system": "http://hl7.org/fhir/organization-type",
+                                "code": "prov",
+                                "display": "Healthcare Provider"
+                            }
+                        ]
+                    }
+                ],
+                "name": "Burgers University Medical Center",
+                "telecom": [
+                    {
+                        "system": "phone",
+                        "value": "022-655 2300",
+                        "use": "work"
+                    }
+                ],
+                "address": [
+                    {
+                        "use": "work",
+                        "line": [
+                            "Galapagosweg 91"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9105 PZ",
+                        "country": "NLD"
+                    },
+                    {
+                        "use": "work",
+                        "line": [
+                            "PO Box 2311"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9100 AA",
+                        "country": "NLD"
+                    }
+                ],
+                "contact": [
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PRESS"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2334"
+                            }
+                        ]
+                    },
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PATINF"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2335"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "request": {
+                "method": "PUT",
+                "url": "Organization/a2523"
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8080/fhir/R4/Organization/2602",
+            "resource": {
+                "resourceType": "Organization",
+                "id": "2602",
+                "meta": {
+                    "versionId": "1",
+                    "lastUpdated": "2018-11-15T16:17:06.713+01:00"
+                },
+                "identifier": [
+                    {
+                        "use": "official",
+                        "system": "urn:oid:2.16.528.1",
+                        "value": "91654"
+                    },
+                    {
+                        "use": "usual",
+                        "system": "urn:oid:2.16.840.1.113883.2.4.6.1",
+                        "value": "17-0112278"
+                    }
+                ],
+                "type": [
+                    {
+                        "coding": [
+                            {
+                                "system": "urn:oid:2.16.840.1.113883.2.4.15.1060",
+                                "code": "V6",
+                                "display": "University Medical Hospital"
+                            },
+                            {
+                                "system": "http://hl7.org/fhir/organization-type",
+                                "code": "prov",
+                                "display": "Healthcare Provider"
+                            }
+                        ]
+                    }
+                ],
+                "name": "AOK",
+                "telecom": [
+                    {
+                        "system": "phone",
+                        "value": "022-655 2300",
+                        "use": "work"
+                    }
+                ],
+                "address": [
+                    {
+                        "use": "work",
+                        "line": [
+                            "Galapagosweg 91"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9105 PZ",
+                        "country": "NLD"
+                    },
+                    {
+                        "use": "work",
+                        "line": [
+                            "PO Box 2311"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9100 AA",
+                        "country": "NLD"
+                    }
+                ],
+                "contact": [
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PRESS"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2334"
+                            }
+                        ]
+                    },
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PATINF"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2335"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "request": {
+                "method": "POST",
+                "url": "Organization"
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8080/fhir/R4/Organization/2603",
+            "resource": {
+                "resourceType": "Organization",
+                "id": "2603",
+                "meta": {
+                    "versionId": "1",
+                    "lastUpdated": "2018-11-15T16:17:06.713+01:00"
+                },
+                "identifier": [
+                    {
+                        "use": "official",
+                        "system": "urn:oid:2.16.528.1",
+                        "value": "91654"
+                    },
+                    {
+                        "use": "usual",
+                        "system": "urn:oid:2.16.840.1.113883.2.4.6.1",
+                        "value": "17-0112278"
+                    }
+                ],
+                "type": [
+                    {
+                        "coding": [
+                            {
+                                "system": "urn:oid:2.16.840.1.113883.2.4.15.1060",
+                                "code": "V6",
+                                "display": "University Medical Hospital"
+                            },
+                            {
+                                "system": "http://hl7.org/fhir/organization-type",
+                                "code": "prov",
+                                "display": "Healthcare Provider"
+                            }
+                        ]
+                    }
+                ],
+                "name": "Techniker",
+                "telecom": [
+                    {
+                        "system": "phone",
+                        "value": "022-655 2300",
+                        "use": "work"
+                    }
+                ],
+                "address": [
+                    {
+                        "use": "work",
+                        "line": [
+                            "Galapagosweg 91"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9105 PZ",
+                        "country": "NLD"
+                    },
+                    {
+                        "use": "work",
+                        "line": [
+                            "PO Box 2311"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9100 AA",
+                        "country": "NLD"
+                    }
+                ],
+                "contact": [
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PRESS"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2334"
+                            }
+                        ]
+                    },
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PATINF"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2335"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "request": {
+                "method": "POST",
+                "url": "Organization"
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8080/fhir/R4/Organization/2604",
+            "resource": {
+                "resourceType": "Organization",
+                "id": "2604",
+                "meta": {
+                    "versionId": "1",
+                    "lastUpdated": "2018-11-15T16:17:06.713+01:00"
+                },
+                "identifier": [
+                    {
+                        "use": "official",
+                        "system": "urn:oid:2.16.528.1",
+                        "value": "91654"
+                    },
+                    {
+                        "use": "usual",
+                        "system": "urn:oid:2.16.840.1.113883.2.4.6.1",
+                        "value": "17-0112278"
+                    }
+                ],
+                "type": [
+                    {
+                        "coding": [
+                            {
+                                "system": "urn:oid:2.16.840.1.113883.2.4.15.1060",
+                                "code": "V6",
+                                "display": "University Medical Hospital"
+                            },
+                            {
+                                "system": "http://hl7.org/fhir/organization-type",
+                                "code": "prov",
+                                "display": "Healthcare Provider"
+                            }
+                        ]
+                    }
+                ],
+                "name": "Barmer",
+                "telecom": [
+                    {
+                        "system": "phone",
+                        "value": "022-655 2300",
+                        "use": "work"
+                    }
+                ],
+                "address": [
+                    {
+                        "use": "work",
+                        "line": [
+                            "Galapagosweg 91"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9105 PZ",
+                        "country": "NLD"
+                    },
+                    {
+                        "use": "work",
+                        "line": [
+                            "PO Box 2311"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9100 AA",
+                        "country": "NLD"
+                    }
+                ],
+                "contact": [
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PRESS"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2334"
+                            }
+                        ]
+                    },
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PATINF"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2335"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "request": {
+                "method": "POST",
+                "url": "Organization"
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8080/fhir/R4/Organization/2605",
+            "resource": {
+                "resourceType": "Organization",
+                "id": "2605",
+                "meta": {
+                    "versionId": "1",
+                    "lastUpdated": "2018-11-15T16:17:06.713+01:00"
+                },
+                "identifier": [
+                    {
+                        "use": "official",
+                        "system": "urn:oid:2.16.528.1",
+                        "value": "91654"
+                    },
+                    {
+                        "use": "usual",
+                        "system": "urn:oid:2.16.840.1.113883.2.4.6.1",
+                        "value": "17-0112278"
+                    }
+                ],
+                "type": [
+                    {
+                        "coding": [
+                            {
+                                "system": "urn:oid:2.16.840.1.113883.2.4.15.1060",
+                                "code": "V6",
+                                "display": "University Medical Hospital"
+                            },
+                            {
+                                "system": "http://hl7.org/fhir/organization-type",
+                                "code": "prov",
+                                "display": "Healthcare Provider"
+                            }
+                        ]
+                    }
+                ],
+                "name": "Allianz",
+                "telecom": [
+                    {
+                        "system": "phone",
+                        "value": "022-655 2300",
+                        "use": "work"
+                    }
+                ],
+                "address": [
+                    {
+                        "use": "work",
+                        "line": [
+                            "Galapagosweg 91"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9105 PZ",
+                        "country": "NLD"
+                    },
+                    {
+                        "use": "work",
+                        "line": [
+                            "PO Box 2311"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9100 AA",
+                        "country": "NLD"
+                    }
+                ],
+                "contact": [
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PRESS"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2334"
+                            }
+                        ]
+                    },
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PATINF"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2335"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "request": {
+                "method": "POST",
+                "url": "Organization"
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8080/fhir/R4/Organization/2606",
+            "resource": {
+                "resourceType": "Organization",
+                "id": "2606",
+                "meta": {
+                    "versionId": "1",
+                    "lastUpdated": "2018-11-15T16:17:06.713+01:00"
+                },
+                "identifier": [
+                    {
+                        "use": "official",
+                        "system": "urn:oid:2.16.528.1",
+                        "value": "91654"
+                    },
+                    {
+                        "use": "usual",
+                        "system": "urn:oid:2.16.840.1.113883.2.4.6.1",
+                        "value": "17-0112278"
+                    }
+                ],
+                "type": [
+                    {
+                        "coding": [
+                            {
+                                "system": "urn:oid:2.16.840.1.113883.2.4.15.1060",
+                                "code": "V6",
+                                "display": "University Medical Hospital"
+                            },
+                            {
+                                "system": "http://hl7.org/fhir/organization-type",
+                                "code": "prov",
+                                "display": "Healthcare Provider"
+                            }
+                        ]
+                    }
+                ],
+                "name": "IKK",
+                "telecom": [
+                    {
+                        "system": "phone",
+                        "value": "022-655 2300",
+                        "use": "work"
+                    }
+                ],
+                "address": [
+                    {
+                        "use": "work",
+                        "line": [
+                            "Galapagosweg 91"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9105 PZ",
+                        "country": "NLD"
+                    },
+                    {
+                        "use": "work",
+                        "line": [
+                            "PO Box 2311"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9100 AA",
+                        "country": "NLD"
+                    }
+                ],
+                "contact": [
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PRESS"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2334"
+                            }
+                        ]
+                    },
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PATINF"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2335"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "request": {
+                "method": "POST",
+                "url": "Organization"
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8080/fhir/R4/Organization/2607",
+            "resource": {
+                "resourceType": "Organization",
+                "id": "2607",
+                "meta": {
+                    "versionId": "1",
+                    "lastUpdated": "2018-11-15T16:17:06.713+01:00"
+                },
+                "identifier": [
+                    {
+                        "use": "official",
+                        "system": "urn:oid:2.16.528.1",
+                        "value": "91654"
+                    },
+                    {
+                        "use": "usual",
+                        "system": "urn:oid:2.16.840.1.113883.2.4.6.1",
+                        "value": "17-0112278"
+                    }
+                ],
+                "type": [
+                    {
+                        "coding": [
+                            {
+                                "system": "urn:oid:2.16.840.1.113883.2.4.15.1060",
+                                "code": "V6",
+                                "display": "University Medical Hospital"
+                            },
+                            {
+                                "system": "http://hl7.org/fhir/organization-type",
+                                "code": "prov",
+                                "display": "Healthcare Provider"
+                            }
+                        ]
+                    }
+                ],
+                "name": "BKK",
+                "telecom": [
+                    {
+                        "system": "phone",
+                        "value": "022-655 2300",
+                        "use": "work"
+                    }
+                ],
+                "address": [
+                    {
+                        "use": "work",
+                        "line": [
+                            "Galapagosweg 91"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9105 PZ",
+                        "country": "NLD"
+                    },
+                    {
+                        "use": "work",
+                        "line": [
+                            "PO Box 2311"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9100 AA",
+                        "country": "NLD"
+                    }
+                ],
+                "contact": [
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PRESS"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2334"
+                            }
+                        ]
+                    },
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PATINF"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2335"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "request": {
+                "method": "POST",
+                "url": "Organization"
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8080/fhir/R4/Organization/2608",
+            "resource": {
+                "resourceType": "Organization",
+                "id": "2608",
+                "meta": {
+                    "versionId": "1",
+                    "lastUpdated": "2018-11-15T16:17:06.713+01:00"
+                },
+                "identifier": [
+                    {
+                        "use": "official",
+                        "system": "urn:oid:2.16.528.1",
+                        "value": "91654"
+                    },
+                    {
+                        "use": "usual",
+                        "system": "urn:oid:2.16.840.1.113883.2.4.6.1",
+                        "value": "17-0112278"
+                    }
+                ],
+                "type": [
+                    {
+                        "coding": [
+                            {
+                                "system": "urn:oid:2.16.840.1.113883.2.4.15.1060",
+                                "code": "V6",
+                                "display": "University Medical Hospital"
+                            },
+                            {
+                                "system": "http://hl7.org/fhir/organization-type",
+                                "code": "prov",
+                                "display": "Healthcare Provider"
+                            }
+                        ]
+                    }
+                ],
+                "name": "BestKrankenversicherung",
+                "telecom": [
+                    {
+                        "system": "phone",
+                        "value": "022-655 2300",
+                        "use": "work"
+                    }
+                ],
+                "address": [
+                    {
+                        "use": "work",
+                        "line": [
+                            "Galapagosweg 91"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9105 PZ",
+                        "country": "NLD"
+                    },
+                    {
+                        "use": "work",
+                        "line": [
+                            "PO Box 2311"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9100 AA",
+                        "country": "NLD"
+                    }
+                ],
+                "contact": [
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PRESS"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2334"
+                            }
+                        ]
+                    },
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PATINF"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2335"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "request": {
+                "method": "POST",
+                "url": "Organization"
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8080/fhir/R4/Organization/2609",
+            "resource": {
+                "resourceType": "Organization",
+                "id": "2609",
+                "meta": {
+                    "versionId": "1",
+                    "lastUpdated": "2018-11-15T16:17:06.713+01:00"
+                },
+                "identifier": [
+                    {
+                        "use": "official",
+                        "system": "urn:oid:2.16.528.1",
+                        "value": "91654"
+                    },
+                    {
+                        "use": "usual",
+                        "system": "urn:oid:2.16.840.1.113883.2.4.6.1",
+                        "value": "17-0112278"
+                    }
+                ],
+                "type": [
+                    {
+                        "coding": [
+                            {
+                                "system": "urn:oid:2.16.840.1.113883.2.4.15.1060",
+                                "code": "V6",
+                                "display": "University Medical Hospital"
+                            },
+                            {
+                                "system": "http://hl7.org/fhir/organization-type",
+                                "code": "prov",
+                                "display": "Healthcare Provider"
+                            }
+                        ]
+                    }
+                ],
+                "name": "Spaßgemeinschaft",
+                "telecom": [
+                    {
+                        "system": "phone",
+                        "value": "022-655 2300",
+                        "use": "work"
+                    }
+                ],
+                "address": [
+                    {
+                        "use": "work",
+                        "line": [
+                            "Galapagosweg 91"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9105 PZ",
+                        "country": "NLD"
+                    },
+                    {
+                        "use": "work",
+                        "line": [
+                            "PO Box 2311"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9100 AA",
+                        "country": "NLD"
+                    }
+                ],
+                "contact": [
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PRESS"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2334"
+                            }
+                        ]
+                    },
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PATINF"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2335"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "request": {
+                "method": "POST",
+                "url": "Organization"
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8080/fhir/R4/Organization/2610",
+            "resource": {
+                "resourceType": "Organization",
+                "id": "2610",
+                "meta": {
+                    "versionId": "1",
+                    "lastUpdated": "2018-11-15T16:17:06.713+01:00"
+                },
+                "identifier": [
+                    {
+                        "use": "official",
+                        "system": "urn:oid:2.16.528.1",
+                        "value": "91654"
+                    },
+                    {
+                        "use": "usual",
+                        "system": "urn:oid:2.16.840.1.113883.2.4.6.1",
+                        "value": "17-0112278"
+                    }
+                ],
+                "type": [
+                    {
+                        "coding": [
+                            {
+                                "system": "urn:oid:2.16.840.1.113883.2.4.15.1060",
+                                "code": "V6",
+                                "display": "University Medical Hospital"
+                            },
+                            {
+                                "system": "http://hl7.org/fhir/organization-type",
+                                "code": "prov",
+                                "display": "Healthcare Provider"
+                            }
+                        ]
+                    }
+                ],
+                "name": "DAK",
+                "telecom": [
+                    {
+                        "system": "phone",
+                        "value": "022-655 2300",
+                        "use": "work"
+                    }
+                ],
+                "address": [
+                    {
+                        "use": "work",
+                        "line": [
+                            "Galapagosweg 91"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9105 PZ",
+                        "country": "NLD"
+                    },
+                    {
+                        "use": "work",
+                        "line": [
+                            "PO Box 2311"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9100 AA",
+                        "country": "NLD"
+                    }
+                ],
+                "contact": [
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PRESS"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2334"
+                            }
+                        ]
+                    },
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PATINF"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2335"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "request": {
+                "method": "POST",
+                "url": "Organization"
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8080/fhir/R4/Organization/2611",
+            "resource": {
+                "resourceType": "Organization",
+                "id": "2611",
+                "meta": {
+                    "versionId": "1",
+                    "lastUpdated": "2018-11-15T16:17:06.713+01:00"
+                },
+                "identifier": [
+                    {
+                        "use": "official",
+                        "system": "urn:oid:2.16.528.1",
+                        "value": "91654"
+                    },
+                    {
+                        "use": "usual",
+                        "system": "urn:oid:2.16.840.1.113883.2.4.6.1",
+                        "value": "17-0112278"
+                    }
+                ],
+                "type": [
+                    {
+                        "coding": [
+                            {
+                                "system": "urn:oid:2.16.840.1.113883.2.4.15.1060",
+                                "code": "V6",
+                                "display": "University Medical Hospital"
+                            },
+                            {
+                                "system": "http://hl7.org/fhir/organization-type",
+                                "code": "prov",
+                                "display": "Healthcare Provider"
+                            }
+                        ]
+                    }
+                ],
+                "name": "Barber",
+                "telecom": [
+                    {
+                        "system": "phone",
+                        "value": "022-655 2300",
+                        "use": "work"
+                    }
+                ],
+                "address": [
+                    {
+                        "use": "work",
+                        "line": [
+                            "Galapagosweg 91"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9105 PZ",
+                        "country": "NLD"
+                    },
+                    {
+                        "use": "work",
+                        "line": [
+                            "PO Box 2311"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9100 AA",
+                        "country": "NLD"
+                    }
+                ],
+                "contact": [
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PRESS"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2334"
+                            }
+                        ]
+                    },
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PATINF"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2335"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "request": {
+                "method": "POST",
+                "url": "Organization"
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8080/fhir/R4/Organization/2612",
+            "resource": {
+                "resourceType": "Organization",
+                "id": "2612",
+                "meta": {
+                    "versionId": "1",
+                    "lastUpdated": "2018-11-15T16:17:06.713+01:00"
+                },
+                "identifier": [
+                    {
+                        "use": "official",
+                        "system": "urn:oid:2.16.528.1",
+                        "value": "91654"
+                    },
+                    {
+                        "use": "usual",
+                        "system": "urn:oid:2.16.840.1.113883.2.4.6.1",
+                        "value": "17-0112278"
+                    }
+                ],
+                "type": [
+                    {
+                        "coding": [
+                            {
+                                "system": "urn:oid:2.16.840.1.113883.2.4.15.1060",
+                                "code": "V6",
+                                "display": "University Medical Hospital"
+                            },
+                            {
+                                "system": "http://hl7.org/fhir/organization-type",
+                                "code": "prov",
+                                "display": "Healthcare Provider"
+                            }
+                        ]
+                    }
+                ],
+                "name": "Seekrankenkasse",
+                "telecom": [
+                    {
+                        "system": "phone",
+                        "value": "022-655 2300",
+                        "use": "work"
+                    }
+                ],
+                "address": [
+                    {
+                        "use": "work",
+                        "line": [
+                            "Galapagosweg 91"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9105 PZ",
+                        "country": "NLD"
+                    },
+                    {
+                        "use": "work",
+                        "line": [
+                            "PO Box 2311"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9100 AA",
+                        "country": "NLD"
+                    }
+                ],
+                "contact": [
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PRESS"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2334"
+                            }
+                        ]
+                    },
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PATINF"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2335"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "request": {
+                "method": "POST",
+                "url": "Organization"
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8080/fhir/R4/Organization/2613",
+            "resource": {
+                "resourceType": "Organization",
+                "id": "2613",
+                "meta": {
+                    "versionId": "1",
+                    "lastUpdated": "2018-11-15T16:17:06.713+01:00"
+                },
+                "identifier": [
+                    {
+                        "use": "official",
+                        "system": "urn:oid:2.16.528.1",
+                        "value": "91654"
+                    },
+                    {
+                        "use": "usual",
+                        "system": "urn:oid:2.16.840.1.113883.2.4.6.1",
+                        "value": "17-0112278"
+                    }
+                ],
+                "type": [
+                    {
+                        "coding": [
+                            {
+                                "system": "urn:oid:2.16.840.1.113883.2.4.15.1060",
+                                "code": "V6",
+                                "display": "University Medical Hospital"
+                            },
+                            {
+                                "system": "http://hl7.org/fhir/organization-type",
+                                "code": "prov",
+                                "display": "Healthcare Provider"
+                            }
+                        ]
+                    }
+                ],
+                "name": "Lustkrankenkasse",
+                "telecom": [
+                    {
+                        "system": "phone",
+                        "value": "022-655 2300",
+                        "use": "work"
+                    }
+                ],
+                "address": [
+                    {
+                        "use": "work",
+                        "line": [
+                            "Galapagosweg 91"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9105 PZ",
+                        "country": "NLD"
+                    },
+                    {
+                        "use": "work",
+                        "line": [
+                            "PO Box 2311"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9100 AA",
+                        "country": "NLD"
+                    }
+                ],
+                "contact": [
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PRESS"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2334"
+                            }
+                        ]
+                    },
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PATINF"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2335"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "request": {
+                "method": "POST",
+                "url": "Organization"
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8080/fhir/R4/Organization/2614",
+            "resource": {
+                "resourceType": "Organization",
+                "id": "2614",
+                "meta": {
+                    "versionId": "1",
+                    "lastUpdated": "2018-11-15T16:17:06.713+01:00"
+                },
+                "identifier": [
+                    {
+                        "use": "official",
+                        "system": "urn:oid:2.16.528.1",
+                        "value": "91654"
+                    },
+                    {
+                        "use": "usual",
+                        "system": "urn:oid:2.16.840.1.113883.2.4.6.1",
+                        "value": "17-0112278"
+                    }
+                ],
+                "type": [
+                    {
+                        "coding": [
+                            {
+                                "system": "urn:oid:2.16.840.1.113883.2.4.15.1060",
+                                "code": "V6",
+                                "display": "University Medical Hospital"
+                            },
+                            {
+                                "system": "http://hl7.org/fhir/organization-type",
+                                "code": "prov",
+                                "display": "Healthcare Provider"
+                            }
+                        ]
+                    }
+                ],
+                "name": "Die 117te Krankenkasse",
+                "telecom": [
+                    {
+                        "system": "phone",
+                        "value": "022-655 2300",
+                        "use": "work"
+                    }
+                ],
+                "address": [
+                    {
+                        "use": "work",
+                        "line": [
+                            "Galapagosweg 91"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9105 PZ",
+                        "country": "NLD"
+                    },
+                    {
+                        "use": "work",
+                        "line": [
+                            "PO Box 2311"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9100 AA",
+                        "country": "NLD"
+                    }
+                ],
+                "contact": [
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PRESS"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2334"
+                            }
+                        ]
+                    },
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PATINF"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2335"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "request": {
+                "method": "POST",
+                "url": "Organization"
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8080/fhir/R4/Organization/2615",
+            "resource": {
+                "resourceType": "Organization",
+                "id": "2615",
+                "meta": {
+                    "versionId": "1",
+                    "lastUpdated": "2018-11-15T16:17:06.713+01:00"
+                },
+                "identifier": [
+                    {
+                        "use": "official",
+                        "system": "urn:oid:2.16.528.1",
+                        "value": "91654"
+                    },
+                    {
+                        "use": "usual",
+                        "system": "urn:oid:2.16.840.1.113883.2.4.6.1",
+                        "value": "17-0112278"
+                    }
+                ],
+                "type": [
+                    {
+                        "coding": [
+                            {
+                                "system": "urn:oid:2.16.840.1.113883.2.4.15.1060",
+                                "code": "V6",
+                                "display": "University Medical Hospital"
+                            },
+                            {
+                                "system": "http://hl7.org/fhir/organization-type",
+                                "code": "prov",
+                                "display": "Healthcare Provider"
+                            }
+                        ]
+                    }
+                ],
+                "name": "Knalleros",
+                "telecom": [
+                    {
+                        "system": "phone",
+                        "value": "022-655 2300",
+                        "use": "work"
+                    }
+                ],
+                "address": [
+                    {
+                        "use": "work",
+                        "line": [
+                            "Galapagosweg 91"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9105 PZ",
+                        "country": "NLD"
+                    },
+                    {
+                        "use": "work",
+                        "line": [
+                            "PO Box 2311"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9100 AA",
+                        "country": "NLD"
+                    }
+                ],
+                "contact": [
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PRESS"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2334"
+                            }
+                        ]
+                    },
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PATINF"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2335"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "request": {
+                "method": "POST",
+                "url": "Organization"
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8080/fhir/R4/Organization/2616",
+            "resource": {
+                "resourceType": "Organization",
+                "id": "2616",
+                "meta": {
+                    "versionId": "1",
+                    "lastUpdated": "2018-11-15T16:17:06.713+01:00"
+                },
+                "identifier": [
+                    {
+                        "use": "official",
+                        "system": "urn:oid:2.16.528.1",
+                        "value": "91654"
+                    },
+                    {
+                        "use": "usual",
+                        "system": "urn:oid:2.16.840.1.113883.2.4.6.1",
+                        "value": "17-0112278"
+                    }
+                ],
+                "type": [
+                    {
+                        "coding": [
+                            {
+                                "system": "urn:oid:2.16.840.1.113883.2.4.15.1060",
+                                "code": "V6",
+                                "display": "University Medical Hospital"
+                            },
+                            {
+                                "system": "http://hl7.org/fhir/organization-type",
+                                "code": "prov",
+                                "display": "Healthcare Provider"
+                            }
+                        ]
+                    }
+                ],
+                "name": "Ersatzkrankenkasse",
+                "telecom": [
+                    {
+                        "system": "phone",
+                        "value": "022-655 2300",
+                        "use": "work"
+                    }
+                ],
+                "address": [
+                    {
+                        "use": "work",
+                        "line": [
+                            "Galapagosweg 91"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9105 PZ",
+                        "country": "NLD"
+                    },
+                    {
+                        "use": "work",
+                        "line": [
+                            "PO Box 2311"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9100 AA",
+                        "country": "NLD"
+                    }
+                ],
+                "contact": [
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PRESS"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2334"
+                            }
+                        ]
+                    },
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PATINF"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2335"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "request": {
+                "method": "POST",
+                "url": "Organization"
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8080/fhir/R4/Organization/2617",
+            "resource": {
+                "resourceType": "Organization",
+                "id": "2617",
+                "meta": {
+                    "versionId": "1",
+                    "lastUpdated": "2018-11-15T16:17:06.713+01:00"
+                },
+                "identifier": [
+                    {
+                        "use": "official",
+                        "system": "urn:oid:2.16.528.1",
+                        "value": "91654"
+                    },
+                    {
+                        "use": "usual",
+                        "system": "urn:oid:2.16.840.1.113883.2.4.6.1",
+                        "value": "17-0112278"
+                    }
+                ],
+                "type": [
+                    {
+                        "coding": [
+                            {
+                                "system": "urn:oid:2.16.840.1.113883.2.4.15.1060",
+                                "code": "V6",
+                                "display": "University Medical Hospital"
+                            },
+                            {
+                                "system": "http://hl7.org/fhir/organization-type",
+                                "code": "prov",
+                                "display": "Healthcare Provider"
+                            }
+                        ]
+                    }
+                ],
+                "name": "KKH",
+                "telecom": [
+                    {
+                        "system": "phone",
+                        "value": "022-655 2300",
+                        "use": "work"
+                    }
+                ],
+                "address": [
+                    {
+                        "use": "work",
+                        "line": [
+                            "Galapagosweg 91"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9105 PZ",
+                        "country": "NLD"
+                    },
+                    {
+                        "use": "work",
+                        "line": [
+                            "PO Box 2311"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9100 AA",
+                        "country": "NLD"
+                    }
+                ],
+                "contact": [
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PRESS"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2334"
+                            }
+                        ]
+                    },
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PATINF"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2335"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "request": {
+                "method": "POST",
+                "url": "Organization"
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8080/fhir/R4/Organization/2618",
+            "resource": {
+                "resourceType": "Organization",
+                "id": "2618",
+                "meta": {
+                    "versionId": "1",
+                    "lastUpdated": "2018-11-15T16:17:06.713+01:00"
+                },
+                "identifier": [
+                    {
+                        "use": "official",
+                        "system": "urn:oid:2.16.528.1",
+                        "value": "91654"
+                    },
+                    {
+                        "use": "usual",
+                        "system": "urn:oid:2.16.840.1.113883.2.4.6.1",
+                        "value": "17-0112278"
+                    }
+                ],
+                "type": [
+                    {
+                        "coding": [
+                            {
+                                "system": "urn:oid:2.16.840.1.113883.2.4.15.1060",
+                                "code": "V6",
+                                "display": "University Medical Hospital"
+                            },
+                            {
+                                "system": "http://hl7.org/fhir/organization-type",
+                                "code": "prov",
+                                "display": "Healthcare Provider"
+                            }
+                        ]
+                    }
+                ],
+                "name": "Knappschaft",
+                "telecom": [
+                    {
+                        "system": "phone",
+                        "value": "022-655 2300",
+                        "use": "work"
+                    }
+                ],
+                "address": [
+                    {
+                        "use": "work",
+                        "line": [
+                            "Galapagosweg 91"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9105 PZ",
+                        "country": "NLD"
+                    },
+                    {
+                        "use": "work",
+                        "line": [
+                            "PO Box 2311"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9100 AA",
+                        "country": "NLD"
+                    }
+                ],
+                "contact": [
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PRESS"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2334"
+                            }
+                        ]
+                    },
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PATINF"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2335"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "request": {
+                "method": "POST",
+                "url": "Organization"
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8080/fhir/R4/Organization/2619",
+            "resource": {
+                "resourceType": "Organization",
+                "id": "2619",
+                "meta": {
+                    "versionId": "1",
+                    "lastUpdated": "2018-11-15T16:17:06.713+01:00"
+                },
+                "identifier": [
+                    {
+                        "use": "official",
+                        "system": "urn:oid:2.16.528.1",
+                        "value": "91654"
+                    },
+                    {
+                        "use": "usual",
+                        "system": "urn:oid:2.16.840.1.113883.2.4.6.1",
+                        "value": "17-0112278"
+                    }
+                ],
+                "type": [
+                    {
+                        "coding": [
+                            {
+                                "system": "urn:oid:2.16.840.1.113883.2.4.15.1060",
+                                "code": "V6",
+                                "display": "University Medical Hospital"
+                            },
+                            {
+                                "system": "http://hl7.org/fhir/organization-type",
+                                "code": "prov",
+                                "display": "Healthcare Provider"
+                            }
+                        ]
+                    }
+                ],
+                "name": "Künstlersozialkasse",
+                "telecom": [
+                    {
+                        "system": "phone",
+                        "value": "022-655 2300",
+                        "use": "work"
+                    }
+                ],
+                "address": [
+                    {
+                        "use": "work",
+                        "line": [
+                            "Galapagosweg 91"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9105 PZ",
+                        "country": "NLD"
+                    },
+                    {
+                        "use": "work",
+                        "line": [
+                            "PO Box 2311"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9100 AA",
+                        "country": "NLD"
+                    }
+                ],
+                "contact": [
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PRESS"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2334"
+                            }
+                        ]
+                    },
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PATINF"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2335"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "request": {
+                "method": "POST",
+                "url": "Organization"
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8080/fhir/R4/Organization/2620",
+            "resource": {
+                "resourceType": "Organization",
+                "id": "2620",
+                "meta": {
+                    "versionId": "1",
+                    "lastUpdated": "2018-11-15T16:17:06.713+01:00"
+                },
+                "identifier": [
+                    {
+                        "use": "official",
+                        "system": "urn:oid:2.16.528.1",
+                        "value": "91654"
+                    },
+                    {
+                        "use": "usual",
+                        "system": "urn:oid:2.16.840.1.113883.2.4.6.1",
+                        "value": "17-0112278"
+                    }
+                ],
+                "type": [
+                    {
+                        "coding": [
+                            {
+                                "system": "urn:oid:2.16.840.1.113883.2.4.15.1060",
+                                "code": "V6",
+                                "display": "University Medical Hospital"
+                            },
+                            {
+                                "system": "http://hl7.org/fhir/organization-type",
+                                "code": "prov",
+                                "display": "Healthcare Provider"
+                            }
+                        ]
+                    }
+                ],
+                "name": "AOK Niedersachsen",
+                "telecom": [
+                    {
+                        "system": "phone",
+                        "value": "022-655 2300",
+                        "use": "work"
+                    }
+                ],
+                "address": [
+                    {
+                        "use": "work",
+                        "line": [
+                            "Galapagosweg 91"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9105 PZ",
+                        "country": "NLD"
+                    },
+                    {
+                        "use": "work",
+                        "line": [
+                            "PO Box 2311"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9100 AA",
+                        "country": "NLD"
+                    }
+                ],
+                "contact": [
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PRESS"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2334"
+                            }
+                        ]
+                    },
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PATINF"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2335"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "request": {
+                "method": "POST",
+                "url": "Organization"
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8080/fhir/R4/Organization/2621",
+            "resource": {
+                "resourceType": "Organization",
+                "id": "2621",
+                "meta": {
+                    "versionId": "1",
+                    "lastUpdated": "2018-11-15T16:17:06.713+01:00"
+                },
+                "identifier": [
+                    {
+                        "use": "official",
+                        "system": "urn:oid:2.16.528.1",
+                        "value": "91654"
+                    },
+                    {
+                        "use": "usual",
+                        "system": "urn:oid:2.16.840.1.113883.2.4.6.1",
+                        "value": "17-0112278"
+                    }
+                ],
+                "type": [
+                    {
+                        "coding": [
+                            {
+                                "system": "urn:oid:2.16.840.1.113883.2.4.15.1060",
+                                "code": "V6",
+                                "display": "University Medical Hospital"
+                            },
+                            {
+                                "system": "http://hl7.org/fhir/organization-type",
+                                "code": "prov",
+                                "display": "Healthcare Provider"
+                            }
+                        ]
+                    }
+                ],
+                "name": "AOK Nordost",
+                "telecom": [
+                    {
+                        "system": "phone",
+                        "value": "022-655 2300",
+                        "use": "work"
+                    }
+                ],
+                "address": [
+                    {
+                        "use": "work",
+                        "line": [
+                            "Galapagosweg 91"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9105 PZ",
+                        "country": "NLD"
+                    },
+                    {
+                        "use": "work",
+                        "line": [
+                            "PO Box 2311"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9100 AA",
+                        "country": "NLD"
+                    }
+                ],
+                "contact": [
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PRESS"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2334"
+                            }
+                        ]
+                    },
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PATINF"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2335"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "request": {
+                "method": "POST",
+                "url": "Organization"
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8080/fhir/R4/Organization/2622",
+            "resource": {
+                "resourceType": "Organization",
+                "id": "2622",
+                "meta": {
+                    "versionId": "1",
+                    "lastUpdated": "2018-11-15T16:17:06.713+01:00"
+                },
+                "identifier": [
+                    {
+                        "use": "official",
+                        "system": "urn:oid:2.16.528.1",
+                        "value": "91654"
+                    },
+                    {
+                        "use": "usual",
+                        "system": "urn:oid:2.16.840.1.113883.2.4.6.1",
+                        "value": "17-0112278"
+                    }
+                ],
+                "type": [
+                    {
+                        "coding": [
+                            {
+                                "system": "urn:oid:2.16.840.1.113883.2.4.15.1060",
+                                "code": "V6",
+                                "display": "University Medical Hospital"
+                            },
+                            {
+                                "system": "http://hl7.org/fhir/organization-type",
+                                "code": "prov",
+                                "display": "Healthcare Provider"
+                            }
+                        ]
+                    }
+                ],
+                "name": "AOK Nordwest",
+                "telecom": [
+                    {
+                        "system": "phone",
+                        "value": "022-655 2300",
+                        "use": "work"
+                    }
+                ],
+                "address": [
+                    {
+                        "use": "work",
+                        "line": [
+                            "Galapagosweg 91"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9105 PZ",
+                        "country": "NLD"
+                    },
+                    {
+                        "use": "work",
+                        "line": [
+                            "PO Box 2311"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9100 AA",
+                        "country": "NLD"
+                    }
+                ],
+                "contact": [
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PRESS"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2334"
+                            }
+                        ]
+                    },
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PATINF"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2335"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "request": {
+                "method": "POST",
+                "url": "Organization"
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8080/fhir/R4/Organization/2623",
+            "resource": {
+                "resourceType": "Organization",
+                "id": "2623",
+                "meta": {
+                    "versionId": "1",
+                    "lastUpdated": "2018-11-15T16:17:06.713+01:00"
+                },
+                "identifier": [
+                    {
+                        "use": "official",
+                        "system": "urn:oid:2.16.528.1",
+                        "value": "91654"
+                    },
+                    {
+                        "use": "usual",
+                        "system": "urn:oid:2.16.840.1.113883.2.4.6.1",
+                        "value": "17-0112278"
+                    }
+                ],
+                "type": [
+                    {
+                        "coding": [
+                            {
+                                "system": "urn:oid:2.16.840.1.113883.2.4.15.1060",
+                                "code": "V6",
+                                "display": "University Medical Hospital"
+                            },
+                            {
+                                "system": "http://hl7.org/fhir/organization-type",
+                                "code": "prov",
+                                "display": "Healthcare Provider"
+                            }
+                        ]
+                    }
+                ],
+                "name": "AOK Rheinland-Pfalz",
+                "telecom": [
+                    {
+                        "system": "phone",
+                        "value": "022-655 2300",
+                        "use": "work"
+                    }
+                ],
+                "address": [
+                    {
+                        "use": "work",
+                        "line": [
+                            "Galapagosweg 91"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9105 PZ",
+                        "country": "NLD"
+                    },
+                    {
+                        "use": "work",
+                        "line": [
+                            "PO Box 2311"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9100 AA",
+                        "country": "NLD"
+                    }
+                ],
+                "contact": [
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PRESS"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2334"
+                            }
+                        ]
+                    },
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PATINF"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2335"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "request": {
+                "method": "POST",
+                "url": "Organization"
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8080/fhir/R4/Organization/2624",
+            "resource": {
+                "resourceType": "Organization",
+                "id": "2624",
+                "meta": {
+                    "versionId": "1",
+                    "lastUpdated": "2018-11-15T16:17:06.713+01:00"
+                },
+                "identifier": [
+                    {
+                        "use": "official",
+                        "system": "urn:oid:2.16.528.1",
+                        "value": "91654"
+                    },
+                    {
+                        "use": "usual",
+                        "system": "urn:oid:2.16.840.1.113883.2.4.6.1",
+                        "value": "17-0112278"
+                    }
+                ],
+                "type": [
+                    {
+                        "coding": [
+                            {
+                                "system": "urn:oid:2.16.840.1.113883.2.4.15.1060",
+                                "code": "V6",
+                                "display": "University Medical Hospital"
+                            },
+                            {
+                                "system": "http://hl7.org/fhir/organization-type",
+                                "code": "prov",
+                                "display": "Healthcare Provider"
+                            }
+                        ]
+                    }
+                ],
+                "name": "Baden-Württembergische",
+                "telecom": [
+                    {
+                        "system": "phone",
+                        "value": "022-655 2300",
+                        "use": "work"
+                    }
+                ],
+                "address": [
+                    {
+                        "use": "work",
+                        "line": [
+                            "Galapagosweg 91"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9105 PZ",
+                        "country": "NLD"
+                    },
+                    {
+                        "use": "work",
+                        "line": [
+                            "PO Box 2311"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9100 AA",
+                        "country": "NLD"
+                    }
+                ],
+                "contact": [
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PRESS"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2334"
+                            }
+                        ]
+                    },
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PATINF"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2335"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "request": {
+                "method": "POST",
+                "url": "Organization"
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8080/fhir/R4/Organization/2625",
+            "resource": {
+                "resourceType": "Organization",
+                "id": "2625",
+                "meta": {
+                    "versionId": "1",
+                    "lastUpdated": "2018-11-15T16:17:06.713+01:00"
+                },
+                "identifier": [
+                    {
+                        "use": "official",
+                        "system": "urn:oid:2.16.528.1",
+                        "value": "91654"
+                    },
+                    {
+                        "use": "usual",
+                        "system": "urn:oid:2.16.840.1.113883.2.4.6.1",
+                        "value": "17-0112278"
+                    }
+                ],
+                "type": [
+                    {
+                        "coding": [
+                            {
+                                "system": "urn:oid:2.16.840.1.113883.2.4.15.1060",
+                                "code": "V6",
+                                "display": "University Medical Hospital"
+                            },
+                            {
+                                "system": "http://hl7.org/fhir/organization-type",
+                                "code": "prov",
+                                "display": "Healthcare Provider"
+                            }
+                        ]
+                    }
+                ],
+                "name": "Siemens BKK",
+                "telecom": [
+                    {
+                        "system": "phone",
+                        "value": "022-655 2300",
+                        "use": "work"
+                    }
+                ],
+                "address": [
+                    {
+                        "use": "work",
+                        "line": [
+                            "Galapagosweg 91"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9105 PZ",
+                        "country": "NLD"
+                    },
+                    {
+                        "use": "work",
+                        "line": [
+                            "PO Box 2311"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9100 AA",
+                        "country": "NLD"
+                    }
+                ],
+                "contact": [
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PRESS"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2334"
+                            }
+                        ]
+                    },
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PATINF"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2335"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "request": {
+                "method": "POST",
+                "url": "Organization"
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8080/fhir/R4/Organization/2626",
+            "resource": {
+                "resourceType": "Organization",
+                "id": "2626",
+                "meta": {
+                    "versionId": "1",
+                    "lastUpdated": "2018-11-15T16:17:06.713+01:00"
+                },
+                "identifier": [
+                    {
+                        "use": "official",
+                        "system": "urn:oid:2.16.528.1",
+                        "value": "91654"
+                    },
+                    {
+                        "use": "usual",
+                        "system": "urn:oid:2.16.840.1.113883.2.4.6.1",
+                        "value": "17-0112278"
+                    }
+                ],
+                "type": [
+                    {
+                        "coding": [
+                            {
+                                "system": "urn:oid:2.16.840.1.113883.2.4.15.1060",
+                                "code": "V6",
+                                "display": "University Medical Hospital"
+                            },
+                            {
+                                "system": "http://hl7.org/fhir/organization-type",
+                                "code": "prov",
+                                "display": "Healthcare Provider"
+                            }
+                        ]
+                    }
+                ],
+                "name": "BKK Linde",
+                "telecom": [
+                    {
+                        "system": "phone",
+                        "value": "022-655 2300",
+                        "use": "work"
+                    }
+                ],
+                "address": [
+                    {
+                        "use": "work",
+                        "line": [
+                            "Galapagosweg 91"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9105 PZ",
+                        "country": "NLD"
+                    },
+                    {
+                        "use": "work",
+                        "line": [
+                            "PO Box 2311"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9100 AA",
+                        "country": "NLD"
+                    }
+                ],
+                "contact": [
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PRESS"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2334"
+                            }
+                        ]
+                    },
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PATINF"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2335"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "request": {
+                "method": "POST",
+                "url": "Organization"
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8080/fhir/R4/Organization/2627",
+            "resource": {
+                "resourceType": "Organization",
+                "id": "2627",
+                "meta": {
+                    "versionId": "1",
+                    "lastUpdated": "2018-11-15T16:17:06.713+01:00"
+                },
+                "identifier": [
+                    {
+                        "use": "official",
+                        "system": "urn:oid:2.16.528.1",
+                        "value": "91654"
+                    },
+                    {
+                        "use": "usual",
+                        "system": "urn:oid:2.16.840.1.113883.2.4.6.1",
+                        "value": "17-0112278"
+                    }
+                ],
+                "type": [
+                    {
+                        "coding": [
+                            {
+                                "system": "urn:oid:2.16.840.1.113883.2.4.15.1060",
+                                "code": "V6",
+                                "display": "University Medical Hospital"
+                            },
+                            {
+                                "system": "http://hl7.org/fhir/organization-type",
+                                "code": "prov",
+                                "display": "Healthcare Provider"
+                            }
+                        ]
+                    }
+                ],
+                "name": "BKK24",
+                "telecom": [
+                    {
+                        "system": "phone",
+                        "value": "022-655 2300",
+                        "use": "work"
+                    }
+                ],
+                "address": [
+                    {
+                        "use": "work",
+                        "line": [
+                            "Galapagosweg 91"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9105 PZ",
+                        "country": "NLD"
+                    },
+                    {
+                        "use": "work",
+                        "line": [
+                            "PO Box 2311"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9100 AA",
+                        "country": "NLD"
+                    }
+                ],
+                "contact": [
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PRESS"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2334"
+                            }
+                        ]
+                    },
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PATINF"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2335"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "request": {
+                "method": "POST",
+                "url": "Organization"
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8080/fhir/R4/Organization/2628",
+            "resource": {
+                "resourceType": "Organization",
+                "id": "2628",
+                "meta": {
+                    "versionId": "1",
+                    "lastUpdated": "2018-11-15T16:17:06.713+01:00"
+                },
+                "identifier": [
+                    {
+                        "use": "official",
+                        "system": "urn:oid:2.16.528.1",
+                        "value": "91654"
+                    },
+                    {
+                        "use": "usual",
+                        "system": "urn:oid:2.16.840.1.113883.2.4.6.1",
+                        "value": "17-0112278"
+                    }
+                ],
+                "type": [
+                    {
+                        "coding": [
+                            {
+                                "system": "urn:oid:2.16.840.1.113883.2.4.15.1060",
+                                "code": "V6",
+                                "display": "University Medical Hospital"
+                            },
+                            {
+                                "system": "http://hl7.org/fhir/organization-type",
+                                "code": "prov",
+                                "display": "Healthcare Provider"
+                            }
+                        ]
+                    }
+                ],
+                "name": "Audi BKK",
+                "telecom": [
+                    {
+                        "system": "phone",
+                        "value": "022-655 2300",
+                        "use": "work"
+                    }
+                ],
+                "address": [
+                    {
+                        "use": "work",
+                        "line": [
+                            "Galapagosweg 91"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9105 PZ",
+                        "country": "NLD"
+                    },
+                    {
+                        "use": "work",
+                        "line": [
+                            "PO Box 2311"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9100 AA",
+                        "country": "NLD"
+                    }
+                ],
+                "contact": [
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PRESS"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2334"
+                            }
+                        ]
+                    },
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PATINF"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2335"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "request": {
+                "method": "POST",
+                "url": "Organization"
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8080/fhir/R4/Organization/2629",
+            "resource": {
+                "resourceType": "Organization",
+                "id": "2629",
+                "meta": {
+                    "versionId": "1",
+                    "lastUpdated": "2018-11-15T16:17:06.713+01:00"
+                },
+                "identifier": [
+                    {
+                        "use": "official",
+                        "system": "urn:oid:2.16.528.1",
+                        "value": "91654"
+                    },
+                    {
+                        "use": "usual",
+                        "system": "urn:oid:2.16.840.1.113883.2.4.6.1",
+                        "value": "17-0112278"
+                    }
+                ],
+                "type": [
+                    {
+                        "coding": [
+                            {
+                                "system": "urn:oid:2.16.840.1.113883.2.4.15.1060",
+                                "code": "V6",
+                                "display": "University Medical Hospital"
+                            },
+                            {
+                                "system": "http://hl7.org/fhir/organization-type",
+                                "code": "prov",
+                                "display": "Healthcare Provider"
+                            }
+                        ]
+                    }
+                ],
+                "name": "BKK BMW",
+                "telecom": [
+                    {
+                        "system": "phone",
+                        "value": "022-655 2300",
+                        "use": "work"
+                    }
+                ],
+                "address": [
+                    {
+                        "use": "work",
+                        "line": [
+                            "Galapagosweg 91"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9105 PZ",
+                        "country": "NLD"
+                    },
+                    {
+                        "use": "work",
+                        "line": [
+                            "PO Box 2311"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9100 AA",
+                        "country": "NLD"
+                    }
+                ],
+                "contact": [
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PRESS"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2334"
+                            }
+                        ]
+                    },
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PATINF"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2335"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "request": {
+                "method": "POST",
+                "url": "Organization"
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8080/fhir/R4/Organization/2630",
+            "resource": {
+                "resourceType": "Organization",
+                "id": "2630",
+                "meta": {
+                    "versionId": "1",
+                    "lastUpdated": "2018-11-15T16:17:06.713+01:00"
+                },
+                "identifier": [
+                    {
+                        "use": "official",
+                        "system": "urn:oid:2.16.528.1",
+                        "value": "91654"
+                    },
+                    {
+                        "use": "usual",
+                        "system": "urn:oid:2.16.840.1.113883.2.4.6.1",
+                        "value": "17-0112278"
+                    }
+                ],
+                "type": [
+                    {
+                        "coding": [
+                            {
+                                "system": "urn:oid:2.16.840.1.113883.2.4.15.1060",
+                                "code": "V6",
+                                "display": "University Medical Hospital"
+                            },
+                            {
+                                "system": "http://hl7.org/fhir/organization-type",
+                                "code": "prov",
+                                "display": "Healthcare Provider"
+                            }
+                        ]
+                    }
+                ],
+                "name": "Miele BKK",
+                "telecom": [
+                    {
+                        "system": "phone",
+                        "value": "022-655 2300",
+                        "use": "work"
+                    }
+                ],
+                "address": [
+                    {
+                        "use": "work",
+                        "line": [
+                            "Galapagosweg 91"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9105 PZ",
+                        "country": "NLD"
+                    },
+                    {
+                        "use": "work",
+                        "line": [
+                            "PO Box 2311"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9100 AA",
+                        "country": "NLD"
+                    }
+                ],
+                "contact": [
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PRESS"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2334"
+                            }
+                        ]
+                    },
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PATINF"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2335"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "request": {
+                "method": "POST",
+                "url": "Organization"
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8080/fhir/R4/Organization/2631",
+            "resource": {
+                "resourceType": "Organization",
+                "id": "2631",
+                "meta": {
+                    "versionId": "1",
+                    "lastUpdated": "2018-11-15T16:17:06.713+01:00"
+                },
+                "identifier": [
+                    {
+                        "use": "official",
+                        "system": "urn:oid:2.16.528.1",
+                        "value": "91654"
+                    },
+                    {
+                        "use": "usual",
+                        "system": "urn:oid:2.16.840.1.113883.2.4.6.1",
+                        "value": "17-0112278"
+                    }
+                ],
+                "type": [
+                    {
+                        "coding": [
+                            {
+                                "system": "urn:oid:2.16.840.1.113883.2.4.15.1060",
+                                "code": "V6",
+                                "display": "University Medical Hospital"
+                            },
+                            {
+                                "system": "http://hl7.org/fhir/organization-type",
+                                "code": "prov",
+                                "display": "Healthcare Provider"
+                            }
+                        ]
+                    }
+                ],
+                "name": "HEK",
+                "telecom": [
+                    {
+                        "system": "phone",
+                        "value": "022-655 2300",
+                        "use": "work"
+                    }
+                ],
+                "address": [
+                    {
+                        "use": "work",
+                        "line": [
+                            "Galapagosweg 91"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9105 PZ",
+                        "country": "NLD"
+                    },
+                    {
+                        "use": "work",
+                        "line": [
+                            "PO Box 2311"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9100 AA",
+                        "country": "NLD"
+                    }
+                ],
+                "contact": [
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PRESS"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2334"
+                            }
+                        ]
+                    },
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PATINF"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2335"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "request": {
+                "method": "POST",
+                "url": "Organization"
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8080/fhir/R4/Organization/2632",
+            "resource": {
+                "resourceType": "Organization",
+                "id": "2632",
+                "meta": {
+                    "versionId": "1",
+                    "lastUpdated": "2018-11-15T16:17:06.713+01:00"
+                },
+                "identifier": [
+                    {
+                        "use": "official",
+                        "system": "urn:oid:2.16.528.1",
+                        "value": "91654"
+                    },
+                    {
+                        "use": "usual",
+                        "system": "urn:oid:2.16.840.1.113883.2.4.6.1",
+                        "value": "17-0112278"
+                    }
+                ],
+                "type": [
+                    {
+                        "coding": [
+                            {
+                                "system": "urn:oid:2.16.840.1.113883.2.4.15.1060",
+                                "code": "V6",
+                                "display": "University Medical Hospital"
+                            },
+                            {
+                                "system": "http://hl7.org/fhir/organization-type",
+                                "code": "prov",
+                                "display": "Healthcare Provider"
+                            }
+                        ]
+                    }
+                ],
+                "name": "Bahn-BKK",
+                "telecom": [
+                    {
+                        "system": "phone",
+                        "value": "022-655 2300",
+                        "use": "work"
+                    }
+                ],
+                "address": [
+                    {
+                        "use": "work",
+                        "line": [
+                            "Galapagosweg 91"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9105 PZ",
+                        "country": "NLD"
+                    },
+                    {
+                        "use": "work",
+                        "line": [
+                            "PO Box 2311"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9100 AA",
+                        "country": "NLD"
+                    }
+                ],
+                "contact": [
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PRESS"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2334"
+                            }
+                        ]
+                    },
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PATINF"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2335"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "request": {
+                "method": "POST",
+                "url": "Organization"
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8080/fhir/R4/Organization/2633",
+            "resource": {
+                "resourceType": "Organization",
+                "id": "2633",
+                "meta": {
+                    "versionId": "1",
+                    "lastUpdated": "2018-11-15T16:17:06.713+01:00"
+                },
+                "identifier": [
+                    {
+                        "use": "official",
+                        "system": "urn:oid:2.16.528.1",
+                        "value": "91654"
+                    },
+                    {
+                        "use": "usual",
+                        "system": "urn:oid:2.16.840.1.113883.2.4.6.1",
+                        "value": "17-0112278"
+                    }
+                ],
+                "type": [
+                    {
+                        "coding": [
+                            {
+                                "system": "urn:oid:2.16.840.1.113883.2.4.15.1060",
+                                "code": "V6",
+                                "display": "University Medical Hospital"
+                            },
+                            {
+                                "system": "http://hl7.org/fhir/organization-type",
+                                "code": "prov",
+                                "display": "Healthcare Provider"
+                            }
+                        ]
+                    }
+                ],
+                "name": "IKK Brandenburg",
+                "telecom": [
+                    {
+                        "system": "phone",
+                        "value": "022-655 2300",
+                        "use": "work"
+                    }
+                ],
+                "address": [
+                    {
+                        "use": "work",
+                        "line": [
+                            "Galapagosweg 91"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9105 PZ",
+                        "country": "NLD"
+                    },
+                    {
+                        "use": "work",
+                        "line": [
+                            "PO Box 2311"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9100 AA",
+                        "country": "NLD"
+                    }
+                ],
+                "contact": [
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PRESS"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2334"
+                            }
+                        ]
+                    },
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PATINF"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2335"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "request": {
+                "method": "POST",
+                "url": "Organization"
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8080/fhir/R4/Organization/2634",
+            "resource": {
+                "resourceType": "Organization",
+                "id": "2634",
+                "meta": {
+                    "versionId": "1",
+                    "lastUpdated": "2018-11-15T16:17:06.713+01:00"
+                },
+                "identifier": [
+                    {
+                        "use": "official",
+                        "system": "urn:oid:2.16.528.1",
+                        "value": "91654"
+                    },
+                    {
+                        "use": "usual",
+                        "system": "urn:oid:2.16.840.1.113883.2.4.6.1",
+                        "value": "17-0112278"
+                    }
+                ],
+                "type": [
+                    {
+                        "coding": [
+                            {
+                                "system": "urn:oid:2.16.840.1.113883.2.4.15.1060",
+                                "code": "V6",
+                                "display": "University Medical Hospital"
+                            },
+                            {
+                                "system": "http://hl7.org/fhir/organization-type",
+                                "code": "prov",
+                                "display": "Healthcare Provider"
+                            }
+                        ]
+                    }
+                ],
+                "name": "IKK-Berlin",
+                "telecom": [
+                    {
+                        "system": "phone",
+                        "value": "022-655 2300",
+                        "use": "work"
+                    }
+                ],
+                "address": [
+                    {
+                        "use": "work",
+                        "line": [
+                            "Galapagosweg 91"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9105 PZ",
+                        "country": "NLD"
+                    },
+                    {
+                        "use": "work",
+                        "line": [
+                            "PO Box 2311"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9100 AA",
+                        "country": "NLD"
+                    }
+                ],
+                "contact": [
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PRESS"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2334"
+                            }
+                        ]
+                    },
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PATINF"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2335"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "request": {
+                "method": "POST",
+                "url": "Organization"
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8080/fhir/R4/Organization/2635",
+            "resource": {
+                "resourceType": "Organization",
+                "id": "2635",
+                "meta": {
+                    "versionId": "1",
+                    "lastUpdated": "2018-11-15T16:17:06.713+01:00"
+                },
+                "identifier": [
+                    {
+                        "use": "official",
+                        "system": "urn:oid:2.16.528.1",
+                        "value": "91654"
+                    },
+                    {
+                        "use": "usual",
+                        "system": "urn:oid:2.16.840.1.113883.2.4.6.1",
+                        "value": "17-0112278"
+                    }
+                ],
+                "type": [
+                    {
+                        "coding": [
+                            {
+                                "system": "urn:oid:2.16.840.1.113883.2.4.15.1060",
+                                "code": "V6",
+                                "display": "University Medical Hospital"
+                            },
+                            {
+                                "system": "http://hl7.org/fhir/organization-type",
+                                "code": "prov",
+                                "display": "Healthcare Provider"
+                            }
+                        ]
+                    }
+                ],
+                "name": "AOK Baden-Württemberg",
+                "telecom": [
+                    {
+                        "system": "phone",
+                        "value": "022-655 2300",
+                        "use": "work"
+                    }
+                ],
+                "address": [
+                    {
+                        "use": "work",
+                        "line": [
+                            "Galapagosweg 91"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9105 PZ",
+                        "country": "NLD"
+                    },
+                    {
+                        "use": "work",
+                        "line": [
+                            "PO Box 2311"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9100 AA",
+                        "country": "NLD"
+                    }
+                ],
+                "contact": [
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PRESS"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2334"
+                            }
+                        ]
+                    },
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PATINF"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2335"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "request": {
+                "method": "POST",
+                "url": "Organization"
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8080/fhir/R4/Organization/2636",
+            "resource": {
+                "resourceType": "Organization",
+                "id": "2636",
+                "meta": {
+                    "versionId": "1",
+                    "lastUpdated": "2018-11-15T16:17:06.713+01:00"
+                },
+                "identifier": [
+                    {
+                        "use": "official",
+                        "system": "urn:oid:2.16.528.1",
+                        "value": "91654"
+                    },
+                    {
+                        "use": "usual",
+                        "system": "urn:oid:2.16.840.1.113883.2.4.6.1",
+                        "value": "17-0112278"
+                    }
+                ],
+                "type": [
+                    {
+                        "coding": [
+                            {
+                                "system": "urn:oid:2.16.840.1.113883.2.4.15.1060",
+                                "code": "V6",
+                                "display": "University Medical Hospital"
+                            },
+                            {
+                                "system": "http://hl7.org/fhir/organization-type",
+                                "code": "prov",
+                                "display": "Healthcare Provider"
+                            }
+                        ]
+                    }
+                ],
+                "name": "BKK Farber Casel",
+                "telecom": [
+                    {
+                        "system": "phone",
+                        "value": "022-655 2300",
+                        "use": "work"
+                    }
+                ],
+                "address": [
+                    {
+                        "use": "work",
+                        "line": [
+                            "Galapagosweg 91"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9105 PZ",
+                        "country": "NLD"
+                    },
+                    {
+                        "use": "work",
+                        "line": [
+                            "PO Box 2311"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9100 AA",
+                        "country": "NLD"
+                    }
+                ],
+                "contact": [
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PRESS"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2334"
+                            }
+                        ]
+                    },
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PATINF"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2335"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "request": {
+                "method": "POST",
+                "url": "Organization"
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8080/fhir/R4/Organization/2637",
+            "resource": {
+                "resourceType": "Organization",
+                "id": "2637",
+                "meta": {
+                    "versionId": "1",
+                    "lastUpdated": "2018-11-15T16:17:06.713+01:00"
+                },
+                "identifier": [
+                    {
+                        "use": "official",
+                        "system": "urn:oid:2.16.528.1",
+                        "value": "91654"
+                    },
+                    {
+                        "use": "usual",
+                        "system": "urn:oid:2.16.840.1.113883.2.4.6.1",
+                        "value": "17-0112278"
+                    }
+                ],
+                "type": [
+                    {
+                        "coding": [
+                            {
+                                "system": "urn:oid:2.16.840.1.113883.2.4.15.1060",
+                                "code": "V6",
+                                "display": "University Medical Hospital"
+                            },
+                            {
+                                "system": "http://hl7.org/fhir/organization-type",
+                                "code": "prov",
+                                "display": "Healthcare Provider"
+                            }
+                        ]
+                    }
+                ],
+                "name": "BKK Stadt Augsburg",
+                "telecom": [
+                    {
+                        "system": "phone",
+                        "value": "022-655 2300",
+                        "use": "work"
+                    }
+                ],
+                "address": [
+                    {
+                        "use": "work",
+                        "line": [
+                            "Galapagosweg 91"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9105 PZ",
+                        "country": "NLD"
+                    },
+                    {
+                        "use": "work",
+                        "line": [
+                            "PO Box 2311"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9100 AA",
+                        "country": "NLD"
+                    }
+                ],
+                "contact": [
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PRESS"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2334"
+                            }
+                        ]
+                    },
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PATINF"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2335"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "request": {
+                "method": "POST",
+                "url": "Organization"
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8080/fhir/R4/Organization/2638",
+            "resource": {
+                "resourceType": "Organization",
+                "id": "2638",
+                "meta": {
+                    "versionId": "1",
+                    "lastUpdated": "2018-11-15T16:17:06.713+01:00"
+                },
+                "identifier": [
+                    {
+                        "use": "official",
+                        "system": "urn:oid:2.16.528.1",
+                        "value": "91654"
+                    },
+                    {
+                        "use": "usual",
+                        "system": "urn:oid:2.16.840.1.113883.2.4.6.1",
+                        "value": "17-0112278"
+                    }
+                ],
+                "type": [
+                    {
+                        "coding": [
+                            {
+                                "system": "urn:oid:2.16.840.1.113883.2.4.15.1060",
+                                "code": "V6",
+                                "display": "University Medical Hospital"
+                            },
+                            {
+                                "system": "http://hl7.org/fhir/organization-type",
+                                "code": "prov",
+                                "display": "Healthcare Provider"
+                            }
+                        ]
+                    }
+                ],
+                "name": "BKK Gildenmeister Seidenstecker",
+                "telecom": [
+                    {
+                        "system": "phone",
+                        "value": "022-655 2300",
+                        "use": "work"
+                    }
+                ],
+                "address": [
+                    {
+                        "use": "work",
+                        "line": [
+                            "Galapagosweg 91"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9105 PZ",
+                        "country": "NLD"
+                    },
+                    {
+                        "use": "work",
+                        "line": [
+                            "PO Box 2311"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9100 AA",
+                        "country": "NLD"
+                    }
+                ],
+                "contact": [
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PRESS"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2334"
+                            }
+                        ]
+                    },
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PATINF"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2335"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "request": {
+                "method": "POST",
+                "url": "Organization"
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8080/fhir/R4/Organization/2639",
+            "resource": {
+                "resourceType": "Organization",
+                "id": "2639",
+                "meta": {
+                    "versionId": "1",
+                    "lastUpdated": "2018-11-15T16:17:06.713+01:00"
+                },
+                "identifier": [
+                    {
+                        "use": "official",
+                        "system": "urn:oid:2.16.528.1",
+                        "value": "91654"
+                    },
+                    {
+                        "use": "usual",
+                        "system": "urn:oid:2.16.840.1.113883.2.4.6.1",
+                        "value": "17-0112278"
+                    }
+                ],
+                "type": [
+                    {
+                        "coding": [
+                            {
+                                "system": "urn:oid:2.16.840.1.113883.2.4.15.1060",
+                                "code": "V6",
+                                "display": "University Medical Hospital"
+                            },
+                            {
+                                "system": "http://hl7.org/fhir/organization-type",
+                                "code": "prov",
+                                "display": "Healthcare Provider"
+                            }
+                        ]
+                    }
+                ],
+                "name": "BKK Hercules",
+                "telecom": [
+                    {
+                        "system": "phone",
+                        "value": "022-655 2300",
+                        "use": "work"
+                    }
+                ],
+                "address": [
+                    {
+                        "use": "work",
+                        "line": [
+                            "Galapagosweg 91"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9105 PZ",
+                        "country": "NLD"
+                    },
+                    {
+                        "use": "work",
+                        "line": [
+                            "PO Box 2311"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9100 AA",
+                        "country": "NLD"
+                    }
+                ],
+                "contact": [
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PRESS"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2334"
+                            }
+                        ]
+                    },
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PATINF"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2335"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "request": {
+                "method": "POST",
+                "url": "Organization"
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8080/fhir/R4/Organization/2640",
+            "resource": {
+                "resourceType": "Organization",
+                "id": "2640",
+                "meta": {
+                    "versionId": "1",
+                    "lastUpdated": "2018-11-15T16:17:06.713+01:00"
+                },
+                "identifier": [
+                    {
+                        "use": "official",
+                        "system": "urn:oid:2.16.528.1",
+                        "value": "91654"
+                    },
+                    {
+                        "use": "usual",
+                        "system": "urn:oid:2.16.840.1.113883.2.4.6.1",
+                        "value": "17-0112278"
+                    }
+                ],
+                "type": [
+                    {
+                        "coding": [
+                            {
+                                "system": "urn:oid:2.16.840.1.113883.2.4.15.1060",
+                                "code": "V6",
+                                "display": "University Medical Hospital"
+                            },
+                            {
+                                "system": "http://hl7.org/fhir/organization-type",
+                                "code": "prov",
+                                "display": "Healthcare Provider"
+                            }
+                        ]
+                    }
+                ],
+                "name": "BKK Riecker Ricosta Weisser",
+                "telecom": [
+                    {
+                        "system": "phone",
+                        "value": "022-655 2300",
+                        "use": "work"
+                    }
+                ],
+                "address": [
+                    {
+                        "use": "work",
+                        "line": [
+                            "Galapagosweg 91"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9105 PZ",
+                        "country": "NLD"
+                    },
+                    {
+                        "use": "work",
+                        "line": [
+                            "PO Box 2311"
+                        ],
+                        "city": "Den Burg",
+                        "postalCode": "9100 AA",
+                        "country": "NLD"
+                    }
+                ],
+                "contact": [
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PRESS"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2334"
+                            }
+                        ]
+                    },
+                    {
+                        "purpose": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/contactentity-type",
+                                    "code": "PATINF"
+                                }
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "022-655 2335"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "request": {
+                "method": "POST",
+                "url": "Organization"
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8080/fhir/R4/ValueSet/2529",
+            "resource": {
+                "resourceType": "ValueSet",
+                "id": "2529",
+                "meta": {
+                    "versionId": "1",
+                    "lastUpdated": "2018-09-19T16:05:18.620+02:00"
+                },
+                "url": "ValueSet/CaseType",
+                "status": "draft",
+                "compose": {
+                    "include": [
+                        {
+                            "system": "CodeSystem/CaseType"
+                        }
+                    ]
+                }
+            },
+            "request": {
+                "method": "POST",
+                "url": "ValueSet"
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8090/fhir/R4/ValueSet/1246",
+            "resource": {
+                "resourceType": "ValueSet",
+                "id": "1246",
+                "meta": {
+                    "versionId": "1",
+                    "lastUpdated": "2018-09-19T15:59:25.239+02:00",
+                    "profile": [
+                        "http://hl7.org/fhir/StructureDefinition/shareablevalueset"
+                    ]
+                },
+                "extension": [
+                    {
+                        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-ballot-status",
+                        "valueString": "External"
+                    },
+                    {
+                        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-fmm",
+                        "valueInteger": 0
+                    },
+                    {
+                        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-wg",
+                        "valueString": "vocab"
+                    }
+                ],
+                "url": "http://hl7.org/fhir/ValueSet/v3-hl7Realm",
+                "identifier": [
+                    {
+                        "system": "urn:ietf:rfc:3986",
+                        "value": "urn:oid:2.16.840.1.113883.1.11.20355"
+                    }
+                ],
+                "version": "2018-04-01",
+                "name": "v3 Code System hl7Realm",
+                "status": "active",
+                "experimental": false,
+                "date": "2018-04-01",
+                "publisher": "HL7, Inc",
+                "contact": [
+                    {
+                        "telecom": [
+                            {
+                                "system": "url",
+                                "value": "http://hl7.org"
+                            }
+                        ]
+                    }
+                ],
+                "description": "  Description: Coded concepts representing Binding Realms (used for Context Binding of terminology in HL7 models)  and/or Namespace Realms (used to help ensure unique identification of HL7 artifacts). This code system is partitioned into three sections: Affiliate realms, Binding realms and Namespace realms.  All affiliate realm codes may automatically be used as both binding realms and namespace realms.  Furthermore, affiliate realms are the only realms that have authority over the creation of binding realms.  (Note that 'affiliate' includes the idea of both international affiliates and the HL7 International organization.)  All other codes must be associated with an owning affiliate realm and must appear as a specialization of _BindingRealm or _NamespaceRealm.  For affiliates whose concepts align with nations, the country codes from ISO 3166-1 2-character alpha are used for the code when possible so these codes should not be used for other realm types.  It is recommended that binding realm and namespace codes submitted by affiliates use the realm code as a prefix to avoid possible collisions with ISO codes.  However, tooling does not currently support namepace realm codes greater than 2 characters.  Open Issue: The name of the concept property \"owningAffiliate\" should be changed to better reflect that the property value is the human readable name of the organizational entity that manages the Realm identified by the Realm Code.  Open Issue: In spite of the inability of tooling to process codes longer than 2 characters, there is at least one realm codes ('SOA') that was added that is 3 characters in length.",
+                "immutable": true,
+                "compose": {
+                    "include": [
+                        {
+                            "system": "http://hl7.org/fhir/v3/hl7Realm"
+                        }
+                    ]
+                }
+            },
+            "request": {
+                "method": "POST",
+                "url": "ValueSet"
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8090/fhir/R4/CodeSystem/1387",
+            "resource": {
+                "resourceType": "CodeSystem",
+                "id": "1387",
+                "meta": {
+                    "versionId": "1",
+                    "lastUpdated": "2018-09-19T15:59:25.239+02:00"
+                },
+                "extension": [
+                    {
+                        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-ballot-status",
+                        "valueString": "External"
+                    },
+                    {
+                        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-fmm",
+                        "valueInteger": 0
+                    }
+                ],
+                "url": "http://hl7.org/fhir/v3/hl7Realm",
+                "identifier": {
+                    "system": "urn:ietf:rfc:3986",
+                    "value": "urn:oid:2.16.840.1.113883.5.1124"
+                },
+                "version": "2018-04-01",
+                "name": "v3 Code System hl7Realm",
+                "status": "active",
+                "experimental": false,
+                "date": "2018-04-01T00:00:00-04:00",
+                "publisher": "HL7, Inc",
+                "contact": [
+                    {
+                        "telecom": [
+                            {
+                                "system": "url",
+                                "value": "http://hl7.org"
+                            }
+                        ]
+                    }
+                ],
+                "description": "  Description: Coded concepts representing Binding Realms (used for Context Binding of terminology in HL7 models)  and/or Namespace Realms (used to help ensure unique identification of HL7 artifacts). This code system is partitioned into three sections: Affiliate realms, Binding realms and Namespace realms.  All affiliate realm codes may automatically be used as both binding realms and namespace realms.  Furthermore, affiliate realms are the only realms that have authority over the creation of binding realms.  (Note that 'affiliate' includes the idea of both international affiliates and the HL7 International organization.)  All other codes must be associated with an owning affiliate realm and must appear as a specialization of _BindingRealm or _NamespaceRealm.  For affiliates whose concepts align with nations, the country codes from ISO 3166-1 2-character alpha are used for the code when possible so these codes should not be used for other realm types.  It is recommended that binding realm and namespace codes submitted by affiliates use the realm code as a prefix to avoid possible collisions with ISO codes.  However, tooling does not currently support namepace realm codes greater than 2 characters.  Open Issue: The name of the concept property \"owningAffiliate\" should be changed to better reflect that the property value is the human readable name of the organizational entity that manages the Realm identified by the Realm Code.  Open Issue: In spite of the inability of tooling to process codes longer than 2 characters, there is at least one realm codes ('SOA') that was added that is 3 characters in length.",
+                "caseSensitive": true,
+                "valueSet": "http://hl7.org/fhir/ValueSet/v3-hl7Realm",
+                "hierarchyMeaning": "is-a",
+                "content": "complete",
+                "property": [
+                    {
+                        "code": "notSelectable",
+                        "uri": "http://hl7.org/fhir/concept-properties#notSelectable",
+                        "description": "Indicates that the code is abstract - only intended to be used as a selector for other concepts",
+                        "type": "boolean"
+                    }
+                ],
+                "concept": [
+                    {
+                        "code": "AR",
+                        "display": "Argentina",
+                        "definition": "Description: Realm code for use of Argentina"
+                    },
+                    {
+                        "code": "AT",
+                        "display": "Austria",
+                        "definition": "Description: Realm code for use of Austria"
+                    },
+                    {
+                        "code": "AU",
+                        "display": "Australia",
+                        "definition": "Description: Realm code for use of Australia"
+                    },
+                    {
+                        "code": "BR",
+                        "display": "Brazil",
+                        "definition": "Description: Realm code for use of Brazil"
+                    },
+                    {
+                        "code": "CA",
+                        "display": "Canada",
+                        "definition": "Description: Realm code for use of Canada"
+                    },
+                    {
+                        "code": "CH",
+                        "display": "Switzerland",
+                        "definition": "Description: Realm code for use of Switzerland"
+                    },
+                    {
+                        "code": "CL",
+                        "display": "Chile",
+                        "definition": "Description: Realm code for use of Chile"
+                    },
+                    {
+                        "code": "CN",
+                        "display": "China",
+                        "definition": "Description: Realm code for use of China"
+                    },
+                    {
+                        "code": "CO",
+                        "display": "Columbia",
+                        "definition": "Description: Realm code for use of Localized Version"
+                    },
+                    {
+                        "code": "CZ",
+                        "display": "Czech Republic",
+                        "definition": "Description: Realm code for use of Czech Republic"
+                    },
+                    {
+                        "code": "DE",
+                        "display": "Germany",
+                        "definition": "Description: Realm code for use of Germany"
+                    },
+                    {
+                        "code": "DK",
+                        "display": "Denmark",
+                        "definition": "Description: Realm code for use of Denmark"
+                    },
+                    {
+                        "code": "ES",
+                        "display": "Spain",
+                        "definition": "Description: Realm code for use of Spain"
+                    },
+                    {
+                        "code": "FI",
+                        "display": "Finland",
+                        "definition": "Description: Realm code for use of Finland"
+                    },
+                    {
+                        "code": "FR",
+                        "display": "France",
+                        "definition": "Description: Realm code for use of France"
+                    },
+                    {
+                        "code": "GR",
+                        "display": "Greece",
+                        "definition": "Description: Realm code for use of Greece"
+                    },
+                    {
+                        "code": "HR",
+                        "display": "Croatia",
+                        "definition": "Description: Realm code for use of Croatia"
+                    },
+                    {
+                        "code": "IE",
+                        "display": "Ireland",
+                        "definition": "Description: Realm code for use of Ireland"
+                    },
+                    {
+                        "code": "IN",
+                        "display": "India",
+                        "definition": "Description: Realm code for use of India"
+                    },
+                    {
+                        "code": "IT",
+                        "display": "Italy",
+                        "definition": "Description: Realm code for use of Italy"
+                    },
+                    {
+                        "code": "JP",
+                        "display": "Japan",
+                        "definition": "Description: Realm code for use of Japan"
+                    },
+                    {
+                        "code": "KR",
+                        "display": "Korea",
+                        "definition": "Description: Realm code for use of Korea"
+                    },
+                    {
+                        "code": "LT",
+                        "display": "Lithuania",
+                        "definition": "Description: Realm code for use of Lithuania"
+                    },
+                    {
+                        "code": "MX",
+                        "display": "Mexico",
+                        "definition": "Description: Realm code for use of Mexico"
+                    },
+                    {
+                        "code": "NL",
+                        "display": "The Netherlands",
+                        "definition": "Description: Realm code for use of The Netherlands"
+                    },
+                    {
+                        "code": "NZ",
+                        "display": "New Zealand",
+                        "definition": "Description: Realm code for use of New Zealand"
+                    },
+                    {
+                        "code": "RO",
+                        "display": "Romania",
+                        "definition": "Description: Realm code for use of Romania"
+                    },
+                    {
+                        "code": "RU",
+                        "display": "Russian Federation",
+                        "definition": "Description: Realm code for use of Russian Federation"
+                    },
+                    {
+                        "code": "SE",
+                        "display": "Sweden",
+                        "definition": "Description: Realm code for use of Sweden"
+                    },
+                    {
+                        "code": "SG",
+                        "display": "Singapore",
+                        "definition": "Description: Realm code for use of Localized Version"
+                    },
+                    {
+                        "code": "SOA",
+                        "display": "Southern Africa",
+                        "definition": "Description: Realm code for use of Southern Africa"
+                    },
+                    {
+                        "code": "TR",
+                        "display": "Turkey",
+                        "definition": "Description: Realm code for use of Turkey"
+                    },
+                    {
+                        "code": "TW",
+                        "display": "Taiwan",
+                        "definition": "Description: Realm code for use of Taiwan"
+                    },
+                    {
+                        "code": "UK",
+                        "display": "United Kingdom",
+                        "definition": "Description: Realm code for use of United Kingdom"
+                    },
+                    {
+                        "code": "US",
+                        "display": "United States of America",
+                        "definition": "Description: Realm code for use of United States of America"
+                    },
+                    {
+                        "code": "UV",
+                        "display": "Universal",
+                        "definition": "Description: Realm code for use of Universal realm or context, used in every instance"
+                    },
+                    {
+                        "code": "UY",
+                        "display": "Uruguay",
+                        "definition": "Description: Realm code for use of Uruguay"
+                    },
+                    {
+                        "code": "C1",
+                        "display": "Unclassified Realm",
+                        "definition": "Description: Realm code for use of Unclassified Realm"
+                    },
+                    {
+                        "code": "GB",
+                        "display": "Great Britain",
+                        "definition": "Description: Realm code for use of Great Britain"
+                    },
+                    {
+                        "code": "R1",
+                        "display": "Representative Realm",
+                        "definition": "Description: Realm code for use of Representative Realm"
+                    },
+                    {
+                        "code": "X1",
+                        "display": "Example Realm",
+                        "definition": "Description: Realm code for use of Example Realm"
+                    },
+                    {
+                        "code": "ZZ",
+                        "display": "Localized Version",
+                        "definition": "Description: An artifact created for local use only.  This realm namespace has no owning affiliate.  Its use is uncontrolled, i.e. anyone can create artifacts using this realm namespace.  Because of this, there is a significant likelihood of artifact identifier collisions.  Implementers are encouraged to register their artifacts under an affiliate owned and controlled namespace to avoid such collision problems where possible."
+                    }
+                ]
+            },
+            "request": {
+                "method": "POST",
+                "url": "CodeSystem"
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8080/fhir/R4/ValueSet/2530",
+            "resource": {
+                "resourceType": "ValueSet",
+                "id": "2530",
+                "meta": {
+                    "versionId": "1",
+                    "lastUpdated": "2018-09-19T16:05:18.620+02:00"
+                },
+                "url": "ValueSet/AdmissionType",
+                "status": "draft",
+                "compose": {
+                    "include": [
+                        {
+                            "system": "CodeSystem/AdmissionType"
+                        }
+                    ]
+                }
+            },
+            "request": {
+                "method": "POST",
+                "url": "ValueSet"
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8080/fhir/R4/ValueSet/2528",
+            "resource": {
+                "resourceType": "ValueSet",
+                "id": "2528",
+                "meta": {
+                    "versionId": "1",
+                    "lastUpdated": "2018-09-19T16:05:18.620+02:00",
+                    "profile": [
+                        "http://hl7.org/fhir/StructureDefinition/shareablevalueset"
+                    ]
+                },
+                "extension": [
+                    {
+                        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-ballot-status",
+                        "valueString": "Informative"
+                    },
+                    {
+                        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-fmm",
+                        "valueInteger": 5
+                    },
+                    {
+                        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-wg",
+                        "valueCode": "pc"
+                    }
+                ],
+                "url": "http://hl7.org/fhir/ValueSet/gender",
+                "identifier": [
+                    {
+                        "system": "urn:ietf:rfc:3986",
+                        "value": "urn:oid:2.16.840.1.113883.4.642.3.1"
+                    }
+                ],
+                "version": "3.0.1",
+                "name": "Gender",
+                "status": "draft",
+                "experimental": false,
+                "date": "2017-04-17T17:38:22-04:00",
+                "publisher": "HL7 (FHIR Project)",
+                "contact": [
+                    {
+                        "telecom": [
+                            {
+                                "system": "url",
+                                "value": "http://hl7.org/fhir"
+                            },
+                            {
+                                "system": "email",
+                                "value": "fhir@lists.hl7.org"
+                            }
+                        ]
+                    }
+                ],
+                "description": "The gender of a person used for administrative purposes.",
+                "immutable": true,
+                "compose": {
+                    "include": [
+                        {
+                            "system": "http://hl7.org/fhir/gender"
+                        }
+                    ]
+                }
+            },
+            "request": {
+                "method": "POST",
+                "url": "ValueSet"
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8080/fhir/R4/ValueSet/2531",
+            "resource": {
+                "resourceType": "ValueSet",
+                "id": "2531",
+                "meta": {
+                    "versionId": "1",
+                    "lastUpdated": "2018-09-19T16:05:18.620+02:00",
+                    "profile": [
+                        "http://hl7.org/fhir/StructureDefinition/shareablevalueset"
+                    ]
+                },
+                "extension": [
+                    {
+                        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-ballot-status",
+                        "valueString": "Informative"
+                    },
+                    {
+                        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-fmm",
+                        "valueInteger": 5
+                    },
+                    {
+                        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-wg",
+                        "valueCode": "pc"
+                    }
+                ],
+                "url": "scala_poc/ValueSet/CareCategory",
+                "identifier": [
+                    {
+                        "system": "urn:ietf:rfc:3986",
+                        "value": "urn:oid:2.16.840.1.113883.4.642.3.1"
+                    }
+                ],
+                "version": "3.0.1",
+                "name": "CareCategory",
+                "status": "draft",
+                "experimental": false,
+                "date": "2017-04-17T17:38:22-04:00",
+                "publisher": "HL7 (FHIR Project)",
+                "contact": [
+                    {
+                        "telecom": [
+                            {
+                                "system": "url",
+                                "value": "http://hl7.org/fhir"
+                            },
+                            {
+                                "system": "email",
+                                "value": "fhir@lists.hl7.org"
+                            }
+                        ]
+                    }
+                ],
+                "description": "The gender of a person used for administrative purposes.",
+                "immutable": true,
+                "compose": {
+                    "include": [
+                        {
+                            "system": "scala_poc/CodeSystem/CareCategory"
+                        }
+                    ]
+                }
+            },
+            "request": {
+                "method": "POST",
+                "url": "ValueSet"
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8090/fhir/R4/CodeSystem/1525",
+            "resource": {
+                "resourceType": "CodeSystem",
+                "id": "1525",
+                "meta": {
+                    "versionId": "1",
+                    "lastUpdated": "2018-09-19T16:02:26.082+02:00"
+                },
+                "extension": [
+                    {
+                        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-wg",
+                        "valueCode": "pc"
+                    },
+                    {
+                        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-ballot-status",
+                        "valueString": "Normative"
+                    },
+                    {
+                        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-fmm",
+                        "valueInteger": 5
+                    }
+                ],
+                "url": "http://hl7.org/fhir/administrative-gender",
+                "identifier": {
+                    "system": "urn:ietf:rfc:3986",
+                    "value": "urn:oid:2.16.840.1.113883.4.642.1.2"
+                },
+                "version": "3.4.0",
+                "name": "AdministrativeGender",
+                "status": "draft",
+                "experimental": false,
+                "date": "2018-05-06T17:51:54-04:00",
+                "description": "The gender of a person used for administrative purposes.",
+                "caseSensitive": true,
+                "valueSet": "http://hl7.org/fhir/ValueSet/administrative-gender",
+                "content": "complete",
+                "concept": [
+                    {
+                        "extension": [
+                            {
+                                "url": "http://hl7.org/fhir/StructureDefinition/codesystem-comments",
+                                "valueString": "Male"
+                            }
+                        ],
+                        "code": "male",
+                        "display": "Male",
+                        "definition": "Male"
+                    },
+                    {
+                        "extension": [
+                            {
+                                "url": "http://hl7.org/fhir/StructureDefinition/codesystem-comments",
+                                "valueString": "Female"
+                            }
+                        ],
+                        "code": "female",
+                        "display": "Female",
+                        "definition": "Female"
+                    },
+                    {
+                        "extension": [
+                            {
+                                "url": "http://hl7.org/fhir/StructureDefinition/codesystem-comments",
+                                "valueString": "The gender of a person could not be uniquely defined as male or female, such as hermaphrodite."
+                            }
+                        ],
+                        "code": "other",
+                        "display": "Other",
+                        "definition": "Other"
+                    },
+                    {
+                        "extension": [
+                            {
+                                "url": "http://hl7.org/fhir/StructureDefinition/codesystem-comments",
+                                "valueString": "A proper value is applicable, but not known.  Usage Notes: This means the actual value is not known. If the only thing that is unknown is how to properly express the value in the necessary constraints (value set, datatype, etc.), then the OTH or UNC flavor should be used. No properties should be included for a datatype with this property unless:  Those properties themselves directly translate to a semantic of \"unknown\". (E.g. a local code sent as a translation that conveys 'unknown') Those properties further qualify the nature of what is unknown. (E.g. specifying a use code of \"H\" and a URL prefix of \"tel:\" to convey that it is the home phone number that is unknown.)"
+                            }
+                        ],
+                        "code": "unknown",
+                        "display": "Unknown",
+                        "definition": "Unknown"
+                    }
+                ]
+            },
+            "request": {
+                "method": "POST",
+                "url": "CodeSystem"
+            }
+        }
+    ]
+}
