@@ -144,22 +144,32 @@ The second requirement could be described in entire books and would still lack a
 
 These are some of the most important rules to give you an initial impression:
 
-- Apply a clean coding style adapted to the surrounding code, even though we are aware the existing code is not fully clean
-- Use the npm command `npm run lint:watch:fix` to auto fix the style of JavaScript files
-- Use the npm command `npm run format:xml` to beautify xml files
-- Use variable naming conventions like in the other files you are seeing (e.g. hungarian notation)
-- No `console.log` statements, use `sap/base/Log` which comes with the `sap.ui.core` UI5 library
-- Only access public APIs of other entities (there are exceptions, but this is the rule)
-- Comment your code where it gets non-trivial
-- Comment your functions and classes with [JSDoc](http://usejsdoc.org)-syntax
-- Keep an eye on performance and memory consumption
-- Write unit test and integration tests
-- Do not do any incompatible changes, especially do not modify the name or behavior of public API methods or properties
-- Always consider the developer who USES your code!
+- ✅ Apply a clean coding style adapted to the surrounding code, even though we are aware the existing code is not fully clean
+- ✅ Use the npm command `npm run lint:watch:fix` to auto fix the style of JavaScript files
+- ✅ Use the npm command `npm run format:xml` to beautify xml files
+- ✅ Use variable naming conventions like in the other files you are seeing (e.g. hungarian notation)
+- ✅ Only access public APIs of other entities (there are exceptions, but this is the rule)
+- ✅ Write unit test and integration tests
+- ✅ Comment your code where it gets non-trivial
+- ✅ Comment your functions and classes with [JSDoc](http://usejsdoc.org)-syntax
+- ✅ Have a look on [CODE CLIMATE](https://codeclimate.com/github/SAP/openui5-fhir)
+- ⛔️ No `console.log` statements, use `sap/base/Log` which comes with the `sap.ui.core` UI5 library
+- ⚠️ Keep an eye on performance and memory consumption
+- ⚠️ Do not do any incompatible changes, especially do not modify the name or behavior of public API methods or properties
+- ⚠️ Always consider the developer who USES your code!
     - Think about what code and how much code she/he will need to write to use your feature
     - Think about what she/he expects your feature to do
 
 If this list sounds lengthy and hard to achieve - well, that's what WE have to comply with as well, and it's by far not complete…
+
+#### Code Climate
+
+To ensure high quaility and maintainability this repository is configured on [CODE CLIMATE](https://codeclimate.com/github/SAP/openui5-fhir).
+
+Current status:
+[![Code Climate](https://codeclimate.com/github/SAP/openui5-fhir/badges/gpa.svg)](https://codeclimate.com/github/SAP/openui5-fhir)
+
+The goal of high quality and maintainability is an ongoing task which has to be considered while the whole development cycle. Feel free to dive into the code smells! The team is looking forward to get a pull request form you which increaes the maintainability🤗. 
 
 ### How to contribute - the Process
 
