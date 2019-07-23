@@ -948,10 +948,10 @@
             }
         },
         {
-            "fullUrl": "http://localhost:8080/fhir/R4/Organization/2610",
+            "fullUrl": "http://localhost:8080/fhir/R4/Organization/a2610",
             "resource": {
                 "resourceType": "Organization",
-                "id": "2610",
+                "id": "a2610",
                 "meta": {
                     "versionId": "1",
                     "lastUpdated": "2018-11-15T16:17:06.713+01:00"
@@ -1048,8 +1048,8 @@
                 ]
             },
             "request": {
-                "method": "POST",
-                "url": "Organization"
+                "method": "PUT",
+                "url": "Organization/a2610"
             }
         },
         {

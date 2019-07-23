@@ -21,5 +21,6 @@ curl -vX POST http://localhost:8080/fhir/R4/ -d @test/data/Patient.json --header
 curl -vX POST http://localhost:8080/fhir/R4/ -d @test/data/Practitioner.json --header "Content-Type: application/json"
 curl -vX POST http://localhost:8080/fhir/R4/ -d @test/data/PractitionerRole.json --header "Content-Type: application/json"
 curl -vX POST http://localhost:8080/fhir/R4/ -d @test/data/Organization.json --header "Content-Type: application/json"
+curl -vX POST http://localhost:8080/fhir/R4/ -d @test/data/Coverage.json --header "Content-Type: application/json"
 # update a specific patient to test versioning
 curl -vX POST http://localhost:8080/fhir/R4/ -d @test/data/update-patient.json --header "Content-Type: application/json"

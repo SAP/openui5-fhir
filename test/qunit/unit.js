@@ -8,5 +8,4 @@ sap.ui.define([
 	"./model/FHIRListBinding.integration"
 ], function() {
 	"use strict";
-
 });
