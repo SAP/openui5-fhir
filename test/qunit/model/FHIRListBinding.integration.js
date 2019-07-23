@@ -8,12 +8,10 @@ sap.ui.define(["../utils/TestUtilsIntegration", "../utils/TestUtils"], function 
 	}
 
 	function createListBinding(sPath, oContext, aSorters, aFilters, mParameters) {
-		// create binding
 		oListBinding = oModel.bindList(sPath, oContext, aSorters, aFilters, mParameters).initialize();
 	}
 
 	function createContextBinding(sPath, oContext, mParameters) {
-		// create binding
 		oContextBinding = oModel.bindContext(sPath, oContext, mParameters).initialize();
 	}
 
