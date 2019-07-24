@@ -1,0 +1,51 @@
+{
+    "resourceType": "Bundle",
+    "type": "transaction",
+    "entry": [
+        {
+            "resource": {
+                "resourceType": "Coverage",
+                "id": "a7854",
+                "text": {
+                    "status": "generated",
+                    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">A human-readable rendering of the coverage</div>"
+                },
+                "status": "active",
+                "type": {
+                    "coding": [
+                        {
+                            "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+                            "code": "EHCPOL",
+                            "display": "extended healthcare"
+                        }
+                    ]
+                },
+                "policyHolder": {
+                    "reference": "Organization/a2610"
+                },
+                "subscriber": {
+                    "reference": "Patient/a2520"
+                },
+                "beneficiary": {
+                    "reference": "Patient/a2520"
+                },
+                "dependent": "0",
+                "relationship": {
+                    "coding": [
+                        {
+                            "code": "self"
+                        }
+                    ]
+                },
+                "period": {
+                    "start": "2011-05-23",
+                    "end": "2012-05-23"
+                }
+            },
+            "request": {
+                "method": "PUT",
+                "url": "Coverage/a7854"
+            }
+        }
+    ]
+}
