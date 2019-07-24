@@ -7,6 +7,7 @@ sed -i -e 's/"PATCH")/"PATCH", "HEAD")/g' src/main/java/ca/uhn/fhir/jpa/starter/
 sed -i -e 's/\/fhir\//\/fhir\/R4\//g' src/main/webapp/WEB-INF/web.xml
 sed -i -e 's/server_address=http:\/\/localhost:8080\/hapi-fhir-jpaserver\/fhir\//server_address=http:\/\/localhost:8080\/fhir\/R4\//g' src/main/resources/hapi.properties
 sed -i -e 's/<contextPath>\/hapi-fhir-jpaserver<\/contextPath>/<contextPath>\/<\/contextPath>/g' pom.xml
+sed -i -e 's/\/var\/lib\/jetty\/webapps\/hapi-fhir-jpaserver.war/\/var\/lib\/jetty\/webapps\/root.war/g' Dockerfile
 mvn clean install -DskipTests
 docker build -t hapi-fhir-jpaserver .
 docker run -p 8080:8080 -d hapi-fhir-jpaserver
