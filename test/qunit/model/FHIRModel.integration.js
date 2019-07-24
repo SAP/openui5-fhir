@@ -538,15 +538,17 @@ sap.ui.define([
 		this.oFhirModel.aBindings.push(oListBinding);
 		var done = assert.async();
 		var fnAssertion = function(){
-			oListBinding.attachDataReceived(fnAssertion);
-			this.oFhirModel.create("Coverage", { foo: "bar"});
 			var aContext = oListBinding.getContexts();
+			assert.strictEqual(aContext.length, 1, "The actual number of coverages is correct.");
+			this.oFhirModel.create("Coverage", { foo: "bar"});
+			aContext = oListBinding.getContexts();
+			assert.strictEqual(aContext.length, 2, "The actual number of coverages has been increased by 1 correctly.");
 			var oPropertyBinding = this.oFhirModel.bindProperty("foo", aContext[0]);
 			assert.strictEqual(oPropertyBinding.getValue(), "bar", "The practitioner was loaded successfully");
 			this.oFhirModel.resetChanges();
 			aContext = oListBinding.getContexts();
-			assert.strictEqual(aContext[0], undefined, "Contexts got cleared");
-			assert.strictEqual(oListBinding.getLength(), 0, "Length got reseted");
+			assert.strictEqual(oListBinding.getLength(), 1, "Length got reseted");
+			assert.strictEqual(aContext[0].getPath(), "/Coverage/a7854", "Contexts got cleared");
 			done();
 		}.bind(this);
 		oListBinding.attachDataReceived(fnAssertion);

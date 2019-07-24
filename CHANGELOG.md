@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/SAP/openui5-fhir/compare/v1.0.2...v1.0.3) (2019-07-24)
+
+
+### Bug Fixes
+
+* **FHIRListBinding:** enable dynamic valueset binding to valueset containing codeable concept ([29c2697](https://github.com/SAP/openui5-fhir/commit/29c2697))
+
 ## [1.0.2](https://github.com/SAP/openui5-fhir/compare/v1.0.1...v1.0.2) (2019-07-09)
 
 

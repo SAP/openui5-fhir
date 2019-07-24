@@ -1,0 +1,56 @@
+{
+    "resourceType": "Bundle",
+    "type": "transaction",
+    "entry": [
+        {
+            "fullUrl": "http://localhost:8080/fhir/R4/Encounter/a2652",
+            "resource": {
+                "resourceType": "Encounter",
+                "id": "a2652",
+                "meta": {
+                    "versionId": "1",
+                    "lastUpdated": "2019-02-19T12:09:31.326+01:00"
+                },
+                "status": "arrived",
+                "class": {
+                    "code": "Inpatient"
+                },
+                "type": [
+                    {
+                        "coding": [
+                            {
+                                "code": "Companion"
+                            }
+                        ]
+                    }
+                ],
+                "subject": {
+                    "reference": "Patient/a2519"
+                },
+                "hospitalization": {
+                    "extension": [
+                        {
+                            "url": "http://StructureDefinition/CareCategoryExtension",
+                            "extension": [
+                                {
+                                    "url": "code",
+                                    "valueCodeableConcept": {
+                                        "coding": [
+                                            {
+                                                "code": "P1B"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            "request": {
+                "method": "PUT",
+                "url": "Encounter/a2652"
+            }
+        }
+    ]
+}

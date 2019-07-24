@@ -1,0 +1,730 @@
+{
+    "resourceType": "Bundle",
+    "type": "transaction",
+    "entry": [
+        {
+            "fullUrl": "http://localhost:8080/fhir/R4/Patient/a2519",
+            "resource": {
+                "resourceType": "Patient",
+                "id": "a2519",
+                "meta": {
+                    "versionId": "1",
+                    "lastUpdated": "2018-09-19T16:05:18.620+02:00",
+                    "profile": [
+                        "http://example.org/fhir/StructureDefinition/SAPPatient"
+                    ]
+                },
+                "text": {
+                    "status": "generated",
+                    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><div class=\"hapiHeaderText\">Hans <b>WURST </b></div><table class=\"hapiPropertyTable\"><tbody><tr><td>Date of birth</td><td><span>23 January 2000</span></td></tr></tbody></table></div>"
+                },
+                "active": true,
+                "name": [
+                    {
+                        "use": "official",
+                        "family": "Wurst",
+                        "given": [
+                            "Hans"
+                        ]
+                    },
+                    {
+                        "use": "maiden",
+                        "family": "Plauzi"
+                    }
+                ],
+                "gender": "male",
+                "birthDate": "2000-01-23",
+                "deceasedDateTime": "2002-06-14T13:42:00+10:00",
+                "managingOrganization": {
+                    "reference": "Organization/a2523",
+                    "display": "ACME Healthcare, Inc"
+                }
+            },
+            "request": {
+                "method": "PUT",
+                "url": "Patient/a2519"
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8080/fhir/R4/Patient/a2522",
+            "resource": {
+                "resourceType": "Patient",
+                "id": "a2522",
+                "meta": {
+                    "versionId": "1",
+                    "lastUpdated": "2018-09-19T16:05:18.620+02:00",
+                    "profile": [
+                        "http://example.org/fhir/StructureDefinition/SAPPatient"
+                    ]
+                },
+                "text": {
+                    "status": "generated",
+                    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">\n            <div class=\"hapiHeaderText\">Habibi \n            \n                <b>CANCER </b>\n            </div>\n            <table class=\"hapiPropertyTable\">\n                <tbody>\n                    <tr>\n                        <td>Date of birth</td>\n                        <td>\n                            <span>23 January 2000</span>\n                        </td>\n                    </tr>\n                </tbody>\n            </table>\n        </div>"
+                },
+                "active": true,
+                "name": [
+                    {
+                        "use": "official",
+                        "family": "Cancer",
+                        "given": [
+                            "Habibi"
+                        ]
+                    },
+                    {
+                        "use": "maiden",
+                        "family": "Plauzi"
+                    }
+                ],
+                "gender": "female",
+                "birthDate": "2000-01-23",
+                "deceasedDateTime": "2002-06-14T13:42:00+10:00",
+                "contact": [
+                    {
+                        "name": {
+                            "family": "Hasselholz",
+                            "given": [
+                                "Dady"
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "-",
+                                "use": "home"
+                            },
+                            {
+                                "system": "phone",
+                                "value": "0180666999",
+                                "use": "mobile"
+                            },
+                            {
+                                "system": "email",
+                                "value": "dady.hasselholz@pro.bz"
+                            }
+                        ],
+                        "address": {
+                            "line": [
+                                "Elmstreet"
+                            ],
+                            "city": "Münchhause"
+                        }
+                    }
+                ],
+                "managingOrganization": {
+                    "reference": "Organization/a2523",
+                    "display": "ACME Healthcare, Inc"
+                }
+            },
+            "request": {
+                "method": "PUT",
+                "url": "Patient/a2522"
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8080/fhir/R4/Patient/a2520",
+            "resource": {
+                "resourceType": "Patient",
+                "id": "a2520",
+                "meta": {
+                    "versionId": "1",
+                    "lastUpdated": "2018-09-19T16:05:18.620+02:00",
+                    "profile": [
+                        "http://example.org/fhir/StructureDefinition/SAPPatientExtended"
+                    ]
+                },
+                "text": {
+                    "status": "generated",
+                    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><div class=\"hapiHeaderText\">Gesichts <b>RÜDIGER </b></div><table class=\"hapiPropertyTable\"><tbody><tr><td>Date of birth</td><td><span>23 June 1990</span></td></tr></tbody></table></div>"
+                },
+                "active": true,
+                "name": [
+                    {
+                        "use": "official",
+                        "family": "Rüdiger",
+                        "given": [
+                            "Gesichts"
+                        ]
+                    },
+                    {
+                        "use": "maiden",
+                        "family": "Figur"
+                    }
+                ],
+                "gender": "female",
+                "birthDate": "1990-06-23",
+                "deceasedDateTime": "2002-06-14T13:42:00+10:00",
+                "managingOrganization": {
+                    "reference": "Organization/a2523",
+                    "display": "ACME Healthcare, Inc"
+                }
+            },
+            "request": {
+                "method": "PUT",
+                "url": "Patient/a2520"
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8080/fhir/R4/Patient/a2521",
+            "resource": {
+                "resourceType": "Patient",
+                "id": "a2521",
+                "meta": {
+                    "versionId": "17",
+                    "lastUpdated": "2019-03-26T13:44:21.188+01:00"
+                },
+                "text": {
+                    "status": "generated",
+                    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">\n      \n      <p>Patient Simon Notsowell @ Acme Healthcare, Inc. MR = 123457, DECEASED</p>\n    \n    </div>"
+                },
+                "identifier": [
+                    {
+                        "use": "usual",
+                        "type": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/v2/0203",
+                                    "code": "MR"
+                                }
+                            ]
+                        },
+                        "system": "urn:oid:0.1.2.3.4.5.6.7",
+                        "value": "123457"
+                    }
+                ],
+                "active": true,
+                "name": [
+                    {
+                        "use": "official",
+                        "family": "Notsowell",
+                        "given": [
+                            "Simon"
+                        ]
+                    }
+                ],
+                "gender": "male",
+                "birthDate": "1982-01-23",
+                "deceasedDateTime": "2015-02-14T13:42:00+10:00",
+                "contact": [
+                    {
+                        "name": {
+                            "family": "Notsowell",
+                            "given": [
+                                "Rüdiger"
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "+491247274427",
+                                "use": "home"
+                            },
+                            {
+                                "system": "email",
+                                "value": "test@sap.com"
+                            }
+                        ],
+                        "address": {
+                            "line": [
+                                "Kasperleweg 5"
+                            ],
+                            "city": "Knutstadt"
+                        }
+                    },
+                    {
+                        "name": {
+                            "family": "Notsowell",
+                            "given": [
+                                "Rüdiger"
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "+491247274427",
+                                "use": "home"
+                            },
+                            {
+                                "system": "email",
+                                "value": "test@sap.com"
+                            }
+                        ],
+                        "address": {
+                            "line": [
+                                "Kasperleweg 5"
+                            ],
+                            "city": "Knutstadt"
+                        }
+                    },
+                    {
+                        "name": {
+                            "family": "Notsowell",
+                            "given": [
+                                "Rüdiger"
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "+491247274427",
+                                "use": "home"
+                            },
+                            {
+                                "system": "email",
+                                "value": "test@sap.com"
+                            }
+                        ],
+                        "address": {
+                            "line": [
+                                "Kasperleweg 5"
+                            ],
+                            "city": "Knutstadt"
+                        }
+                    },
+                    {
+                        "name": {
+                            "family": "Notsowell",
+                            "given": [
+                                "Rüdiger"
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "+491247274427",
+                                "use": "home"
+                            },
+                            {
+                                "system": "email",
+                                "value": "test@sap.com"
+                            }
+                        ],
+                        "address": {
+                            "line": [
+                                "Kasperleweg 5"
+                            ],
+                            "city": "Knutstadt"
+                        }
+                    },
+                    {
+                        "name": {
+                            "family": "Notsowell",
+                            "given": [
+                                "Rüdiger"
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "+491247274427",
+                                "use": "home"
+                            },
+                            {
+                                "system": "email",
+                                "value": "test@sap.com"
+                            }
+                        ],
+                        "address": {
+                            "line": [
+                                "Kasperleweg 5"
+                            ],
+                            "city": "Knutstadt"
+                        }
+                    },
+                    {
+                        "name": {
+                            "family": "Notsowell",
+                            "given": [
+                                "Rüdiger"
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "+491247274427",
+                                "use": "home"
+                            },
+                            {
+                                "system": "email",
+                                "value": "test@sap.com"
+                            }
+                        ],
+                        "address": {
+                            "line": [
+                                "Kasperleweg 5"
+                            ],
+                            "city": "Knutstadt"
+                        }
+                    },
+                    {
+                        "name": {
+                            "family": "Notsowell",
+                            "given": [
+                                "Rüdiger"
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "+490213321",
+                                "use": "home"
+                            },
+                            {
+                                "system": "phone",
+                                "value": "+491247274427",
+                                "use": "mobile"
+                            },
+                            {
+                                "system": "email",
+                                "value": "test@sap.com"
+                            }
+                        ],
+                        "address": {
+                            "line": [
+                                "Kasperleweg 5"
+                            ],
+                            "city": "Knutstadt"
+                        }
+                    },
+                    {
+                        "name": {
+                            "family": "Notsowell",
+                            "given": [
+                                "Rüdiger"
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "+490213321",
+                                "use": "home"
+                            },
+                            {
+                                "system": "phone",
+                                "value": "+491247274427",
+                                "use": "mobile"
+                            },
+                            {
+                                "system": "email",
+                                "value": "test@sap.com"
+                            }
+                        ],
+                        "address": {
+                            "line": [
+                                "Kasperleweg 5"
+                            ],
+                            "city": "Knutstadt"
+                        }
+                    },
+                    {
+                        "name": {
+                            "family": "Notsowell",
+                            "given": [
+                                "Rüdiger"
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "+490213321",
+                                "use": "home"
+                            },
+                            {
+                                "system": "phone",
+                                "value": "+491247274427",
+                                "use": "mobile"
+                            },
+                            {
+                                "system": "email",
+                                "value": "test@sap.com"
+                            }
+                        ],
+                        "address": {
+                            "line": [
+                                "Kasperleweg 5"
+                            ],
+                            "city": "Knutstadt"
+                        }
+                    },
+                    {
+                        "name": {
+                            "family": "Notsowell",
+                            "given": [
+                                "Rüdiger"
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "+490213321",
+                                "use": "home"
+                            },
+                            {
+                                "system": "phone",
+                                "value": "+491247274427",
+                                "use": "mobile"
+                            },
+                            {
+                                "system": "email",
+                                "value": "test@sap.com"
+                            }
+                        ],
+                        "address": {
+                            "line": [
+                                "Kasperleweg 5"
+                            ],
+                            "city": "Knutstadt"
+                        }
+                    },
+                    {
+                        "name": {
+                            "family": "Notsowell",
+                            "given": [
+                                "Rüdiger"
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "+490213321",
+                                "use": "home"
+                            },
+                            {
+                                "system": "phone",
+                                "value": "+491247274427",
+                                "use": "mobile"
+                            },
+                            {
+                                "system": "email",
+                                "value": "test@sap.com"
+                            }
+                        ],
+                        "address": {
+                            "line": [
+                                "Kasperleweg 5"
+                            ],
+                            "city": "Knutstadt"
+                        }
+                    },
+                    {
+                        "name": {
+                            "family": "Notsowell",
+                            "given": [
+                                "Rüdiger"
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "+490213321",
+                                "use": "home"
+                            },
+                            {
+                                "system": "phone",
+                                "value": "+491247274427",
+                                "use": "mobile"
+                            },
+                            {
+                                "system": "email",
+                                "value": "test@sap.com"
+                            }
+                        ],
+                        "address": {
+                            "line": [
+                                "Kasperleweg 5"
+                            ],
+                            "city": "Knutstadt"
+                        }
+                    },
+                    {
+                        "name": {
+                            "family": "Notsowell",
+                            "given": [
+                                "Rüdiger"
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "+490213321",
+                                "use": "home"
+                            },
+                            {
+                                "system": "phone",
+                                "value": "+491247274427",
+                                "use": "mobile"
+                            },
+                            {
+                                "system": "email",
+                                "value": "test@sap.com"
+                            }
+                        ],
+                        "address": {
+                            "line": [
+                                "Kasperleweg 5"
+                            ],
+                            "city": "Knutstadt"
+                        }
+                    },
+                    {
+                        "name": {
+                            "family": "Notsowell",
+                            "given": [
+                                "Rüdiger"
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "+490213321",
+                                "use": "home"
+                            },
+                            {
+                                "system": "phone",
+                                "value": "+491247274427",
+                                "use": "mobile"
+                            },
+                            {
+                                "system": "email",
+                                "value": "test@sap.com"
+                            }
+                        ],
+                        "address": {
+                            "line": [
+                                "Kasperleweg 5"
+                            ],
+                            "city": "Knutstadt"
+                        }
+                    },
+                    {
+                        "name": {
+                            "family": "Notsowell",
+                            "given": [
+                                "Rüdiger"
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "+490213321",
+                                "use": "home"
+                            },
+                            {
+                                "system": "phone",
+                                "value": "+491247274427",
+                                "use": "mobile"
+                            },
+                            {
+                                "system": "email",
+                                "value": "test@sap.com"
+                            }
+                        ],
+                        "address": {
+                            "line": [
+                                "Kasperleweg 5"
+                            ],
+                            "city": "Knutstadt"
+                        }
+                    },
+                    {
+                        "name": {
+                            "family": "Notsowell",
+                            "given": [
+                                "Rüdiger"
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "+490213321",
+                                "use": "home"
+                            },
+                            {
+                                "system": "phone",
+                                "value": "+491247274427",
+                                "use": "mobile"
+                            },
+                            {
+                                "system": "email",
+                                "value": "test@sap.com"
+                            }
+                        ],
+                        "address": {
+                            "line": [
+                                "Kasperleweg 5"
+                            ],
+                            "city": "Knutstadt"
+                        }
+                    },
+                    {
+                        "name": {
+                            "family": "Notsowell",
+                            "given": [
+                                "Rüdiger"
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "+490213321",
+                                "use": "home"
+                            },
+                            {
+                                "system": "phone",
+                                "value": "+491247274427",
+                                "use": "mobile"
+                            },
+                            {
+                                "system": "email",
+                                "value": "test@sap.com"
+                            }
+                        ],
+                        "address": {
+                            "line": [
+                                "Kasperleweg 5"
+                            ],
+                            "city": "Knutstadt"
+                        }
+                    },
+                    {
+                        "name": {
+                            "family": "Notsowell",
+                            "given": [
+                                "Rüdiger"
+                            ]
+                        },
+                        "telecom": [
+                            {
+                                "system": "phone",
+                                "value": "+490213321",
+                                "use": "home"
+                            },
+                            {
+                                "system": "phone",
+                                "value": "+491247274427",
+                                "use": "mobile"
+                            },
+                            {
+                                "system": "email",
+                                "value": "test@sap.com"
+                            }
+                        ],
+                        "address": {
+                            "line": [
+                                "Kasperleweg 5"
+                            ],
+                            "city": "Knutstadt"
+                        }
+                    }
+                ],
+                "managingOrganization": {
+                    "reference": "Organization/a2523",
+                    "display": "ACME Healthcare, Inc"
+                }
+            },
+            "request": {
+                "method": "PUT",
+                "url": "Patient/a2521"
+            }
+        }
+    ]
+}
