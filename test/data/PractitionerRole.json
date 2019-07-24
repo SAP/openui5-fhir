@@ -1,0 +1,27 @@
+{
+    "resourceType": "Bundle",
+    "type": "transaction",
+    "entry": [
+        {
+            "fullUrl": "http://localhost:8080/fhir/R4/PractitionerRole/a2532",
+            "resource": {
+                "resourceType": "PractitionerRole",
+                "id": "a2532",
+                "meta": {
+                    "versionId": "1",
+                    "lastUpdated": "2018-09-19T16:05:18.620+02:00"
+                },
+                "practitioner": {
+                    "reference": "Practitioner/a2533"
+                },
+                "organization": {
+                    "reference": "Organization/a2523"
+                }
+            },
+            "request": {
+                "method": "PUT",
+                "url": "PractitionerRole/a2532"
+            }
+        }
+    ]
+}

@@ -4,8 +4,8 @@ sap.ui.define([
 	"./model/FHIRModel.unit",
 	"./model/FHIRModel.integration",
 	"./model/FHIRTreeBinding.unit",
-	"./model/FHIRTreeBinding.integration"
+	"./model/FHIRTreeBinding.integration",
+	"./model/FHIRListBinding.integration"
 ], function() {
 	"use strict";
-
 });

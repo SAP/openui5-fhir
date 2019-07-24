@@ -12,6 +12,15 @@ docker build -t hapi-fhir-jpaserver .
 docker run -p 8080:8080 -d hapi-fhir-jpaserver
 bash -c 'while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' localhost:8080)" != "200" ]]; do sleep 1; done'
 cd ..
-rm -rf hapi-fhir-jpaserver
-curl -vX POST http://localhost:8080/fhir/R4/ -d @test/data/mockdata.json --header "Content-Type: application/json"
+rm -rf hapi-fhir-jpaserver/
+curl -vX POST http://localhost:8080/fhir/R4/ -d @test/data/StructureDefinition.json --header "Content-Type: application/json"
+curl -vX POST http://localhost:8080/fhir/R4/ -d @test/data/CodeSystem.json --header "Content-Type: application/json"
+curl -vX POST http://localhost:8080/fhir/R4/ -d @test/data/ValueSet.json --header "Content-Type: application/json"
+curl -vX POST http://localhost:8080/fhir/R4/ -d @test/data/Encounter.json --header "Content-Type: application/json"
+curl -vX POST http://localhost:8080/fhir/R4/ -d @test/data/Patient.json --header "Content-Type: application/json"
+curl -vX POST http://localhost:8080/fhir/R4/ -d @test/data/Practitioner.json --header "Content-Type: application/json"
+curl -vX POST http://localhost:8080/fhir/R4/ -d @test/data/PractitionerRole.json --header "Content-Type: application/json"
+curl -vX POST http://localhost:8080/fhir/R4/ -d @test/data/Organization.json --header "Content-Type: application/json"
+curl -vX POST http://localhost:8080/fhir/R4/ -d @test/data/Coverage.json --header "Content-Type: application/json"
+# update a specific patient to test versioning
 curl -vX POST http://localhost:8080/fhir/R4/ -d @test/data/update-patient.json --header "Content-Type: application/json"

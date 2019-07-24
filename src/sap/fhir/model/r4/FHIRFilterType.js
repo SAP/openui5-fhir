@@ -3,7 +3,7 @@
  */
 
 // Provides class sap.fhir.model.r4.FHIRFilterType
-sap.ui.define([], function() {
+sap.ui.define(function() {
 
 	"use strict";
 
