@@ -169,7 +169,7 @@ To ensure high quaility and maintainability this repository is configured on [CO
 Current status:
 [![Code Climate](https://codeclimate.com/github/SAP/openui5-fhir/badges/gpa.svg)](https://codeclimate.com/github/SAP/openui5-fhir)
 
-The goal of high quality and maintainability is an ongoing task which has to be considered while the whole development cycle. Feel free to dive into the code smells! The team is looking forward to get a pull request form you which increases the maintainability🤗. 
+The goal of high quality and maintainability is an ongoing task which has to be considered while the whole development cycle. Feel free to dive into the code smells! The team is looking forward to get a pull request from you which increases the maintainability🤗. 
 
 ### How to contribute - the Process
 
