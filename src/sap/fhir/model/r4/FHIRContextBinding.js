@@ -47,13 +47,14 @@ sap.ui.define([
 	});
 
 	/**
-	 * Checks if the context binding needs to be updated
+	 * Checks if the context binding needs to be updated.
 	 *
+	 * @param {boolean} bForceUpdate To force the update of the binding
 	 * @protected
 	 * @since 1.0.0
 	 */
-	FHIRContextBinding.prototype.checkUpdate = function() {
-		if (this.isRelative() || this.bIsCreatedResource || this.bIsLoaded){
+	FHIRContextBinding.prototype.checkUpdate = function(bForceUpdate) {
+		if (!bForceUpdate && (this.isRelative() || this.bIsCreatedResource || this.bIsLoaded)){
 			this.oElementContext._markAsReady();
 		}
 	};

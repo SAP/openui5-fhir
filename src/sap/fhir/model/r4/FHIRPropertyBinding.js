@@ -45,16 +45,17 @@ sap.ui.define([
 	 * Initializes the binding, will force an update of the property binding
 	 *
 	 * @see sap.ui.model.Binding.prototype.initialize
+	 * @returns {sap.fhir.model.r4.FHIRPropertyBinding} <code>this</code> to allow method chaining
 	 * @protected
 	 * @since 1.0.0
 	 */
 	FHIRPropertyBinding.prototype.initialize = function() {
 		this.checkUpdate();
+		return this;
 	};
 
 	/**
-	 * Updates the binding value and sends a change event if necessary. A change event is sent if the <code>bForceUpdate</code> parameter is set to <code>true</code> or the current value of the
-	 * binding isn't equal with the value stored in the model.
+	 * Updates the binding value and sends a change event
 	 *
 	 * @see sap.ui.model.Binding#checkUpdate
 	 * @param {string} sChangeReason The reason for the fireChange event
