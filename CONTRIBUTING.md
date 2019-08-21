@@ -191,3 +191,18 @@ The goal of high quality and maintainability is an ongoing task which has to be 
 9. Once the change has been approved we will inform you in a comment
 10. Your pull request will be merged into master by one of the *OpenUI5-FHIR* project committers.
 11. We will close the pull request, feel free to delete the now obsolete branch
+
+
+## Development Setup
+This section describes the system setup which makes your developer life easier.
+
+### Prerequisites
+1. Install the latest [nodejs](https://nodejs.org/en/) version
+2. Install docker
+    - Windwos: https://docs.docker.com/docker-for-windows/install/
+    - Mac: https://docs.docker.com/docker-for-mac/install/
+    - Linux: https://runnable.com/docker/install-docker-on-linux
+3. Install [Maven](https://maven.apache.org/install.html)
+4. Install an IDE (e.g. [VSCode](https://code.visualstudio.com/Download))
+5. Install [Git](https://git-scm.com/downloads)
+6. Create an account on [GitHub](https://github.com/join?source=header-home)
