@@ -192,8 +192,7 @@ The goal of high quality and maintainability is an ongoing task which has to be 
 10. Your pull request will be merged into master by one of the *OpenUI5-FHIR* project committers.
 11. We will close the pull request, feel free to delete the now obsolete branch
 
-
-## Development Setup
+## Development
 This section describes the system setup which makes your developer life easier.
 
 ### Prerequisites
@@ -206,3 +205,82 @@ This section describes the system setup which makes your developer life easier.
 4. Install an IDE (e.g. [VSCode](https://code.visualstudio.com/Download))
 5. Install [Git](https://git-scm.com/downloads)
 6. Create an account on [GitHub](https://github.com/join?source=header-home)
+
+### Deployment of *sap-fhir-test-app*-project
+The following section describes how the *OpenUI5-FHIR* project internal test application can be deployed and which development tasks can be executed.
+
+1. Go to the [latest release](https://github.com/SAP/openui5-fhir/releases/latest) and download the latest release *.zip*.
+2. Extract the *.zip* in your desired local location
+3. Go to the folder which contains the *OpenUI5-FHIR*-folder
+4. Open the console (windows: CMD, linux/mac: terminal)
+5. Enter `npm install`
+6. Enter `npm run serve`. This script starts the mockserver and hosts all needed UI5 resources
+7. *Optional*: If the mockserver is already startet, you can use `npm run serve:ui5` to only host the UI5 resources
+8. Open your desired browser and open [http://localhost:8081/test-resources/sap-fhir-test-app/webapp/index.html](http://localhost:8081/test-resources/sap-fhir-test-app/webapp/index.html)
+
+### Development Tasks
+The following sections describe, how useful development tasks can be executed.
+
+#### Development
+Developing and debugging can't be easier. Therefore, execute `npm run serve` or if the mockserver is already started `npm run serve:ui5`.
+
+Following entry points are available:
+- QUnit tests: [http://localhost:8081/test-resources/qunit/unit.qunit.html](http://localhost:8081/test-resources/qunit/unit.qunit.html)
+- OPA5 tests: [http://localhost:8081/test-resources/sap-fhir-test-app/webapp/test/opa5/all.opa5.html](http://localhost:8081/test-resources/sap-fhir-test-app/webapp/test/opa5/all.opa5.html)
+
+#### ESLinting
+There are various lint-scripts in `package.json`. During development you will most likely want to use either:
+
+```bash
+npm run lint:watch
+```
+
+or
+
+```bash
+npm run lint:watch:fix
+```
+
+The former script simply watches all files for changes and lints them immediately. The result is written to the console. The latter script is also watching all files for changes but applies fixes automatically.
+
+#### Testing
+
+The testsuite needs a mockserver. Therefore various scripts are placed in the `package.json`.
+
+```bash
+npm run serve:mockserver
+```
+
+Starts a mockerserver with test data.
+
+```bash
+npm run test-mockserver
+```
+
+Starts a mockerserver with test data and executes the QUnit and Opa5 tests.
+
+```bash
+npm run test
+```
+
+Executes the QUnit and Opa5 tests.
+
+```bash
+npm run test:unit
+```
+
+Executes the QUnit tests.
+
+```bash
+npm run test:opa5
+```
+
+Executes the OPA5 tests.
+
+#### Documentation
+
+```bash
+npm run docs
+```
+
+The above command creates API documentation for thie `openui5-fhir` project. All classes, which are considered to be part of the public API are explicitely named in the run-script itself.
