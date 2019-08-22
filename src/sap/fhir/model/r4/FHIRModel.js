@@ -739,7 +739,7 @@ sap.ui.define([
 	/**
 	 * Checks if an update for the existing bindings is necessary due to the <code>mChangedResources</code>
 	 *
-	 * @param {boolean} [bForceUpdate] Force update of Binding
+	 * @param {boolean} [bForceUpdate] Force update of binding
 	 * @param {object} [mChangedResources] The object containing the changed resources
 	 * @param {sap.fhir.model.r4.FHIRContextBinding | sap.fhir.model.r4.FHIRListBinding | sap.fhir.model.r4.FHIRTreeBinding} [oTriggerBinding] The binding which triggered the check update
 	 * @param {sap.fhir.model.r4.HTTPMethod} [sMethod] The http method which triggered the checkupdate()

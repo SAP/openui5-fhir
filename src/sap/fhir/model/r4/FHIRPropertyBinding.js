@@ -57,7 +57,7 @@ sap.ui.define([
 	 * binding isn't equal with the value stored in the model.
 	 * @param {object} [mChangedResources] The object containing the changed resources
 	 * @param {sap.fhir.model.r4.HTTPMethod} [sMethod] The http method which triggered the checkupdate()
-	 * @param {boolean} bForceUpdate Force update of Binding
+	 * @param {boolean} bForceUpdate Force update of binding
 	 * @param {string} sChangeReason The reason for the fireChange event
 	 * @protected
 	 * @since 1.0.0

@@ -367,7 +367,7 @@ sap.ui.define([
 	/**
 			 * Check whether this binding would provide new values and in case it changed, inform interested parties about this
 			 *
-			 * @param {boolean} [bForceUpdate] Force update of Binding
+			 * @param {boolean} [bForceUpdate] Force update of binding
 			 * @param {object} [mChangedEntities] The map of changed entities
 			 * @param {string} [sMethod] The URL request method
 			 * @protected
