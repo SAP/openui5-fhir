@@ -50,7 +50,7 @@ sap.ui.define([
 	 * @since 1.0.0
 	 */
 	FHIRPropertyBinding.prototype.initialize = function() {
-		this.checkUpdate();
+		this.checkUpdate(false);
 		return this;
 	};
 
@@ -62,7 +62,7 @@ sap.ui.define([
 	 * @protected
 	 * @since 1.0.0
 	 */
-	FHIRPropertyBinding.prototype.checkUpdate = function(sChangeReason) {
+	FHIRPropertyBinding.prototype.checkUpdate = function(bForceUpdate, mChangedResources, sMethod, sChangeReason) {
 		var oValue = this._getValue();
 		this.oValue = FHIRUtils.deepClone(oValue);
 		this._fireChange({
@@ -80,7 +80,7 @@ sap.ui.define([
 	 */
 	FHIRPropertyBinding.prototype.setContext = function(oContext) {
 		this.oContext = oContext;
-		this.checkUpdate(ChangeReason.Context);
+		this.checkUpdate(false, undefined, undefined, ChangeReason.Context);
 	};
 
 	/**
