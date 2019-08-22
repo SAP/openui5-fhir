@@ -55,9 +55,9 @@ sap.ui.define([
 	/**
 	 * Updates the binding value and sends a change event if necessary. A change event is sent if the <code>bForceUpdate</code> parameter is set to <code>true</code> or the current value of the
 	 * binding isn't equal with the value stored in the model.
+	 * @param {boolean} bForceUpdate Force update of binding
 	 * @param {object} [mChangedResources] The object containing the changed resources
 	 * @param {sap.fhir.model.r4.HTTPMethod} [sMethod] The http method which triggered the checkupdate()
-	 * @param {boolean} bForceUpdate Force update of binding
 	 * @param {string} sChangeReason The reason for the fireChange event
 	 * @protected
 	 * @since 1.0.0
