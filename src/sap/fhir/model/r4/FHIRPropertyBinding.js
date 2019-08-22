@@ -49,19 +49,20 @@ sap.ui.define([
 	 * @since 1.0.0
 	 */
 	FHIRPropertyBinding.prototype.initialize = function() {
-		this.checkUpdate();
+		this.checkUpdate(false);
 	};
 
 	/**
 	 * Updates the binding value and sends a change event if necessary. A change event is sent if the <code>bForceUpdate</code> parameter is set to <code>true</code> or the current value of the
 	 * binding isn't equal with the value stored in the model.
-	 *
-	 * @see sap.ui.model.Binding#checkUpdate
+	 * @param {object} [mChangedResources] The object containing the changed resources
+	 * @param {sap.fhir.model.r4.HTTPMethod} [sMethod] The http method which triggered the checkupdate()
+	 * @param {boolean} bForceUpdate Force update of Binding
 	 * @param {string} sChangeReason The reason for the fireChange event
 	 * @protected
 	 * @since 1.0.0
 	 */
-	FHIRPropertyBinding.prototype.checkUpdate = function(sChangeReason) {
+	FHIRPropertyBinding.prototype.checkUpdate = function(bForceUpdate, mChangedResources, sMethod, sChangeReason) {
 		var oValue = this._getValue();
 		this.oValue = FHIRUtils.deepClone(oValue);
 		this._fireChange({
@@ -79,7 +80,7 @@ sap.ui.define([
 	 */
 	FHIRPropertyBinding.prototype.setContext = function(oContext) {
 		this.oContext = oContext;
-		this.checkUpdate(ChangeReason.Context);
+		this.checkUpdate(false, undefined, undefined, ChangeReason.Context);
 	};
 
 	/**

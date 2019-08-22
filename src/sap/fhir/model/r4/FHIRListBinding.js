@@ -367,12 +367,13 @@ sap.ui.define([
 	/**
 			 * Check whether this binding would provide new values and in case it changed, inform interested parties about this
 			 *
+			 * @param {boolean} [bForceUpdate] Force update of Binding
 			 * @param {object} [mChangedEntities] The map of changed entities
 			 * @param {string} [sMethod] The URL request method
 			 * @protected
 			 * @since 1.0.0
 			 */
-	FHIRListBinding.prototype.checkUpdate = function(mChangedEntities, sMethod) {
+	FHIRListBinding.prototype.checkUpdate = function(bForceUpdate, mChangedEntities, sMethod) {
 		var oBindingInfo = this.oModel.getBindingInfo(this.sPath, this.oContext, this.bUnique);
 		var mResources = oBindingInfo && mChangedEntities && mChangedEntities[oBindingInfo.getResourceType()];
 		if (mResources && sMethod && sMethod !== HTTPMethod.GET){
@@ -394,7 +395,7 @@ sap.ui.define([
 			}
 		}
 		var sPath = this.oModel._getProperty(mChangedEntities, ["path", "lastUpdated"]);
-		if (oBindingInfo && (sPath && FHIRUtils.getNumberOfLevelsByPath(sPath) < 3 && sPath.indexOf(oBindingInfo.getResourceType()) > -1 || sPath === oBindingInfo.getAbsolutePath()) || mChangedEntities === true || sMethod){
+		if (oBindingInfo && (sPath && FHIRUtils.getNumberOfLevelsByPath(sPath) < 3 && sPath.indexOf(oBindingInfo.getResourceType()) > -1 || sPath === oBindingInfo.getAbsolutePath()) || bForceUpdate === true || sMethod){
 			this._fireChange({
 				reason : ChangeReason.Change
 			});
