@@ -478,7 +478,7 @@ sap.ui.define([
 
 			var mChangedResources = oResponse.entry ? this._mapBundleEntriesToResourceMap(oResponse.entry) : this._mapResourceToResourceMap(oResponse);
 
-			this.checkUpdate(true, mChangedResources, oBinding, sMethod);
+			this.checkUpdate(false, mChangedResources, oBinding, sMethod);
 		}
 
 		if (fnSuccessCallbackAfterMapping) {
