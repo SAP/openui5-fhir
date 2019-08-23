@@ -8,7 +8,8 @@ sap.ui.require([
 	"sap-fhir-test-app/test/opa5/journeys/patient/PatientTable",
 	"sap-fhir-test-app/test/opa5/journeys/patient/PatientDetails",
 	"sap-fhir-test-app/test/opa5/journeys/other/SlicingIncludesChainingReference",
-	"sap-fhir-test-app/test/opa5/journeys/history/History"
+	"sap-fhir-test-app/test/opa5/journeys/history/History",
+	"sap-fhir-test-app/test/opa5/journeys/other/NavigationJourney"
 ], function(Opa5, Arrangements, Actions, Assertions) {
 	"use strict";
 
