@@ -5,7 +5,8 @@
           xmlns:l="sap.ui.layout"
           controllerName="sap-fhir-test-app.controller.patient.PatientTable"
           viewName="sap-fhir-test-app.view.patient.PatientTable">
-    <Page id="patientPage" title="Patient Search"
+    <Page id="patientPage"
+          title="Patient Search"
           showNavButton="true"
           navButtonPress="onNavBack">
         <content>
