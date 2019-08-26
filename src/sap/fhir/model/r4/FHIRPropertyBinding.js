@@ -57,8 +57,10 @@ sap.ui.define([
 	/**
 	 * Updates the binding value and sends a change event
 	 *
-	 * @see sap.ui.model.Binding#checkUpdate
-	 * @param {string} sChangeReason The reason for the fireChange event
+	 * @param {boolean} [bForceUpdate] Force update of binding
+	 * @param {object} [mChangedResources] The object containing the changed resources
+	 * @param {string} [sMethod] The http method which triggered the checkupdate()
+	 * @param {string} [sChangeReason] The reason for the fireChange event
 	 * @protected
 	 * @since 1.0.0
 	 */
