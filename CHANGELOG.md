@@ -1,3 +1,10 @@
+## [1.0.4](https://github.com/SAP/openui5-fhir/compare/v1.0.3...v1.0.4) (2019-08-26)
+
+
+### Bug Fixes
+
+* total binding issue by binding initialization ([#53](https://github.com/SAP/openui5-fhir/issues/53)) ([75a41f3](https://github.com/SAP/openui5-fhir/commit/75a41f3))
+
 ## [1.0.3](https://github.com/SAP/openui5-fhir/compare/v1.0.2...v1.0.3) (2019-07-24)
 
 
