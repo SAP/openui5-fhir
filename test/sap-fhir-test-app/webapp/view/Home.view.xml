@@ -17,7 +17,6 @@
                                  id="patientTile"
                                  binding="{path : '/Patient', parameters : {request: {_summary : 'count'}}}">
                         <TileContent footer="resource">
-                            <ImageContent src="sap-icon://wounds-doc" />
                             <NumericContent id="allPatients"
                                             scale="Patients"
                                             value="{%total%}" />

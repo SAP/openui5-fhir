@@ -42,19 +42,21 @@ sap.ui.define([
 			this.sGroupId = mParameters && mParameters.groupId || oContext && oContext.sGroupId;
 			this.bUnique = mParameters && mParameters.unique;
 			this.oElementContext = Context.create(this.oModel, this, this.sPath, this.sGroupId);
-			this.oElementContext._loadContext();
+			var sChangeReason = FHIRUtils.getNumberOfLevelsByPath(this.sPath) === 1 ? ChangeReason.Refresh : undefined;
+			this.oElementContext._loadContext(sChangeReason);
 		}
 	});
 
 	/**
-	 * Checks if the context binding needs to be updated
+	 * Checks if the context binding needs to be updated.
 	 *
+	 * @param {boolean} bForceUpdate To force the update of the binding
 	 * @protected
 	 * @since 1.0.0
 	 */
-	FHIRContextBinding.prototype.checkUpdate = function() {
+	FHIRContextBinding.prototype.checkUpdate = function(bForceUpdate) {
 		if (this.isRelative() || this.bIsCreatedResource || this.bIsLoaded){
-			this.oElementContext._markAsReady();
+			this.oElementContext._markAsReady(this.oElementContext.iTotal);
 		}
 	};
 
