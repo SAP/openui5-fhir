@@ -478,7 +478,7 @@ sap.ui.define([
 
 			var mChangedResources = oResponse.entry ? this._mapBundleEntriesToResourceMap(oResponse.entry) : this._mapResourceToResourceMap(oResponse);
 
-			this.checkUpdate(mChangedResources, oBinding, sMethod);
+			this.checkUpdate(false, mChangedResources, oBinding, sMethod);
 		}
 
 		if (fnSuccessCallbackAfterMapping) {
@@ -739,16 +739,17 @@ sap.ui.define([
 	/**
 	 * Checks if an update for the existing bindings is necessary due to the <code>mChangedResources</code>
 	 *
+	 * @param {boolean} [bForceUpdate] Force update of bindings
 	 * @param {object} [mChangedResources] The object containing the changed resources
 	 * @param {sap.fhir.model.r4.FHIRContextBinding | sap.fhir.model.r4.FHIRListBinding | sap.fhir.model.r4.FHIRTreeBinding} [oTriggerBinding] The binding which triggered the check update
 	 * @param {sap.fhir.model.r4.HTTPMethod} [sMethod] The http method which triggered the checkupdate()
 	 * @protected
 	 * @since 1.0.0
 	 */
-	FHIRModel.prototype.checkUpdate = function(mChangedResources, oTriggerBinding, sMethod) {
+	FHIRModel.prototype.checkUpdate = function(bForceUpdate, mChangedResources, oTriggerBinding, sMethod) {
 		var aBindings = this.aBindings.slice(0);
 		each(aBindings, function(iIndex, oBinding) {
-			oBinding.checkUpdate(mChangedResources, sMethod);
+			oBinding.checkUpdate(bForceUpdate, mChangedResources, sMethod);
 		});
 		this._processAfterUpdate();
 	};
@@ -912,7 +913,7 @@ sap.ui.define([
 		this._handleClientChanges(oBindingInfo);
 		this._setProperty(this.oData, oBindingInfo.getBinding(), vValue, undefined, oBindingInfo.getGroupId());
 		this.mChangedResources.path = {lastUpdated : oBindingInfo.getAbsolutePath()};
-		this.checkUpdate(this.mChangedResources, oBinding);
+		this.checkUpdate(false, this.mChangedResources, oBinding);
 	};
 
 	/**
