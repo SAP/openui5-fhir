@@ -19,7 +19,7 @@ This is useful, for example, for references where you would like to get multiple
 </HBox>
 ```
 
-Further the developer is allowed to use AND-Operators within the binding path. The use case could be to display a specific address entry of a patient.
+Further the developer is allowed to use AND-Operators within the binding path. The use case could be to display a specific address entry of a patient. Here only the address should appears where the property use is equal to `home` and type is equal to `postal`.
 ```xml
 <HBox binding="{/Patient/123}">
 	<Text text="{address/[use=home &amp;&amp; type=postal]/city}">
@@ -27,6 +27,26 @@ Further the developer is allowed to use AND-Operators within the binding path. T
 ```
 
 Or in JS-Code `.bindText("address/[use=home && type=postal]/city");`
+
+Further the developer is allowed to use OR-Operators within the binding path. The use case could be to display a specific address entry of a patient. Here only the address should appears where the property use is equal to `home` or type is equal to `postal`.
+```xml
+<HBox binding="{/Patient/123}">
+	<Text text="{address/[use=home, type=postal]/city}">
+</HBox>
+```
+
+Or in JS-Code `.bindText("address/[use=home, type=postal]/city");`
+
+
+It's also possible to comboine AND- and OR-Operators to more complex expressions, like following scenario. Here only the address should appears where the use is equal to `home` or the type starts with `p` but is not equal than `physicial`.
+```xml
+<HBox binding="{/Patient/123}">
+	<Text text="{address/[use=home, type StartsWith p &amp;&amp; type NE physicial]/city}">
+</HBox>
+```
+
+Or in JS-Code `.bindText("address/[use=home, type StartsWith p && type NE physicial]/city");`
+
 
 This concept is also reused for `_revinclude` bindings, as you can see in the example below. Therefore the key has to contain the prefix pattern *revreference/* plus the resource type (*PractitionerRole* in the example). The value is the reference property path (*practitioner/reference* in the example) in the resource type.
 
