@@ -1,10 +1,12 @@
 # Contributing
-The idea of the *OpenUI5-FHIR* project is ab initio to be driven by the community of healthcare players and enthusiastic individuals
+
+The idea of the *OpenUI5-FHIR* project is ab initio to be driven by the community of healthcare players and enthusiastic individuals.
 
 Please read [this document](CONTRIBUTING.md) to read more about your options:
- * [Report Bugs](#report-an-issue) as GitHub issues
- * [Analyze Bugs](#analyze-issues)
- * [Contribute Code](#contribute-code) (fixes and features)
+ * [Report an Issue](report-an-issue) as GitHub issues
+ * [Analyze Issues](#analyze-issues) to get the root cause of an issue
+ * [Contribute Code](#contribute-code) fixes and features
+ * [Development](#development) setup
 
 ## Report an Issue
 
@@ -171,6 +173,10 @@ Current status:
 
 The goal of high quality and maintainability is an ongoing task which has to be considered while the whole development cycle. Feel free to dive into the code smells! The team is looking forward to get a pull request from you which increases the maintainability🤗. 
 
+#### Dependabot
+
+To ensure to use the latest patches and features of packages which are used in the project, [Dependabot](https://dependabot.com/) is configured. *Dependabot* will open a new pull request if a new version of an used packaged is published. You can view and edit the *Dependabot* settings for *OpenUI5-FHIR* [here](https://app.dependabot.com/accounts/SAP/repos/181670481).
+
 ### How to contribute - the Process
 
 1. Make sure the change would be welcome (e.g. a bugfix or a useful feature); best do so by proposing it in a GitHub issue
@@ -221,7 +227,7 @@ The following section describes how the *OpenUI5-FHIR* project internal test app
 ### Development Tasks
 The following sections describe, how useful development tasks can be executed.
 
-#### Development
+#### Deployment
 Developing and debugging can't be easier. Therefore, execute `npm run serve` or if the mockserver is already started `npm run serve:ui5`.
 
 Following entry points are available:
@@ -283,4 +289,4 @@ Executes the OPA5 tests.
 npm run docs
 ```
 
-The above command creates API documentation for thie `openui5-fhir` project. All classes, which are considered to be part of the public API are explicitely named in the run-script itself.
+The above command creates the API documentation for thie `openui5-fhir` project locally. All classes, which are considered to be part of the public API are explicitely named in the run-script itself. After execution of this command, open the generated API documentation in your browser on [generated_docs/html/index.html](generated_docs/html/index.html).
