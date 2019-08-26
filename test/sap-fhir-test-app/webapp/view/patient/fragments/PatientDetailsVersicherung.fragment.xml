@@ -3,7 +3,7 @@
                          xmlns:l="sap.ui.layout">
     <l:HorizontalLayout class="sapUiSmallMarginBegin sapUiSmallMarginEnd">
         <Table id="tblVers"
-               noData="{i18n>noData}"
+               noDataText="{i18n>noData}"
                items="{/Coverage}">
             <headerToolbar>
                 <Toolbar class="sapUiMediumMarginTop"

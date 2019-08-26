@@ -704,7 +704,7 @@ sap.ui.define([
 		var oRequestHandlePatient = mRequestHandles.patientDetails3;
 		var oRequestHandlePatient2 = mRequestHandles.patientDetails4;
 
-		assert.ok(2, Object.keys(mRequestHandles));
+		assert.ok(Object.keys(mRequestHandles), 2);
 
 		// check requesthandle for group id patientDetails
 		assert.equal(oRequestHandlePatient.getUrl(), "https://example.com/fhir", "The request has the correct url");
