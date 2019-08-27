@@ -62,19 +62,6 @@
 <li><a href="#1-Importing-OpenUI5-FHIR">Import OpenUI5-FHIR</a></li>
 <li><a href="#2-Create-UI5-FHIRModel">Create <em>UI5 FHIR Model</em></a></li>
 <li><a href="#3-Releases">Releases</a></li>
-<li><a href="#4-Development">Development</a> (<em>only internal</em>)
-<ol>
-<li><a href="#4.1-Deployment-of-sap-fhir-test-app-project">Deployment of <em>sap-fhir-test-app</em>-project</a></li>
-<li><a href="#4.2-Development-Tasks">Development Tasks</a>
-<ol>
-<li><a href="#4.2.1-Development">Development</a></li>
-<li><a href="#4.2.2-ESLinting">ESLinting</a></li>
-<li><a href="#4.2.3-Testing">Testing</a></li>
-<li><a href="#4.2.4-Documentation">Documentation</a></li>
-</ol>
-</li>
-</ol>
-</li>
 </ol>
 <p><a name="1-Import-OpenUI5-FHIR"></a></p>
 <h2>1 Import OpenUI5-FHIR</h2>
@@ -104,65 +91,7 @@
 <p><a name="3-Releases"></a></p>
 <h2>3 Releases</h2>
 <p>Overview about <a href="https://github.com/SAP/openui5-fhir/releases">all releases</a>.</p>
-<p>Get the <a href="https://github.com/SAP/openui5-fhir/releases/latest">latest release</a>.</p>
-<p><a name="4-Development"></a></p>
-<h2>4 Development</h2>
-<p>The following section describes how the <em>OpenUI5-FHIR</em> project internal test application can be deployed and which development tasks can be executed.</p>
-<p><a name="4.1-Deployment-of-sap-fhir-test-app-project"></a></p>
-<h3>4.1 Deployment of <em>sap-fhir-test-app</em>-project</h3>
-<ol>
-<li>Go to the <a href="https://github.com/SAP/openui5-fhir/releases/latest">latest release</a> and download the latest release <em>.zip</em>.</li>
-<li>Extract the <em>.zip</em> in your desired local location</li>
-<li>Go to the folder which contains the <em>OpenUI5-FHIR</em>-folder</li>
-<li>Open the console (windows: CMD, linux/mac: terminal)</li>
-<li>Enter <code>npm install</code></li>
-<li>Enter <code>npm run serve</code>. This script starts the mockserver and hosts all needed UI5 resources</li>
-<li><em>Optional</em>: If the mockserver is already startet, you can use <code>npm run serve:ui5</code> to only host the UI5 resources</li>
-<li>Open your desired browser and open <a href="http://localhost:8081/test-resources/sap-fhir-test-app/webapp/index.html">http://localhost:8081/test-resources/sap-fhir-test-app/webapp/index.html</a></li>
-</ol>
-<p><a name="4.2-Development-Tasks"></a></p>
-<h3>4.2 Development Tasks</h3>
-<p>The following sections describe, how useful development tasks can be executed.</p>
-<p><a name="4.2.1-Development"></a></p>
-<h4>4.2.1 Development</h4>
-<p>Developing and debugging can't be easier. Therefore, execute <code>npm run serve</code> or if the mockserver is already started <code>npm run serve:ui5</code>.</p>
-<p>Following entry points are available:</p>
-<ul>
-<li>QUnit tests: <a href="http://localhost:8081/test-resources/qunit/unit.qunit.html">http://localhost:8081/test-resources/qunit/unit.qunit.html</a></li>
-<li>OPA5 tests: <a href="http://localhost:8081/test-resources/sap-fhir-test-app/webapp/test/opa5/all.opa5.html">http://localhost:8081/test-resources/sap-fhir-test-app/webapp/test/opa5/all.opa5.html</a></li>
-</ul>
-<p><a name="4.2.2-ESLinting"></a></p>
-<h4>4.2.2 ESLinting</h4>
-<p>There are various lint-scripts in <code>package.json</code>. During development you will most likely want to use either:</p>
-<pre class="prettyprint source lang-bash"><code>npm run lint:watch
-</code></pre>
-<p>or</p>
-<pre class="prettyprint source lang-bash"><code>npm run lint:watch:fix
-</code></pre>
-<p>The former script simply watches all files for changes and lints them immediately. The result is written to the console. The latter script is also watching all files for changes but applies fixes automatically.</p>
-<p><a name="4.2.3-Testing"></a></p>
-<h4>4.2.3 Testing</h4>
-<p>The testsuite needs a mockserver. Therefore various scripts are placed in the <code>package.json</code>.</p>
-<pre class="prettyprint source lang-bash"><code>npm run serve:mockserver
-</code></pre>
-<p>Starts a mockerserver with test data.</p>
-<pre class="prettyprint source lang-bash"><code>npm run test-mockserver
-</code></pre>
-<p>Starts a mockerserver with test data and executes the QUnit and Opa5 tests.</p>
-<pre class="prettyprint source lang-bash"><code>npm run test
-</code></pre>
-<p>Executes the QUnit and Opa5 tests.</p>
-<pre class="prettyprint source lang-bash"><code>npm run test:unit
-</code></pre>
-<p>Executes the QUnit tests.</p>
-<pre class="prettyprint source lang-bash"><code>npm run test:opa5
-</code></pre>
-<p>Executes the OPA5 tests.</p>
-<p><a name="4.2.4-Documentation"></a></p>
-<h4>4.2.4 Documentation</h4>
-<pre class="prettyprint source lang-bash"><code>npm run docs
-</code></pre>
-<p>The above command creates API documentation for thie <code>openui5-fhir</code> project. All classes, which are considered to be part of the public API are explicitely named in the run-script itself.</p></article>
+<p>Get the <a href="https://github.com/SAP/openui5-fhir/releases/latest">latest release</a>.</p></article>
     </section>
 
 
@@ -175,7 +104,7 @@
 <br class="clear">
 
 <footer>
-Generated by <a href="https://github.com/jsdoc3/jsdoc" target="_blank">JSDoc 3.6.3</a> on Mon, 26 Aug 2019 09:57:12 GMT based on the <a href="https://github.com/nijikokun/minami/" target="_blank">Minami</a> theme.
+Generated by <a href="https://github.com/jsdoc3/jsdoc" target="_blank">JSDoc 3.6.3</a> on Tue, 27 Aug 2019 08:55:45 GMT based on the <a href="https://github.com/nijikokun/minami/" target="_blank">Minami</a> theme.
 </footer>
 
 <script>prettyPrint();</script>
