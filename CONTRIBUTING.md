@@ -60,14 +60,12 @@ When an issue is reported, a committer will look at it and either confirm it as 
 
 An issue that is about a real bug is closed as soon as the fix is committed. The closing comment explains which patch version(s) will contain the fix.
 
-<!--
 ### Reporting Security Issues
 
 If you find a security issue, please act responsibly and report it not in the public issue tracker, but directly to us, so we can fix it before it can be exploited:
 * SAP Customers: if the found security issue is not covered by a published security note, please report it by creating a customer message at https://service.sap.com/message.
  * Researchers/non-Customers: please send the related information to secure@sap.com using [PGP for e-mail encryption](http://global.sap.com/pc/security/keyblock.txt).
 Also refer to the general [SAP security information page](https://www.sap.com/corporate/en/company/security.html).
--->
 
 ### Usage of Labels
 
@@ -129,7 +127,7 @@ If employees of a company contribute code, in **addition** to the individual agr
 A company representative authorized to do so needs to download, fill, and print
 the [Corporate Contributor License Agreement](docs/pdfs/SAP%20Corporate%20Contributor%20License%20Agreement.pdf) form. Then either:
 
-- Scan it and e-mail it to [opensource@sap.com](mailto:opensource@sap.com) and [florian.vogt@sap.com](mailto:florian.vogt@sap.com)
+- Scan it and e-mail it to [opensource@sap.com](mailto:opensource@sap.com) and [openui5-fhir@sap.com](mailto:openui5-fhir@sap.com)
 - Fax it to: +49 6227 78-45813
 - Send it by traditional letter to: *Industry Standards & Open Source Team, Dietmar-Hopp-Allee 16, 69190 Walldorf, Germany*
 
