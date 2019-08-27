@@ -127,7 +127,7 @@ If employees of a company contribute code, in **addition** to the individual agr
 A company representative authorized to do so needs to download, fill, and print
 the [Corporate Contributor License Agreement](docs/pdfs/SAP%20Corporate%20Contributor%20License%20Agreement.pdf) form. Then either:
 
-- Scan it and e-mail it to [opensource@sap.com](mailto:opensource@sap.com) and [florian.vogt@sap.com](mailto:florian.vogt@sap.com)
+- Scan it and e-mail it to [opensource@sap.com](mailto:opensource@sap.com) and [openui5-fhir@sap.com](mailto:openui5-fhir@sap.com)
 - Fax it to: +49 6227 78-45813
 - Send it by traditional letter to: *Industry Standards & Open Source Team, Dietmar-Hopp-Allee 16, 69190 Walldorf, Germany*
 
