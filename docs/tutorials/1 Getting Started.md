@@ -272,9 +272,9 @@ The *sap.fhir* library is included in the following NPM package: `openui5-fhir`.
 		"@ui5/cli": "^1.4.4"
 	},
 	"dependencies": {
-		"@openui5/sap.m": "^1.68.1",
-		"@openui5/sap.ui.core": "^1.68.1",
-    	"@openui5/themelib_sap_belize": "^1.68.1",
+		"@openui5/sap.m": "^1.69.1",
+		"@openui5/sap.ui.core": "^1.69.1",
+    	"@openui5/themelib_sap_belize": "^1.69.1",
 		"openui5-fhir": "1.0.0"
 	},
 	"scripts" : {
