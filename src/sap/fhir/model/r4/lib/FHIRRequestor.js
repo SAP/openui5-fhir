@@ -256,15 +256,12 @@ sap.ui.define([
 	 *
 	 * @param {function} [fnOriginSuccess] The original success callback which will be executed when the request was successful
 	 * @param {sap.fhir.model.r4.lib.RequestHandle} oRequestHandle The request handle object to identify the executed request
-	 * @param {object} oData The server response
-	 * @param {string} sStatusText The status text of the response
-	 * @param {object} jqXHR The request object
 	 * @private
 	 * @since 1.0.0
 	 */
-	FHIRRequestor.prototype._callBackForXcsrfToken = function(fnOriginSuccess, oRequestHandle, oData, sStatusText, jqXHR){
-		this.sToken = this.getResponseHeaders(jqXHR)["x-csrf-token"];
-		fnOriginSuccess(oRequestHandle, oData);
+	FHIRRequestor.prototype._callBackForXcsrfToken = function(fnOriginSuccess, oRequestHandle){
+		this.sToken = this.getResponseHeaders(oRequestHandle._jqRequest)["x-csrf-token"];
+		fnOriginSuccess(oRequestHandle);
 	};
 
 	/**
