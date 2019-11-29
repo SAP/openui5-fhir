@@ -258,13 +258,12 @@ sap.ui.define([
 		oRequestHandle.setRequest(jqXHR);
 		var done = assert.async();
 		this.oFhirModel1.oRequestor.sToken = "abc";
-		jqXHR.done(function(oRequestHandle, oData, sStatusText, oJqXHR){
-			this.oFhirModel1.oRequestor._callBackForXcsrfToken(function(oReq, data){
-				assert.deepEqual(data, {}, "The same object");
+		jqXHR.done(function(oRequestHandle){
+			this.oFhirModel1.oRequestor._callBackForXcsrfToken(function(oReq){
 				assert.deepEqual(oReq, oRequestHandle, "The same object");
 				assert.strictEqual(this.oFhirModel1.oRequestor.sToken, undefined, "the token was set");
 				done();
-			}.bind(this), oRequestHandle, {}, "", oJqXHR);
+			}.bind(this), oRequestHandle);
 		}.bind(this,oRequestHandle));
 	});
 
@@ -450,7 +449,10 @@ sap.ui.define([
 	QUnit.test("loadData with csrf token", function(assert) {
 		this.oFhirModel2.oRequestor.sToken = "123";
 		var oRequestHandle = this.oFhirModel2.loadData("/Patient");
+		var mExpectedHeaders = {"Accept-Language": "en-US", "cache-control": "no-cache", "x-csrf-token": "123"}
 		assert.equal(oRequestHandle.getUrl(), "https://example.com/fhir/Patient?_format=json&_total=accurate");
+		assert.deepEqual(oRequestHandle.getHeaders(), mExpectedHeaders, "The request headers are correct.");
+		debugger;
 		this.oFhirModel2.oRequestor.sToken = undefined;
 	});
 
