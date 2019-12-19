@@ -36,7 +36,7 @@
     "karma-ui5": "^1.1.0",
     "@ui5/cli": "^1.12.2",
     "coveralls": "^3.0.9",
-    "replace-in-file": "^4.2.0",
+    "replace-in-file": "^5.0.2",
     "js-yaml": "^3.13.1",
     "@semantic-release/git": "^7.0.18",
     "@semantic-release/changelog": "^3.0.6"
