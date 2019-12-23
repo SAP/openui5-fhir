@@ -107,7 +107,7 @@ First of all, create a UI5 application based on the following folder structure:
 	}
 }
 ```
-<p class="fileName">webapp / manifest.json</p>
+<p class="fileName">webapp / manifest.json</p> 
 
 Create a new file called `index.html`, place it in the `webapp` folder, and add the following content:
 
@@ -143,7 +143,7 @@ Create a new file called `index.html`, place it in the `webapp` folder, and add 
 	</body>
 </html>
 ```
-<p class="fileName">webapp / index.html</p>
+<p class="fileName">webapp / index.html</p> 
 
 
 Create a new file called `Component.js`, place it in the `webapp` folder, and add the following content:
@@ -153,7 +153,7 @@ sap.ui.define(["sap/ui/core/UIComponent"], function(UIComponent) {
 	"use strict";
 
 	return UIComponent.extend("myhealthapp.Component", {
-
+		
 		metadata: {
 			manifest: "json"
 		},
@@ -165,7 +165,7 @@ sap.ui.define(["sap/ui/core/UIComponent"], function(UIComponent) {
 	});
 });
 ```
-<p class="fileName">webapp / Component.js</p>
+<p class="fileName">webapp / Component.js</p> 
 
 Create a new file called `i18n.properties`, place it in the `webapp/i18n` folder, and add the following content:
 
@@ -174,7 +174,7 @@ title=My Health App
 patientsTileInfo=We have {0} patients
 organzationsTileInfo=We have {0} organizations
 ```
-<p class="fileName">webapp / i18n / i18n.properties</p>
+<p class="fileName">webapp / i18n / i18n.properties</p> 
 
 It's time to create the root UI5 view containing your UI5 application. Therefore, create a new file called `App.view.xml`, place it in the `webapp/view` folder, and add the following content:
 
@@ -183,7 +183,7 @@ It's time to create the root UI5 view containing your UI5 application. Therefore
 	<App id="app" />
 </core:View>
 ```
-<p class="fileName">webapp / view / App.view.xml</p>
+<p class="fileName">webapp / view / App.view.xml</p> 
 
 To add some actions to the view later, you need to create a controller. Therefore, create a new file called `App.controller.js`, place it in the `webapp/controller` folder, and add the following content:
 
@@ -199,7 +199,7 @@ sap.ui.define([
 
 });
 ```
-<p class="fileName">webapp / controller / App.controller.js</p>
+<p class="fileName">webapp / controller / App.controller.js</p> 
 
 
 Nice! Let's create another view called `Home.view.xml`, place it in the `webapp/view` folder, and add the following content:
@@ -228,7 +228,7 @@ Nice! Let's create another view called `Home.view.xml`, place it in the `webapp/
 	</Page>
 </core:View>
 ```
-<p class="fileName">webapp / view / Home.view.xml</p>
+<p class="fileName">webapp / view / Home.view.xml</p> 
 
 To enable some actions on the view, you need to create a new controller called `Home.controller.js`, place it in the `webapp/controller` folder, and add the following content:
 
@@ -250,7 +250,7 @@ sap.ui.define([
 	});
 });
 ```
-<p class="fileName">webapp / controller / Home.controller.js</p>
+<p class="fileName">webapp / controller / Home.controller.js</p> 
 
 You now have a running UI5 application that is ready to use.
 
@@ -272,9 +272,9 @@ The *sap.fhir* library is included in the following NPM package: `openui5-fhir`.
 		"@ui5/cli": "^1.4.4"
 	},
 	"dependencies": {
-		"@openui5/sap.m": "^1.71.7",
-		"@openui5/sap.ui.core": "^1.71.7",
-    	"@openui5/themelib_sap_belize": "^1.71.7",
+		"@openui5/sap.m": "^1.70.0",
+		"@openui5/sap.ui.core": "^1.70.0",
+    	"@openui5/themelib_sap_belize": "^1.70.0",
 		"openui5-fhir": "1.0.0"
 	},
 	"scripts" : {
@@ -282,7 +282,7 @@ The *sap.fhir* library is included in the following NPM package: `openui5-fhir`.
 	}
 }
 ```
-<p class="fileName">package.json</p>
+<p class="fileName">package.json</p> 
 
 Update the version of `openui5-fhir` to the desired [version](https://github.com/SAP/openui5-fhir/releases).
 
@@ -316,7 +316,7 @@ To declare and initialize the FHIRModel, add the following content to the `sap.u
 	"dataSource": "fhir"
 }
 ```
-<p class="fileName">webapp / manifest.json</p>
+<p class="fileName">webapp / manifest.json</p> 
 
 <a name="1.2.4-Adjust-UI5-application-to-show-real-data"></a>
 
@@ -346,7 +346,7 @@ Now, it's time to show real data provided by the *UI5 FHIR Model* in your UI5 ap
 	</Page>
 </core:View>
 ```
-<p class="fileName">webapp / view / Home.view.xml</p>
+<p class="fileName">webapp / view / Home.view.xml</p> 
 
 `Home.controller.js` also has to be adjusted because you want to display the total number of patients and organizations when pressing on the corresponding tile:
 
@@ -370,7 +370,7 @@ sap.ui.define([
 	});
 });
 ```
-<p class="fileName">webapp / controller / Home.controller.js</p>
+<p class="fileName">webapp / controller / Home.controller.js</p> 
 
 <a name="1.3-Deploy-UI5-application-locally"></a>
 
@@ -380,5 +380,5 @@ You built a small stand-alone UI5 application which consumes data directly with 
 Now, your environment is ready, so you can start the UI5 application with the following command:
 ```sh
 $ npm run start
-```
+``` 
 The UI5 application is deployed and can be accessed at http://localhost:8080/index.html. Now, you can see  how many patients and organizations are stored in our clinicial system directly from the start page.
