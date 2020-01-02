@@ -449,9 +449,15 @@ sap.ui.define([
 	QUnit.test("loadData with csrf token", function(assert) {
 		this.oFhirModel2.oRequestor.sToken = "123";
 		var oRequestHandle = this.oFhirModel2.loadData("/Patient");
-		assert.equal(oRequestHandle.getUrl(), "https://example.com/fhir/Patient?_format=json&_total=accurate");
+		assert.strictEqual(oRequestHandle.getUrl(), "https://example.com/fhir/Patient?_format=json&_total=accurate");
 		assert.strictEqual(oRequestHandle.getHeaders()["x-csrf-token"], "123", "The request headers are correct.");
 		this.oFhirModel2.oRequestor.sToken = undefined;
+	});
+
+	QUnit.test("configuration of csrf token is correct with csrf token", function(assert) {
+		assert.strictEqual(createModel({"x-csrf-token" : true}).oRequestor.bCSRF, true, "The x-csrf-token is enabled.");
+		assert.strictEqual(createModel({"x-csrf-token" : false}).oRequestor.bCSRF, false, "The x-csrf-token is disabled.");
+		assert.strictEqual(createModel().oRequestor.bCSRF, true, "The x-csrf-token is enabled.");
 	});
 
 	QUnit.test("loadData with parameters", function(assert) {
