@@ -48,6 +48,7 @@
     "serve": "npm run serve:mockserver && npm run serve:ui5",
     "serve:ui5": "ui5 serve",
     "serve:mockserver": "./scripts/setup_mock.sh",
+    "serve:mockserver:windows": "@powershell -NoProfile -ExecutionPolicy Unrestricted -Command ./scripts/setup_mock.ps1",
     "test": "karma start",
     "test:unit": "karma start karma-unit.conf.js",
     "test:opa5": "karma start karma-opa5.conf.js",
