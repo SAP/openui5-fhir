@@ -12,7 +12,7 @@ module.exports = function (config) {
 
 
 		ui5: {
-			url: "https://openui5.hana.ondemand.com/1.69.1/",
+			url: "https://openui5.hana.ondemand.com/1.70.0/",
 			testpage: "test/testsuite.qunit.html"
 		},
 
