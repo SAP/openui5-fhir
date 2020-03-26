@@ -27,7 +27,7 @@
   "devDependencies": {
     "eslint": "^6.8.0",
     "eslint-watch": "^6.0.1",
-    "js-beautify": "^1.10.2",
+    "js-beautify": "^1.10.3",
     "jsdoc": "^3.6.3",
     "karma": "^4.4.1",
     "karma-chrome-launcher": "^3.1.0",
@@ -39,7 +39,7 @@
     "replace-in-file": "^5.0.2",
     "js-yaml": "^3.13.1",
     "@semantic-release/git": "^9.0.0",
-    "@semantic-release/changelog": "^3.0.6"
+    "@semantic-release/changelog": "^5.0.0"
   },
   "scripts": {
     "docs": "npm run docs:prod --packageVersion=$(npm view $npm_package_name version)",
