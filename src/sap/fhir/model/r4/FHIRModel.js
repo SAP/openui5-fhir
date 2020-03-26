@@ -57,7 +57,7 @@ sap.ui.define([
 	 *            (oResource.meta.profile[0]) at the requested resource
 	 * @param {string} [mParameters.defaultSubmitMode] The default SumbitMode for all bindings which are associated with this model
 	 * @param {string} [mParameters.Prefer='return=minimal'] The FHIR server won't return the changed resource by an POST/PUT request -> https://www.hl7.org/fhir/http.html#2.21.0.5.2
-	 * @param {string} [mParameters.x-csrf-token=true] The model handles the csrf token between the browser and the FHIR server
+	 * @param {boolean} [mParameters.x-csrf-token=false] The model handles the csrf token between the browser and the FHIR server
 	 * @throws {Error} If no service URL is given, if the given service URL does not end with a forward slash
 	 * @author SAP SE
 	 * @public

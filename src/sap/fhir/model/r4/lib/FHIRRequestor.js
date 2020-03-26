@@ -24,7 +24,7 @@ sap.ui.define([
 	 *
 	 * @param {string} sServiceUrl The root URL of the FHIR server to request data from, e.g. http://example.com/fhir
 	 * @param {sap.fhir.model.r4.FHIRModel} oModel The FHIRModel
-	 * @param {boolean} [bCSRF=true] If the FHIR service supports the csrf token
+	 * @param {boolean} [bCSRF=false] If the FHIR service supports the csrf token
 	 * @param {string} sPrefer In which kind the FHIR service shall return the responses described here https://www.hl7.org/fhir/http.html#2.21.0.5.2
 	 * @alias sap.fhir.model.r4.lib.FHIRRequestor
 	 * @author SAP SE
@@ -38,7 +38,7 @@ sap.ui.define([
 		this.oModel = oModel;
 		this._sServiceUrl = sServiceUrl;
 		this._aPendingRequestHandles = [];
-		this.bCSRF = bCSRF === false ? false : true;
+		this.bCSRF = !!bCSRF;
 		this.sPrefer = sPrefer ?  "return=minimal" : sPrefer;
 		this._oRegex = {
 			rAmpersand : /&/g,
