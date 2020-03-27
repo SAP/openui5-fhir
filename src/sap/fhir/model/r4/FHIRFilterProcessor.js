@@ -37,6 +37,9 @@ sap.ui.define([
 	 */
 	FHIRFilterProcessor._evaluateFilter = function(oFilter, vRef, fnGetValue){
 		var oValue, fnTest;
+
+		FilterProcessor._normalizeCache = { "true": {}, "false": {}};
+
 		if (oFilter.aFilters) {
 			return this._evaluateMultiFilter(oFilter, vRef, fnGetValue);
 		}
