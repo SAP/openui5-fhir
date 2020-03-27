@@ -1,3 +1,10 @@
+## [1.0.5](https://github.com/SAP/openui5-fhir/compare/v1.0.4...v1.0.5) (2020-03-27)
+
+
+### Bug Fixes
+
+* upgrade UI5 version from 1.70.0 to 1.75.0 ([#109](https://github.com/SAP/openui5-fhir/issues/109)) ([fb19439](https://github.com/SAP/openui5-fhir/commit/fb19439a2af9ab044b09d462ee3690c3a31b759c))
+
 ## [1.0.4](https://github.com/SAP/openui5-fhir/compare/v1.0.3...v1.0.4) (2019-08-26)
 
 
