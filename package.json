@@ -34,7 +34,7 @@
     "karma-coverage": "^2.0.1",
     "karma-junit-reporter": "^2.0.1",
     "karma-ui5": "^1.1.0",
-    "@ui5/cli": "^1.14.0",
+    "@ui5/cli": "^2.0.2",
     "coveralls": "^3.0.11",
     "replace-in-file": "^5.0.2",
     "js-yaml": "^3.13.1",
