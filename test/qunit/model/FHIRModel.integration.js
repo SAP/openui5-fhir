@@ -591,7 +591,7 @@ sap.ui.define([
 	QUnit.test("Conditional reference in transaction success", function(assert) {
 		var sPatientId = this.oFhirModel.create("Patient", {}, "patientDetails");
 		this.oFhirModel.create("Coverage", { payor : {
-			reference : "Patient/" + sPatientId
+			reference : "urn:uuid:" + sPatientId
 		}}, "patientDetails");
 		var done = assert.async();
 		var mRequestHandle;
@@ -613,7 +613,6 @@ sap.ui.define([
 		mRequestHandle["patientDetails"].getRequest().complete(fnAssertion);
 	});
 
-
 	QUnit.test("Test batch bundle entry fullUrl generation", function(assert) {
 		var sPractitionerId = this.oFhirModel.create("Practitioner", {
 			name: [
@@ -631,7 +630,7 @@ sap.ui.define([
 	});
 
 	QUnit.test("Test transaction bundle entry fullUrl generation", function(assert) {
-		this.oFhirModel.create("Practitioner", {
+		var sPractitionerId = this.oFhirModel.create("Practitioner", {
 			name: [
 				{
 					family: "johnson",
@@ -639,30 +638,11 @@ sap.ui.define([
 				}
 			]
 		}, "practitioner1");
-		var done = assert.async();
-		var bDeletionSuccess = false;
 		var mRequestHandle;
-		var sResourceId;
-		mRequestHandle = this.oFhirModel.submitChanges("practitioner1",function(oData){
-			sResourceId = oData.id;
-		});
-		var fnAssertion = function(oData){
-			if (bDeletionSuccess){
-				assert.ok(true);
-				done();
-			} else {
-				bDeletionSuccess = true;
-				this.oFhirModel.remove(["/Practitioner/" + sResourceId]);
-				mRequestHandle = this.oFhirModel.submitChanges("practitioner1");
-				var oBundle = mRequestHandle["practitioner1"].getBundle();
-				var sFullUrl = oBundle._aBundleEntries[0]._sFullUrl;
-				assert.strictEqual(sFullUrl,this.oFhirModel.sServiceUrl + "/Practitioner/" + sResourceId,"Full Generated for Transaction entry is of type absolute");
-			}
-	    }.bind(this);
-		mRequestHandle["practitioner1"].getRequest().complete(fnAssertion);
+		mRequestHandle = this.oFhirModel.submitChanges("practitioner1");
+		var oBundle = mRequestHandle["practitioner1"].getBundle();
+		var sFullUrl = oBundle._aBundleEntries[0]._sFullUrl;
+		assert.strictEqual(sFullUrl,this.oFhirModel.sServiceUrl + "/Practitioner/" + sPractitionerId,"Full Generated for Transaction entry is of type absolute");
 	});
-
-
-
 
 });
