@@ -57,6 +57,12 @@ FHIR® bundle requests have some advantages over direct requests. The number of 
 
 #### Step 4.2.1: Declaration of Groups
 Depending on the use case, every binding can be configured to use either `batch` or `transaction`. This can be done by introducing binding groups. Application developers decide which binding groups are necessary for a particular UI5 application and which request type should be used for these groups before assigning these groups to the associated bindings. With this concept, it’s possible to reduce the number of HTTP requests to an appropriate level for the respective UI5 application. The declaration of groups is done in the `manifest.json` of the UI5 application.
+The `fullUrlType` for batch or transaction can be configured. Supported Types are `uuid` and `absolute`. 
+For the type `uuid` the fullUrl in the Bundle.entry will be generated as follows `urn:uuid:uuidv4`. E.G. "urn:uuid:e91a94c7-b874-4b46-af6a-3412b487c3af"
+For the type `absolute` the fullUrl in the Bundle.entry will be generated as follows `http://fhirServerUrl/ResourcePath`.E.G. "http://example.com/Patient/123"
+
+
+For more information see the [FHIR®-Documentation](https://www.hl7.org/fhir/R4/bundle-definitions.html#Bundle.entry.fullUrl).
 
 
 *Example: Declaration of two groups A and B. All bindings of group A should be processed with a batch request, all bindings of group B should be processed with a transaction request.*
@@ -68,10 +74,11 @@ Depending on the use case, every binding can be configured to use either `batch`
         "settings": {
             "groupProperties": {
                 "A": {
-                    "submit": "Batch"
+                    "submit": "Batch",
+                    "fullUrlType":"uuid"
                 },
                 "B": {
-                    "submit": "Transcation"
+                    "submit": "Transaction"
                 }
             }
         }
@@ -119,7 +126,7 @@ Furthermore, you can mix the direct and bundle requests in one UI5 application w
                     "submit": "Batch"
                 },
                 "B": {
-                    "submit": "Transcation"
+                    "submit": "Transaction"
                 },
                 "C": {
                     "submit": "Direct"

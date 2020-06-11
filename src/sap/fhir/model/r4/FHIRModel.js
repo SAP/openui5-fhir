@@ -56,8 +56,8 @@ sap.ui.define([
 	 * @param {string} [mParameters.baseProfileUrl] The URL of the base profiles for all resource types. If no one is given, the model will use the FHIR default profiles located at
 	 *            http://hl7.org/fhir/StructureDefinition/ The base profile of a resource type is used to load the structure definition of a requested resource type, if no profile is maintained
 	 *            (oResource.meta.profile[0]) at the requested resource
-	 * @param {string} [mParameters.defaultSubmitMode] The default SumbitMode for all bindings which are associated with this model
-	 * @param {string} [mParameters.defaultFullUrlType] The default FullUrlType  if the default submit mode is either batch or transaction
+	 * @param {string} [mParameters.defaultSubmitMode] The default SubmitMode for all bindings which are associated with this model
+	 * @param {string} [mParameters.defaultFullUrlType='uuid'] The default FullUrlType if the default submit mode is either batch or transaction
 	 * @param {string} [mParameters.Prefer='return=minimal'] The FHIR server won't return the changed resource by an POST/PUT request -> https://www.hl7.org/fhir/http.html#2.21.0.5.2
 	 * @param {string} [mParameters.x-csrf-token=true] The model handles the csrf token between the browser and the FHIR server
 	 * @throws {Error} If no service URL is given, if the given service URL does not end with a forward slash
