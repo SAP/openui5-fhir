@@ -42,6 +42,14 @@ sap.ui.define([
 					},
 					"valueSets" : {
 						"submit" : "Batch"
+					},
+					"practitioner":{
+						"submit":"Batch",
+						"fullUrlType":"uuid"
+					},
+					"practitioner1":{
+						"submit":"Transaction",
+						"fullUrlType":"absolute"
 					}
 				}
 			};
@@ -604,4 +612,57 @@ sap.ui.define([
 		mRequestHandle = this.oFhirModel.submitChanges("patientDetails");
 		mRequestHandle["patientDetails"].getRequest().complete(fnAssertion);
 	});
+
+
+	QUnit.test("Test batch bundle entry fullUrl generation", function(assert) {
+		var sPractitionerId = this.oFhirModel.create("Practitioner", {
+			name: [
+				{
+					family: "warne",
+					given: ["dexter"]
+				}
+			]
+		}, "practitioner");
+		var mRequestHandle;
+		mRequestHandle = this.oFhirModel.submitChanges("practitioner");
+		var oBundle = mRequestHandle["practitioner"].getBundle();
+		var sFullUrl = oBundle._aBundleEntries[0]._sFullUrl;
+		assert.strictEqual(sFullUrl,"urn:uuid:" + sPractitionerId,"Full Generated for Batch entry is of type uuid");
+	});
+
+	QUnit.test("Test transaction bundle entry fullUrl generation", function(assert) {
+		this.oFhirModel.create("Practitioner", {
+			name: [
+				{
+					family: "johnson",
+					given: ["dexter"]
+				}
+			]
+		}, "practitioner1");
+		var done = assert.async();
+		var bDeletionSuccess = false;
+		var mRequestHandle;
+		var sResourceId;
+		mRequestHandle = this.oFhirModel.submitChanges("practitioner1",function(oData){
+			sResourceId = oData.id;
+		});
+		var fnAssertion = function(oData){
+			if (bDeletionSuccess){
+				assert.ok(true);
+				done();
+			} else {
+				bDeletionSuccess = true;
+				this.oFhirModel.remove(["/Practitioner/" + sResourceId]);
+				mRequestHandle = this.oFhirModel.submitChanges("practitioner1");
+				var oBundle = mRequestHandle["practitioner1"].getBundle();
+				var sFullUrl = oBundle._aBundleEntries[0]._sFullUrl;
+				assert.strictEqual(sFullUrl,this.oFhirModel.sServiceUrl + "/Practitioner/" + sResourceId,"Full Generated for Transaction entry is of type absolute");
+			}
+	    }.bind(this);
+		mRequestHandle["practitioner1"].getRequest().complete(fnAssertion);
+	});
+
+
+
+
 });

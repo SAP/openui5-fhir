@@ -36,9 +36,10 @@ sap.ui.define([
 	"sap/ui/core/message/Message",
 	"sap/ui/core/library",
 	"sap/fhir/model/r4/FHIRFilterProcessor",
-	"sap/fhir/model/r4/FHIRFilterOperator"
+	"sap/fhir/model/r4/FHIRFilterOperator",
+	"sap/fhir/model/r4/lib/FHIRBundleEntryFullUrlType"
 ], function(Model, FHIRListBinding, FHIRPropertyBinding,
-	FHIRContextBinding, FHIRTreeBinding, FHIRUtils, OperationMode, URI, BindingInfo, Sliceable, SubmitMode, FHIRRequestor, HTTPMethod, FHIRBundle, ChangeReason, FHIRUrl, Log, deepEqual, each, Context, Message, coreLibrary, FHIRFilterProcessor, FHIRFilterOperator) {
+	FHIRContextBinding, FHIRTreeBinding, FHIRUtils, OperationMode, URI, BindingInfo, Sliceable, SubmitMode, FHIRRequestor, HTTPMethod, FHIRBundle, ChangeReason, FHIRUrl, Log, deepEqual, each, Context, Message, coreLibrary, FHIRFilterProcessor, FHIRFilterOperator,FHIRBundleEntryFullUrlType) {
 
 	"use strict";
 
@@ -56,6 +57,7 @@ sap.ui.define([
 	 *            http://hl7.org/fhir/StructureDefinition/ The base profile of a resource type is used to load the structure definition of a requested resource type, if no profile is maintained
 	 *            (oResource.meta.profile[0]) at the requested resource
 	 * @param {string} [mParameters.defaultSubmitMode] The default SumbitMode for all bindings which are associated with this model
+	 * @param {string} [mParameters.defaultFullUrlType] The default FullUrlType  if the default submit mode is either batch or transaction
 	 * @param {string} [mParameters.Prefer='return=minimal'] The FHIR server won't return the changed resource by an POST/PUT request -> https://www.hl7.org/fhir/http.html#2.21.0.5.2
 	 * @param {string} [mParameters.x-csrf-token=true] The model handles the csrf token between the browser and the FHIR server
 	 * @throws {Error} If no service URL is given, if the given service URL does not end with a forward slash
@@ -81,6 +83,7 @@ sap.ui.define([
 			this._buildGroupProperties(mParameters);
 			this.oRequestor = new FHIRRequestor(sServiceUrl, this, mParameters && mParameters["x-csrf-token"], mParameters && mParameters.Prefer);
 			this.sDefaultSubmitMode = (mParameters && mParameters.defaultSubmitMode) ? mParameters.defaultSubmitMode : SubmitMode.Direct;
+			this.sDefaultFullUrlType = (mParameters && mParameters.defaultSubmitMode && mParameters.defaultSubmitMode !== SubmitMode.Direct && mParameters.defaultFullUrlType) ? mParameters.defaultFullUrlType : FHIRBundleEntryFullUrlType.uuid;
 			this.iSizeLimit = 10;
 			if (mParameters && mParameters.simpleFiltering === false){
 				throw new Error("Complex filtering not supported");
@@ -1217,7 +1220,7 @@ sap.ui.define([
 	 * @param {string} sGroupId The group id
 	 * @param {string} sPropertyName The group property in question
 	 * @returns {any} The group property value
-	 * @throws {Error} If the name of the group property is not 'submit'
+	 * @throws {Error} If the name of the group property is not 'submit' or 'fullUrlType'
 	 * @protected
 	 * @see sap.ui.model.odata.v4.ODataModel#constructor
 	 * @since 1.0.0
@@ -1226,6 +1229,8 @@ sap.ui.define([
 		switch (sPropertyName) {
 			case "submit":
 				return this.getGroupSubmitMode(sGroupId);
+			case "fullUrlType":
+				return this.getGroupFullUrlType(sGroupId);
 			default:
 				throw new Error("Unsupported group property: " + sPropertyName);
 		}
@@ -1246,6 +1251,19 @@ sap.ui.define([
 	};
 
 	/**
+	 * Determines the fullUrl type mode for the given <code>sGroupId</code>. If no submit mode is defined in the group properties or there are no group properties at all for the given
+	 * <code>sGroupId</code> the default fullUrl type is returned
+	 *
+	 * @param {string} sGroupId The group id
+	 * @returns {sap.fhir.model.r4.lib.FHIRBundleEntryFullUrlType} the full url generation type for the given group
+	 * @protected
+	 * @since 1.0.0
+	 */
+	FHIRModel.prototype.getGroupFullUrlType = function(sGroupId) {
+		return (this.mGroupProperties && this.mGroupProperties[sGroupId] && this.mGroupProperties[sGroupId].submit && this.mGroupProperties[sGroupId].submit !== SubmitMode.Direct && this.mGroupProperties[sGroupId].fullUrlType) || this.sDefaultFullUrlType;
+	};
+
+	/**
 	 * Sets the group properties of the model by the given <code>mParameters</code>
 	 *
 	 * @param {object} mParameters The parameters
@@ -1261,11 +1279,23 @@ sap.ui.define([
 						oGroupProperties = mParameters.groupProperties[sGroupId];
 						if (typeof oGroupProperties !== "object") {
 							throw new Error("Group \"" + sGroupId + "\" has invalid properties. The properties must be of type object, found \"" + oGroupProperties + "\"");
-						} else if (Object.keys(oGroupProperties).length !== 1 || !oGroupProperties.submit) {
+						} else if (Object.keys(oGroupProperties).length === 2 && (!oGroupProperties.submit || !oGroupProperties.fullUrlType)) {
+							throw new Error("Group \"" + sGroupId + "\" has invalid properties. Only the property \"submit\" and \"fullUrlType\" is allowed and has to be set, found \"" + JSON.stringify(oGroupProperties)
+									+ "\"");
+						} else if (Object.keys(oGroupProperties).length === 1 && !oGroupProperties.submit && oGroupProperties.fullUrlType) {
+							throw new Error("Group \"" + sGroupId + "\" has invalid properties. The property \"fullUrlType\" is allowed only when submit property is present, found \"" + JSON.stringify(oGroupProperties)
+									+ "\"");
+						} else if (Object.keys(oGroupProperties).length === 1 && !oGroupProperties.submit) {
 							throw new Error("Group \"" + sGroupId + "\" has invalid properties. Only the property \"submit\" is allowed and has to be set, found \"" + JSON.stringify(oGroupProperties)
 									+ "\"");
-						} else if (!(oGroupProperties.submit in SubmitMode)) {
+						} else if (oGroupProperties.submit && !(oGroupProperties.submit in SubmitMode)) {
 							throw new Error("Group \"" + sGroupId + "\" has invalid properties. The value of property \"submit\" must be of type sap.fhir.model.r4.SubmitMode, found: \""
+									+ oGroupProperties.submit + "\"");
+						} else if (oGroupProperties.fullUrlType && !(oGroupProperties.fullUrlType in FHIRBundleEntryFullUrlType)) {
+							throw new Error("Group \"" + sGroupId + "\" has invalid properties. The value of property \"fullUrlType\" must be of type sap.fhir.model.r4.lib.FHIRBundleEntryFullUrlType, found: \""
+									+ oGroupProperties.fullUrlType + "\"");
+						} else if (oGroupProperties.submit && (oGroupProperties.submit !== SubmitMode.Batch && oGroupProperties.submit !== SubmitMode.Transaction) && oGroupProperties.fullUrlType) {
+							throw new Error("Group \"" + sGroupId + "\" has invalid properties. The value of property \"fullUrlType\" is applicable only for batch and transaction submit modes, found: \""
 									+ oGroupProperties.submit + "\"");
 						}
 					}

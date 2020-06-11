@@ -13,8 +13,9 @@ sap.ui.define([
 	"sap/fhir/model/r4/SubmitMode",
 	"sap/fhir/model/r4/lib/FHIRBundleType",
 	"sap/fhir/model/r4/lib/FHIRBundleRequest",
-	"sap/base/util/deepEqual"
-], function(jQuery, TestUtils, FHIRFilter, FHIRFilterType, FHIRFilterOperator, FHIRFilterProcessor, OperationMode, RequestHandle, Sliceable, FilterOperator, Filter, SubmitMode, FHIRBundleType, FHIRBundleRequest, deepEqual) {
+	"sap/base/util/deepEqual",
+	"sap/fhir/model/r4/lib/FHIRBundleEntryFullUrlType"
+], function(jQuery, TestUtils, FHIRFilter, FHIRFilterType, FHIRFilterOperator, FHIRFilterProcessor, OperationMode, RequestHandle, Sliceable, FilterOperator, Filter, SubmitMode, FHIRBundleType, FHIRBundleRequest, deepEqual,FHIRBundleEntryFullUrlType) {
 
 	"use strict";
 
@@ -869,6 +870,45 @@ sap.ui.define([
 		assert.strictEqual(this.oFhirModel1.getGroupProperty("valueSets", sPropertyNameValid), SubmitMode.Batch);
 	});
 
+	QUnit.test("Should determine correct fullUrl type for group or throw exception", function(assert){
+		var sPropertyNameFail = "myFullUrlType";
+		var sPropertyNameValid = "fullUrlType";
+		var sSubmitProperty = "submit";
+		var sGroupId = "myGroup1";
+		assert.throws(function() {return this.oFhirModel1.getGroupProperty(sGroupId, sPropertyNameFail);}, new Error("Unsupported group property: " + sPropertyNameFail));
+
+		// default is FHIRBundleEntryFullUrlType.uuid
+		assert.strictEqual(this.oFhirModel1.getGroupProperty(sGroupId, sPropertyNameValid), FHIRBundleEntryFullUrlType.uuid);
+
+		// if the default submit mode is not direct then default fullUrlType is  FHIRBundleEntryFullUrlType.uuid
+		var oTmpFhirModel = createModel({defaultSubmitMode: SubmitMode.Batch});
+		assert.strictEqual(oTmpFhirModel.getGroupProperty(sGroupId, sSubmitProperty), SubmitMode.Batch);
+		assert.strictEqual(oTmpFhirModel.getGroupProperty(sGroupId, sPropertyNameValid), FHIRBundleEntryFullUrlType.uuid);
+
+		// set default fullUrlType
+		oTmpFhirModel = createModel({defaultSubmitMode: SubmitMode.Batch,defaultFullUrlType:FHIRBundleEntryFullUrlType.absolute});
+		assert.strictEqual(oTmpFhirModel.getGroupProperty(sGroupId, sSubmitProperty), SubmitMode.Batch);
+		assert.strictEqual(oTmpFhirModel.getGroupProperty(sGroupId, sPropertyNameValid), FHIRBundleEntryFullUrlType.absolute);
+
+		// set default fullUrlType
+		oTmpFhirModel = createModel({defaultSubmitMode: SubmitMode.Batch,defaultFullUrlType:FHIRBundleEntryFullUrlType.uuid});
+		assert.strictEqual(oTmpFhirModel.getGroupProperty(sGroupId, sSubmitProperty), SubmitMode.Batch);
+		assert.strictEqual(oTmpFhirModel.getGroupProperty(sGroupId, sPropertyNameValid), FHIRBundleEntryFullUrlType.uuid);
+
+		// for group "patientDetails"
+		assert.strictEqual(this.oFhirModel1.getGroupProperty("patientDetails", sSubmitProperty), SubmitMode.Transaction);
+		assert.strictEqual(this.oFhirModel1.getGroupProperty("patientDetails", sPropertyNameValid), FHIRBundleEntryFullUrlType.uuid);
+
+		// for group "patients"
+		assert.strictEqual(this.oFhirModel1.getGroupProperty("patients", sSubmitProperty), SubmitMode.Direct);
+		assert.strictEqual(this.oFhirModel1.getGroupProperty("patients", sPropertyNameValid), FHIRBundleEntryFullUrlType.uuid);
+
+		// for group "valueSets"
+		assert.strictEqual(this.oFhirModel1.getGroupProperty("valueSets", sSubmitProperty), SubmitMode.Batch);
+		assert.strictEqual(this.oFhirModel1.getGroupProperty("patients", sPropertyNameValid), FHIRBundleEntryFullUrlType.uuid);
+
+	});
+
 	QUnit.test("Should throw exception for invalid group properties", function(assert){
 		// it's not an object as group properties
 		var mTmpParameters = {groupProperties: { testGroup1: "This is a test group"}};
@@ -881,7 +921,17 @@ sap.ui.define([
 
 		// more group properties are defined as allowed
 		mTmpParameters = {groupProperties: { testGroup1: {submit: "test", submit2: "test1234"}}};
-		assert.throws( function() {return createModel(mTmpParameters);}, new Error("Group \"testGroup1\" has invalid properties. Only the property \"submit\" is allowed and has to be set, found \"" + JSON.stringify(mTmpParameters.groupProperties.testGroup1)
+		assert.throws( function() {return createModel(mTmpParameters);}, new Error("Group \"testGroup1\" has invalid properties. Only the property \"submit\" and \"fullUrlType\" is allowed and has to be set, found \"" + JSON.stringify(mTmpParameters.groupProperties.testGroup1)
+		+ "\""));
+
+		// check for fullurl type
+		mTmpParameters = {groupProperties: { testGroup1: {submit: "Batch", fullUrlType: "test1234"}}};
+		assert.throws( function() {return createModel(mTmpParameters);}, new Error("Group \"testGroup1\" has invalid properties. The value of property \"fullUrlType\" must be of type sap.fhir.model.r4.lib.FHIRBundleEntryFullUrlType, found: \""
+		     + mTmpParameters.groupProperties.testGroup1.fullUrlType + "\""));
+
+		// only fullurl without submit mode
+		mTmpParameters = {groupProperties: { testGroup1: {fullUrlType: "test1234"}}};
+		assert.throws( function() {return createModel(mTmpParameters);}, new Error("Group \"testGroup1\" has invalid properties. The property \"fullUrlType\" is allowed only when submit property is present, found \"" + JSON.stringify(mTmpParameters.groupProperties.testGroup1)
 		+ "\""));
 
 		// submit mode is not defined in group properties
