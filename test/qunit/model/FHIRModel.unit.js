@@ -927,7 +927,12 @@ sap.ui.define([
 		// check for fullurl type
 		mTmpParameters = {groupProperties: { testGroup1: {submit: "Batch", fullUrlType: "test1234"}}};
 		assert.throws( function() {return createModel(mTmpParameters);}, new Error("Group \"testGroup1\" has invalid properties. The value of property \"fullUrlType\" must be of type sap.fhir.model.r4.lib.FHIRBundleEntryFullUrlType, found: \""
-		     + mTmpParameters.groupProperties.testGroup1.fullUrlType + "\""));
+			 + mTmpParameters.groupProperties.testGroup1.fullUrlType + "\""));
+
+		// check for fullurl type with submit mode not batch /transaction
+		mTmpParameters = {groupProperties: { testGroup1: {submit: "Direct", fullUrlType: "uuid"}}};
+		assert.throws( function() {return createModel(mTmpParameters);}, new Error("Group \"testGroup1\" has invalid properties. The value of property \"fullUrlType\" is applicable only for batch and transaction submit modes, found: \""
+		     + mTmpParameters.groupProperties.testGroup1.submit + "\""));
 
 		// only fullurl without submit mode
 		mTmpParameters = {groupProperties: { testGroup1: {fullUrlType: "test1234"}}};
