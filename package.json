@@ -21,7 +21,7 @@
     "fhir"
   ],
   "engines": {
-    "node": ">= 8.5",
+    "node": ">= 10",
     "npm": ">= 5"
   },
   "devDependencies": {
