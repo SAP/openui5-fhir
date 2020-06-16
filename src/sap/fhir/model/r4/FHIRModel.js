@@ -1222,7 +1222,7 @@ sap.ui.define([
 	 * @param {string} sGroupId The group id
 	 * @param {string} sPropertyName The group property in question
 	 * @returns {any} The group property value
-	 * @throws {Error} If the name of the group property is not 'submit' or 'fullUrlType'
+	 * @throws {Error} If the name of the group property is not 'submit' or 'uri'
 	 * @protected
 	 * @see sap.ui.model.odata.v4.ODataModel#constructor
 	 * @since 1.0.0
