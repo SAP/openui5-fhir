@@ -49,7 +49,7 @@ sap.ui.define([
 					},
 					"practitioner1":{
 						"submit":"Transaction",
-						"fullUrlType":"absolute"
+						"fullUrlType":"url"
 					}
 				}
 			};

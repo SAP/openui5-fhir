@@ -8,9 +8,8 @@ sap.ui.define([
 	"sap/fhir/model/r4/FHIRFilterOperator",
 	"sap/ui/model/ChangeReason",
 	"sap/base/util/merge",
-	"sap/base/util/deepEqual",
-	"sap/fhir/model/r4/lib/FHIRBundleEntryFullUrlType"
-], function(FHIRFilterOperatorUtils, FHIRFilterOperator, ChangeReason, merge, deepEqual,FHIRBundleEntryFullUrlType) {
+	"sap/base/util/deepEqual"
+], function(FHIRFilterOperatorUtils, FHIRFilterOperator, ChangeReason, merge, deepEqual) {
 
 	"use strict";
 
@@ -609,47 +608,34 @@ sap.ui.define([
 	/**
 	 * Generate FullUrl based on the type and id
 	 *
-	 * @param {sap.fhir.model.r4.lib.FHIRBundleEntryFullUrlType} sFullUrlType fullUrlType
+	 * @param {sap.fhir.model.r4.model.type.URI} oURI FHIR URI Instance
 	 * @param {string} sResourceServerPath The original resource path e.g. /Patient/123
 	 * @param {string} sResourceId The id of the the FHIR resource e.g. 123
 	 * @param {string} sServiceUrl The root URL of the FHIR server to request data e.g. http://example.com/fhir
 	 * @returns {string} sFullUrl
 	 * @protected
-	 * @since 1.0.0
+	 * @since 1.1.0
 	 */
-	FHIRUtils.generateFullUrl = function(sFullUrlType,sResourceServerPath,sResourceId,sServiceUrl) {
+	FHIRUtils.generateFullUrl = function(oURI, sResourceServerPath, sResourceId, sServiceUrl) {
 		var sFullUrl;
-		if (sFullUrlType){
-			switch (sFullUrlType) {
-				case FHIRBundleEntryFullUrlType.uuid:
-					if (sResourceId && this.resourceIdIsOfTypeUUID(sResourceId)){
-						sFullUrl = "urn:" + FHIRBundleEntryFullUrlType.uuid + ":" + sResourceId;
+		if (oURI){
+			switch (oURI.getName()) {
+				case "sap.fhir.model.r4.type.UUID":
+					sFullUrl = "urn:" + oURI.toString() + ":";
+					if (sResourceId && oURI.validateValue(sResourceId)){
+						sFullUrl += sResourceId;
 					} else {
-						sFullUrl = "urn:" + FHIRBundleEntryFullUrlType.uuid + ":" + this.uuidv4();
+						sFullUrl += this.uuidv4();
 					}
 					break;
-				case FHIRBundleEntryFullUrlType.absolute:
+				case "sap.fhir.model.r4.type.URL":
 					sFullUrl = sServiceUrl + sResourceServerPath;
 					break;
 				default:
-					sFullUrl = sResourceServerPath;
 					break;
 			}
 		}
 		return sFullUrl;
-
-	};
-
-	/**
-	 * Determines if the given resourceId is of type uuid v4
-	 *
-	 * @param {string} sResourceId The id of the the FHIR resource e.g. 123
-	 * @returns {boolean} True, if the expression matches the regex.
-	 * @protected
-	 * @since 1.0.0
-	 */
-	FHIRUtils.resourceIdIsOfTypeUUID = function(sResourceId){
-		return this.checkRegularExpression(sResourceId,/^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i);
 	};
 
 	return FHIRUtils;

@@ -13,9 +13,8 @@ sap.ui.define([
 	"sap/fhir/model/r4/SubmitMode",
 	"sap/fhir/model/r4/lib/FHIRBundleType",
 	"sap/fhir/model/r4/lib/FHIRBundleRequest",
-	"sap/base/util/deepEqual",
-	"sap/fhir/model/r4/lib/FHIRBundleEntryFullUrlType"
-], function(jQuery, TestUtils, FHIRFilter, FHIRFilterType, FHIRFilterOperator, FHIRFilterProcessor, OperationMode, RequestHandle, Sliceable, FilterOperator, Filter, SubmitMode, FHIRBundleType, FHIRBundleRequest, deepEqual,FHIRBundleEntryFullUrlType) {
+	"sap/base/util/deepEqual"
+], function(jQuery, TestUtils, FHIRFilter, FHIRFilterType, FHIRFilterOperator, FHIRFilterProcessor, OperationMode, RequestHandle, Sliceable, FilterOperator, Filter, SubmitMode, FHIRBundleType, FHIRBundleRequest, deepEqual) {
 
 	"use strict";
 
@@ -872,40 +871,40 @@ sap.ui.define([
 
 	QUnit.test("Should determine correct fullUrl type for group or throw exception", function(assert){
 		var sPropertyNameFail = "myFullUrlType";
-		var sPropertyNameValid = "fullUrlType";
+		var sPropertyNameValid = "uri";
 		var sSubmitProperty = "submit";
 		var sGroupId = "myGroup1";
 		assert.throws(function() {return this.oFhirModel1.getGroupProperty(sGroupId, sPropertyNameFail);}, new Error("Unsupported group property: " + sPropertyNameFail));
 
-		// default is FHIRBundleEntryFullUrlType.uuid
-		assert.strictEqual(this.oFhirModel1.getGroupProperty(sGroupId, sPropertyNameValid), FHIRBundleEntryFullUrlType.uuid);
+		// default is uuid
+		assert.strictEqual(this.oFhirModel1.getGroupProperty(sGroupId, sPropertyNameValid).toString(), "uuid");
 
-		// if the default submit mode is not direct then default fullUrlType is  FHIRBundleEntryFullUrlType.uuid
+		// if the default submit mode is not direct then default fullUrlType is  uuid
 		var oTmpFhirModel = createModel({defaultSubmitMode: SubmitMode.Batch});
 		assert.strictEqual(oTmpFhirModel.getGroupProperty(sGroupId, sSubmitProperty), SubmitMode.Batch);
-		assert.strictEqual(oTmpFhirModel.getGroupProperty(sGroupId, sPropertyNameValid), FHIRBundleEntryFullUrlType.uuid);
+		assert.strictEqual(oTmpFhirModel.getGroupProperty(sGroupId, sPropertyNameValid).toString(), "uuid");
 
 		// set default fullUrlType
-		oTmpFhirModel = createModel({defaultSubmitMode: SubmitMode.Batch,defaultFullUrlType:FHIRBundleEntryFullUrlType.absolute});
+		oTmpFhirModel = createModel({defaultSubmitMode: SubmitMode.Batch,defaultFullUrlType:"url"});
 		assert.strictEqual(oTmpFhirModel.getGroupProperty(sGroupId, sSubmitProperty), SubmitMode.Batch);
-		assert.strictEqual(oTmpFhirModel.getGroupProperty(sGroupId, sPropertyNameValid), FHIRBundleEntryFullUrlType.absolute);
+		assert.strictEqual(oTmpFhirModel.getGroupProperty(sGroupId, sPropertyNameValid).toString(), "url");
 
 		// set default fullUrlType
-		oTmpFhirModel = createModel({defaultSubmitMode: SubmitMode.Batch,defaultFullUrlType:FHIRBundleEntryFullUrlType.uuid});
+		oTmpFhirModel = createModel({defaultSubmitMode: SubmitMode.Batch,defaultFullUrlType:"uuid"});
 		assert.strictEqual(oTmpFhirModel.getGroupProperty(sGroupId, sSubmitProperty), SubmitMode.Batch);
-		assert.strictEqual(oTmpFhirModel.getGroupProperty(sGroupId, sPropertyNameValid), FHIRBundleEntryFullUrlType.uuid);
+		assert.strictEqual(oTmpFhirModel.getGroupProperty(sGroupId, sPropertyNameValid).toString(), "uuid");
 
 		// for group "patientDetails"
 		assert.strictEqual(this.oFhirModel1.getGroupProperty("patientDetails", sSubmitProperty), SubmitMode.Transaction);
-		assert.strictEqual(this.oFhirModel1.getGroupProperty("patientDetails", sPropertyNameValid), FHIRBundleEntryFullUrlType.uuid);
+		assert.strictEqual(this.oFhirModel1.getGroupProperty("patientDetails", sPropertyNameValid).toString(), "uuid");
 
 		// for group "patients"
 		assert.strictEqual(this.oFhirModel1.getGroupProperty("patients", sSubmitProperty), SubmitMode.Direct);
-		assert.strictEqual(this.oFhirModel1.getGroupProperty("patients", sPropertyNameValid), FHIRBundleEntryFullUrlType.uuid);
+		assert.strictEqual(this.oFhirModel1.getGroupProperty("patients", sPropertyNameValid).toString(), "uuid");
 
 		// for group "valueSets"
 		assert.strictEqual(this.oFhirModel1.getGroupProperty("valueSets", sSubmitProperty), SubmitMode.Batch);
-		assert.strictEqual(this.oFhirModel1.getGroupProperty("patients", sPropertyNameValid), FHIRBundleEntryFullUrlType.uuid);
+		assert.strictEqual(this.oFhirModel1.getGroupProperty("patients", sPropertyNameValid).toString(), "uuid");
 
 	});
 
@@ -926,7 +925,7 @@ sap.ui.define([
 
 		// check for fullurl type
 		mTmpParameters = {groupProperties: { testGroup1: {submit: "Batch", fullUrlType: "test1234"}}};
-		assert.throws( function() {return createModel(mTmpParameters);}, new Error("Group \"testGroup1\" has invalid properties. The value of property \"fullUrlType\" must be of type sap.fhir.model.r4.lib.FHIRBundleEntryFullUrlType, found: \""
+		assert.throws( function() {return createModel(mTmpParameters);}, new Error("Group \"testGroup1\" has invalid properties. The value of property \"fullUrlType\" must be either uuid or url, found: \""
 			 + mTmpParameters.groupProperties.testGroup1.fullUrlType + "\""));
 
 		// check for fullurl type with submit mode not batch /transaction
