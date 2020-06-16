@@ -618,11 +618,11 @@ sap.ui.define([
 	 */
 	FHIRUtils.generateFullUrl = function(oURI, sResourceServerPath, sResourceId, sServiceUrl) {
 		var sFullUrl;
-		if (oURI){
+		if (oURI) {
 			switch (oURI.getName()) {
 				case "sap.fhir.model.r4.type.UUID":
 					sFullUrl = "urn:" + oURI.toString() + ":";
-					if (sResourceId && oURI.validateValue(sResourceId)){
+					if (sResourceId && oURI.validateValue(sResourceId)) {
 						sFullUrl += sResourceId;
 					} else {
 						sFullUrl += this.uuidv4();

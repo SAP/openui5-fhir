@@ -16,7 +16,7 @@
  * @version ${version}
  */
 
-sap.ui.define(["sap/ui/model/SimpleType"],function(SimpleType) {
+sap.ui.define(["sap/ui/model/SimpleType"], function (SimpleType) {
 	"use strict";
 
 	/**
@@ -25,13 +25,13 @@ sap.ui.define(["sap/ui/model/SimpleType"],function(SimpleType) {
 	 */
 	var URI = SimpleType.extend("sap.fhir.model.r4.type.URI", {
 
-		constructor : function (oFormatOptions, oConstraints) {
+		constructor: function (oFormatOptions, oConstraints) {
 			// do not call super constructor to avoid generation of unused objects
 		},
-		metadata : {
-			"abstract" : true
+		metadata: {
+			"abstract": true
 		}
-	    }
+	}
 	);
 
 	/**

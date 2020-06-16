@@ -2,7 +2,7 @@
  * ${copyright}
  */
 
-/**
+/**A Uniform Resource Locator (RFC 1738 ). e.g 'http://abc.com"
  * @class
  * @final
  * @extends sap.fhir.model.r4.type.URI
@@ -13,7 +13,7 @@
  * @version ${version}
  */
 
-sap.ui.define(["sap/fhir/model/r4/type/URI"],function(URI) {
+sap.ui.define(["sap/fhir/model/r4/type/URI"], function (URI) {
 	"use strict";
 
 	/**
@@ -22,8 +22,8 @@ sap.ui.define(["sap/fhir/model/r4/type/URI"],function(URI) {
 	 */
 	var URL = URI.extend("sap.fhir.model.r4.type.URI", {
 
-		constructor : function (oFormatOptions, oConstraints) {
-			URI.apply(this,arguments);
+		constructor: function (oFormatOptions, oConstraints) {
+			URI.apply(this, arguments);
 		}
 
 	}
@@ -36,7 +36,7 @@ sap.ui.define(["sap/fhir/model/r4/type/URI"],function(URI) {
 	 *   the type's name
 	 * @public
 	 */
-	URL.prototype.getName =  function(){
+	URL.prototype.getName = function () {
 		return "sap.fhir.model.r4.type.URL";
 	};
 
@@ -48,7 +48,7 @@ sap.ui.define(["sap/fhir/model/r4/type/URI"],function(URI) {
 	 *   the type's name
 	 * @public
 	 */
-	URL.prototype.toString =  function(){
+	URL.prototype.toString = function () {
 		return "url";
 	};
 

@@ -252,7 +252,7 @@ sap.ui.define([
 	 * @since 1.0.0
 	 */
 	TestUtils.createURI = function (sURIType) {
-		if (sURIType === "url"){
+		if (sURIType === "url") {
 			return new URL();
 		} else {
 			return new UUID();

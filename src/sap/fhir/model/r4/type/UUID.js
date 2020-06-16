@@ -2,7 +2,7 @@
  * ${copyright}
  */
 
-/**
+/** A UUID (aka GUID) represented as a URI (RFC 4122 ); e.g. urn:uuid:c757873d-ec9a-4326-a141-556f43239520
  * @class
  * @final
  * @extends sap.fhir.model.r4.type.URI
@@ -13,7 +13,7 @@
  * @version ${version}
  */
 
-sap.ui.define(["sap/fhir/model/r4/type/URI","sap/fhir/model/r4/FHIRUtils"],function(URI,FHIRUtils) {
+sap.ui.define(["sap/fhir/model/r4/type/URI", "sap/fhir/model/r4/FHIRUtils"], function (URI, FHIRUtils) {
 	"use strict";
 
 	/**
@@ -22,8 +22,8 @@ sap.ui.define(["sap/fhir/model/r4/type/URI","sap/fhir/model/r4/FHIRUtils"],funct
 	 */
 	var UUID = URI.extend("sap.fhir.model.r4.type.URI", {
 
-		constructor : function (oFormatOptions, oConstraints) {
-			URI.apply(this,arguments);
+		constructor: function (oFormatOptions, oConstraints) {
+			URI.apply(this, arguments);
 		}
 
 	}
@@ -36,7 +36,7 @@ sap.ui.define(["sap/fhir/model/r4/type/URI","sap/fhir/model/r4/FHIRUtils"],funct
 	 *   the type's name
 	 * @public
 	 */
-	UUID.prototype.getName =  function(){
+	UUID.prototype.getName = function () {
 		return "sap.fhir.model.r4.type.UUID";
 	};
 
@@ -48,7 +48,7 @@ sap.ui.define(["sap/fhir/model/r4/type/URI","sap/fhir/model/r4/FHIRUtils"],funct
 	 *   the type's name
 	 * @public
 	 */
-	UUID.prototype.toString =  function(){
+	UUID.prototype.toString = function () {
 		return "uuid";
 	};
 
@@ -63,7 +63,7 @@ sap.ui.define(["sap/fhir/model/r4/type/URI","sap/fhir/model/r4/FHIRUtils"],funct
 	 * @since 1.1.0
 	 */
 	UUID.prototype.validateValue = function (sValue) {
-		return FHIRUtils.checkRegularExpression(sValue,/^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i);
+		return FHIRUtils.checkRegularExpression(sValue, /^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i);
 	};
 
 

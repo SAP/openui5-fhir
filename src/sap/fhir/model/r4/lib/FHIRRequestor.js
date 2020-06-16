@@ -140,7 +140,7 @@ sap.ui.define([
 		var sRequestUrl = sResourcePath + (HTTPMethod.GET === sMethod ? this._buildQueryParameters(mParameters, oBindingInfo, sMethod) : "");
 		var sFullUrl;
 		var sEtag;
-		if (HTTPMethod.GET !== sMethod){
+		if (HTTPMethod.GET !== sMethod) {
 			sFullUrl = FHIRUtils.generateFullUrl(oURI, oBindingInfo.getResourceServerPath(), oBindingInfo.getResourceId(), this._sServiceUrl);
 			sEtag = oBindingInfo.getEtag();
 		}
