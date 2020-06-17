@@ -242,16 +242,15 @@ sap.ui.define([
 		return jqXHRMock;
 	};
 
-
 	/**
  	 * Creates a uri object
 	 *
 	 * @protected
 	 * @param {string} sURIType URI Type e.g. uuid
 	 * @returns {sap.fhir.model.r4.type.Uri} URI Object
-	 * @since 1.0.0
+	 * @since 1.1.0
 	 */
-	TestUtils.createURI = function (sURIType) {
+	TestUtils.createUri = function (sURIType) {
 		if (sURIType === "url") {
 			return new Url();
 		} else {

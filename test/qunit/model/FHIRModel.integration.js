@@ -626,7 +626,7 @@ sap.ui.define([
 		mRequestHandle = this.oFhirModel.submitChanges("practitioner");
 		var oBundle = mRequestHandle["practitioner"].getBundle();
 		var sFullUrl = oBundle._aBundleEntries[0]._sFullUrl;
-		assert.strictEqual(sFullUrl,"urn:uuid:" + sPractitionerId,"Full Generated for Batch entry is of type uuid");
+		assert.strictEqual(sFullUrl, "urn:uuid:" + sPractitionerId, "Full Generated for Batch entry is of type uuid");
 	});
 
 	QUnit.test("Test transaction bundle entry fullUrl generation", function(assert) {
@@ -642,7 +642,7 @@ sap.ui.define([
 		mRequestHandle = this.oFhirModel.submitChanges("practitioner1");
 		var oBundle = mRequestHandle["practitioner1"].getBundle();
 		var sFullUrl = oBundle._aBundleEntries[0]._sFullUrl;
-		assert.strictEqual(sFullUrl,this.oFhirModel.sServiceUrl + "/Practitioner/" + sPractitionerId,"Full Generated for Transaction entry is of type url");
+		assert.strictEqual(sFullUrl, this.oFhirModel.sServiceUrl + "/Practitioner/" + sPractitionerId, "Full Generated for Transaction entry is of type url");
 	});
 
 });

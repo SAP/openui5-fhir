@@ -609,8 +609,8 @@ sap.ui.define([
 	 * Generate FullUrl based on the type and id
 	 *
 	 * @param {sap.fhir.model.r4.model.type.Uri} oUri FHIR URI Instance
-	 * @param {string} sResourceServerPath The original resource path e.g. /Patient/123
-	 * @param {string} sResourceId The id of the the FHIR resource e.g. 123
+	 * @param {string} sResourceServerPath The original resource path e.g. '/Patient/123'
+	 * @param {string} sResourceId The id of the the FHIR resource e.g. '123'
 	 * @param {string} sServiceUrl The root URL of the FHIR server to request data e.g. http://example.com/fhir
 	 * @returns {string} sFullUrl
 	 * @protected
