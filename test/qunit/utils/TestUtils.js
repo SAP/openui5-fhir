@@ -2,8 +2,10 @@ sap.ui.define([
 	"sap/ui/thirdparty/jquery",
 	"sap/base/util/merge",
 	"sap/fhir/model/r4/FHIRModel",
-	"sap/fhir/model/r4/lib/RequestHandle"
-], function (jQuery, merge, FHIRModel, RequestHandle) {
+	"sap/fhir/model/r4/lib/RequestHandle",
+	"sap/fhir/model/r4/type/Url",
+	"sap/fhir/model/r4/type/Uuid"
+], function (jQuery, merge, FHIRModel, RequestHandle,Url,Uuid) {
 	"use strict";
 	var TestUtils = {};
 
@@ -238,6 +240,22 @@ sap.ui.define([
 			return "";
 		};
 		return jqXHRMock;
+	};
+
+	/**
+ 	 * Creates a uri object
+	 *
+	 * @protected
+	 * @param {string} sURIType URI Type e.g. uuid
+	 * @returns {sap.fhir.model.r4.type.Uri} URI Object
+	 * @since 1.1.0
+	 */
+	TestUtils.createUri = function (sURIType) {
+		if (sURIType === "url") {
+			return new Url();
+		} else {
+			return new Uuid();
+		}
 	};
 
 	return TestUtils;

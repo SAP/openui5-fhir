@@ -605,6 +605,39 @@ sap.ui.define([
 		return oBinding && oBinding.getMetadata().getName() === "sap.fhir.model.r4.FHIRPropertyBinding";
 	};
 
+	/**
+	 * Generate FullUrl based on the type and id
+	 *
+	 * @param {sap.fhir.model.r4.model.type.Uri} oUri FHIR URI Instance
+	 * @param {string} sResourceServerPath The original resource path e.g. '/Patient/123'
+	 * @param {string} sResourceId The id of the the FHIR resource e.g. '123'
+	 * @param {string} sServiceUrl The root URL of the FHIR server to request data e.g. http://example.com/fhir
+	 * @returns {string} sFullUrl
+	 * @protected
+	 * @since 1.1.0
+	 */
+	FHIRUtils.generateFullUrl = function(oUri, sResourceServerPath, sResourceId, sServiceUrl) {
+		var sFullUrl;
+		if (oUri) {
+			switch (oUri.getName()) {
+				case "sap.fhir.model.r4.type.Uuid":
+					sFullUrl = "urn:" + oUri.toString() + ":";
+					if (sResourceId && oUri.validateValue(sResourceId)) {
+						sFullUrl += sResourceId;
+					} else {
+						sFullUrl += this.uuidv4();
+					}
+					break;
+				case "sap.fhir.model.r4.type.Url":
+					sFullUrl = sServiceUrl + sResourceServerPath;
+					break;
+				default:
+					break;
+			}
+		}
+		return sFullUrl;
+	};
+
 	return FHIRUtils;
 
 });

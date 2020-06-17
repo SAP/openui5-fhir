@@ -60,7 +60,7 @@ List binding allows you to create child controls according to model data automat
 *Example: Bind a List to All Patients in Your Clinical System and Show Their Gender and Birthdate*
 ```xml
 <List id="myList" items="{/Patient}">
-	<StandardListItem title="{gender} "description="{birthdate}"/> 
+	<StandardListItem title="{gender} "description="{birthDate}"/> 
 </List>
 ```
 In some scenarios, user input is needed to decide to which aggregation the control should be bound. So, you can use the `bindAggregation` function of a UI5 control.

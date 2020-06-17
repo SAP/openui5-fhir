@@ -94,7 +94,8 @@ sap.ui.define([
 		// it's a bundle (Batch or Transaction)
 		if (!bForceDirectCall && this._getGroupSubmitMode(sGroupId) !== SubmitMode.Direct) {
 			var oFHIRBundle = this._getBundleByGroup(sGroupId);
-			var oFHIRBundleEntry = this._createBundleEntry(sMethod, sPath, mParameters, oPayload, fnSuccess, fnError, oBinding);
+			var oUri = this._getGroupUri(sGroupId);
+			var oFHIRBundleEntry = this._createBundleEntry(sMethod, sPath, mParameters, oPayload, fnSuccess, fnError, oBinding, oUri);
 			oFHIRBundle.addBundleEntry(oFHIRBundleEntry);
 			if (bManualSubmit){
 				this._mBundleQueue[sGroupId] = oFHIRBundle;
@@ -125,11 +126,12 @@ sap.ui.define([
 	 * @param {function} [fnSuccess] The callback which will be executed when the request was successful
 	 * @param {function} [fnError] The callback which will be executed when the request failed
 	 * @param {sap.fhir.model.r4.FHIRContextBinding | sap.fhir.model.r4.FHIRListBinding | sap.fhir.model.r4.FHIRTreeBinding} [oBinding] The binding which triggered the request
+	 * @param {sap.fhir.model.r4.type.Uri} oUri The fullUrl instance format to be used in bundle entries
 	 * @returns {sap.fhir.model.r4.lib.FHIRBundleEntry} A FHIRBundleEntry instance.
 	 * @private
 	 * @since 1.0.0
 	 */
-	FHIRRequestor.prototype._createBundleEntry = function(sMethod, sResourcePath, mParameters, oResource, fnSuccess, fnError, oBinding) {
+	FHIRRequestor.prototype._createBundleEntry = function(sMethod, sResourcePath, mParameters, oResource, fnSuccess, fnError, oBinding, oUri) {
 		// remove possible slash at the beginning
 		if (sResourcePath && sResourcePath.charAt(0) === "/") {
 			sResourcePath = sResourcePath.slice(1);
@@ -138,8 +140,8 @@ sap.ui.define([
 		var sRequestUrl = sResourcePath + (HTTPMethod.GET === sMethod ? this._buildQueryParameters(mParameters, oBindingInfo, sMethod) : "");
 		var sFullUrl;
 		var sEtag;
-		if (HTTPMethod.GET !== sMethod){
-			sFullUrl = oBindingInfo.getResourceServerPath();
+		if (HTTPMethod.GET !== sMethod) {
+			sFullUrl = FHIRUtils.generateFullUrl(oUri, oBindingInfo.getResourceServerPath(), oBindingInfo.getResourceId(), this._sServiceUrl);
 			sEtag = oBindingInfo.getEtag();
 		}
 		var oFHIRBundleRequest = new FHIRBundleRequest(oBinding, sMethod, sRequestUrl, fnSuccess, fnError, sEtag);
@@ -333,6 +335,18 @@ sap.ui.define([
 	 */
 	FHIRRequestor.prototype._getGroupSubmitMode = function(sGroupId) {
 		return this.oModel.getGroupProperty(sGroupId, "submit");
+	};
+
+	/**
+	 * Returns the fullUrl type  for the given group Id.
+	 *
+	 * @param {string} sGroupId The group id
+	 * @returns {sap.fhir.model.r4.type.URI} FHIR URI type for batch/transaction entries.
+	 * @private
+	 * @since 1.1.0
+	 */
+	FHIRRequestor.prototype._getGroupUri = function(sGroupId) {
+		return this.oModel.getGroupProperty(sGroupId, "uri");
 	};
 
 	/**

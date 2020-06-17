@@ -869,25 +869,78 @@ sap.ui.define([
 		assert.strictEqual(this.oFhirModel1.getGroupProperty("valueSets", sPropertyNameValid), SubmitMode.Batch);
 	});
 
+	QUnit.test("Should determine correct fullUrl type for group or throw exception", function(assert){
+		var sPropertyNameFail = "myFullUrlType";
+		var sPropertyNameValid = "uri";
+		var sSubmitProperty = "submit";
+		var sGroupId = "myGroup1";
+		assert.throws(function () { return this.oFhirModel1.getGroupProperty(sGroupId, sPropertyNameFail); }, new Error("Unsupported group property: " + sPropertyNameFail));
+
+		// default is uuid
+		assert.strictEqual(this.oFhirModel1.getGroupProperty(sGroupId, sPropertyNameValid).toString(), "uuid");
+
+		// if the default submit mode is not direct then default fullUrlType is  uuid
+		var oTmpFhirModel = createModel({ defaultSubmitMode: SubmitMode.Batch });
+		assert.strictEqual(oTmpFhirModel.getGroupProperty(sGroupId, sSubmitProperty), SubmitMode.Batch);
+		assert.strictEqual(oTmpFhirModel.getGroupProperty(sGroupId, sPropertyNameValid).toString(), "uuid");
+
+		// set default fullUrlType
+		oTmpFhirModel = createModel({ defaultSubmitMode: SubmitMode.Batch, defaultFullUrlType: "url" });
+		assert.strictEqual(oTmpFhirModel.getGroupProperty(sGroupId, sSubmitProperty), SubmitMode.Batch);
+		assert.strictEqual(oTmpFhirModel.getGroupProperty(sGroupId, sPropertyNameValid).toString(), "url");
+
+		// set default fullUrlType
+		oTmpFhirModel = createModel({ defaultSubmitMode: SubmitMode.Batch, defaultFullUrlType: "uuid" });
+		assert.strictEqual(oTmpFhirModel.getGroupProperty(sGroupId, sSubmitProperty), SubmitMode.Batch);
+		assert.strictEqual(oTmpFhirModel.getGroupProperty(sGroupId, sPropertyNameValid).toString(), "uuid");
+
+		// for group "patientDetails"
+		assert.strictEqual(this.oFhirModel1.getGroupProperty("patientDetails", sSubmitProperty), SubmitMode.Transaction);
+		assert.strictEqual(this.oFhirModel1.getGroupProperty("patientDetails", sPropertyNameValid).toString(), "uuid");
+
+		// for group "patients"
+		assert.strictEqual(this.oFhirModel1.getGroupProperty("patients", sSubmitProperty), SubmitMode.Direct);
+		assert.strictEqual(this.oFhirModel1.getGroupProperty("patients", sPropertyNameValid).toString(), "uuid");
+
+		// for group "valueSets"
+		assert.strictEqual(this.oFhirModel1.getGroupProperty("valueSets", sSubmitProperty), SubmitMode.Batch);
+		assert.strictEqual(this.oFhirModel1.getGroupProperty("patients", sPropertyNameValid).toString(), "uuid");
+	});
+
 	QUnit.test("Should throw exception for invalid group properties", function(assert){
 		// it's not an object as group properties
-		var mTmpParameters = {groupProperties: { testGroup1: "This is a test group"}};
-		assert.throws( function() {return createModel(mTmpParameters);}, new Error("Group \"testGroup1\" has invalid properties. The properties must be of type object, found \"This is a test group\""));
+		var mTmpParameters = { groupProperties: { testGroup1: "This is a test group" } };
+		assert.throws(function () { return createModel(mTmpParameters); }, new Error("Group \"testGroup1\" has invalid properties. The properties must be of type object, found \"This is a test group\""));
 
 		// submit mode is not from type sap.fhir.model.r4.SubmitMode
-		mTmpParameters = {groupProperties: { testGroup1: {submit: "test"}}};
-		assert.throws( function() {return createModel(mTmpParameters);}, new Error("Group \"testGroup1\" has invalid properties. The value of property \"submit\" must be of type sap.fhir.model.r4.SubmitMode, found: \""
-				+ mTmpParameters.groupProperties.testGroup1.submit + "\""));
+		mTmpParameters = { groupProperties: { testGroup1: { submit: "test" } } };
+		assert.throws(function () { return createModel(mTmpParameters); }, new Error("Group \"testGroup1\" has invalid properties. The value of property \"submit\" must be of type sap.fhir.model.r4.SubmitMode, found: \""
+			+ mTmpParameters.groupProperties.testGroup1.submit + "\""));
 
 		// more group properties are defined as allowed
-		mTmpParameters = {groupProperties: { testGroup1: {submit: "test", submit2: "test1234"}}};
-		assert.throws( function() {return createModel(mTmpParameters);}, new Error("Group \"testGroup1\" has invalid properties. Only the property \"submit\" is allowed and has to be set, found \"" + JSON.stringify(mTmpParameters.groupProperties.testGroup1)
-		+ "\""));
+		mTmpParameters = { groupProperties: { testGroup1: { submit: "test", submit2: "test1234" } } };
+		assert.throws(function () { return createModel(mTmpParameters); }, new Error("Group \"testGroup1\" has invalid properties. Only the property \"submit\" and \"fullUrlType\" is allowed and has to be set, found \"" + JSON.stringify(mTmpParameters.groupProperties.testGroup1)
+			+ "\""));
+
+		// check for fullurl type
+		mTmpParameters = { groupProperties: { testGroup1: { submit: "Batch", fullUrlType: "test1234" } } };
+		assert.throws(function () { return createModel(mTmpParameters); }, new Error("Group \"testGroup1\" has invalid properties. The value of property \"fullUrlType\" must be either uuid or url, found: \""
+			+ mTmpParameters.groupProperties.testGroup1.fullUrlType + "\""));
+
+		// check for fullurl type with submit mode not batch /transaction
+		mTmpParameters = { groupProperties: { testGroup1: { submit: "Direct", fullUrlType: "uuid" } } };
+		assert.throws(function () { return createModel(mTmpParameters); }, new Error("Group \"testGroup1\" has invalid properties. The value of property \"fullUrlType\" is applicable only for batch and transaction submit modes, found: \""
+			+ mTmpParameters.groupProperties.testGroup1.submit + "\""));
+
+		// only fullurl without submit mode
+		mTmpParameters = { groupProperties: { testGroup1: { fullUrlType: "test1234" } } };
+		assert.throws(function () { return createModel(mTmpParameters); }, new Error("Group \"testGroup1\" has invalid properties. The property \"fullUrlType\" is allowed only when submit property is present, found \"" + JSON.stringify(mTmpParameters.groupProperties.testGroup1)
+			+ "\""));
 
 		// submit mode is not defined in group properties
-		mTmpParameters = {groupProperties: { testGroup1: {submit2: "test1234"}}};
-		assert.throws( function() {return createModel(mTmpParameters);}, new Error("Group \"testGroup1\" has invalid properties. Only the property \"submit\" is allowed and has to be set, found \"" + JSON.stringify(mTmpParameters.groupProperties.testGroup1)
-		+ "\""));
+		mTmpParameters = { groupProperties: { testGroup1: { submit2: "test1234" } } };
+		assert.throws(function () { return createModel(mTmpParameters); }, new Error("Group \"testGroup1\" has invalid properties. Only the property \"submit\" is allowed and has to be set, found \"" + JSON.stringify(mTmpParameters.groupProperties.testGroup1)
+			+ "\""));
 	});
 
 	QUnit.test("ListBinding should be successfully if context is not there at initialization", function(assert){

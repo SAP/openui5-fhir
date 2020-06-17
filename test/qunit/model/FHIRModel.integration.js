@@ -42,6 +42,14 @@ sap.ui.define([
 					},
 					"valueSets" : {
 						"submit" : "Batch"
+					},
+					"practitioner":{
+						"submit":"Batch",
+						"fullUrlType":"uuid"
+					},
+					"practitioner1":{
+						"submit":"Transaction",
+						"fullUrlType":"url"
 					}
 				}
 			};
@@ -583,7 +591,7 @@ sap.ui.define([
 	QUnit.test("Conditional reference in transaction success", function(assert) {
 		var sPatientId = this.oFhirModel.create("Patient", {}, "patientDetails");
 		this.oFhirModel.create("Coverage", { payor : {
-			reference : "Patient/" + sPatientId
+			reference : "urn:uuid:" + sPatientId
 		}}, "patientDetails");
 		var done = assert.async();
 		var mRequestHandle;
@@ -604,4 +612,37 @@ sap.ui.define([
 		mRequestHandle = this.oFhirModel.submitChanges("patientDetails");
 		mRequestHandle["patientDetails"].getRequest().complete(fnAssertion);
 	});
+
+	QUnit.test("Test batch bundle entry fullUrl generation", function(assert) {
+		var sPractitionerId = this.oFhirModel.create("Practitioner", {
+			name: [
+				{
+					family: "warne",
+					given: ["dexter"]
+				}
+			]
+		}, "practitioner");
+		var mRequestHandle;
+		mRequestHandle = this.oFhirModel.submitChanges("practitioner");
+		var oBundle = mRequestHandle["practitioner"].getBundle();
+		var sFullUrl = oBundle._aBundleEntries[0]._sFullUrl;
+		assert.strictEqual(sFullUrl, "urn:uuid:" + sPractitionerId, "Full Generated for Batch entry is of type uuid");
+	});
+
+	QUnit.test("Test transaction bundle entry fullUrl generation", function(assert) {
+		var sPractitionerId = this.oFhirModel.create("Practitioner", {
+			name: [
+				{
+					family: "johnson",
+					given: ["dexter"]
+				}
+			]
+		}, "practitioner1");
+		var mRequestHandle;
+		mRequestHandle = this.oFhirModel.submitChanges("practitioner1");
+		var oBundle = mRequestHandle["practitioner1"].getBundle();
+		var sFullUrl = oBundle._aBundleEntries[0]._sFullUrl;
+		assert.strictEqual(sFullUrl, this.oFhirModel.sServiceUrl + "/Practitioner/" + sPractitionerId, "Full Generated for Transaction entry is of type url");
+	});
+
 });

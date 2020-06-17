@@ -150,7 +150,7 @@ The FHIR® specification provides a paging mechanism out of the box. Paging ensu
   <tr valign="top">
     <td><img src="images/Tutorial_Step_3/tile_kpi_patients.PNG"/></td>
     <td>
-	    There are use cases where the total number of resources should be displayed on the UI. The most common use case is the launchpad KPI tiles scenario (see picture aside). The *UI5 FHIR Model* provides a special binding syntax to enable binding on the total number of resources. The context of the UI5 control has to be bound to the desired aggregation, for example, `{/Patient}`, `{/Organization}`, or `{ path: '/Patient', parameters: { filters: [{ path : 'address', value1: 'germany', operator: 'Contains'}]}}`. Now, any controls that have access to this context can bind their value to `{%total%}`.
+	    There are use cases where the total number of resources should be displayed on the UI. The most common use case is the launchpad KPI tiles scenario (see picture aside). The *UI5 FHIR Model* provides a special binding syntax to enable binding on the total number of resources. The context of the UI5 control has to be bound to the desired aggregation, for example, `{/Patient}`, `{/Organization}`, or `{ path: '/Patient', parameters: {'request':{'name:contains' : 'Peter'}}}`. Now, any controls that have access to this context can bind their value to `{%total%}`.
     </td>
   </tr>
 </table>
@@ -199,7 +199,7 @@ The *UI5 FHIR Model* also supports the binding of UI elements to the output of F
 *Example: Binding a List to a FHIR® Operation That Returns Multiple Patients*
 ```xml
 <List id="myList" items="{/Patient/$myoperation}">
-    <StandardListItem title="{gender} "description="{birthdate}"/> 
+    <StandardListItem title="{gender} "description="{birthDate}"/> 
 </List>
 ```
 
@@ -215,14 +215,15 @@ A FHIR® operation can also return a collection of versions of a specific FHIR®
 *Example: Binding a List to a FHIR® Operation That Returns Multiple Versions of a Patient*
 ```xml
 <List id="myList" items="{path: '/Patient/1234/$myoperation', parameters: { unique: true}}">
-    <StandardListItem title="{gender} "description="{birthdate}"/> 
+    <StandardListItem title="{gender} "description="{birthDate}"/> 
 </List>
 ```
 
 ### Step 3.9 Filtering in FHIR® Resources
 `sap.fhir.model.r4.FHIRFilter`, which extends `sap.ui.model.Filter`, and necessary helper classes support the special syntax that the FHIR® query language uses because of the different search parameter data types. The following example shows how these classes are used.
+For more information refer the following [FHIR®-Specific Filters](https://www.hl7.org/fhir/search.html#prefix) and [FHIR®- SearchModifiers](https://www.hl7.org/fhir/search.html#modifiers).
 
-*Example: Filtering a Binding with FHIR®-Specific Filters* 
+*Example: Filtering a Binding with FHIR®-Specific Filters and SearchModifier :missing* 
 ```javascript
 
 sap.ui.define([ ...
@@ -242,9 +243,9 @@ oBinding.filter(
 			value1: "2014"
 		}),
 		new Filter({
-			path : "foo",
+			path : "gender",
 			operator : FHIRFilterOperator.Missing
-			value1: ""
+			value1: "true"
 		})
 	]
 );
