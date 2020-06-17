@@ -642,7 +642,7 @@ sap.ui.define([
 		mRequestHandle = this.oFhirModel.submitChanges("practitioner1");
 		var oBundle = mRequestHandle["practitioner1"].getBundle();
 		var sFullUrl = oBundle._aBundleEntries[0]._sFullUrl;
-		assert.strictEqual(sFullUrl,this.oFhirModel.sServiceUrl + "/Practitioner/" + sPractitionerId,"Full Generated for Transaction entry is of type absolute");
+		assert.strictEqual(sFullUrl,this.oFhirModel.sServiceUrl + "/Practitioner/" + sPractitionerId,"Full Generated for Transaction entry is of type url");
 	});
 
 });

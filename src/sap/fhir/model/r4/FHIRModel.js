@@ -37,10 +37,10 @@ sap.ui.define([
 	"sap/ui/core/library",
 	"sap/fhir/model/r4/FHIRFilterProcessor",
 	"sap/fhir/model/r4/FHIRFilterOperator",
-	"sap/fhir/model/r4/type/URL",
-	"sap/fhir/model/r4/type/UUID"
+	"sap/fhir/model/r4/type/Url",
+	"sap/fhir/model/r4/type/Uuid"
 ], function(Model, FHIRListBinding, FHIRPropertyBinding,
-	FHIRContextBinding, FHIRTreeBinding, FHIRUtils, OperationMode, URI, BindingInfo, Sliceable, SubmitMode, FHIRRequestor, HTTPMethod, FHIRBundle, ChangeReason, FHIRUrl, Log, deepEqual, each, Context, Message, coreLibrary, FHIRFilterProcessor, FHIRFilterOperator, URL, UUID) {
+	FHIRContextBinding, FHIRTreeBinding, FHIRUtils, OperationMode, URI, BindingInfo, Sliceable, SubmitMode, FHIRRequestor, HTTPMethod, FHIRBundle, ChangeReason, FHIRUrl, Log, deepEqual, each, Context, Message, coreLibrary, FHIRFilterProcessor, FHIRFilterOperator, Url, Uuid) {
 
 	"use strict";
 
@@ -85,7 +85,7 @@ sap.ui.define([
 			this.oRequestor = new FHIRRequestor(sServiceUrl, this, mParameters && mParameters["x-csrf-token"], mParameters && mParameters.Prefer);
 			this.sDefaultSubmitMode = (mParameters && mParameters.defaultSubmitMode) ? mParameters.defaultSubmitMode : SubmitMode.Direct;
 			this.sDefaultFullUrlType = (mParameters && mParameters.defaultSubmitMode && mParameters.defaultSubmitMode !== SubmitMode.Direct && mParameters.defaultFullUrlType) ? mParameters.defaultFullUrlType : "uuid";
-			this.oDefaultURI = this.sDefaultFullUrlType === "url" ? new URL() : new UUID();
+			this.oDefaultUri = this.sDefaultFullUrlType === "url" ? new Url() : new Uuid();
 			this.iSizeLimit = 10;
 			if (mParameters && mParameters.simpleFiltering === false){
 				throw new Error("Complex filtering not supported");
@@ -1232,7 +1232,7 @@ sap.ui.define([
 			case "submit":
 				return this.getGroupSubmitMode(sGroupId);
 			case "uri":
-				return this.getGroupURI(sGroupId);
+				return this.getGroupUri(sGroupId);
 			default:
 				throw new Error("Unsupported group property: " + sPropertyName);
 		}
@@ -1257,16 +1257,16 @@ sap.ui.define([
 	 * <code>sGroupId</code> the default URI is returned
 	 *
 	 * @param {string} sGroupId The group id
-	 * @returns {sap.fhir.model.r4.type.URI} the URI Object
+	 * @returns {sap.fhir.model.r4.type.Uri} the URI Object
 	 * @protected
 	 * @since 1.1.0
 	 */
-	FHIRModel.prototype.getGroupURI = function(sGroupId) {
-		var oGroupURI = this.oDefaultURI;
+	FHIRModel.prototype.getGroupUri = function(sGroupId) {
+		var oGroupUri = this.oDefaultUri;
 		if (this.mGroupProperties && this.mGroupProperties[sGroupId] && this.mGroupProperties[sGroupId].fullUrlType === "url"){
-			oGroupURI = new URL();
+			oGroupUri = new Url();
 		}
-		return oGroupURI;
+		return oGroupUri;
 	};
 
 	/**

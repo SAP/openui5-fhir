@@ -5,53 +5,51 @@
 /**A Uniform Resource Locator (RFC 1738 ). e.g 'http://abc.com"
  * @class
  * @final
- * @extends sap.fhir.model.r4.type.URI
- * @alias sap.fhir.model.r4.type.URL
+ * @extends sap.fhir.model.r4.type.Uri
+ * @alias sap.fhir.model.r4.type.Url
  * @author SAP SE
- * @public
+ * @protected
  * @since 1.1.0
  * @version ${version}
  */
 
-sap.ui.define(["sap/fhir/model/r4/type/URI"], function (URI) {
+sap.ui.define(["sap/fhir/model/r4/type/Uri"], function (Uri) {
 	"use strict";
 
 	/**
-	 * FHIR URL DataType
+	 * FHIR Url DataType
 	 *
 	 */
-	var URL = URI.extend("sap.fhir.model.r4.type.URI", {
+	var Url = Uri.extend("sap.fhir.model.r4.type.Uri", {
 
 		constructor: function (oFormatOptions, oConstraints) {
-			URI.apply(this, arguments);
+			Uri.apply(this, arguments);
 		}
 
-	}
-	);
+	});
 
 	/**
 	 * Returns the type's name.
 	 *
-	 * @returns {string}
-	 *   the type's name
-	 * @public
+	 * @returns {string} the type's name
+	 * @protected
+	 * @since 1.1.0
 	 */
-	URL.prototype.getName = function () {
-		return "sap.fhir.model.r4.type.URL";
+	Url.prototype.getName = function () {
+		return "sap.fhir.model.r4.type.Url";
 	};
-
 
 	/**
 	 * Returns the type's readable string.
 	 *
-	 * @returns {string}
-	 *   the type's name
-	 * @public
+	 * @returns {string} the type's name
+	 * @protected
+	 * @since 1.1.0
 	 */
-	URL.prototype.toString = function () {
+	Url.prototype.toString = function () {
 		return "url";
 	};
 
-	return URL;
+	return Url;
 
 });
