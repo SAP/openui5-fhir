@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/SAP/openui5-fhir/compare/v1.0.5...v1.1.0) (2020-06-17)
+
+
+### Features
+
+* Implement the fullurl for bundle entries ([#135](https://github.com/SAP/openui5-fhir/issues/135)) ([ba7acbe](https://github.com/SAP/openui5-fhir/commit/ba7acbe3acb6c56722bc60bcdf9cb6440b98aaf7))
+
 ## [1.0.5](https://github.com/SAP/openui5-fhir/compare/v1.0.4...v1.0.5) (2020-03-27)
 
 
