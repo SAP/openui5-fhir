@@ -26,6 +26,7 @@ sap.ui.define([
 	 * @param {sap.fhir.model.r4.FHIRModel} oModel The FHIRModel
 	 * @param {boolean} bCSRF If the FHIR service supports the csrf token
 	 * @param {string} sPrefer In which kind the FHIR service shall return the responses described here https://www.hl7.org/fhir/http.html#2.21.0.5.2
+	 * @param {array}  aDefaultQueryParams The default query parameters to be passed to for all GET requests if there is no specific resource level params. It should be of type key:value pairs in the array E.g. {'_total':'accurate'}
 	 * @alias sap.fhir.model.r4.lib.FHIRRequestor
 	 * @author SAP SE
 	 * @constructs {FHIRRequestor} Provides the implementation of the FHIR Requestor to send and retrieve content from a FHIR server
@@ -33,13 +34,14 @@ sap.ui.define([
 	 * @since 1.0.0
 	 * @version ${version}
 	 */
-	var FHIRRequestor = function(sServiceUrl, oModel, bCSRF, sPrefer) {
+	var FHIRRequestor = function(sServiceUrl, oModel, bCSRF, sPrefer , aDefaultQueryParams) {
 		this._mBundleQueue = {};
 		this.oModel = oModel;
 		this._sServiceUrl = sServiceUrl;
 		this._aPendingRequestHandles = [];
 		this.bCSRF = bCSRF === true ? true : false;
 		this.sPrefer = sPrefer ?  "return=minimal" : sPrefer;
+		this.aDefaultQueryParams = aDefaultQueryParams;
 		this._oRegex = {
 			rAmpersand : /&/g,
 			rEquals : /\=/g,
@@ -420,10 +422,15 @@ sap.ui.define([
 			return "";
 		}
 
-		mParameters._format = "json";
+		// according to fhir all these kinds shall be intrepreted as json
+		if (!mParameters._format || !(mParameters._format in ["json", "application/json", "application/fhir+json"])) {
+			mParameters._format = "json";
+		}
 
-		if (!oBindingInfo.getResourceId() && sMethod === HTTPMethod.GET){
-			mParameters._total = "accurate";
+		if (!oBindingInfo.getResourceId() && sMethod === HTTPMethod.GET) {
+			this.aDefaultQueryParams.forEach(function (oItem) {
+				Object.assign(mParameters, oItem);
+			});
 		}
 
 		aQuery = [];

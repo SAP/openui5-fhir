@@ -51,7 +51,8 @@ sap.ui.define([
 						"submit":"Transaction",
 						"fullUrlType":"url"
 					}
-				}
+				},
+				"defaultQueryParameters":[{"_total":"accurate"}]
 			};
 			this.oMessageModel = sap.ui.getCore().getMessageManager().getMessageModel();
 			this.oFhirModel = createModel(mParameters);

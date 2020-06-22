@@ -96,7 +96,8 @@
 						}
 					},
 					"x-csrf-token" : false,
-					"Prefer" : "return=representation"
+					"Prefer" : "return=representation",
+					"defaultQueryParameters":[{"_total":"accurate"}]
 				}
 			},
 			"client": {

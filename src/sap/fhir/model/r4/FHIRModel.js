@@ -59,6 +59,7 @@ sap.ui.define([
 	 *            (oResource.meta.profile[0]) at the requested resource
 	 * @param {string} [mParameters.defaultSubmitMode] The default SubmitMode for all bindings which are associated with this model
 	 * @param {string} [mParameters.defaultFullUrlType='uuid'] The default FullUrlType if the default submit mode is either batch or transaction
+	 * @param {array}  [mParameters.defaultQueryParameters=[]] The default query parameters to be passed to for all GET requests if there is no specific binding info. It should be of type key:value pairs in the array E.g. {'_total':'accurate'} -> http://hl7.org/fhir/http.html#parameters
 	 * @param {string} [mParameters.Prefer='return=minimal'] The FHIR server won't return the changed resource by an POST/PUT request -> https://www.hl7.org/fhir/http.html#2.21.0.5.2
 	 * @param {string} [mParameters.x-csrf-token=true] The model handles the csrf token between the browser and the FHIR server
 	 * @throws {Error} If no service URL is given, if the given service URL does not end with a forward slash
@@ -82,7 +83,8 @@ sap.ui.define([
 			this.sDefaultOperationMode = OperationMode.Server;
 			this.sBaseProfileUrl = mParameters && mParameters.baseProfileUrl ? mParameters.baseProfileUrl : "http://hl7.org/fhir/StructureDefinition/";
 			this._buildGroupProperties(mParameters);
-			this.oRequestor = new FHIRRequestor(sServiceUrl, this, mParameters && mParameters["x-csrf-token"], mParameters && mParameters.Prefer);
+			this.aDefaultQueryParameters = mParameters && mParameters.defaultQueryParameters && mParameters.defaultQueryParameters instanceof Array ? mParameters.defaultQueryParameters : [];
+			this.oRequestor = new FHIRRequestor(sServiceUrl, this, mParameters && mParameters["x-csrf-token"], mParameters && mParameters.Prefer, this.aDefaultQueryParameters);
 			this.sDefaultSubmitMode = (mParameters && mParameters.defaultSubmitMode) ? mParameters.defaultSubmitMode : SubmitMode.Direct;
 			this.sDefaultFullUrlType = (mParameters && mParameters.defaultSubmitMode && mParameters.defaultSubmitMode !== SubmitMode.Direct && mParameters.defaultFullUrlType) ? mParameters.defaultFullUrlType : "uuid";
 			this.oDefaultUri = this.sDefaultFullUrlType === "url" ? new Url() : new Uuid();
