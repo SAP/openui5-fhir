@@ -25,8 +25,8 @@
     "npm": ">= 5"
   },
   "devDependencies": {
-    "eslint": "^6.8.0",
-    "eslint-watch": "^6.0.1",
+    "eslint": "^7.3.0",
+    "eslint-watch": "^7.0.0",
     "js-beautify": "^1.11.0",
     "jsdoc": "^3.6.4",
     "karma": "^5.1.0",
