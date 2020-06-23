@@ -51,12 +51,12 @@ sap.ui.define([
 						"submit" : "Batch"
 					}
 				},
-				"defaultQueryParameters":[{"_total":"accurate"}]
+				"defaultQueryParameters":{"_total":"accurate"}
 			};
 
 			this.oRequestHandle = TestUtils.createRequestHandle();
 			this.oFhirModel1 = createModel(mParameters);
-			this.oFhirModel2 = createModel({ "x-csrf-token": true, "defaultQueryParameters": [{ "_total": "accurate" }] });
+			this.oFhirModel2 = createModel({ "x-csrf-token": true, "defaultQueryParameters": { "_total": "accurate" } });
 			this.oFhirModel3 = createModel(mParameters);
 			this.loadDataIntoModel = function(sFilePath, sResourcePath, mParams, sMethod) {
 				var mResponseHeaders = {"etag" : "W/\"1\""};

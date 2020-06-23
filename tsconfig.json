@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "module": "system",
-    "target": "es6",
     "sourceMap": true,
     "noEmit": true,
     "allowJs": true,

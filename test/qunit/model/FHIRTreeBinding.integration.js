@@ -9,6 +9,8 @@ sap.ui.define([
 	var oModel, oTreeBinding;
 
 	function createModel(mParameters) {
+		mParameters = {};
+		mParameters.defaultQueryParameters = { "_total": "accurate" };
 		oModel = TestUtils.createFHIRModel("http://localhost:8080/fhir/R4", mParameters);
 	}
 
