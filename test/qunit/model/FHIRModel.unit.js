@@ -13,8 +13,9 @@ sap.ui.define([
 	"sap/fhir/model/r4/SubmitMode",
 	"sap/fhir/model/r4/lib/FHIRBundleType",
 	"sap/fhir/model/r4/lib/FHIRBundleRequest",
-	"sap/base/util/deepEqual"
-], function(jQuery, TestUtils, FHIRFilter, FHIRFilterType, FHIRFilterOperator, FHIRFilterProcessor, OperationMode, RequestHandle, Sliceable, FilterOperator, Filter, SubmitMode, FHIRBundleType, FHIRBundleRequest, deepEqual) {
+	"sap/base/util/deepEqual",
+	"sap/fhir/model/r4/lib/FHIRBundleEntry"
+], function(jQuery, TestUtils, FHIRFilter, FHIRFilterType, FHIRFilterOperator, FHIRFilterProcessor, OperationMode, RequestHandle, Sliceable, FilterOperator, Filter, SubmitMode, FHIRBundleType, FHIRBundleRequest, deepEqual, FHIRBundleEntry) {
 
 	"use strict";
 
@@ -1143,4 +1144,27 @@ sap.ui.define([
 		}.bind(this));
 		assert.ok(bMatch, "The filter matched one of the given values for dummy property");
 	});
+
+	QUnit.test("Get Updated Resource from response when location has / or not shouldnot fail ", function(assert) {
+		var sResourceId = this.oFhirModel1.create("Patient", {
+			name: [
+				{
+					family: "james",
+					given: ["parker"]
+				}
+			]
+		});
+		var sPatientPath = "/Patient/" + sResourceId;
+		this.oFhirModel1.bindContext(sPatientPath);
+		var oResource = this.oFhirModel1.oData.Patient[sResourceId];
+		var sFullUrl = "urn:uuid:" + sResourceId;
+		var mResponseHeaders = { "etag": "W/\"1\"", "location": sPatientPath + "/_history/1" };
+		var oBundleEntry = new FHIRBundleEntry(sFullUrl, oResource, undefined);
+		var oUpdatedResource = this.oFhirModel1._getUpdatedResourceFromFHIRResponse(mResponseHeaders, oBundleEntry);
+		assert.strictEqual(oUpdatedResource.id, sResourceId);
+		mResponseHeaders = { "etag": "W/\"1\"", "location": "Patient/" + sResourceId + "/_history/1" };
+		oUpdatedResource = this.oFhirModel1._getUpdatedResourceFromFHIRResponse(mResponseHeaders, oBundleEntry);
+		assert.strictEqual(oResource.id, sResourceId);
+	});
+
 });
