@@ -27,7 +27,7 @@ sap.ui.define([
 	 * @param {sap.fhir.model.r4.FHIRModel} oModel The FHIRModel
 	 * @param {boolean} bCSRF If the FHIR service supports the csrf token
 	 * @param {string} sPrefer In which kind the FHIR service shall return the responses described here https://www.hl7.org/fhir/http.html#2.21.0.5.2
-	 * @param {object} oDefaultQueryParams The default query parameters to be passed to for GET ALL requests that are not specific to any particular resource(e.g /Patient?_total:accurate&_format:json). It should be of type key:value pairs. e.g. {'_total':'accurate'} -> http://hl7.org/fhir/http.html#parameters
+	 * @param {object} oDefaultQueryParams The default query parameters to be passed as part of GET ALL requests and that are not specific to any particular resource(e.g /Patient?_total:accurate&_format:json). It should be of type key:value pairs. e.g. {'_total':'accurate'} -> http://hl7.org/fhir/http.html#parameters
 	 * @alias sap.fhir.model.r4.lib.FHIRRequestor
 	 * @author SAP SE
 	 * @constructs {FHIRRequestor} Provides the implementation of the FHIR Requestor to send and retrieve content from a FHIR server
