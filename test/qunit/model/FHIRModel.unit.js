@@ -1164,7 +1164,7 @@ sap.ui.define([
 		assert.strictEqual(oUpdatedResource.id, sResourceId, "Location with / at the beginning gives proper response and doesnot throw error");
 		mResponseHeaders = { "etag": "W/\"1\"", "location": "Patient/" + sResourceId + "/_history/1" };
 		oUpdatedResource = this.oFhirModel1._getUpdatedResourceFromFHIRResponse(mResponseHeaders, oBundleEntry);
-		assert.strictEqual(oResource.id, sResourceId, "Location without / at the beginning gives proper response and doesnot throw error");
+		assert.strictEqual(oUpdatedResource.id, sResourceId, "Location without / at the beginning gives proper response and doesnot throw error");
 	});
 
 });
