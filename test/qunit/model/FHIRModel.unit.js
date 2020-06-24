@@ -1156,15 +1156,15 @@ sap.ui.define([
 		});
 		var sPatientPath = "/Patient/" + sResourceId;
 		this.oFhirModel1.bindContext(sPatientPath);
-		var oResource = this.oFhirModel1.oData.Patient[sResourceId];
+		var oResource = this.oFhirModel1.getProperty(sPatientPath);
 		var sFullUrl = "urn:uuid:" + sResourceId;
 		var mResponseHeaders = { "etag": "W/\"1\"", "location": sPatientPath + "/_history/1" };
 		var oBundleEntry = new FHIRBundleEntry(sFullUrl, oResource, undefined);
 		var oUpdatedResource = this.oFhirModel1._getUpdatedResourceFromFHIRResponse(mResponseHeaders, oBundleEntry);
-		assert.strictEqual(oUpdatedResource.id, sResourceId);
+		assert.strictEqual(oUpdatedResource.id, sResourceId, "Location with / at the beginning gives proper response and doesnot throw error");
 		mResponseHeaders = { "etag": "W/\"1\"", "location": "Patient/" + sResourceId + "/_history/1" };
 		oUpdatedResource = this.oFhirModel1._getUpdatedResourceFromFHIRResponse(mResponseHeaders, oBundleEntry);
-		assert.strictEqual(oResource.id, sResourceId);
+		assert.strictEqual(oResource.id, sResourceId, "Location without / at the beginning gives proper response and doesnot throw error");
 	});
 
 });
