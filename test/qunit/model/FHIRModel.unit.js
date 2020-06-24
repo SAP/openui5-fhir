@@ -13,9 +13,8 @@ sap.ui.define([
 	"sap/fhir/model/r4/SubmitMode",
 	"sap/fhir/model/r4/lib/FHIRBundleType",
 	"sap/fhir/model/r4/lib/FHIRBundleRequest",
-	"sap/base/util/deepEqual",
-	"sap/fhir/model/r4/lib/FHIRBundleEntry"
-], function(jQuery, TestUtils, FHIRFilter, FHIRFilterType, FHIRFilterOperator, FHIRFilterProcessor, OperationMode, RequestHandle, Sliceable, FilterOperator, Filter, SubmitMode, FHIRBundleType, FHIRBundleRequest, deepEqual, FHIRBundleEntry) {
+	"sap/base/util/deepEqual"
+], function(jQuery, TestUtils, FHIRFilter, FHIRFilterType, FHIRFilterOperator, FHIRFilterProcessor, OperationMode, RequestHandle, Sliceable, FilterOperator, Filter, SubmitMode, FHIRBundleType, FHIRBundleRequest, deepEqual) {
 
 	"use strict";
 
@@ -1167,6 +1166,6 @@ sap.ui.define([
 		this.oFhirModel1.sendGetRequest(sPatientPath);
 		oResource = this.oFhirModel1.getProperty(sPatientPath);
 		assert.strictEqual(oResource.id, sResourceId, "Response with location without having / at the beginning gives proper resource object and doesnot throw error");
-    });
+	});
 
 });
