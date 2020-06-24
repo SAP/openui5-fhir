@@ -168,6 +168,9 @@ sap.ui.define([
 		assert.strictEqual(this.oFhirModel1.oRequestor._buildQueryParameters(), "");
 		assert.strictEqual(this.oFhirModel1.oRequestor._buildQueryParameters({ _format: "xml" }, this.oFhirModel1.getBindingInfo("/Patient")), "?_format=json&_total=accurate");
 		assert.strictEqual(this.oFhirModel1.oRequestor._buildQueryParameters({ _format: "xml" }, this.oFhirModel1.getBindingInfo("/Patient/123")), "?_format=json");
+		assert.strictEqual(this.oFhirModel1.oRequestor._buildQueryParameters({ _format: "application/json" }, this.oFhirModel1.getBindingInfo("/Patient/123")), "?_format=application/json");
+		assert.strictEqual(this.oFhirModel1.oRequestor._buildQueryParameters({ _format: "application/fhir+json" }, this.oFhirModel1.getBindingInfo("/Patient/123")), "?_format=application/fhir%2Bjson");
+		assert.strictEqual(this.oFhirModel1.oRequestor._buildQueryParameters({ _format: "json" }, this.oFhirModel1.getBindingInfo("/Patient/123")), "?_format=json");
 	});
 
 	QUnit.test("check listbinding getcontexts in relative case for different depths of paths when resource gets newly created", function(assert) {

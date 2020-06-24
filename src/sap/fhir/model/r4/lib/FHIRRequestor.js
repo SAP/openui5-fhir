@@ -424,10 +424,10 @@ sap.ui.define([
 		}
 
 		if (!oBindingInfo.getResourceId() && sMethod === HTTPMethod.GET) {
-			mParameters = merge(mParameters,this.oDefaultQueryParams);
+			mParameters = merge(mParameters, this.oDefaultQueryParams);
 		}
 
-		if (!mParameters._format || !this._isFormatSupported(mParameters._format)) {
+		if (!this._isFormatSupported(mParameters._format)) {
 			mParameters._format = "json";
 		}
 
@@ -535,7 +535,7 @@ sap.ui.define([
 			"application/json",
 			"application/fhir+json"
 		];
-		return sFormat in aSupportedFormats;
+		return aSupportedFormats.indexOf(sFormat) >= 0;
 	};
 
 	return FHIRRequestor;
