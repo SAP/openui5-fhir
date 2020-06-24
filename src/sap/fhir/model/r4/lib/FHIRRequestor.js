@@ -523,7 +523,7 @@ sap.ui.define([
 
 	/**
 	 * Checks if the _format is part of supported types (according to fhir all these kinds shall be intrepreted as json)
-	 * 
+	 *
 	 * @param {string} sFormat The format in a particular request
 	 * @returns {boolean} Whether its supported or not
 	 * @private
