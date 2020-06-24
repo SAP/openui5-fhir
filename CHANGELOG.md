@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/SAP/openui5-fhir/compare/v1.1.0...v1.1.1) (2020-06-24)
+
+
+### Bug Fixes
+
+* in case the location header has slash at the beginning ([#143](https://github.com/SAP/openui5-fhir/issues/143)) ([e5ab233](https://github.com/SAP/openui5-fhir/commit/e5ab233a1536fca27448e3aac05de58f6358df71))
+
 # [1.1.0](https://github.com/SAP/openui5-fhir/compare/v1.0.5...v1.1.0) (2020-06-17)
 
 
