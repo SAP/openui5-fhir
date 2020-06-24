@@ -1161,10 +1161,10 @@ sap.ui.define([
 		var mResponseHeaders = { "etag": "W/\"1\"", "location": sPatientPath + "/_history/1" };
 		var oBundleEntry = new FHIRBundleEntry(sFullUrl, oResource, undefined);
 		var oUpdatedResource = this.oFhirModel1._getUpdatedResourceFromFHIRResponse(mResponseHeaders, oBundleEntry);
-		assert.strictEqual(oUpdatedResource.id, sResourceId, "Location with / at the beginning gives proper response and doesnot throw error");
+		assert.strictEqual(oUpdatedResource.id, sResourceId, "Response with location having / at the beginning gives proper resource object and doesnot throw error");
 		mResponseHeaders = { "etag": "W/\"1\"", "location": "Patient/" + sResourceId + "/_history/1" };
 		oUpdatedResource = this.oFhirModel1._getUpdatedResourceFromFHIRResponse(mResponseHeaders, oBundleEntry);
-		assert.strictEqual(oUpdatedResource.id, sResourceId, "Location without / at the beginning gives proper response and doesnot throw error");
+		assert.strictEqual(oUpdatedResource.id, sResourceId, "Response with location without having / at the beginning gives proper resource object and doesnot throw error");
 	});
 
 });
