@@ -83,8 +83,8 @@ sap.ui.define([
 			this.sDefaultOperationMode = OperationMode.Server;
 			this.sBaseProfileUrl = mParameters && mParameters.baseProfileUrl ? mParameters.baseProfileUrl : "http://hl7.org/fhir/StructureDefinition/";
 			this._buildGroupProperties(mParameters);
-			this.aDefaultQueryParameters = mParameters && mParameters.defaultQueryParameters && mParameters.defaultQueryParameters instanceof Object ? mParameters.defaultQueryParameters : {};
-			this.oRequestor = new FHIRRequestor(sServiceUrl, this, mParameters && mParameters["x-csrf-token"], mParameters && mParameters.Prefer, this.aDefaultQueryParameters);
+			this.oDefaultQueryParameters = mParameters && mParameters.defaultQueryParameters && mParameters.defaultQueryParameters instanceof Object ? mParameters.defaultQueryParameters : {};
+			this.oRequestor = new FHIRRequestor(sServiceUrl, this, mParameters && mParameters["x-csrf-token"], mParameters && mParameters.Prefer, this.oDefaultQueryParameters);
 			this.sDefaultSubmitMode = (mParameters && mParameters.defaultSubmitMode) ? mParameters.defaultSubmitMode : SubmitMode.Direct;
 			this.sDefaultFullUrlType = (mParameters && mParameters.defaultSubmitMode && mParameters.defaultSubmitMode !== SubmitMode.Direct && mParameters.defaultFullUrlType) ? mParameters.defaultFullUrlType : "uuid";
 			this.oDefaultUri = this.sDefaultFullUrlType === "url" ? new Url() : new Uuid();

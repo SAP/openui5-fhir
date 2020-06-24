@@ -35,7 +35,7 @@ sap.ui.define([
 	 * @since 1.0.0
 	 * @version ${version}
 	 */
-	var FHIRRequestor = function(sServiceUrl, oModel, bCSRF, sPrefer , oDefaultQueryParams) {
+	var FHIRRequestor = function(sServiceUrl, oModel, bCSRF, sPrefer, oDefaultQueryParams) {
 		this._mBundleQueue = {};
 		this.oModel = oModel;
 		this._sServiceUrl = sServiceUrl;
@@ -522,10 +522,10 @@ sap.ui.define([
 	};
 
 	/**
-	 * checks if the _format is part of supported types
-	 * according to fhir all these kinds shall be intrepreted as json
-	 * @param {string} sFormat the format in a particular request
-	 * @returns {boolean} Whether its valid or not
+	 * Checks if the _format is part of supported types (according to fhir all these kinds shall be intrepreted as json)
+	 * 
+	 * @param {string} sFormat The format in a particular request
+	 * @returns {boolean} Whether its supported or not
 	 * @private
 	 * @since 1.1.2
 	 */

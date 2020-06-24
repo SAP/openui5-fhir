@@ -51,7 +51,7 @@ sap.ui.define([
 						"submit" : "Batch"
 					}
 				},
-				"defaultQueryParameters":{"_total":"accurate"}
+				"defaultQueryParameters": { "_total": "accurate" }
 			};
 
 			this.oRequestHandle = TestUtils.createRequestHandle();
