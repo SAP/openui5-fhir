@@ -9,6 +9,8 @@ sap.ui.define([
 	var oModel, oTreeBinding;
 
 	function createModel(mParameters) {
+		mParameters = {};
+		mParameters.defaultQueryParameters = { "_total": "accurate" };
 		oModel = TestUtils.createFHIRModel("http://localhost:8080/fhir/R4", mParameters);
 	}
 
@@ -28,7 +30,7 @@ sap.ui.define([
 		var sPath = "/StructureDefinition";
 		var mParameters = { rootSearch: "base", rootProperty: "baseDefinition", rootValue: "http://hl7.org/fhir/StructureDefinition/DomainResource", nodeProperty: "url", refreshByExpand: "true" };
 		createTreeBinding(sPath, undefined, undefined, mParameters);
-		TestUtilsIntegration.manipulateResponse("http://localhost:8080/fhir/R4/StructureDefinition?base=http://hl7.org/fhir/StructureDefinition/DomainResource&_count=10&_format=json&_total=accurate", oModel, TestUtilsIntegration.setTotalUndefined, TestUtilsIntegration.checkErrorMsg.bind(undefined, oModel, assert, "FHIR Server error: The \"total\" property is missing in the response for the requested FHIR resource " + sPath));
+		TestUtilsIntegration.manipulateResponse("http://localhost:8080/fhir/R4/StructureDefinition?base=http://hl7.org/fhir/StructureDefinition/DomainResource&_count=10&_total=accurate&_format=json", oModel, TestUtilsIntegration.setTotalUndefined, TestUtilsIntegration.checkErrorMsg.bind(undefined, oModel, assert, "FHIR Server error: The \"total\" property is missing in the response for the requested FHIR resource " + sPath));
 		oTreeBinding.getContexts();
 	});
 

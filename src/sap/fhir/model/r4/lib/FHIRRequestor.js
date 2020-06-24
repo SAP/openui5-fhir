@@ -14,9 +14,10 @@ sap.ui.define([
 	"sap/fhir/model/r4/lib/RequestHandle",
 	"sap/fhir/model/r4/lib/HTTPMethod",
 	"sap/fhir/model/r4/lib/FHIRUrl",
-	"sap/base/util/each"
+	"sap/base/util/each",
+	"sap/base/util/merge"
 ], function(jQuery, FHIRUtils, SubmitMode, FHIRBundle,
-	FHIRBundleEntry, FHIRBundleRequest, FHIRBundleType, RequestHandle, HTTPMethod, FHIRUrl, each) {
+	FHIRBundleEntry, FHIRBundleRequest, FHIRBundleType, RequestHandle, HTTPMethod, FHIRUrl, each, merge) {
 	"use strict";
 
 	/**
@@ -26,6 +27,7 @@ sap.ui.define([
 	 * @param {sap.fhir.model.r4.FHIRModel} oModel The FHIRModel
 	 * @param {boolean} bCSRF If the FHIR service supports the csrf token
 	 * @param {string} sPrefer In which kind the FHIR service shall return the responses described here https://www.hl7.org/fhir/http.html#2.21.0.5.2
+	 * @param {object} oDefaultQueryParams The default query parameters to be passed on resource type specific requests and not resource instance specific requests (e.g /Patient?_total:accurate&_format:json). It should be of type key:value pairs. e.g. {'_total':'accurate'} -> http://hl7.org/fhir/http.html#parameters
 	 * @alias sap.fhir.model.r4.lib.FHIRRequestor
 	 * @author SAP SE
 	 * @constructs {FHIRRequestor} Provides the implementation of the FHIR Requestor to send and retrieve content from a FHIR server
@@ -33,13 +35,14 @@ sap.ui.define([
 	 * @since 1.0.0
 	 * @version ${version}
 	 */
-	var FHIRRequestor = function(sServiceUrl, oModel, bCSRF, sPrefer) {
+	var FHIRRequestor = function(sServiceUrl, oModel, bCSRF, sPrefer, oDefaultQueryParams) {
 		this._mBundleQueue = {};
 		this.oModel = oModel;
 		this._sServiceUrl = sServiceUrl;
 		this._aPendingRequestHandles = [];
 		this.bCSRF = bCSRF === true ? true : false;
 		this.sPrefer = sPrefer ?  "return=minimal" : sPrefer;
+		this.oDefaultQueryParams = oDefaultQueryParams;
 		this._oRegex = {
 			rAmpersand : /&/g,
 			rEquals : /\=/g,
@@ -420,10 +423,12 @@ sap.ui.define([
 			return "";
 		}
 
-		mParameters._format = "json";
+		if (!oBindingInfo.getResourceId() && sMethod === HTTPMethod.GET) {
+			mParameters = merge(mParameters, this.oDefaultQueryParams);
+		}
 
-		if (!oBindingInfo.getResourceId() && sMethod === HTTPMethod.GET){
-			mParameters._total = "accurate";
+		if (!this._isFormatSupported(mParameters._format)) {
+			mParameters._format = "json";
 		}
 
 		aQuery = [];
@@ -514,6 +519,23 @@ sap.ui.define([
 			mResponseHeaders[aKeyValue[0]] = jqXHR.getResponseHeader(aKeyValue[0]);
 		}
 		return mResponseHeaders;
+	};
+
+	/**
+	 * Checks if the _format is part of supported types (according to fhir all these kinds shall be intrepreted as json)
+	 *
+	 * @param {string} sFormat The format in a particular request
+	 * @returns {boolean} Whether its supported or not
+	 * @private
+	 * @since 1.1.2
+	 */
+	FHIRRequestor.prototype._isFormatSupported = function(sFormat) {
+		var aSupportedFormats = [
+			"json",
+			"application/json",
+			"application/fhir+json"
+		];
+		return aSupportedFormats.indexOf(sFormat) >= 0;
 	};
 
 	return FHIRRequestor;

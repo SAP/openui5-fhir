@@ -51,7 +51,8 @@ sap.ui.define([
 						"submit":"Transaction",
 						"fullUrlType":"url"
 					}
-				}
+				},
+				"defaultQueryParameters": { "_total": "accurate" }
 			};
 			this.oMessageModel = sap.ui.getCore().getMessageManager().getMessageModel();
 			this.oFhirModel = createModel(mParameters);
@@ -71,7 +72,7 @@ sap.ui.define([
 	QUnit.test("check if response has no total property that error in list binding is thrown", function(assert) {
 		var sPath = "/Patient";
 		var oListBinding = this.oFhirModel.bindList(sPath);
-		TestUtilsIntegration.manipulateResponse("http://localhost:8080/fhir/R4/Patient?_count=10&_format=json&_total=accurate", this.oFhirModel, TestUtilsIntegration.setTotalUndefined, TestUtilsIntegration.checkErrorMsg.bind(undefined, this.oFhirModel, assert, "FHIR Server error: The \"total\" property is missing in the response for the requested FHIR resource " + sPath));
+		TestUtilsIntegration.manipulateResponse("http://localhost:8080/fhir/R4/Patient?_count=10&_total=accurate&_format=json", this.oFhirModel, TestUtilsIntegration.setTotalUndefined, TestUtilsIntegration.checkErrorMsg.bind(undefined, this.oFhirModel, assert, "FHIR Server error: The \"total\" property is missing in the response for the requested FHIR resource " + sPath));
 		oListBinding.getContexts();
 	});
 
@@ -506,7 +507,7 @@ sap.ui.define([
 			done();
 			assert.strictEqual(TestUtils.getQueryParameters(oRequestHandle.getUrl())._total, "accurate");
 		};
-		TestUtilsIntegration.checkSendRequest("http://localhost:8080/fhir/R4/Patient?_format=json&_total=accurate", this.oFhirModel, fnCheck);
+		TestUtilsIntegration.checkSendRequest("http://localhost:8080/fhir/R4/Patient?_total=accurate&_format=json", this.oFhirModel, fnCheck);
 		this.oFhirModel.bindContext("/Patient");
 	});
 

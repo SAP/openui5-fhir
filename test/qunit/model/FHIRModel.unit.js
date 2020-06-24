@@ -50,12 +50,13 @@ sap.ui.define([
 					"valueSets" : {
 						"submit" : "Batch"
 					}
-				}
+				},
+				"defaultQueryParameters": { "_total": "accurate" }
 			};
 
 			this.oRequestHandle = TestUtils.createRequestHandle();
 			this.oFhirModel1 = createModel(mParameters);
-			this.oFhirModel2 = createModel({"x-csrf-token" : true});
+			this.oFhirModel2 = createModel({ "x-csrf-token": true, "defaultQueryParameters": { "_total": "accurate" } });
 			this.oFhirModel3 = createModel(mParameters);
 			this.loadDataIntoModel = function(sFilePath, sResourcePath, mParams, sMethod) {
 				var mResponseHeaders = {"etag" : "W/\"1\""};
@@ -165,8 +166,11 @@ sap.ui.define([
 
 	QUnit.test("check that format request parameter", function(assert) {
 		assert.strictEqual(this.oFhirModel1.oRequestor._buildQueryParameters(), "");
-		assert.strictEqual(this.oFhirModel1.oRequestor._buildQueryParameters({_format : "xml"}, this.oFhirModel1.getBindingInfo("/Patient")), "?_format=json&_total=accurate");
-		assert.strictEqual(this.oFhirModel1.oRequestor._buildQueryParameters({_format : "xml"}, this.oFhirModel1.getBindingInfo("/Patient/123")), "?_format=json");
+		assert.strictEqual(this.oFhirModel1.oRequestor._buildQueryParameters({ _format: "xml" }, this.oFhirModel1.getBindingInfo("/Patient")), "?_format=json&_total=accurate");
+		assert.strictEqual(this.oFhirModel1.oRequestor._buildQueryParameters({ _format: "xml" }, this.oFhirModel1.getBindingInfo("/Patient/123")), "?_format=json");
+		assert.strictEqual(this.oFhirModel1.oRequestor._buildQueryParameters({ _format: "application/json" }, this.oFhirModel1.getBindingInfo("/Patient/123")), "?_format=application/json");
+		assert.strictEqual(this.oFhirModel1.oRequestor._buildQueryParameters({ _format: "application/fhir+json" }, this.oFhirModel1.getBindingInfo("/Patient/123")), "?_format=application/fhir%2Bjson");
+		assert.strictEqual(this.oFhirModel1.oRequestor._buildQueryParameters({ _format: "json" }, this.oFhirModel1.getBindingInfo("/Patient/123")), "?_format=json");
 	});
 
 	QUnit.test("check listbinding getcontexts in relative case for different depths of paths when resource gets newly created", function(assert) {
@@ -441,7 +445,7 @@ sap.ui.define([
 
 	QUnit.test("loadData without parameters", function(assert) {
 		var oRequestHandle = this.oFhirModel1.loadData("/Patient");
-		assert.equal(oRequestHandle.getUrl(), "https://example.com/fhir/Patient?_format=json&_total=accurate");
+		assert.equal(oRequestHandle.getUrl(), "https://example.com/fhir/Patient?_total=accurate&_format=json");
 
 		var oRequestHandle1 = this.oFhirModel1.loadData("/Patient/123");
 		assert.equal(oRequestHandle1.getUrl(), "https://example.com/fhir/Patient/123?_format=json");
@@ -450,7 +454,7 @@ sap.ui.define([
 	QUnit.test("loadData with csrf token", function(assert) {
 		this.oFhirModel2.oRequestor.sToken = "123";
 		var oRequestHandle = this.oFhirModel2.loadData("/Patient");
-		assert.equal(oRequestHandle.getUrl(), "https://example.com/fhir/Patient?_format=json&_total=accurate");
+		assert.equal(oRequestHandle.getUrl(), "https://example.com/fhir/Patient?_total=accurate&_format=json");
 		this.oFhirModel2.oRequestor.sToken = undefined;
 	});
 
