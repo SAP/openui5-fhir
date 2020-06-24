@@ -1,3 +1,10 @@
+## [1.1.2](https://github.com/SAP/openui5-fhir/compare/v1.1.1...v1.1.2) (2020-06-24)
+
+
+### Bug Fixes
+
+* set the default query params based on configuration ([#142](https://github.com/SAP/openui5-fhir/issues/142)) ([08c9bea](https://github.com/SAP/openui5-fhir/commit/08c9bea8150d570f4455808f62595c5b8dad0943))
+
 ## [1.1.1](https://github.com/SAP/openui5-fhir/compare/v1.1.0...v1.1.1) (2020-06-24)
 
 
