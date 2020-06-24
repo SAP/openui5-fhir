@@ -1145,27 +1145,16 @@ sap.ui.define([
 	});
 
 	QUnit.test("Get Updated Resource from response when location has / or not shouldnot fail ", function(assert) {
-		var sResourceId = this.oFhirModel1.create("Patient", {
-			name: [
-				{
-					family: "james",
-					given: ["parker"]
-				}
-			]
-		});
-		var sPatientPath = "/Patient/" + sResourceId;
-		var mResponseHeaders = { "etag": "W/\"1\"", "location": sPatientPath + "/_history/1" };
-		this.oRequestHandle.setUrl("https://example.com/fhir/" + sPatientPath);
-		this.oRequestHandle.setRequest(TestUtils.createAjaxCallMock(mResponseHeaders));
-		this.oFhirModel1.sendGetRequest(sPatientPath);
+		this.loadDataIntoModel("TwoUpdatedPatients");
+		var oJSONData = TestUtils.loadJSONFile("ResponseOfMultiplePutInBundle");
+		this.oRequestHandle.setUrl("https://example.com/fhir/");
+		this.oFhirModel1._onSuccessfulRequest(this.oRequestHandle, oJSONData);
+		var sPatientPath = "/Patient/253";
 		var oResource = this.oFhirModel1.getProperty(sPatientPath);
-		assert.strictEqual(oResource.id, sResourceId, "Response with location having / at the beginning gives proper resource object and doesnot throw error");
-		mResponseHeaders = { "etag": "W/\"1\"", "location": "Patient/" + sResourceId + "/_history/1" };
-		this.oRequestHandle.setUrl("https://example.com/fhir/" + sPatientPath);
-		this.oRequestHandle.setRequest(TestUtils.createAjaxCallMock(mResponseHeaders));
-		this.oFhirModel1.sendGetRequest(sPatientPath);
+		assert.strictEqual(oResource.id, "253", "Response with location having / at the beginning gives proper resource object and doesnot throw error");
+		sPatientPath = "/Patient/254";
 		oResource = this.oFhirModel1.getProperty(sPatientPath);
-		assert.strictEqual(oResource.id, sResourceId, "Response with location without having / at the beginning gives proper resource object and doesnot throw error");
+		assert.strictEqual(oResource.id, "254", "Response with location without having / at the beginning gives proper resource object and doesnot throw error");
 	});
 
 });
