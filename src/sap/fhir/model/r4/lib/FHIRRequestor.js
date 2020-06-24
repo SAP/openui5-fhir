@@ -423,12 +423,12 @@ sap.ui.define([
 			return "";
 		}
 
-		if (!mParameters._format || !this._isFormatSupported(mParameters._format)) {
-			mParameters._format = "json";
-		}
-
 		if (!oBindingInfo.getResourceId() && sMethod === HTTPMethod.GET) {
 			mParameters = merge(mParameters,this.oDefaultQueryParams);
+		}
+
+		if (!mParameters._format || !this._isFormatSupported(mParameters._format)) {
+			mParameters._format = "json";
 		}
 
 		aQuery = [];
@@ -527,7 +527,7 @@ sap.ui.define([
 	 * @param {string} sFormat the format in a particular request
 	 * @returns {boolean} Whether its valid or not
 	 * @private
-	 * @since 1.1.1
+	 * @since 1.1.2
 	 */
 	FHIRRequestor.prototype._isFormatSupported = function(sFormat) {
 		var aSupportedFormats = [
