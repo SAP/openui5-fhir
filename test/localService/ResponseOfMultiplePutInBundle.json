@@ -20,7 +20,7 @@
         {
             "response": {
                 "status": "200 OK",
-                "location": "Patient/254/_history/4",
+                "location": "/Patient/254/_history/4",
                 "etag": "4",
                 "lastModified": "2018-08-09T17:12:07.383+02:00"
             }

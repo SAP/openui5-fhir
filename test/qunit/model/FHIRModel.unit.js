@@ -1147,4 +1147,18 @@ sap.ui.define([
 		}.bind(this));
 		assert.ok(bMatch, "The filter matched one of the given values for dummy property");
 	});
+
+	QUnit.test("Get Updated Resource from response when location has / or not shouldnot fail ", function(assert) {
+		this.loadDataIntoModel("TwoUpdatedPatients");
+		var oJSONData = TestUtils.loadJSONFile("ResponseOfMultiplePutInBundle");
+		this.oRequestHandle.setUrl("https://example.com/fhir/");
+		this.oFhirModel1._onSuccessfulRequest(this.oRequestHandle, oJSONData);
+		var sPatientPath = "/Patient/253";
+		var oResource = this.oFhirModel1.getProperty(sPatientPath);
+		assert.strictEqual(oResource.id, "253", "Response with location having / at the beginning gives proper resource object and doesnot throw error");
+		sPatientPath = "/Patient/254";
+		oResource = this.oFhirModel1.getProperty(sPatientPath);
+		assert.strictEqual(oResource.id, "254", "Response with location without having / at the beginning gives proper resource object and doesnot throw error");
+	});
+
 });
