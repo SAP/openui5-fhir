@@ -348,6 +348,10 @@ sap.ui.define([
 	 * @since 1.0.0
 	 */
 	FHIRModel.prototype._getUpdatedResourceFromFHIRResponse = function(mResponseHeaders, oFHIRBundleEntry){
+		// remove possible slash at the beginning
+		if (mResponseHeaders.location && mResponseHeaders.location.charAt(0) === "/") {
+			mResponseHeaders.location = mResponseHeaders.location.slice(1);
+		}
 		var oBindingInfo = this.getBindingInfo("/" + mResponseHeaders.location);
 		var oRes;
 		if (oFHIRBundleEntry){
