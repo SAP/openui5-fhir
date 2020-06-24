@@ -59,7 +59,7 @@ sap.ui.define([
 	 *            (oResource.meta.profile[0]) at the requested resource
 	 * @param {string} [mParameters.defaultSubmitMode] The default SubmitMode for all bindings which are associated with this model
 	 * @param {string} [mParameters.defaultFullUrlType='uuid'] The default FullUrlType if the default submit mode is either batch or transaction
-	 * @param {object} [mParameters.defaultQueryParameters={}] The default query parameters to be passed as part of GET ALL requests and that are not specific to any particular resource(e.g /Patient?_total:accurate&_format:json). It should be of type key:value pairs. e.g. {'_total':'accurate'} -> http://hl7.org/fhir/http.html#parameters
+	 * @param {object} [mParameters.defaultQueryParameters={}] The default query parameters to be passed on resource type specific requests and not resource instance specific request (e.g /Patient?_total:accurate&_format:json). It should be of type key:value pairs. e.g. {'_total':'accurate'} -> http://hl7.org/fhir/http.html#parameters
 	 * @param {string} [mParameters.Prefer='return=minimal'] The FHIR server won't return the changed resource by an POST/PUT request -> https://www.hl7.org/fhir/http.html#2.21.0.5.2
 	 * @param {string} [mParameters.x-csrf-token=true] The model handles the csrf token between the browser and the FHIR server
 	 * @throws {Error} If no service URL is given, if the given service URL does not end with a forward slash
