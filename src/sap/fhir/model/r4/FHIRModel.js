@@ -402,6 +402,10 @@ sap.ui.define([
 			} else {
 				oResource = aBundleEntries[i].resource;
 			}
+			//generate a uuid id incase resource id is not present in the response
+			if (oResource && oResource.resourceType() && !oResource.id) {
+				oResource.id = FHIRUtils.uuidv4();
+			}
 			if (oResource && oResource.resourceType && oResource.id) {
 				this._setProperty(mResources, [oResource.resourceType, oResource.id], oResource, true);
 			} else {
