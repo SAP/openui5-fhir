@@ -435,7 +435,7 @@ sap.ui.define([
 		var mParameters = {
 			success : function(oData){
 				var oValidateResponse = TestUtils.loadJSONFile("Validate");
-				assert.deepEqual(oData, oValidateResponse, "Validate response was correct");
+				assert.deepEqual(oData.issue, oValidateResponse.issue, "Validate response was correct");
 				done1();
 			}
 		};
