@@ -321,6 +321,10 @@ sap.ui.define([
 			aResourcePath = [oResource.resourceType , "§" + oResource.expansion.identifier + "§"];
 			oResource = oResource.expansion.contains;
 		} else {
+			//generate a uuid id incase resource id is not present in the response
+			if (!oResource.id) {
+				oResource.id = FHIRUtils.uuidv4();
+			}
 			aResourcePath = [oResource.resourceType, oResource.id];
 			var aHistoryResourcePath = [
 				"$_history",
@@ -401,10 +405,6 @@ sap.ui.define([
 				oResource = this._getUpdatedResourceFromFHIRResponse(aBundleEntries[i].response);
 			} else {
 				oResource = aBundleEntries[i].resource;
-			}
-			//generate a uuid id incase resource id is not present in the response
-			if (oResource && oResource.resourceType() && !oResource.id) {
-				oResource.id = FHIRUtils.uuidv4();
 			}
 			if (oResource && oResource.resourceType && oResource.id) {
 				this._setProperty(mResources, [oResource.resourceType, oResource.id], oResource, true);
