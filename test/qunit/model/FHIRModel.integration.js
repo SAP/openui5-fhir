@@ -435,7 +435,11 @@ sap.ui.define([
 		var mParameters = {
 			success : function(oData){
 				var oValidateResponse = TestUtils.loadJSONFile("Validate");
-				assert.deepEqual(oData.issue, oValidateResponse.issue, "Validate response was correct");
+				var rUUIDTypeRegex = /^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i;
+				assert.strictEqual(true, TestUtils.checkRegularExpression(oData.id, rUUIDTypeRegex), "Validate response for resource id for type uuidv4 is correct");
+				assert.deepEqual(oData.resourceType, oValidateResponse.resourceType, "Validate response for resource type field is correct");
+				assert.deepEqual(oData.text, oValidateResponse.text, "Validate response for text field is correct");
+				assert.deepEqual(oData.issue, oValidateResponse.issue, "Validate response for issue field is correct");
 				done1();
 			}
 		};

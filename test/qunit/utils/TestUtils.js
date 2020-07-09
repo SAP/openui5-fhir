@@ -258,6 +258,19 @@ sap.ui.define([
 		}
 	};
 
+	/**
+	 * Determines if the given <code>sText</code> matches the given <code>rRegExp</code>
+	 *
+	 * @param {string} sText The text to analyze
+	 * @param {RegExp} rRegExp The regular expression
+	 * @returns {boolean} True if the given text matches the regular expression.
+	 * @protected
+	 * @since 1.1.3
+	 */
+	TestUtils.checkRegularExpression = function(sText, rRegExp) {
+		return sText.match(rRegExp) ? true : false;
+	};
+
 	return TestUtils;
 
 });
