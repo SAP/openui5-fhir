@@ -1161,7 +1161,7 @@ sap.ui.define([
 		assert.strictEqual(oResource.id, "254", "Response with location without having / at the beginning gives proper resource object and doesnot throw error");
 	});
 
-	QUnit.test("Search Bundle Response should not throw an error if ResourceId is not present", function(assert) {
+	QUnit.test("Search Bundle Response should not throw an error if resource id is not presen", function(assert) {
 		var oJSONData = TestUtils.loadJSONFile("BundleWithoutResourceId");
 		var mResponseHeaders = { "etag": "W/\"1\"" };
 		this.oRequestHandle.setUrl("https://example.com/fhir/Patient?_count=0&total=accurate&_format=json");
@@ -1169,7 +1169,7 @@ sap.ui.define([
 		this.oFhirModel1._onSuccessfulRequest(this.oRequestHandle, oJSONData);
 		var sOperationOutcomePath = "/OperationOutcome";
 		var oOperationOutcome = this.oFhirModel1.getProperty(sOperationOutcomePath);
-		assert.strictEqual(Object.keys(oOperationOutcome).length, 1, "Bundle Response without id is parsed without throwing error");
+		assert.strictEqual(Object.keys(oOperationOutcome).length, 1, "Bundle Response without resource id is parsed without throwing an error");
 	});
 
 });
