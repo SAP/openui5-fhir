@@ -1,3 +1,10 @@
+## [1.1.3](https://github.com/SAP/openui5-fhir/compare/v1.1.2...v1.1.3) (2020-07-13)
+
+
+### Bug Fixes
+
+* in case the resource id is not present  ([#146](https://github.com/SAP/openui5-fhir/issues/146)) ([0397ba9](https://github.com/SAP/openui5-fhir/commit/0397ba997e9b327bbe5bc79c8e52af85643dce0b))
+
 ## [1.1.2](https://github.com/SAP/openui5-fhir/compare/v1.1.1...v1.1.2) (2020-06-24)
 
 
