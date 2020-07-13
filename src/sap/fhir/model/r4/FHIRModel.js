@@ -321,6 +321,10 @@ sap.ui.define([
 			aResourcePath = [oResource.resourceType , "§" + oResource.expansion.identifier + "§"];
 			oResource = oResource.expansion.contains;
 		} else {
+			// generate a uuid id in case resource id is not present in the response
+			if (!oResource.id) {
+				oResource.id = FHIRUtils.uuidv4();
+			}
 			aResourcePath = [oResource.resourceType, oResource.id];
 			var aHistoryResourcePath = [
 				"$_history",
