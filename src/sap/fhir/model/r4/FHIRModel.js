@@ -1125,6 +1125,9 @@ sap.ui.define([
 					"meta",
 					"versionId"
 				]);
+				if (sEtag) {
+					sEtag = "W/\"" + sEtag + "\"";
+				}
 			}
 			return new BindingInfo(sId, sResType, sResPath, sRelPath, sCompletePath, aSplittedPath.slice(1), sGroupId, sRequestablePath, aResPath, sResourceServerPath, sEtag);
 		}
@@ -1358,17 +1361,27 @@ sap.ui.define([
 	 */
 	FHIRModel.prototype.readLatestVersionOfResource = function(sPath, fnSuccess) {
 		var oRequestHandle;
-		var fnExtractVersion = function(oData){
+		var fnExtractVersion = function (oData) {
 			var mHeaders = this.oRequestor.getResponseHeaders(oRequestHandle.getRequest());
-			var oFHIRUrl = new FHIRUrl(mHeaders["content-location"], this.sServiceUrl);
-			fnSuccess(oFHIRUrl.getHistoryVersion() || oData && oData.meta && oData.meta.versionId);
+			var sEtagHeader = mHeaders ? mHeaders["etag"] : undefined;
+			var sLocationHeader = mHeaders ? mHeaders["location"] || mHeaders["content-location"] : undefined;
+			var oFHIRUrl = sLocationHeader ? new FHIRUrl(sLocationHeader, this.sServiceUrl) : undefined;
+			var sEtag;
+			if (sEtagHeader) {
+				sEtag = sEtagHeader;
+			} else if (oFHIRUrl && oFHIRUrl.getHistoryVersion()) {
+				sEtag = "W/\"" + oFHIRUrl.getHistoryVersion() + "\"";
+			} else if (oData && oData.meta && oData.meta.versionId) {
+				sEtag = "W/\"" + oData.meta.versionId + "\"";
+			}
+			fnSuccess(sEtag);
 		}.bind(this);
 		var mParameters = {
-			success : fnExtractVersion,
-			error : function(){
-				oRequestHandle.getRequest().complete(function(){
+			success: fnExtractVersion,
+			error: function () {
+				oRequestHandle.getRequest().complete(function () {
 					mParameters = {
-						success : fnExtractVersion
+						success: fnExtractVersion
 					};
 					oRequestHandle = this.loadData(sPath, mParameters, HTTPMethod.GET);
 				}.bind(this));

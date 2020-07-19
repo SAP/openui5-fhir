@@ -650,4 +650,14 @@ sap.ui.define([
 		assert.strictEqual(sFullUrl, this.oFhirModel.sServiceUrl + "/Practitioner/" + sPractitionerId, "Full Generated for Transaction entry is of type url");
 	});
 
+	QUnit.test("Read Latest Version of Resources should give eTag in proper format", function(assert){
+		var sPatientPath = "/Patient/a2519";
+		var done = assert.async();
+		var fnSuccessCallback = function (eTag) {
+			assert.strictEqual(eTag, "W/\"2\"", "Read latest version gives the eTag in proper format");
+			done();
+		};
+		this.oFhirModel.readLatestVersionOfResource(sPatientPath, fnSuccessCallback);
+	});
+
 });
