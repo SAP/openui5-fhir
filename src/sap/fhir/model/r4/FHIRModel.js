@@ -701,10 +701,10 @@ sap.ui.define([
 							}.bind(this);
 
 
-							var fnVersionReadSuccess = function(sEtag){
+							var fnVersionReadSuccess = function(sETag){
 								iTriggeredVersionRequestsCompleted++;
 								mHeaders = {
-									"If-Match" : sEtag
+									"If-Match" : sETag
 								};
 								fnSubmitChange();
 								if (iTriggeredVersionRequests === iTriggeredVersionRequestsCompleted){
@@ -713,13 +713,13 @@ sap.ui.define([
 							};
 
 							if (oRequestInfo.method === HTTPMethod.PUT) {
-								var sEtag = oBindingInfo.getEtag();
-								if (!sEtag){
+								var sETag = oBindingInfo.getETag();
+								if (!sETag){
 									this.readLatestVersionOfResource(oBindingInfo.getResourceServerPath(), fnVersionReadSuccess);
 									iTriggeredVersionRequests++;
 								} else {
 									mHeaders = {
-										"If-Match" : sEtag
+										"If-Match" : sETag
 									};
 									fnSubmitChange();
 								}
@@ -1068,7 +1068,7 @@ sap.ui.define([
 			var sCompletePathChange;
 			var sRequestablePath;
 			var sResourceServerPath;
-			var sEtag;
+			var sETag;
 			var sGroupId = oContext && oContext.sGroupId;
 			var sOperation = "";
 			if (sCompletePath.indexOf("_history") > -1 || bUnique){
@@ -1128,14 +1128,17 @@ sap.ui.define([
 			}
 			if (sResType && sId){
 				sResourceServerPath = "/" + sResType + "/" + sId;
-				sEtag = this._getProperty(this.oData, [
+				sETag = this._getProperty(this.oData, [
 					sResType,
 					sId,
 					"meta",
 					"versionId"
 				]);
+				if (sETag) {
+					sETag = "W/\"" + sETag + "\"";
+				}
 			}
-			return new BindingInfo(sId, sResType, sResPath, sRelPath, sCompletePath, aSplittedPath.slice(1), sGroupId, sRequestablePath, aResPath, sResourceServerPath, sEtag);
+			return new BindingInfo(sId, sResType, sResPath, sRelPath, sCompletePath, aSplittedPath.slice(1), sGroupId, sRequestablePath, aResPath, sResourceServerPath, sETag);
 		}
 		return undefined;
 	};
@@ -1367,17 +1370,27 @@ sap.ui.define([
 	 */
 	FHIRModel.prototype.readLatestVersionOfResource = function(sPath, fnSuccess) {
 		var oRequestHandle;
-		var fnExtractVersion = function(oData){
+		var fnExtractVersion = function (oData) {
 			var mHeaders = this.oRequestor.getResponseHeaders(oRequestHandle.getRequest());
-			var oFHIRUrl = new FHIRUrl(mHeaders["content-location"], this.sServiceUrl);
-			fnSuccess(oFHIRUrl.getHistoryVersion() || oData && oData.meta && oData.meta.versionId);
+			var sETagHeader = mHeaders ? mHeaders["etag"] : undefined;
+			var sLocationHeader = mHeaders ? mHeaders["location"] || mHeaders["content-location"] : undefined;
+			var oFHIRUrl = sLocationHeader ? new FHIRUrl(sLocationHeader, this.sServiceUrl) : undefined;
+			var sETag;
+			if (sETagHeader) {
+				sETag = sETagHeader;
+			} else if (oFHIRUrl && oFHIRUrl.getHistoryVersion()) {
+				sETag = "W/\"" + oFHIRUrl.getHistoryVersion() + "\"";
+			} else if (oData && oData.meta && oData.meta.versionId) {
+				sETag = "W/\"" + oData.meta.versionId + "\"";
+			}
+			fnSuccess(sETag);
 		}.bind(this);
 		var mParameters = {
-			success : fnExtractVersion,
-			error : function(){
-				oRequestHandle.getRequest().complete(function(){
+			success: fnExtractVersion,
+			error: function () {
+				oRequestHandle.getRequest().complete(function () {
 					mParameters = {
-						success : fnExtractVersion
+						success: fnExtractVersion
 					};
 					oRequestHandle = this.loadData(sPath, mParameters, HTTPMethod.GET);
 				}.bind(this));
