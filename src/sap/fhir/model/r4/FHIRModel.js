@@ -1534,7 +1534,7 @@ sap.ui.define([
 	/**
 	 * Determines the Structure Definition URL for a given binding info (meta.profile)
 	 * Default URL would be base profile URL + resource type
-	 * 
+	 *
 	 * @param {sap.fhir.model.r4.lib.BindingInfo} oBindingInfo The binding info object
 	 * @returns {string} The structure definition for the given binding info
 	 * @public
@@ -1549,7 +1549,7 @@ sap.ui.define([
 			sStrucDefUrl = this.getBaseProfileUrl() + oBindingInfo.getResourceType();
 		}
 		return sStrucDefUrl;
-	}
+	};
 
 	return FHIRModel;
 });
