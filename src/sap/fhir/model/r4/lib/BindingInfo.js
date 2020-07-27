@@ -156,9 +156,9 @@ sap.ui.define([], function() {
 	};
 
 	/**
-	 * Determines the eTag of the resource
+	 * Determines the ETag of the resource
 	 *
-	 * @returns {string} The eTag of the resource
+	 * @returns {string} The ETag of the resource
 	 * @protected
 	 * @since 1.0.0
 	 */
