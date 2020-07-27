@@ -20,7 +20,7 @@ sap.ui.define([], function() {
 	 * @param {string} sRequestPath The request path e.g. /Patient/123 or e.g. /Patient/123/_history/1
 	 * @param {string} aResourcePath The resource path as an array e.g. ["Patient", "123"] or ["$_history", "Patient", "123", "1"]
 	 * @param {string} sResourceServerPath The original resource path e.g. /Patient/123
-	 * @param {string} sEtag The eTag of the resource
+	 * @param {string} sETag The ETag of the resource
 	 * @alias sap.fhir.model.r4.lib.BindingInfo
 	 * @author SAP SE
 	 * @constructs {BindingInfo} implementation for binding paths, resource types etc of a FHIR binding.
@@ -28,7 +28,7 @@ sap.ui.define([], function() {
 	 * @since 1.0.0
 	 * @version ${version}
 	 */
-	var BindingInfo = function(sResourceId, sResourceType, sResourcePath, sRelativePath, sAbsolutePath, aBinding, sGroupId, sRequestPath, aResourcePath, sResourceServerPath, sEtag) {
+	var BindingInfo = function(sResourceId, sResourceType, sResourcePath, sRelativePath, sAbsolutePath, aBinding, sGroupId, sRequestPath, aResourcePath, sResourceServerPath, sETag) {
 		this._sResourceId = sResourceId;
 		this._sResourceType = sResourceType;
 		this._sResourcePath = sResourcePath;
@@ -38,7 +38,7 @@ sap.ui.define([], function() {
 		this._sRequestPath = sRequestPath;
 		this._aResourcePath = aResourcePath;
 		this._sResourceServerPath = sResourceServerPath;
-		this._sEtag = sEtag;
+		this._sETag = sETag;
 		if (aBinding.indexOf("") > -1){
 			throw new Error("Invalid property binding path");
 		}
@@ -162,8 +162,8 @@ sap.ui.define([], function() {
 	 * @protected
 	 * @since 1.0.0
 	 */
-	BindingInfo.prototype.getEtag = function() {
-		return this._sEtag;
+	BindingInfo.prototype.getETag = function() {
+		return this._sETag;
 	};
 
 	return BindingInfo;

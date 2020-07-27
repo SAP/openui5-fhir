@@ -526,7 +526,7 @@ sap.ui.define([
 		assert.equal(mRequestHandles.direct[0].getData(), JSON.stringify(oPatient2));
 		assert.equal(mRequestHandles.direct[1].getUrl(),"https://example.com/fhir/Patient/27f89dba-b3ee-465d-aec4-b732da01ead5?_format=json");
 		assert.equal(mRequestHandles.direct[1].getData(), JSON.stringify(oPatientUpdated));
-		assert.equal(mRequestHandles.direct[1].getHeaders()["If-Match"], "W/\"" + 1 + "\"", "If-Match Header for PUT request is of correct syntax");
+		assert.strictEqual(mRequestHandles.direct[1].getHeaders()["If-Match"], "W/\"1\"", "If-Match Header for PUT request is of correct syntax");
 	});
 
 	QUnit.test("submit changes without any changes", function(assert){
@@ -1173,12 +1173,12 @@ sap.ui.define([
 		assert.strictEqual(Object.keys(oOperationOutcome).length, 1, "Bundle Response without resource id is parsed without throwing an error");
 	});
 
-	QUnit.test("Submit Bundle with correct Etag", function(assert){
+	QUnit.test("Submit Bundle with correct ETag", function(assert){
 		this.loadDataIntoModel("Patient2", this.sPatientPath2.substring(1));
 		this.oPropertyBinding3.setValue("2008-04-27");
 		this.oPropertyBinding4.setValue("female");
 		var mRequestHandles = this.oFhirModel1.submitChanges("patientDetails");
-		assert.equal("W/\"1\"", mRequestHandles.patientDetails.getBundle().getBundlyEntry(1).getRequest().getBundleRequestData().ifMatch, "If-Match header is of correct syntax in bundle enteries ");
+		assert.strictEqual("W/\"1\"", mRequestHandles.patientDetails.getBundle().getBundlyEntry(1).getRequest().getBundleRequestData().ifMatch, "If-Match header is of correct syntax in bundle enteries ");
 	});
 
 });
