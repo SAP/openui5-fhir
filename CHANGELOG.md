@@ -1,3 +1,10 @@
+## [1.1.4](https://github.com/SAP/openui5-fhir/compare/v1.1.3...v1.1.4) (2020-07-27)
+
+
+### Bug Fixes
+
+* set the etag in the correct format ([#149](https://github.com/SAP/openui5-fhir/issues/149)) ([27b5239](https://github.com/SAP/openui5-fhir/commit/27b523967a2460284257a0a1d5daf09d7bae3599))
+
 ## [1.1.3](https://github.com/SAP/openui5-fhir/compare/v1.1.2...v1.1.3) (2020-07-13)
 
 
