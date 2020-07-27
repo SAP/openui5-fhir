@@ -1178,7 +1178,7 @@ sap.ui.define([
 		this.oPropertyBinding3.setValue("2008-04-27");
 		this.oPropertyBinding4.setValue("female");
 		var mRequestHandles = this.oFhirModel1.submitChanges("patientDetails");
-		assert.equal("W/\"1\"", mRequestHandles.patientDetails.getBundle().getBundlyEntry(1).getRequest()["_sIfMatch"], "If-Match header is of correct syntax in bundle enteries ");
+		assert.equal("W/\"1\"", mRequestHandles.patientDetails.getBundle().getBundlyEntry(1).getRequest().getBundleRequestData().ifMatch, "If-Match header is of correct syntax in bundle enteries ");
 	});
 
 });
