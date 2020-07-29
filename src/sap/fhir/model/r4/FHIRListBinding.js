@@ -161,7 +161,8 @@ sap.ui.define([
 				this.bPendingRequest = false;
 				this.bInitial = false;
 				var oBindingInfo = this.oModel.getBindingInfo(this.sPath, this.oContext, this.bUnique);
-				var sStrucDefUrl = this.oModel.getStructureDefinitionUrl(oBindingInfo);
+				var oResource = this.oModel.getProperty(oBindingInfo.getResourcePath());
+				var sStrucDefUrl = this.oModel.getStructureDefinitionUrl(oResource);
 				throw new Error("The structuredefinition " + sStrucDefUrl + " could not be loaded from the server for binding with path " + oBindingInfo.getRelativePath());
 			}
 		}.bind(this);
@@ -344,7 +345,8 @@ sap.ui.define([
 			this._submitRequest(this.sPath, mParameters, fnSuccessCallback);
 		} else if (this.oContext && this.bValueSetLookupInStructureDefinition) {
 			var oBindingInfo = this.oModel.getBindingInfo(this.sPath, this.oContext, this.bUnique);
-			var sStrucDefUrl = this.oModel.getStructureDefinitionUrl(oBindingInfo);
+			var oResource = this.oModel.getProperty(oBindingInfo.getResourcePath());
+			var sStrucDefUrl = this.oModel.getStructureDefinitionUrl(oResource);
 			var aStructDefs = [];
 			FHIRUtils.filterObject(this.oModel.oData.StructureDefinition, "url", sStrucDefUrl, 1, aStructDefs);
 			if (aStructDefs.length > 0) {

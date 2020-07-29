@@ -1185,10 +1185,12 @@ sap.ui.define([
 		var oJSONData = TestUtils.loadJSONFile("Patient3");
 		this.loadDataIntoModel("Patient3");
 		var oBindingInfo = this.oFhirModel1.getBindingInfo("/Patient/125678");
-		var sStrucDefUrl = this.oFhirModel1.getStructureDefinitionUrl(oBindingInfo);
+		var oResource = this.oFhirModel1.getProperty(oBindingInfo.getResourcePath());
+		var sStrucDefUrl = this.oFhirModel1.getStructureDefinitionUrl(oResource);
 		assert.strictEqual(sStrucDefUrl, oJSONData.meta.profile[0], "Structure definition URL is determined correctly from the meta of the resource");
 		this.loadDataIntoModel("Patient2");
 		oBindingInfo = this.oFhirModel1.getBindingInfo("/Patient/127e23a0-6db1-4ced-b433-98c7a70646b8");
+		oResource = this.oFhirModel1.getProperty(oBindingInfo.getResourcePath());
 		sStrucDefUrl = this.oFhirModel1.getStructureDefinitionUrl(oBindingInfo);
 		assert.strictEqual(sStrucDefUrl, oJSONData.meta.profile[0], "Default Structure definition URL is returned since resource doesnot have profile information");
 	});
