@@ -905,10 +905,10 @@ sap.ui.define([
 			oRequestInfo = this._createRequestInfo(HTTPMethod.POST, oBindingInfo.getResourceType());
 			this._setProperty(this.mChangedResources, FHIRUtils.deepClone(aResPath), oRequestInfo, true);
 		}
-		if (sGroupId){
+		if (sGroupId) {
 			this._setProperty(this.mResourceGroupId, FHIRUtils.deepClone(aResPath), sGroupId, true);
 		}
-		if (!vServerValue && oRequestInfo.method === HTTPMethod.PUT){
+		if (!vServerValue && oRequestInfo.method === HTTPMethod.PUT) {
 			this._setProperty(this.oDataServerState, aResPath, FHIRUtils.deepClone(oResource), true);
 		}
 	};
@@ -927,7 +927,16 @@ sap.ui.define([
 		var oBindingInfo = this.getBindingInfo(sPath, oContext);
 		this._handleClientChanges(oBindingInfo);
 		this._setProperty(this.oData, oBindingInfo.getBinding(), vValue, undefined, oBindingInfo.getGroupId());
-		this.mChangedResources.path = {lastUpdated : oBindingInfo.getAbsolutePath()};
+		var aResPath = oBindingInfo.getResourcePathArray();
+		var vServerValue = this._getProperty(this.oDataServerState, aResPath);
+		var oRequestInfo = this._getProperty(this.mChangedResources, aResPath);
+		var oResource = this._getProperty(this.oData, aResPath);
+		// special handling when the server data and the client changed data is the same
+		if (oRequestInfo && oRequestInfo.method === HTTPMethod.PUT && deepEqual(vServerValue, oResource)) {
+			delete this.mChangedResources[aResPath[0]][aResPath[1]];
+		} else {
+			this.mChangedResources.path = { lastUpdated: oBindingInfo.getAbsolutePath() };
+		}
 		this.checkUpdate(false, this.mChangedResources, oBinding);
 	};
 
@@ -1211,7 +1220,7 @@ sap.ui.define([
 	 * @since 1.0.0
 	 */
 	FHIRModel.prototype.hasResourceTypePendingChanges = function(sResourceType) {
-		return this.mChangedResources[sResourceType] !== undefined;
+		return this.mChangedResources[sResourceType] !== undefined && Object.keys(this.mChangedResources[sResourceType]).length > 0;
 	};
 
 	/**
