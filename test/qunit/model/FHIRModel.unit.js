@@ -314,6 +314,11 @@ sap.ui.define([
 		this.loadDataIntoModel("Patient", this.sPatientPath.substring(1));
 		this.oFhirModel1.setProperty(this.sPatientPath + "/birthDate", "2008-04-27");
 		assert.strictEqual(this.oFhirModel1.submitChanges(), undefined, "submit changes returns undefined because of no changes");
+		this.oFhirModel1.setProperty(this.sPatientPath + "/birthDate", "2008-04-29");
+		assert.strictEqual(this.oFhirModel1.hasResourceTypePendingChanges("Patient"), true, "hasResourceTypePendingChanges returns true since there is an actual change");
+		this.oFhirModel1.setProperty(this.sPatientPath + "/birthDate", "2008-04-27");
+		assert.strictEqual(this.oFhirModel1.submitChanges(), undefined, "submit changes returns undefined because the changes made is same as that of the server state");
+		assert.strictEqual(this.oFhirModel1.hasResourceTypePendingChanges("Patient"), false, "hasResourceTypePendingChanges returns false since there is no actual change");
 	});
 
 	QUnit.test("get group submit mode", function(assert) {
