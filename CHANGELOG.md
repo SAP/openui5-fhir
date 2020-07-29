@@ -1,3 +1,10 @@
+## [1.1.5](https://github.com/SAP/openui5-fhir/compare/v1.1.4...v1.1.5) (2020-07-29)
+
+
+### Bug Fixes
+
+* handling changed resources when the server state and the client state is the same ([#154](https://github.com/SAP/openui5-fhir/issues/154)) ([f84d8a4](https://github.com/SAP/openui5-fhir/commit/f84d8a4849aded50ed51bd780a59a851cc00dc95))
+
 ## [1.1.4](https://github.com/SAP/openui5-fhir/compare/v1.1.3...v1.1.4) (2020-07-27)
 
 
