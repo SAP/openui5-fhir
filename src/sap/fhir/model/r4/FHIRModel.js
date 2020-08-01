@@ -1553,7 +1553,7 @@ sap.ui.define([
 		var sStrucDefUrl;
 		if (oResource && oResource.meta && oResource.meta.profile && oResource.meta.profile.length > 0) {
 			sStrucDefUrl = oResource.meta.profile[0];
-		} else {
+		} else if (oResource && oResource.resourceType) {
 			sStrucDefUrl = this.getBaseProfileUrl() + oResource.resourceType;
 		}
 		return sStrucDefUrl;

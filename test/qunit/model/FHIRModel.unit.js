@@ -215,9 +215,12 @@ sap.ui.define([
 	});
 
 	QUnit.test("check listbinding getcontexts in relative case when context is set but no data is in the model", function(assert) {
+		this.oFhirModel1.setProperty(this.sPatientPath + "/resourceType", "Patient");
+		this.oListBinding3.StructureDefinition = undefined;
 		var aContexts = this.oListBinding3.getContexts();
 		assert.deepEqual(aContexts, [], "The contexts matches");
 		assert.strictEqual(this.oListBinding3.getLength(), 0, "The total length matches");
+		this.oFhirModel1.setProperty(this.sPatientPath, undefined);
 	});
 
 	QUnit.test("initializing contextbinding with upper context", function(assert) {
@@ -960,6 +963,7 @@ sap.ui.define([
 		assert.strictEqual(oTempListBinding.oContext, undefined);
 		oTempListBinding.setContext(this.oContextBinding.getBoundContext());
 		this.oFhirModel1.setProperty(this.sPatientPath + "/contact/0", "newValue");
+		this.oFhirModel1.setProperty(this.sPatientPath + "/resourceType", "Patient");
 		oTempListBinding.getContexts();
 		var aKeysResult = [];
 		aKeysResult.push(this.sPatientPath.substring(1) + "/contact/0");
@@ -1196,7 +1200,7 @@ sap.ui.define([
 		this.loadDataIntoModel("Patient2");
 		oBindingInfo = this.oFhirModel1.getBindingInfo("/Patient/127e23a0-6db1-4ced-b433-98c7a70646b8");
 		oResource = this.oFhirModel1.getProperty(oBindingInfo.getResourcePath());
-		sStrucDefUrl = this.oFhirModel1.getStructureDefinitionUrl(oBindingInfo);
+		sStrucDefUrl = this.oFhirModel1.getStructureDefinitionUrl(oResource);
 		assert.strictEqual(sStrucDefUrl, oJSONData.meta.profile[0], "Default Structure definition URL is returned since resource doesnot have profile information");
 	});
 
