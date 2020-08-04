@@ -215,7 +215,6 @@ sap.ui.define([
 	});
 
 	QUnit.test("check listbinding getcontexts in relative case when context is set but no data is in the model", function(assert) {
-		this.oFhirModel1.setProperty(this.sPatientPath + "/resourceType", "Patient");
 		var aContexts = this.oListBinding3.getContexts();
 		assert.deepEqual(aContexts, [], "The contexts matches");
 		assert.strictEqual(this.oListBinding3.getLength(), 0, "The total length matches");
@@ -961,7 +960,6 @@ sap.ui.define([
 		assert.strictEqual(oTempListBinding.oContext, undefined);
 		oTempListBinding.setContext(this.oContextBinding.getBoundContext());
 		this.oFhirModel1.setProperty(this.sPatientPath + "/contact/0", "newValue");
-		this.oFhirModel1.setProperty(this.sPatientPath + "/resourceType", "Patient");
 		oTempListBinding.getContexts();
 		var aKeysResult = [];
 		aKeysResult.push(this.sPatientPath.substring(1) + "/contact/0");
