@@ -216,7 +216,6 @@ sap.ui.define([
 
 	QUnit.test("check listbinding getcontexts in relative case when context is set but no data is in the model", function(assert) {
 		this.oFhirModel1.setProperty(this.sPatientPath + "/resourceType", "Patient");
-		this.oListBinding3.StructureDefinition = undefined;
 		var aContexts = this.oListBinding3.getContexts();
 		assert.deepEqual(aContexts, [], "The contexts matches");
 		assert.strictEqual(this.oListBinding3.getLength(), 0, "The total length matches");
@@ -1190,7 +1189,7 @@ sap.ui.define([
 		assert.strictEqual("W/\"1\"", mRequestHandles.patientDetails.getBundle().getBundlyEntry(1).getRequest().getBundleRequestData().ifMatch, "If-Match header is of correct syntax in bundle enteries ");
 	});
 
-	QUnit.test("Determine the correct Structure Definition URL for a binding info", function(assert){
+	QUnit.test("Determine the correct Structure Definition URL for a resource", function(assert){
 		var oJSONData = TestUtils.loadJSONFile("Patient3");
 		this.loadDataIntoModel("Patient3");
 		var oBindingInfo = this.oFhirModel1.getBindingInfo("/Patient/125678");
@@ -1202,6 +1201,11 @@ sap.ui.define([
 		oResource = this.oFhirModel1.getProperty(oBindingInfo.getResourcePath());
 		sStrucDefUrl = this.oFhirModel1.getStructureDefinitionUrl(oResource);
 		assert.strictEqual(sStrucDefUrl, oJSONData.meta.profile[0], "Default Structure definition URL is returned since resource doesnot have profile information");
+		sStrucDefUrl = this.oFhirModel1.getStructureDefinitionUrl(undefined);
+		assert.strictEqual(sStrucDefUrl, undefined, "Structure definition URL is undefined since resource is undefined");
+		oResource.resourceType = undefined;
+		sStrucDefUrl = this.oFhirModel1.getStructureDefinitionUrl(oResource);
+		assert.strictEqual(sStrucDefUrl, undefined, "Structure definition URL is undefined since resource type doesnot exist");
 	});
 
 });
