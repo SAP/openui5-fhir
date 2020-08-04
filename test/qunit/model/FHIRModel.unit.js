@@ -219,7 +219,6 @@ sap.ui.define([
 		var aContexts = this.oListBinding3.getContexts();
 		assert.deepEqual(aContexts, [], "The contexts matches");
 		assert.strictEqual(this.oListBinding3.getLength(), 0, "The total length matches");
-		this.oFhirModel1.setProperty(this.sPatientPath, undefined);
 	});
 
 	QUnit.test("initializing contextbinding with upper context", function(assert) {
