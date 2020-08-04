@@ -1,3 +1,10 @@
+## [1.1.6](https://github.com/SAP/openui5-fhir/compare/v1.1.5...v1.1.6) (2020-08-04)
+
+
+### Bug Fixes
+
+* **sap.fhir.model.r4.FHIRListBinding.js:** array index error while accessing structure definition url when no structure definition is maintained in a resource instance ([#155](https://github.com/SAP/openui5-fhir/issues/155)) ([0f4459c](https://github.com/SAP/openui5-fhir/commit/0f4459c292454671850479c72a53ec67d306dbc0))
+
 ## [1.1.5](https://github.com/SAP/openui5-fhir/compare/v1.1.4...v1.1.5) (2020-07-29)
 
 
