@@ -1,0 +1,19 @@
+{
+	"meta": {
+		"versionId": "1",
+		"profile": [
+			"http://hl7.org/fhir/StructureDefinition/Patient"
+		]
+	},
+	"name": [
+		{
+			"given": [
+				"Horst"
+			],
+			"family": "Mueller"
+		}
+	],
+	"birthDate": "2018-05-31",
+	"resourceType": "Patient",
+	"id": "125678"
+}

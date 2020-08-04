@@ -1540,5 +1540,24 @@ sap.ui.define([
 		throw new Error("Unsupported operation: sap.fhir.model.r4.FHIRModel#getContext");
 	};
 
+	/**
+	 * Determines the URL of the StructureDefinition of a given resource instance
+	 * Default URL would be base profile URL + resource type
+	 *
+	 * @param {object} oResource The FHIR resource
+	 * @returns {string} The structure definition for the given binding info
+	 * @protected
+	 * @since 1.1.6
+	 */
+	FHIRModel.prototype.getStructureDefinitionUrl = function (oResource){
+		var sStrucDefUrl;
+		if (oResource && oResource.meta && oResource.meta.profile && oResource.meta.profile.length > 0) {
+			sStrucDefUrl = oResource.meta.profile[0];
+		} else if (oResource && oResource.resourceType) {
+			sStrucDefUrl = this.getBaseProfileUrl() + oResource.resourceType;
+		}
+		return sStrucDefUrl;
+	};
+
 	return FHIRModel;
 });
