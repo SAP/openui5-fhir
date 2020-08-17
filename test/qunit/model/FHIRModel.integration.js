@@ -484,7 +484,7 @@ sap.ui.define([
 			var oDate = new Date();
 			var sOldDate = oPropertyBinding.getValue();
 			oPropertyBinding.setValue(oDate);
-			this.oFhirModel.submitChanges(undefined, function(oData){
+			this.oFhirModel.submitChanges("patientDetails", function(oData){
 				aContext = oListBinding.getContexts();
 				assert.strictEqual(aContext[0].getObject().birthDate, oDate, "The history context binding load works");
 				assert.strictEqual(oPropertyBinding._getValue(), sOldDate, "The history context binding load works");
@@ -582,8 +582,11 @@ sap.ui.define([
 			var oDate = new Date();
 			oPropertyBinding.setValue(oDate);
 			this.oFhirModel.submitChanges("patientDetails", function(oData){
-				this.oFhirModel.remove(["/Claim/" + oData.id]);
-				this.oFhirModel.submitChanges(undefined, function(oData){
+				var oFHIRBundleEntry = oData.find(function (oFHIRBundleEntry) {
+					return oFHIRBundleEntry.getResource().resourceType === "Claim";
+				});
+				this.oFhirModel.remove(["/Claim/" + oFHIRBundleEntry.getResource().id]);
+				this.oFhirModel.submitChanges("patientDetails", function(oData){
 					assert.deepEqual(this.oFhirModel.mChangedResources["Claim"], {} , "Claim in changed resources got cleared");
 					done();
 				}.bind(this));
