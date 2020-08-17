@@ -62,13 +62,15 @@ sap.ui.define([
 	 * Submits a FHIR bundle request call with all entries associated with the given <code>sGroupId</code>
 	 *
 	 * @param {string} sGroupId The group id
+	 * @param {function} fnSuccessPromise The callback function which gets invoked once the submit is successful
+	 * @param {function} fnErrorPromise The callback function which gets invoked when the submit fails
 	 * @returns {sap.fhir.model.r4.lib.RequestHandle} oRequesthandle
 	 * @protected
 	 * @since 1.0.0
 	 */
-	FHIRRequestor.prototype.submitBundle = function(sGroupId) {
+	FHIRRequestor.prototype.submitBundle = function (sGroupId, fnSuccessPromise, fnErrorPromise) {
 		var oFHIRBundle = this._mBundleQueue[sGroupId];
-		return this._sendBundle(oFHIRBundle);
+		return this._sendBundle(oFHIRBundle, fnSuccessPromise, fnErrorPromise);
 	};
 
 	/**
@@ -156,33 +158,47 @@ sap.ui.define([
 	 * Sends the given <code>oFHIRBundle</code>
 	 *
 	 * @param {sap.fhir.model.r4.lib.FHIRBundle} oFHIRBundle The bundle to send
+	 * @param {function} fnSubmitSuccessBundle The callback function which gets invoked once the submit is successful
+	 * @param {function} fnSubmitErrorBundle The callback function which gets invoked when the submit fails
 	 * @returns {sap.fhir.model.r4.lib.RequestHandle} A request handle.
 	 * @private
 	 * @since 1.0.0
 	 */
-	FHIRRequestor.prototype._sendBundle = function(oFHIRBundle) {
-		var fnSuccess = function(oGivenFHIRBundle, oRequestHandle) {
+	FHIRRequestor.prototype._sendBundle = function(oFHIRBundle, fnSubmitSuccessBundle, fnSubmitErrorBundle) {
+		var fnSuccess = function (oGivenFHIRBundle, oRequestHandle) {
+			var aSuccessEntries = [];
+			var bError = false;
 			this._deleteBundleFromQueue(oFHIRBundle.getGroupId());
 			for (var i = 0; i < oGivenFHIRBundle.getNumberOfBundleEntries(); i++) {
 				var oFHIRBundleEntry = oGivenFHIRBundle.getBundlyEntry(i);
 				var oResponse = oRequestHandle.getRequest().responseJSON.entry[i];
 				if (oResponse && oResponse.response.status.startsWith("2")) {
+					aSuccessEntries.push(oFHIRBundleEntry);
 					oFHIRBundleEntry.getRequest().executeSuccessCallback(oRequestHandle, oResponse, oFHIRBundleEntry);
 				} else {
+					bError = true;
 					oFHIRBundleEntry.getRequest().executeErrorCallback(oRequestHandle, oResponse, oFHIRBundleEntry);
 				}
 			}
+			if (bError && fnSubmitErrorBundle) {
+				fnSubmitErrorBundle(oRequestHandle);
+			} else if (fnSubmitSuccessBundle) {
+				fnSubmitSuccessBundle(aSuccessEntries);
+			}
 		}.bind(this, oFHIRBundle);
 
-		var fnError = function(oGivenFHIRBundle, oRequestHandle) {
+		var fnError = function (oGivenFHIRBundle, oRequestHandle) {
 			this._deleteBundleFromQueue(oFHIRBundle.getGroupId());
 			for (var i = 0; i < oGivenFHIRBundle.getNumberOfBundleEntries(); i++) {
 				var oFHIRBundleEntry = oGivenFHIRBundle.getBundlyEntry(i);
 				oFHIRBundleEntry.getRequest().executeErrorCallback(oRequestHandle);
 			}
+			if (fnSubmitErrorBundle) {
+				fnSubmitErrorBundle(oRequestHandle);
+			}
 		}.bind(this, oFHIRBundle);
 
-		var oRequestHandle = this._sendRequest(HTTPMethod.POST, "", {} , {}, oFHIRBundle.getBundleData(), fnSuccess, fnError);
+		var oRequestHandle = this._sendRequest(HTTPMethod.POST, "", {}, {}, oFHIRBundle.getBundleData(), fnSuccess, fnError);
 		oRequestHandle.setBundle(oFHIRBundle);
 		return oRequestHandle;
 	};

@@ -639,23 +639,38 @@ sap.ui.define([
 					fnSuccessCallback = FHIRUtils.deepClone(sGroupId);
 					sGroupId = undefined;
 				}
-				var fnError = function(oParams) {
+				var fnError = function (oParams) {
 					if (fnErrorCallback) {
 						fnErrorCallback(oParams);
 					}
 				};
 
-				var fnSuccess = function() {
+				var fnSuccess = function () {
 					this.resetChanges(sGroupId, true);
 				}.bind(this);
 
 				var mRequestHandles;
+				var aPromises = [];
 				var iTriggeredVersionRequests = 0;
 
-				var fnSubmitBundles = function (){
-					for ( var sRequestHandleKey in mRequestHandles) {
+				var fnSubmitBundles = function () {
+					for (var sRequestHandleKey in mRequestHandles) {
 						if (sRequestHandleKey !== "direct") {
-							mRequestHandles[sRequestHandleKey] = this.oRequestor.submitBundle(sRequestHandleKey);
+							var oPromiseHandler = {};
+							var oPromise = new Promise(
+								function (resolve, reject) {
+									oPromiseHandler.resolve = resolve;
+									oPromiseHandler.reject = reject;
+								}
+							);
+							aPromises.push(oPromise);
+							var fnSuccessPromise = function (aFHIRBundleSuccessEntries) {
+								oPromiseHandler.resolve(aFHIRBundleSuccessEntries);
+							};
+							var fnErrorPromise = function (oRequestHandle, aFHIRBundleErrorEntries) {
+								oPromiseHandler.reject(oRequestHandle, aFHIRBundleErrorEntries);
+							};
+							mRequestHandles[sRequestHandleKey] = this.oRequestor.submitBundle(sRequestHandleKey, fnSuccessPromise, fnErrorPromise);
 						}
 					}
 				}.bind(this);
@@ -688,6 +703,10 @@ sap.ui.define([
 										 groupId : sResourceGroupId,
 										 manualSubmit : true
 								};
+								if (sGroupId && sResourceGroupId === sGroupId) {
+									mParameters.success = function () { };
+									mParameters.error = function () { };
+								}
 								var vRequestHandle = this.loadData(oRequestInfo.url, mParameters, oRequestInfo.method, oResourceNew);
 								mRequestHandles = mRequestHandles ? mRequestHandles : {};
 								if (vRequestHandle instanceof FHIRBundle && !mRequestHandles[vRequestHandle.getGroupId()]) {
@@ -748,6 +767,27 @@ sap.ui.define([
 				if (iTriggeredVersionRequests === 0){
 					fnSubmitBundles();
 				}
+				Promise.all(aPromises).then(function (aResponses) {
+					if (aResponses.length == 1) {
+						fnSuccessCallback(aResponses[0]);
+					} else {
+						fnSuccessCallback(aResponses);
+					}
+				}).catch(function (oRequestHandle) {
+					var mParameters = {
+						message: oRequestHandle.getRequest().statusText,
+						description: oRequestHandle.getRequest().responseText,
+						code: oRequestHandle.getRequest().status,
+						descriptionUrl: oRequestHandle.getUrl()
+					};
+					var oMessage = new Message(mParameters);
+					var oParams = {
+						statusCode: oRequestHandle.getRequest().status,
+						statusText: oRequestHandle.getRequest().statusText,
+						message: oMessage
+					};
+					fnErrorCallback(oParams);
+				});
 				return mRequestHandles;
 			};
 
