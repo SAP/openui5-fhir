@@ -261,12 +261,19 @@ sap.ui.define([
 
 		onPatientDetailsSavePress : function() {
 			var that = this;
-			this.oModel.submitChanges("patientDetails",function(oData) {
+			this.oModel.submitChanges("patientDetails",function(aFHIRBundleEntries) {
 				MessageToast.show("Patient successfully saved");
-				if (oData.resourceType === "Patient"){
-					that.sPatientId = oData.id;
-				} else if (oData.resourceType === "Encounter") {
-					that._bindEncounterProperties(oData.id);
+				var oPatientFHIRBundleEntry = aFHIRBundleEntries.find(function (oFHIRBundleEntry) {
+					return oFHIRBundleEntry.getResource().resourceType === "Patient";
+				});
+				if (oPatientFHIRBundleEntry) {
+					that.sPatientId = oPatientFHIRBundleEntry.getResource().id;
+				}
+				var oEncounterFHIRBundleEntry = aFHIRBundleEntries.find(function (oFHIRBundleEntry) {
+					return oFHIRBundleEntry.getResource().resourceType === "Encounter";
+				});
+				if (oEncounterFHIRBundleEntry) {
+					that._bindEncounterProperties(oEncounterFHIRBundleEntry.getResource().id);
 				}
 				var oRouter = sap.ui.core.UIComponent.getRouterFor(that);
 				oRouter.navTo("patientDetails", {

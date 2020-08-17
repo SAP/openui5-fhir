@@ -517,7 +517,7 @@ sap.ui.define([
 	FHIRModel.prototype._processError = function(oRequestHandle, oResponse, oBundleEntry, oBinding, fnErrorCallback, sMethod, oError) {
 		var oMessage = this._publishMessage(oRequestHandle, oResponse, oBundleEntry, oBinding, oError);
 		Log.fatal(sMethod + " " + oMessage.getDescriptionUrl() + ", Statuscode: " + oMessage.getCode()  + "\nError message: " + oMessage.getMessage());
-		if (fnErrorCallback && !oBundleEntry) {
+		if (fnErrorCallback) {
 			fnErrorCallback(oMessage);
 		}
 	};
