@@ -1,0 +1,13 @@
+{
+	"name": [
+		{
+			"given": [
+				"James"
+			],
+			"family": "Mueller"
+		}
+	],
+	"birthDate": "2000-05-31",
+	"resourceType": "Patient",
+	"id": "125656778"
+}
