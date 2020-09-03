@@ -65,6 +65,8 @@
   },
   "files": [
     "src/sap/fhir/**/*.js",
-    "ui5.yaml"
+    "ui5.yaml",
+		"LICENSES/**",
+		".reuse/**"
   ]
 }
