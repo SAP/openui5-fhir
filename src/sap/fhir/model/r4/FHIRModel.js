@@ -625,8 +625,12 @@ sap.ui.define([
 	 * Submits the client changes of the model to the FHIR service
 	 *
 	 * @param {string} [sGroupId] The group id to submit only a specific group, leave empty when all changes should be submitted
-	 * @param {function} [fnSuccessCallback] The callback function which is executed after the changes are send successfully to the server
-	 * @param {function} [fnErrorCallback] The callback function which is executed when the transport to the server failed
+	 * @param {function} [fnSuccessCallback] The callback function which is executed with specific parameters after the changes are send successfully to the server<br>
+	 *                                   Batch/Transaction Submit Mode fnSuccessCallback(aFHIRResources)<br>
+	 *                                   Direct Mode fnSuccessCallback(oFHIRResource)
+	 * @param {function} [fnErrorCallback] The callback function which is executed with specific parameters when the transport to the server failed<br>
+	 *                                   Batch/Transaction Submit Mode fnErrorCallback(oMessage, aSuccessResource, aOperationOutcome)<br>
+	 *                                   Direct Mode fnErrorCallback(oMessage)
 	 * @returns {object} mRequestHandles contains all request groups and direct requests which where submitted, e.g. {"patientDetails": oFHIRBundle1, "direct": [oRequestHandle1, oRequestHandle2],
 	 *          "patientList": oFHIRBundle2}, if there are no changes undefined is returned
 	 * @public

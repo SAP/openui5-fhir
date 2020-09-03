@@ -76,6 +76,9 @@ For more information see the [FHIR®-Documentation](https://www.hl7.org/fhir/R4/
                 },
                 "B": {
                     "submit": "Transaction"
+                },
+                "C": {
+                    "submit": "Direct"
                 }
             }
         }
@@ -99,12 +102,26 @@ To assign a binding to a specific group, you need to add the `groupId` parameter
 </List>
 ```
 
-#### Step 4.2.3: Submitting Changes
+#### Step 4.2.3: Submitting Changes and Callback Parameters
 By introducing of the group concept, you can also control which changes will be send to the FHIR® server by mentioning the `groupId` when submitting the changes. Now, only the changes that are triggered by bindings assigned to group `A` are send to the FHIR® server.
 
 ```javascript
 onSavePress: function(){
     this.getView().getModel().submitChanges("A");
+}
+```
+Depending on the submit mode the callback will be invoked with specific type of parameters. 
+
+If the group submit mode is Batch/Transaction then the success callback will contain all the FHIR Resources which were part of the request and in case of failed enteries in Bundle the error callback will be invoked with the successful resources and the operation outcome enteries.
+
+```javascript
+onSavePress: function
+    var fnSuccessCallback = function(aFHIRResource){
+    }
+    var fnErrorCallback = function(oMessage, aFHIRResource, aFHIROperationOutcome){
+    
+    }
+    this.getView().getModel().submitChanges("A",fnSuccessCallback,fnErrorCallback);
 }
 ```
 
@@ -124,9 +141,6 @@ Furthermore, you can mix the direct and bundle requests in one UI5 application w
                 },
                 "B": {
                     "submit": "Transaction"
-                },
-                "C": {
-                    "submit": "Direct"
                 }
             }
         }
