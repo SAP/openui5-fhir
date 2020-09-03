@@ -261,24 +261,34 @@ sap.ui.define([
 
 		onPatientDetailsSavePress : function() {
 			var that = this;
-			this.oModel.submitChanges("patientDetails",function(aFHIRBundleEntries) {
+			this.oModel.submitChanges("patientDetails",function(aFHIRResource) {
+				// this is getting called in opa5 tests with submit mode direct. so in direct requests its always resource.
+				// as per manifest the default submit mode is batch. in batch its array of entries
 				MessageToast.show("Patient successfully saved");
-				var oPatientFHIRBundleEntry = aFHIRBundleEntries.find(function (oFHIRBundleEntry) {
-					return oFHIRBundleEntry.getResource().resourceType === "Patient";
-				});
-				if (oPatientFHIRBundleEntry) {
-					that.sPatientId = oPatientFHIRBundleEntry.getResource().id;
+				if (aFHIRResource instanceof Array) {
+					var oPatientFHIRResource = aFHIRResource.find(function (oFHIRResource) {
+						return oFHIRResource.resourceType === "Patient";
+					});
+					if (oPatientFHIRResource) {
+						that.sPatientId = oPatientFHIRResource.id;
+					}
+				} else if (aFHIRResource.resourceType === "Patient") {
+					that.sPatientId = aFHIRResource.id;
 				}
-				var oEncounterFHIRBundleEntry = aFHIRBundleEntries.find(function (oFHIRBundleEntry) {
-					return oFHIRBundleEntry.getResource().resourceType === "Encounter";
-				});
-				if (oEncounterFHIRBundleEntry) {
-					that._bindEncounterProperties(oEncounterFHIRBundleEntry.getResource().id);
+				if (aFHIRResource instanceof Array) {
+					var oEncounterFHIRResource = aFHIRResource.find(function (oFHIRResource) {
+						return oFHIRResource.resourceType === "Encounter";
+					});
+					if (oEncounterFHIRResource) {
+						that._bindEncounterProperties(oEncounterFHIRResource.id);
+					}
+				} else if (aFHIRResource.resourceType === "Encounter") {
+					that._bindEncounterProperties(aFHIRResource.id);
 				}
 				var oRouter = sap.ui.core.UIComponent.getRouterFor(that);
 				oRouter.navTo("patientDetails", {
-					tab : that.byId("itbPatientDetails").getSelectedKey(),
-					patientId : that.sPatientId
+					tab: that.byId("itbPatientDetails").getSelectedKey(),
+					patientId: that.sPatientId
 				});
 			}, function(oError) {
 				MessageToast.show("StatusCode: " + oError.statusCode + "\n" + oError.statusText);

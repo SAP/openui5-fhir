@@ -655,11 +655,11 @@ sap.ui.define([
 
 				var fnSubmitBundles = function () {
 					var oPromiseHandler = {};
-					var fnSuccessPromise = function (aFHIRBundleSuccessEntries) {
-						oPromiseHandler.resolve(aFHIRBundleSuccessEntries);
+					var fnSuccessPromise = function (aFHIRResource) {
+						oPromiseHandler.resolve(aFHIRResource);
 					};
-					var fnErrorPromise = function (oRequestHandle, aFHIRBundleErrorEntries) {
-						oPromiseHandler.reject(oRequestHandle, aFHIRBundleErrorEntries);
+					var fnErrorPromise = function (oRequestHandle,aFHIRResource, aFHIROpertionOutcome) {
+						oPromiseHandler.reject(oRequestHandle, aFHIRResource, aFHIROpertionOutcome);
 					};
 					for (var sRequestHandleKey in mRequestHandles) {
 						if (sRequestHandleKey !== "direct") {
@@ -671,22 +671,24 @@ sap.ui.define([
 								}
 							);
 							aPromises.push(oPromise);
-							oPromise.then(function (aFHIRBundleSuccessEntries) {
-								fnSuccessCallback(aFHIRBundleSuccessEntries);
-							}).catch(function (oRequestHandle) {
-								var mParameters = {
-									message: oRequestHandle.getRequest().statusText,
-									description: oRequestHandle.getRequest().responseText,
-									code: oRequestHandle.getRequest().status,
-									descriptionUrl: oRequestHandle.getUrl()
-								};
-								var oMessage = new Message(mParameters);
-								var oParams = {
-									statusCode: oRequestHandle.getRequest().status,
-									statusText: oRequestHandle.getRequest().statusText,
-									message: oMessage
-								};
-								fnErrorCallback(oParams);
+							oPromise.then(function (aFHIRResource) {
+								fnSuccessCallback(aFHIRResource);
+							}).catch(function (oRequestHandle, aFHIRResource, aFHIROpertionOutcome) {
+								if (fnErrorCallback && oRequestHandle) {
+									var mParameters = {
+										message: oRequestHandle.getRequest().statusText,
+										description: oRequestHandle.getRequest().responseText,
+										code: oRequestHandle.getRequest().status,
+										descriptionUrl: oRequestHandle.getUrl()
+									};
+									var oMessage = new Message(mParameters);
+									var oParams = {
+										statusCode: oRequestHandle.getRequest().status,
+										statusText: oRequestHandle.getRequest().statusText,
+										message: oMessage
+									};
+									fnErrorCallback(oParams, aFHIRResource, aFHIROpertionOutcome);
+								}
 							});
 							mRequestHandles[sRequestHandleKey] = this.oRequestor.submitBundle(sRequestHandleKey, fnSuccessPromise, fnErrorPromise);
 						}
@@ -721,7 +723,7 @@ sap.ui.define([
 										 groupId : sResourceGroupId,
 										 manualSubmit : true
 								};
-								if (sGroupId && sResourceGroupId === sGroupId) {
+								if (sGroupId && sResourceGroupId === sGroupId && this.getGroupSubmitMode(sGroupId) !== "Direct") {
 									mParameters.success = function () { };
 									mParameters.error = function () { };
 								}

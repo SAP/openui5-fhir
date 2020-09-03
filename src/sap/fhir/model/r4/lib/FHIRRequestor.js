@@ -15,9 +15,10 @@ sap.ui.define([
 	"sap/fhir/model/r4/lib/HTTPMethod",
 	"sap/fhir/model/r4/lib/FHIRUrl",
 	"sap/base/util/each",
-	"sap/base/util/merge"
+	"sap/base/util/merge",
+	"sap/fhir/model/r4/lib/FHIROperationOutcome"
 ], function(jQuery, FHIRUtils, SubmitMode, FHIRBundle,
-	FHIRBundleEntry, FHIRBundleRequest, FHIRBundleType, RequestHandle, HTTPMethod, FHIRUrl, each, merge) {
+	FHIRBundleEntry, FHIRBundleRequest, FHIRBundleType, RequestHandle, HTTPMethod, FHIRUrl, each, merge, FHIROperationOutcome) {
 	"use strict";
 
 	/**
@@ -166,24 +167,31 @@ sap.ui.define([
 	 */
 	FHIRRequestor.prototype._sendBundle = function(oFHIRBundle, fnSubmitSuccessBundle, fnSubmitErrorBundle) {
 		var fnSuccess = function (oGivenFHIRBundle, oRequestHandle) {
-			var aSuccessEntries = [];
-			var bError = false;
+			var aSuccessResource = [];
+			var aOpertionOutcome = [];
 			this._deleteBundleFromQueue(oFHIRBundle.getGroupId());
 			for (var i = 0; i < oGivenFHIRBundle.getNumberOfBundleEntries(); i++) {
 				var oFHIRBundleEntry = oGivenFHIRBundle.getBundlyEntry(i);
 				var oResponse = oRequestHandle.getRequest().responseJSON.entry[i];
 				if (oResponse && oResponse.response.status.startsWith("2")) {
-					aSuccessEntries.push(oFHIRBundleEntry);
+					if (oResponse.resource) {
+						aSuccessResource.push(oResponse.resource);
+					} else if (oFHIRBundleEntry.getResource()) {
+						aSuccessResource.push(oFHIRBundleEntry.getResource());
+					}
 					oFHIRBundleEntry.getRequest().executeSuccessCallback(oRequestHandle, oResponse, oFHIRBundleEntry);
 				} else {
-					bError = true;
+					if (oResponse && oResponse.response.outcome) {
+						var oFhirOperationOutcome = new FHIROperationOutcome(oResponse.response.outcome);
+						aOpertionOutcome.push(oFhirOperationOutcome);
+					}
 					oFHIRBundleEntry.getRequest().executeErrorCallback(oRequestHandle, oResponse, oFHIRBundleEntry);
 				}
 			}
-			if (bError && fnSubmitErrorBundle) {
-				fnSubmitErrorBundle(oRequestHandle);
+			if (fnSubmitErrorBundle && aOpertionOutcome.length > 0) {
+				fnSubmitErrorBundle(oRequestHandle, aSuccessResource, aOpertionOutcome);
 			} else if (fnSubmitSuccessBundle) {
-				fnSubmitSuccessBundle(aSuccessEntries);
+				fnSubmitSuccessBundle(aSuccessResource);
 			}
 		}.bind(this, oFHIRBundle);
 

@@ -581,11 +581,11 @@ sap.ui.define([
 			this.oFhirModel.aBindings.push(oPropertyBinding);
 			var oDate = new Date();
 			oPropertyBinding.setValue(oDate);
-			this.oFhirModel.submitChanges("patientDetails", function(oData){
-				var oFHIRBundleEntry = oData.find(function (oFHIRBundleEntry) {
-					return oFHIRBundleEntry.getResource().resourceType === "Claim";
+			this.oFhirModel.submitChanges("patientDetails", function(aFHIRResource){
+				var oFHIRResource = aFHIRResource.find(function (oResource) {
+					return oResource.resourceType === "Claim";
 				});
-				this.oFhirModel.remove(["/Claim/" + oFHIRBundleEntry.getResource().id]);
+				this.oFhirModel.remove(["/Claim/" + oFHIRResource.id]);
 				this.oFhirModel.submitChanges("patientDetails", function(oData){
 					assert.deepEqual(this.oFhirModel.mChangedResources["Claim"], {} , "Claim in changed resources got cleared");
 					done();
