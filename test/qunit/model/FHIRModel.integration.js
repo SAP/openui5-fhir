@@ -50,6 +50,9 @@ sap.ui.define([
 					"practitioner1":{
 						"submit":"Transaction",
 						"fullUrlType":"url"
+					},
+					"bundle":{
+						"submit":"Batch"
 					}
 				},
 				"defaultQueryParameters": { "_total": "accurate" }
@@ -72,7 +75,7 @@ sap.ui.define([
 	QUnit.test("check if response has no total property that error in list binding is thrown", function(assert) {
 		var sPath = "/Patient";
 		var oListBinding = this.oFhirModel.bindList(sPath);
-		TestUtilsIntegration.manipulateResponse("http://localhost:8080/fhir/R4/Patient?_count=10&_total=accurate&_format=json", this.oFhirModel, TestUtilsIntegration.setTotalUndefined, TestUtilsIntegration.checkErrorMsg.bind(undefined, this.oFhirModel, assert, "FHIR Server error: The \"total\" property is missing in the response for the requested FHIR resource " + sPath));
+		TestUtilsIntegration.manipulateResponse("http://localhost:8080/fhir/R4/Patient?_count=10&_total=accurate&_format=json", this.oFhirModel, TestUtilsIntegration.setTotalUndefined, TestUtilsIntegration.checkErrorMsg.bind(undefined, this.oFhirModel, assert, "FHIR Server error: The \"total\" property is missing in the response for the requested FHIR resource " + sPath), undefined);
 		oListBinding.getContexts();
 	});
 
@@ -411,7 +414,7 @@ sap.ui.define([
 			};
 			oListBinding.attachDataReceived(fnCheck);
 		};
-		TestUtilsIntegration.manipulateResponse("http://localhost:8080/fhir/R4/ValueSet/$expand?_count=10&url=http://hl7.org/fhir/ValueSet/v3-hl7Realm&displayLanguage=" + sap.ui.getCore().getConfiguration().getLanguage() + "&_format=json", this.oFhirModel, TestUtilsIntegration.setTotalOfValueSetOperationUndefined, fnAssertion);
+		TestUtilsIntegration.manipulateResponse("http://localhost:8080/fhir/R4/ValueSet/$expand?_count=10&url=http://hl7.org/fhir/ValueSet/v3-hl7Realm&displayLanguage=" + sap.ui.getCore().getConfiguration().getLanguage() + "&_format=json", this.oFhirModel, TestUtilsIntegration.setTotalOfValueSetOperationUndefined, fnAssertion, undefined);
 		oListBinding.getContexts();
 	});
 
@@ -426,7 +429,7 @@ sap.ui.define([
 			};
 			oListBinding.attachDataReceived(fnCheck);
 		};
-		TestUtilsIntegration.manipulateResponse("http://localhost:8080/fhir/R4/ValueSet/$expand?_count=10&url=http://hl7.org/fhir/ValueSet/v3-hl7Realm&displayLanguage=" + sap.ui.getCore().getConfiguration().getLanguage() + "&_format=json", this.oFhirModel, TestUtilsIntegration.setValueSetPropertiesUndefined, fnAssertion);
+		TestUtilsIntegration.manipulateResponse("http://localhost:8080/fhir/R4/ValueSet/$expand?_count=10&url=http://hl7.org/fhir/ValueSet/v3-hl7Realm&displayLanguage=" + sap.ui.getCore().getConfiguration().getLanguage() + "&_format=json", this.oFhirModel, TestUtilsIntegration.setValueSetPropertiesUndefined, fnAssertion, undefined);
 		oListBinding.getContexts();
 	});
 
@@ -661,6 +664,85 @@ sap.ui.define([
 			done();
 		};
 		this.oFhirModel.readLatestVersionOfResource(sPatientPath, fnSuccessCallback);
+	});
+
+	QUnit.test("Test bundle callback with only successful entries ", function(assert){
+		this.oFhirModel.create("Practitioner", {
+			name: [
+				{
+					family: "johnson",
+					given: ["dexter"]
+				}
+			]
+		}, "bundle");
+		this.oFhirModel.create("Practitioner", {
+			name: [
+				{
+					family: "johnson",
+					given: ["falk"]
+				}
+			]
+		}, "bundle");
+		var done = assert.async();
+		var fnSuccessCallback = function (aFHIRResource) {
+			assert.strictEqual(aFHIRResource.length, 2, "Bundle success callback contains all the resources which was sent as part of request");
+			done();
+		};
+		this.oFhirModel.submitChanges("bundle",fnSuccessCallback);
+	});
+
+	QUnit.test("Test bundle callback containing both successful enteries and operation outcome", function(assert){
+		var oJSONData = TestUtils.loadJSONFile("BundleWithSuccessAndFailureEntries");
+		this.oFhirModel.create("Practitioner", {
+			name: [
+				{
+					family: "dwayne",
+					given: ["new"]
+				}
+			]
+		}, "bundle");
+		this.oFhirModel.create("PractitionerRole", {
+			practitioner: {
+				reference: "Practitioner/random22"
+			}
+		}, "bundle");
+		var done = assert.async();
+		var fnErrorCallback = function (oMessage, aFHIRResource, aOperationOutcome) {
+			assert.strictEqual(aFHIRResource.length, 1, "Bundle error callback contains all the successful resources which was sent as part of request");
+			assert.strictEqual(aOperationOutcome.length, 1, "Bundle error callback contains the opertion outcome of the failed enteries ");
+			assert.strictEqual(aOperationOutcome[0].getErrorText(), "Reference not found");
+			assert.strictEqual(aOperationOutcome[0].getDetailsTextBySeverity("error"), "Reference not found");
+			assert.strictEqual(aOperationOutcome[0].getDetailsTextBySeverity("fatal"), "");
+			done();
+		};
+		TestUtilsIntegration.manipulateResponse("http://localhost:8080/fhir/R4", this.oFhirModel, TestUtilsIntegration.setResponseJSON, undefined, oJSONData);
+		this.oFhirModel.submitChanges("bundle", undefined, fnErrorCallback);
+	});
+
+	QUnit.test("Test bundle callback containing only operation outcome entries", function(assert){
+		var oJSONData = TestUtils.loadJSONFile("BundleWithFailureEntries");
+		this.oFhirModel.create("PractitionerRole", {
+			practitioner: {
+				reference: "Practitioner/random2ww2"
+			}
+		}, "bundle");
+		this.oFhirModel.create("PractitionerRole", {
+			practitioner: {
+				reference: "Practitioner/random2www2"
+			}
+		}, "bundle");
+		var done = assert.async();
+		var fnErrorCallback = function (oMessage, aFHIRResource, aOperationOutcome) {
+			assert.strictEqual(aOperationOutcome.length, 2, "Bundle error callback contains the opertion outcome of the failed enteries ");
+			assert.strictEqual(aOperationOutcome[0].getIssues().length, 1, "Operation outcome get issues returns all the issues");
+			assert.strictEqual(aOperationOutcome[0].getDetailsTextBySeverity("fatal"), "no such data exists");
+			assert.strictEqual(aOperationOutcome[0].getIssueBySeverity("fatal").code, "processing");
+			assert.strictEqual(aOperationOutcome[1].getIssueByCode("not-found").severity, "error", "Operation outcome get issue by code returns the proper entry");
+			assert.strictEqual(aOperationOutcome[1].getErrorDiagnostics(), "Reference not found");
+			done();
+		};
+		TestUtilsIntegration.manipulateResponse("http://localhost:8080/fhir/R4", this.oFhirModel, TestUtilsIntegration.setResponseJSON, undefined, oJSONData);
+		this.oFhirModel.submitChanges("bundle", undefined, fnErrorCallback);
 	});
 
 });

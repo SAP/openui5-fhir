@@ -658,8 +658,13 @@ sap.ui.define([
 					var fnSuccessPromise = function (aFHIRResource) {
 						oPromiseHandler.resolve(aFHIRResource);
 					};
-					var fnErrorPromise = function (oRequestHandle,aFHIRResource, aFHIROpertionOutcome) {
-						oPromiseHandler.reject(oRequestHandle, aFHIRResource, aFHIROpertionOutcome);
+					var fnErrorPromise = function (oRequestHandle, aFHIRResource, aFHIROperationOutcome) {
+						var oError = {};
+						// this is done since promise catch can have only one parameter
+						oError.oRequestHandle = oRequestHandle;
+						oError.aFHIRResource = aFHIRResource;
+						oError.aFHIROperationOutcome = aFHIROperationOutcome;
+						oPromiseHandler.reject(oError);
 					};
 					for (var sRequestHandleKey in mRequestHandles) {
 						if (sRequestHandleKey !== "direct") {
@@ -673,21 +678,16 @@ sap.ui.define([
 							aPromises.push(oPromise);
 							oPromise.then(function (aFHIRResource) {
 								fnSuccessCallback(aFHIRResource);
-							}).catch(function (oRequestHandle, aFHIRResource, aFHIROpertionOutcome) {
-								if (fnErrorCallback && oRequestHandle) {
+							}).catch(function (oError) {
+								if (fnErrorCallback && oError.oRequestHandle) {
 									var mParameters = {
-										message: oRequestHandle.getRequest().statusText,
-										description: oRequestHandle.getRequest().responseText,
-										code: oRequestHandle.getRequest().status,
-										descriptionUrl: oRequestHandle.getUrl()
+										message: oError.oRequestHandle.getRequest().statusText,
+										description: oError.oRequestHandle.getRequest().responseText,
+										code: oError.oRequestHandle.getRequest().status,
+										descriptionUrl: oError.oRequestHandle.getUrl()
 									};
 									var oMessage = new Message(mParameters);
-									var oParams = {
-										statusCode: oRequestHandle.getRequest().status,
-										statusText: oRequestHandle.getRequest().statusText,
-										message: oMessage
-									};
-									fnErrorCallback(oParams, aFHIRResource, aFHIROpertionOutcome);
+									fnErrorCallback(oMessage, oError.aFHIRResource, oError.aFHIROperationOutcome);
 								}
 							});
 							mRequestHandles[sRequestHandleKey] = this.oRequestor.submitBundle(sRequestHandleKey, fnSuccessPromise, fnErrorPromise);

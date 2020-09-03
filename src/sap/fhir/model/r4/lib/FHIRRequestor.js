@@ -168,7 +168,7 @@ sap.ui.define([
 	FHIRRequestor.prototype._sendBundle = function(oFHIRBundle, fnSubmitSuccessBundle, fnSubmitErrorBundle) {
 		var fnSuccess = function (oGivenFHIRBundle, oRequestHandle) {
 			var aSuccessResource = [];
-			var aOpertionOutcome = [];
+			var aOperationOutcome = [];
 			this._deleteBundleFromQueue(oFHIRBundle.getGroupId());
 			for (var i = 0; i < oGivenFHIRBundle.getNumberOfBundleEntries(); i++) {
 				var oFHIRBundleEntry = oGivenFHIRBundle.getBundlyEntry(i);
@@ -182,14 +182,13 @@ sap.ui.define([
 					oFHIRBundleEntry.getRequest().executeSuccessCallback(oRequestHandle, oResponse, oFHIRBundleEntry);
 				} else {
 					if (oResponse && oResponse.response.outcome) {
-						var oFhirOperationOutcome = new FHIROperationOutcome(oResponse.response.outcome);
-						aOpertionOutcome.push(oFhirOperationOutcome);
+						aOperationOutcome.push(new FHIROperationOutcome(oResponse.response.outcome));
 					}
 					oFHIRBundleEntry.getRequest().executeErrorCallback(oRequestHandle, oResponse, oFHIRBundleEntry);
 				}
 			}
-			if (fnSubmitErrorBundle && aOpertionOutcome.length > 0) {
-				fnSubmitErrorBundle(oRequestHandle, aSuccessResource, aOpertionOutcome);
+			if (fnSubmitErrorBundle && aOperationOutcome.length > 0) {
+				fnSubmitErrorBundle(oRequestHandle, aSuccessResource, aOperationOutcome);
 			} else if (fnSubmitSuccessBundle) {
 				fnSubmitSuccessBundle(aSuccessResource);
 			}

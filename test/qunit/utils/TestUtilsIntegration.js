@@ -10,19 +10,22 @@ sap.ui.define(["sap/base/util/merge"], function (merge) {
 	 * @param {sap.fhir.model.r4.FHIRModel} oModel The FHIRModel instance
 	 * @param {function} fnSetResponse The function which overrides the response
 	 * @param {function} fnDoCheck The function which performs the asserts
+	 * @param {object} oData The response data which needs to be given
 	 * @since 1.0.0
 	 */
-	TestUtilsIntegration.manipulateResponse = function (sRequestedUrl, oModel, fnSetResponse, fnDoCheck) {
+	TestUtilsIntegration.manipulateResponse = function (sRequestedUrl, oModel, fnSetResponse, fnDoCheck, oData) {
 		var fnManipulateResponse = function (oEvent) {
 			if (oEvent.getParameter("requestHandle").getUrl() === sRequestedUrl) {
 				oModel.detachRequestSent(fnManipulateResponse);
 				oEvent.getParameter("requestHandle").getRequest().success(function (oRequestHandle) {
-					fnSetResponse(oRequestHandle);
+					fnSetResponse(oRequestHandle, oData);
 				}.bind(this, oEvent.getParameter("requestHandle")));
 			}
 		};
 		oModel.attachRequestSent(fnManipulateResponse);
-		fnDoCheck();
+		if (fnDoCheck) {
+			fnDoCheck();
+		}
 	};
 
 	/**
@@ -94,6 +97,18 @@ sap.ui.define(["sap/base/util/merge"], function (merge) {
 			assert.strictEqual(oEvent.getParameter("newMessages").message, sMessage, "The correct message was send and retrieved.");
 		};
 		oModel.attachMessageChange(fnCheckErrorMessage);
+	};
+
+	/**
+	 * Overrides the json response with data
+	 *
+	 * @protected
+	 * @param {sap.fhir.model.r4.lib.RequestHandle} oRequestHandle The affected request
+	 * @param {object} oData The response data which needs to be given
+	 * @since 2.0.0
+	 */
+	TestUtilsIntegration.setResponseJSON = function (oRequestHandle, oData) {
+		oRequestHandle.getRequest().responseJSON = oData;
 	};
 
 	return TestUtilsIntegration;

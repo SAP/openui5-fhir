@@ -13,7 +13,7 @@ sap.ui.define([], function () {
 	 * @constructs {sap.fhir.model.r4.lib.FHIROperationOutcome} Provides the implementation of a FHIR OperationOutcome
 	 * @alias sap.fhir.model.r4.lib.FHIROperationOutcome
 	 * @author SAP SE
-	 * @protected
+	 * @public
 	 * @since 2.0.0
 	 * @version ${version}
 	 */
@@ -109,7 +109,7 @@ sap.ui.define([], function () {
 	 * @public
 	 * @since 2.0.0
 	 */
-	FHIROperationOutcome.prototype.getErrorText = function () {
+	FHIROperationOutcome.prototype.getErrorDiagnostics = function () {
 		return this.getDiagnosticsBySeverity("error");
 	};
 

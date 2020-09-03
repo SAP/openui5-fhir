@@ -1,0 +1,45 @@
+{
+   "resourceType":"Bundle",
+   "id":"f6efd17c-a838-4599-9c9f-e49b90566d12",
+   "type":"batch-response",
+   "link":[
+      {
+         "relation":"self",
+         "url":"http://localhost:8080/fhir"
+      }
+   ],
+   "entry":[
+      {
+         "response":{
+            "status":"412 PRECONDITION_FAILED",
+            "outcome":{
+               "issue":[
+                  {
+                     "severity":"fatal",
+                     "code":"processing",
+                     "details":{
+                        "text":"no such data exists"
+                     }
+                  }
+               ],
+               "resourceType":"OperationOutcome"
+            }
+         }
+      },
+      {
+         "response":{
+            "status":"412 PRECONDITION_FAILED",
+            "outcome":{
+               "issue":[
+                  {
+                     "severity":"error",
+                     "code":"not-found",
+                     "diagnostics":"Reference not found"
+                  }
+               ],
+               "resourceType":"OperationOutcome"
+            }
+         }
+      }
+   ]
+}

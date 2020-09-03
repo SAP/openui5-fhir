@@ -186,7 +186,7 @@ sap.ui.define([
 					MessageToast.show("Deletion successful");
 				},
 				function(oError) {
-					MessageBox.error(oError.message.getDescription());
+					MessageBox.error(oError.getDescription());
 				}
 			);
 		}
