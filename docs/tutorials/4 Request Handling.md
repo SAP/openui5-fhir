@@ -76,9 +76,6 @@ For more information see the [FHIR®-Documentation](https://www.hl7.org/fhir/R4/
                 },
                 "B": {
                     "submit": "Transaction"
-                },
-                "C": {
-                    "submit": "Direct"
                 }
             }
         }
@@ -141,6 +138,9 @@ Furthermore, you can mix the direct and bundle requests in one UI5 application w
                 },
                 "B": {
                     "submit": "Transaction"
+                },	
+                "C": {	
+                    "submit": "Direct"	
                 }
             }
         }
