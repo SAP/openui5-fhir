@@ -664,9 +664,8 @@ sap.ui.define([
 	});
 
 	/***
-	 * The request handle gets deleted only when the request is completed
-	 * but during an update call with version read in case of direct requests
-	 * the handle remains due to which the update call doesn't get triggered.
+	 * The request handle has to be deleted in case of success AND failure before the jQuery.complete hook is executed.
+	 * In case of an update call with version read (direct request) the request handle has to be deleted right in the beginning of the success or failure to trigger the update call.
 	 **/
 	QUnit.test("Test Submit Changes after version read", function(assert) {
 		var done = assert.async();
