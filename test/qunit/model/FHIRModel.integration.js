@@ -663,6 +663,11 @@ sap.ui.define([
 		this.oFhirModel.readLatestVersionOfResource(sPatientPath, fnSuccessCallback);
 	});
 
+	/***
+	 * The request handle gets deleted only when the request is completed
+	 * but during an update call with version read in case of direct requests
+	 * the handle remains due to which the update call doesn't get triggered.
+	 **/
 	QUnit.test("Test Submit Changes after version read", function(assert) {
 		var done = assert.async();
 		this.oFhirModel.create("Practitioner", {
