@@ -7,7 +7,8 @@ sap.ui.define([], function () {
 	"use strict";
 
 	/**
-	 * Constructor for a new FHIROperationOutcome. [FHIR Specification]{@link https://www.hl7.org/fhir/operationoutcome.html}
+	 * Constructor for a new FHIROperationOutcome.
+	 * @see [FHIR Specification]{@link https://www.hl7.org/fhir/operationoutcome.html}
 	 *
 	 * @param {object} oResource The FHIR resource
 	 * @constructs {sap.fhir.model.r4.lib.FHIROperationOutcome} Provides the implementation of a FHIR OperationOutcome
