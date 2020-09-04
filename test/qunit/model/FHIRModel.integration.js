@@ -663,10 +663,10 @@ sap.ui.define([
 		this.oFhirModel.readLatestVersionOfResource(sPatientPath, fnSuccessCallback);
 	});
 
-	/***
+	/**
 	 * The request handle has to be deleted in case of success AND failure before the jQuery.complete hook is executed.
 	 * In case of an update call with version read (direct request) the request handle has to be deleted right in the beginning of the success or failure to trigger the update call.
-	 **/
+	 */
 	QUnit.test("Test Submit Changes after version read", function(assert) {
 		var done = assert.async();
 		this.oFhirModel.create("Practitioner", {
