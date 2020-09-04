@@ -265,25 +265,18 @@ sap.ui.define([
 				// this is getting called in opa5 tests with submit mode direct. so in direct requests its always resource.
 				// as per manifest the default submit mode is batch. in batch its array of entries
 				MessageToast.show("Patient successfully saved");
+				var oFHIRResource;
 				if (aFHIRResource instanceof Array) {
-					var oPatientFHIRResource = aFHIRResource.find(function (oFHIRResource) {
-						return oFHIRResource.resourceType === "Patient";
+					oFHIRResource = aFHIRResource.find(function (oFHIRResource) {
+						return oFHIRResource.resourceType === "Patient" || oFHIRResource.resourceType === "Encounter";
 					});
-					if (oPatientFHIRResource) {
-						that.sPatientId = oPatientFHIRResource.id;
-					}
-				} else if (aFHIRResource.resourceType === "Patient") {
-					that.sPatientId = aFHIRResource.id;
+				} else {
+					oFHIRResource = aFHIRResource;
 				}
-				if (aFHIRResource instanceof Array) {
-					var oEncounterFHIRResource = aFHIRResource.find(function (oFHIRResource) {
-						return oFHIRResource.resourceType === "Encounter";
-					});
-					if (oEncounterFHIRResource) {
-						that._bindEncounterProperties(oEncounterFHIRResource.id);
-					}
-				} else if (aFHIRResource.resourceType === "Encounter") {
-					that._bindEncounterProperties(aFHIRResource.id);
+				if (oFHIRResource.resourceType === "Patient") {
+					that.sPatientId = oFHIRResource.id;
+				} else if (oFHIRResource.resourceType === "Encounter") {
+					that._bindEncounterProperties(oFHIRResource.id);
 				}
 				var oRouter = sap.ui.core.UIComponent.getRouterFor(that);
 				oRouter.navTo("patientDetails", {

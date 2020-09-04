@@ -112,13 +112,14 @@ Depending on the submit mode the callback will be invoked with specific type of 
 If the group submit mode is Batch/Transaction then the success callback will contain all the FHIR Resources which were part of the request and in case of failed enteries in Bundle the error callback will be invoked with the successful resources and the operation outcome enteries.
 
 ```javascript
-onSavePress: function
+onSavePress: function() {
     var fnSuccessCallback = function(aFHIRResource){
+        // Here the list of resources which got processed successfully as part of bundle request can be accessed
     }
     var fnErrorCallback = function(oMessage, aFHIRResource, aFHIROperationOutcome){
-    
+        // all the successful and failure resources as part of bundle can be accessed
     }
-    this.getView().getModel().submitChanges("A",fnSuccessCallback,fnErrorCallback);
+    this.getView().getModel().submitChanges("A", fnSuccessCallback, fnErrorCallback);
 }
 ```
 
