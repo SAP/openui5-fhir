@@ -665,9 +665,9 @@ sap.ui.define([
 					var fnErrorPromise = function (oRequestHandle, aFHIRResource, aFHIROperationOutcome) {
 						var oError = {};
 						// this is done since promise catch can have only one parameter
-						oError.requesthandle = oRequestHandle;
+						oError.requestHandle = oRequestHandle;
 						oError.resources = aFHIRResource;
-						oError.operationoutcomes = aFHIROperationOutcome;
+						oError.operationOutcomes = aFHIROperationOutcome;
 						oPromiseHandler.reject(oError);
 					};
 					for (var sRequestHandleKey in mRequestHandles) {
@@ -683,15 +683,15 @@ sap.ui.define([
 							oPromise.then(function (aFHIRResource) {
 								fnSuccessCallback(aFHIRResource);
 							}).catch(function (oError) {
-								if (fnErrorCallback && oError.requesthandle) {
+								if (fnErrorCallback && oError.requestHandle) {
 									var mParameters = {
-										message: oError.requesthandle.getRequest().statusText,
-										description: oError.requesthandle.getRequest().responseText,
-										code: oError.requesthandle.getRequest().status,
-										descriptionUrl: oError.requesthandle.getUrl()
+										message: oError.requestHandle.getRequest().statusText,
+										description: oError.requestHandle.getRequest().responseText,
+										code: oError.requestHandle.getRequest().status,
+										descriptionUrl: oError.requestHandle.getUrl()
 									};
 									var oMessage = new Message(mParameters);
-									fnErrorCallback(oMessage, oError.resources, oError.operationoutcomes);
+									fnErrorCallback(oMessage, oError.resources, oError.operationOutcomes);
 								}
 							});
 							mRequestHandles[sRequestHandleKey] = this.oRequestor.submitBundle(sRequestHandleKey, fnSuccessPromise, fnErrorPromise);
