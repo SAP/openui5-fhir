@@ -50,6 +50,9 @@ sap.ui.define([
 					"practitioner1":{
 						"submit":"Transaction",
 						"fullUrlType":"url"
+					},
+					"practitioner2":{
+						"submit":"Direct"
 					}
 				},
 				"defaultQueryParameters": { "_total": "accurate" }
@@ -660,4 +663,30 @@ sap.ui.define([
 		this.oFhirModel.readLatestVersionOfResource(sPatientPath, fnSuccessCallback);
 	});
 
+	/**
+	 * The request handle has to be deleted in case of success AND failure before the jQuery.complete hook is executed.
+	 * In case of an update call with version read (direct request) the request handle has to be deleted right in the beginning of the success or failure to trigger the update call.
+	 */
+	QUnit.test("Test Submit Changes after version read", function(assert) {
+		var done = assert.async();
+		this.oFhirModel.create("Practitioner", {
+			name: [
+				{
+					family: "johnson1",
+					given: ["dexter1"]
+				}
+			],
+			birthDate: "1987-03-03"
+		}, "practitioner2");
+		var successFn = function (oData) {
+			this.oFhirModel.setProperty("/" + oData.resourceType + "/" + oData.id + "/birthDate", "1988-03-04");
+			delete this.oFhirModel.oData.Practitioner[oData.id].meta;
+			this.oFhirModel.getBindingInfo("/" + oData.resourceType + "/" + oData.id)._sETag = undefined;
+			this.oFhirModel.submitChanges(undefined, function (oData) {
+				assert.strictEqual(oData.birthDate, "1988-03-04", "Submit is called successfully after version read");
+				done();
+			});
+		}.bind(this);
+		this.oFhirModel.submitChanges("practitioner2", successFn, undefined);
+	});
 });
