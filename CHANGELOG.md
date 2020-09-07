@@ -1,3 +1,10 @@
+## [1.1.7](https://github.com/SAP/openui5-fhir/compare/v1.1.6...v1.1.7) (2020-09-04)
+
+
+### Bug Fixes
+
+* pending request handle ([#173](https://github.com/SAP/openui5-fhir/issues/173)) ([b463e13](https://github.com/SAP/openui5-fhir/commit/b463e1313569eccf23f7e32a8ad0d5a278b2b440))
+
 ## [1.1.6](https://github.com/SAP/openui5-fhir/compare/v1.1.5...v1.1.6) (2020-08-04)
 
 

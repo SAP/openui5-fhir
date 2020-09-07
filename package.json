@@ -1,6 +1,6 @@
 {
   "name": "openui5-fhir",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "author": "SAP SE",
   "license": "Apache-2.0",
   "description": "The OpenUI5-FHIR Library enables UI5 to the FHIR world",
@@ -66,7 +66,7 @@
   "files": [
     "src/sap/fhir/**/*.js",
     "ui5.yaml",
-		"LICENSES/**",
-		".reuse/**"
+    "LICENSES/**",
+    ".reuse/**"
   ]
 }
