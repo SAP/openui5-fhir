@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/SAP/openui5-fhir/compare/v1.1.7...v1.2.0) (2020-09-07)
+
+
+### Features
+
+* handle bundle response BREAKING CHANGE: handle bundle response and invoke callbacks only after the complete bundle response is parsed. ([#162](https://github.com/SAP/openui5-fhir/issues/162)) ([1680b9c](https://github.com/SAP/openui5-fhir/commit/1680b9c85e26c526e15f7648d89c034d576e1999))
+
 ## [1.1.7](https://github.com/SAP/openui5-fhir/compare/v1.1.6...v1.1.7) (2020-09-04)
 
 
