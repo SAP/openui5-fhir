@@ -1,3 +1,15 @@
+# [2.0.0](https://github.com/SAP/openui5-fhir/compare/v1.1.7...v2.0.0) (2020-09-07)
+
+
+### Features
+
+* handle bundle response more comfortable ([#176](https://github.com/SAP/openui5-fhir/issues/176)) ([518a1f0](https://github.com/SAP/openui5-fhir/commit/518a1f06ba13df6541855b910f3e182665aa5c4e))
+
+
+### BREAKING CHANGES
+
+* callback parameters of `FHIRModel.submitChanges` get enhanced in case of bundle requests. See https://sap.github.io/openui5-fhir/tutorial-4%20Request%20Handling.html.
+
 ## [1.1.7](https://github.com/SAP/openui5-fhir/compare/v1.1.6...v1.1.7) (2020-09-04)
 
 
