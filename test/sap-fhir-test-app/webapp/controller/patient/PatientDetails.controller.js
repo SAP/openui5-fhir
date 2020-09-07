@@ -261,17 +261,27 @@ sap.ui.define([
 
 		onPatientDetailsSavePress : function() {
 			var that = this;
-			this.oModel.submitChanges("patientDetails",function(oData) {
+			this.oModel.submitChanges("patientDetails",function(aFHIRResource) {
+				// this is getting called in opa5 tests with submit mode direct. so in direct requests its always resource.
+				// as per manifest the default submit mode is batch. in batch its array of entries
 				MessageToast.show("Patient successfully saved");
-				if (oData.resourceType === "Patient"){
-					that.sPatientId = oData.id;
-				} else if (oData.resourceType === "Encounter") {
-					that._bindEncounterProperties(oData.id);
+				var oFHIRResource;
+				if (aFHIRResource instanceof Array) {
+					oFHIRResource = aFHIRResource.find(function (oFHIRResource) {
+						return oFHIRResource.resourceType === "Patient" || oFHIRResource.resourceType === "Encounter";
+					});
+				} else {
+					oFHIRResource = aFHIRResource;
+				}
+				if (oFHIRResource.resourceType === "Patient") {
+					that.sPatientId = oFHIRResource.id;
+				} else if (oFHIRResource.resourceType === "Encounter") {
+					that._bindEncounterProperties(oFHIRResource.id);
 				}
 				var oRouter = sap.ui.core.UIComponent.getRouterFor(that);
 				oRouter.navTo("patientDetails", {
-					tab : that.byId("itbPatientDetails").getSelectedKey(),
-					patientId : that.sPatientId
+					tab: that.byId("itbPatientDetails").getSelectedKey(),
+					patientId: that.sPatientId
 				});
 			}, function(oError) {
 				MessageToast.show("StatusCode: " + oError.statusCode + "\n" + oError.statusText);

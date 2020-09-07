@@ -625,8 +625,12 @@ sap.ui.define([
 	 * Submits the client changes of the model to the FHIR service
 	 *
 	 * @param {string} [sGroupId] The group id to submit only a specific group, leave empty when all changes should be submitted
-	 * @param {function} [fnSuccessCallback] The callback function which is executed after the changes are send successfully to the server
-	 * @param {function} [fnErrorCallback] The callback function which is executed when the transport to the server failed
+	 * @param {function} [fnSuccessCallback] The callback function which is executed with specific parameters after the changes are send successfully to the server<br>
+	 *                                   Batch/Transaction Submit Mode fnSuccessCallback(aFHIRResources)<br>
+	 *                                   Direct Mode fnSuccessCallback(oFHIRResource)
+	 * @param {function} [fnErrorCallback] The callback function which is executed with specific parameters when the transport to the server failed<br>
+	 *                                   Batch/Transaction Submit Mode fnErrorCallback(oMessage, aSuccessResource, aOperationOutcome)<br>
+	 *                                   Direct Mode fnErrorCallback(oMessage)
 	 * @returns {object} mRequestHandles contains all request groups and direct requests which where submitted, e.g. {"patientDetails": oFHIRBundle1, "direct": [oRequestHandle1, oRequestHandle2],
 	 *          "patientList": oFHIRBundle2}, if there are no changes undefined is returned
 	 * @public
@@ -639,23 +643,58 @@ sap.ui.define([
 					fnSuccessCallback = FHIRUtils.deepClone(sGroupId);
 					sGroupId = undefined;
 				}
-				var fnError = function(oParams) {
+				var fnError = function (oParams) {
 					if (fnErrorCallback) {
 						fnErrorCallback(oParams);
 					}
 				};
 
-				var fnSuccess = function() {
+				var fnSuccess = function () {
 					this.resetChanges(sGroupId, true);
 				}.bind(this);
 
 				var mRequestHandles;
+				var aPromises = [];
 				var iTriggeredVersionRequests = 0;
 
-				var fnSubmitBundles = function (){
-					for ( var sRequestHandleKey in mRequestHandles) {
+				var fnSubmitBundles = function () {
+					var oPromiseHandler = {};
+					var fnSuccessPromise = function (aFHIRResource) {
+						oPromiseHandler.resolve(aFHIRResource);
+					};
+					var fnErrorPromise = function (oRequestHandle, aFHIRResource, aFHIROperationOutcome) {
+						var oError = {};
+						// this is done since promise catch can have only one parameter
+						oError.requestHandle = oRequestHandle;
+						oError.resources = aFHIRResource;
+						oError.operationOutcomes = aFHIROperationOutcome;
+						oPromiseHandler.reject(oError);
+					};
+					for (var sRequestHandleKey in mRequestHandles) {
 						if (sRequestHandleKey !== "direct") {
-							mRequestHandles[sRequestHandleKey] = this.oRequestor.submitBundle(sRequestHandleKey);
+							// eslint-disable-next-line no-undef
+							var oPromise = new Promise(
+								function (resolve, reject) {
+									oPromiseHandler.resolve = resolve;
+									oPromiseHandler.reject = reject;
+								}
+							);
+							aPromises.push(oPromise);
+							oPromise.then(function (aFHIRResource) {
+								fnSuccessCallback(aFHIRResource);
+							}).catch(function (oError) {
+								if (fnErrorCallback && oError.requestHandle) {
+									var mParameters = {
+										message: oError.requestHandle.getRequest().statusText,
+										description: oError.requestHandle.getRequest().responseText,
+										code: oError.requestHandle.getRequest().status,
+										descriptionUrl: oError.requestHandle.getUrl()
+									};
+									var oMessage = new Message(mParameters);
+									fnErrorCallback(oMessage, oError.resources, oError.operationOutcomes);
+								}
+							});
+							mRequestHandles[sRequestHandleKey] = this.oRequestor.submitBundle(sRequestHandleKey, fnSuccessPromise, fnErrorPromise);
 						}
 					}
 				}.bind(this);
@@ -688,6 +727,10 @@ sap.ui.define([
 										 groupId : sResourceGroupId,
 										 manualSubmit : true
 								};
+								if (sGroupId && sResourceGroupId === sGroupId && this.getGroupSubmitMode(sGroupId) !== "Direct") {
+									mParameters.success = function () { };
+									mParameters.error = function () { };
+								}
 								var vRequestHandle = this.loadData(oRequestInfo.url, mParameters, oRequestInfo.method, oResourceNew);
 								mRequestHandles = mRequestHandles ? mRequestHandles : {};
 								if (vRequestHandle instanceof FHIRBundle && !mRequestHandles[vRequestHandle.getGroupId()]) {
