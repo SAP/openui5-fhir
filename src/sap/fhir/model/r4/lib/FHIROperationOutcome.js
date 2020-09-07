@@ -26,7 +26,7 @@ sap.ui.define([], function () {
 	/**
 	* Get All Issues
 	*
-	* @returns {array} aIssues All the issues in the given instance
+	* @returns {array} All the issues in the given instance
 	* @public
 	* @since 2.0.0
 	*/
@@ -38,7 +38,7 @@ sap.ui.define([], function () {
 	 * Get Issue based on severity
 	 *
 	 * @param {string} sSeverity Issue severity(fatal | error | warning | information)
-	 * @returns {object} oIssue
+	 * @returns {object} The issue which matches the given severity
 	 * @public
 	 * @since 2.0.0
 	 */
@@ -52,7 +52,7 @@ sap.ui.define([], function () {
 	 * Get Issue based on code
 	 *
 	 * @param {string} sCode Error or warning code
-	 * @returns {object} oIssue
+	 * @returns {object} The issue which matches the given code
 	 * @public
 	 * @since 2.0.0
 	 */
@@ -66,7 +66,7 @@ sap.ui.define([], function () {
 	 * Get details text based on severity
 	 *
 	 * @param {string} sSeverity Issue severity(fatal | error | warning | information)
-	 * @returns {string} sText
+	 * @returns {string} Details of the issue of a given severity
 	 * @public
 	 * @since 2.0.0
 	 */
@@ -81,7 +81,7 @@ sap.ui.define([], function () {
 	 * Get diagnostics based on severity
 	 *
 	 * @param {string} sSeverity Issue severity(fatal | error | warning | information)
-	 * @returns {string} sDiagnostics
+	 * @returns {string} Diagnostics of the issue of a given severity
 	 * @public
 	 * @since 2.0.0
 	 */
@@ -95,7 +95,7 @@ sap.ui.define([], function () {
 	/**
 	 * Get error details
 	 *
-	 * @returns {string} sText
+	 * @returns {string} Details of the issue based on the severity type error
 	 * @public
 	 * @since 2.0.0
 	 */
@@ -106,7 +106,7 @@ sap.ui.define([], function () {
 	/**
 	 * Get error diagnostics
 	 *
-	 * @returns {string} sText
+	 * @returns {string}  Diagnostics of the issue based on the severity type error
 	 * @public
 	 * @since 2.0.0
 	 */
