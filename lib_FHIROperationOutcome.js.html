@@ -31,7 +31,7 @@
 
 <div id="main" class="content">
     
-    <h1 class="page-title">Context.js</h1>
+    <h1 class="page-title">lib/FHIROperationOutcome.js</h1>
     
     
 
@@ -44,150 +44,121 @@
  * ${copyright}
  */
 
-//Provides class sap.fhir.model.r4.Context
-sap.ui.define([
-	"sap/base/Log",
-	"sap/ui/model/ChangeReason",
-	"sap/fhir/model/r4/FHIRUtils",
-	"sap/ui/model/Context"
-], function (Log, ChangeReason, FHIRUtils, BaseContext) {
+// Provides class sap.fhir.model.r4.lib.FHIROperationOutcome
+sap.ui.define([], function () {
 	"use strict";
 
 	/**
-	 * Constructor for a new Context, should not be used, use the static Context.create function
+	 * Constructor for a new FHIROperationOutcome.
+	 * @see [FHIR Specification]{@link https://www.hl7.org/fhir/operationoutcome.html}
 	 *
-	 * @class
-	 * @classdesc Context implementation for the FHIRModel
-	 * @alias sap.fhir.model.r4.Context
-	 * @param {sap.fhir.model.r4.FHIRModel} oModel
-	 *   The model
-	 * @param {sap.fhir.model.r4.FHIRContextBinding|sap.fhir.model.r4.FHIRListBinding|sap.fhir.model.r4.FHIRTreeBinding} oBinding
-	 *   A binding that belongs to the model
-	 * @param {string} sPath
-	 *   An absolute path without trailing slash
-	 * @param {string} [sGroupId]
-	 *   The group where the context belongs to
+	 * @param {object} oResource The FHIR resource
+	 * @constructs {sap.fhir.model.r4.lib.FHIROperationOutcome} Provides the implementation of a FHIR OperationOutcome
+	 * @alias sap.fhir.model.r4.lib.FHIROperationOutcome
 	 * @author SAP SE
-	 * @extends sap.ui.model.Context
 	 * @public
-	 * @since 1.0.0
+	 * @since 2.0.0
 	 * @version 1.2.0
-	 *
-	 * @see sap.fhir.model.r4.Context.create
 	 */
-	var Context = BaseContext.extend("sap.fhir.model.r4.Context", {
-		constructor : function (oModel, oBinding, sPath, sGroupId) {
-			BaseContext.call(this, oModel, sPath);
-			this.oBinding = oBinding;
-			this.sGroupId = sGroupId;
-		}
-	});
-
-	/**
-	 * Loads the context based on the configured &lt;code>sPath&lt;/code> and the created context
-	 *
-	 * @param {sap.ui.model.ChangeReason} sChangeReason The reason for refreshing the binding
-	 * @private
-	 * @since 1.0.0
-	 */
-	Context.prototype._loadContext = function(sChangeReason) {
-		var oBindingInfo = this.oModel.getBindingInfo(this.sPath, this.oBinding.oContext, this.oBinding.bUnique);
-		if (oBindingInfo &amp;&amp; !this.oBinding.bPendingRequest){
-			var oRequestInfo = this.oModel._getProperty(this.oModel.mChangedResources, oBindingInfo.getBinding().slice(0, 2));
-			if (!oRequestInfo || oRequestInfo.method !== "POST"){
-				var oResource = this.oModel._getProperty(this.oModel.oData, oBindingInfo.getBinding());
-				if (!oResource || sChangeReason === ChangeReason.Refresh){
-					var fnAfterContextRequest = function(oData){
-						if (oData.message !== "abort"){
-							this._markAsReady(oData &amp;&amp; oData.total, sChangeReason);
-						}
-					}.bind(this);
-					var mParameters = {
-						binding : this.oBinding,
-						forceDirectCall : false,
-						success : fnAfterContextRequest,
-						error : fnAfterContextRequest
-					};
-					FHIRUtils.addRequestQueryParameters(this.oBinding, mParameters);
-					this.oBinding.bPendingRequest = true;
-					this.oModel.loadData(oBindingInfo.getRequestPath(), mParameters);
-					this.bPendingRequest = true;
-				} else {
-					this.oBinding.bIsLoaded = true;
-				}
-			} else {
-				this.oBinding.bIsCreatedResource = true;
-			}
-		}
+	var FHIROperationOutcome = function (oResource) {
+		this._sResourceType = oResource.resourceType;
+		this._aIssue = oResource.issue ? oResource.issue : [];
 	};
 
 	/**
-	 * Determines the dependent binding
-	 *
-	 * @returns {sap.fhir.model.r4.FHIRContextBinding|sap.fhir.model.r4.FHIRListBinding|sap.fhir.model.r4.FHIRTreeBinding} oBinding The dependent binding
-	 * @protected
-	 * @since 1.0.0
-	 */
-	Context.prototype.getBinding = function() {
-		return this.oBinding;
+	* Get All Issues
+	*
+	* @returns {array} All the issues in the given instance
+	* @public
+	* @since 2.0.0
+	*/
+	FHIROperationOutcome.prototype.getIssues = function () {
+		return this._aIssue;
 	};
 
 	/**
-	 * Marks the context binding initialization or update as completed
+	 * Get Issue based on severity
 	 *
-	 * @param {number} iTotal The total number of bound resources. This information is needed to enable the property binding %total%
-	 * @param {sap.ui.model.ChangeReason} sChangeReason The reason for refreshing the binding
-	 * @private
-	 * @since 1.0.0
+	 * @param {string} sSeverity Issue severity(fatal | error | warning | information)
+	 * @returns {object} The issue which matches the given severity
+	 * @public
+	 * @since 2.0.0
 	 */
-	Context.prototype._markAsReady = function(iTotal, sChangeReason){
-		this.iTotal = iTotal;
-		this.oBinding.bInitial = false;
-		this.oBinding.bPendingRequest = false;
-		this.oBinding._fireChange({
-			reason : sChangeReason || ChangeReason.Change
+	FHIROperationOutcome.prototype.getIssueBySeverity = function (sSeverity) {
+		return this._aIssue.find(function (oIssue) {
+			return oIssue.severity === sSeverity;
 		});
 	};
 
 	/**
-	 * Refreshes all depending bindings
+	 * Get Issue based on code
 	 *
-	 * @param {sap.ui.model.ChangeReason} sChangeReason The reason for refreshing the context
+	 * @param {string} sCode Error or warning code
+	 * @returns {object} The issue which matches the given code
 	 * @public
-	 * @since 1.0.0
+	 * @since 2.0.0
 	 */
-	Context.prototype.refresh = function(sChangeReason) {
-		this.oBinding.bInitial = true;
-		this._loadContext(ChangeReason.Refresh);
+	FHIROperationOutcome.prototype.getIssueByCode = function (sCode) {
+		return this._aIssue.find(function (oIssue) {
+			return oIssue.code === sCode;
+		});
 	};
 
 	/**
-	 * Determines the context for the given path with the binding and if it not exists creates it
+	 * Get details text based on severity
 	 *
-	 * @param {sap.fhir.model.r4.FHIRModel} oModel
-	 *   The model
-	 * @param {sap.fhir.model.r4.FHIRContextBinding|sap.fhir.model.r4.FHIRListBinding|sap.fhir.model.r4.FHIRTreeBinding} oBinding
-	 *   A binding that belongs to the model
-	 * @param {string} sPath
-	 *   An absolute path without trailing slash
-	 * @param {string} [sGroupId]
-	 *   The group where the context belongs to
-	 * @returns {sap.fhir.model.r4.Context} Context object used by this context binding or &lt;code>null&lt;/code>
-	 * @protected
-	 * @since 1.0.0
+	 * @param {string} sSeverity Issue severity(fatal | error | warning | information)
+	 * @returns {string} Details of the issue of a given severity
+	 * @public
+	 * @since 2.0.0
 	 */
-	Context.create = function(oModel, oBinding, sPath, sGroupId){
-		if (oModel.mContexts.hasOwnProperty(sPath) &amp;&amp; !oModel.mContexts[sPath].hasOwnProperty(oBinding.sId)){
-			oModel.mContexts[sPath][oBinding.sId] = new Context(oModel, oBinding, sPath, sGroupId);
-		} else if (!oModel.mContexts.hasOwnProperty(sPath)){
-			oModel.mContexts[sPath] = {};
-			oModel.mContexts[sPath][oBinding.sId] = new Context(oModel, oBinding, sPath, sGroupId);
-		}
-		return oModel.mContexts[sPath][oBinding.sId];
+	FHIROperationOutcome.prototype.getDetailsTextBySeverity = function (sSeverity) {
+		var oIssue = this._aIssue.find(function (oIssue) {
+			return oIssue.severity === sSeverity;
+		});
+		return oIssue &amp;&amp; oIssue.details &amp;&amp; oIssue.details.text ? oIssue.details.text : "";
 	};
 
-	return Context;
-});</code></pre>
+	/**
+	 * Get diagnostics based on severity
+	 *
+	 * @param {string} sSeverity Issue severity(fatal | error | warning | information)
+	 * @returns {string} Diagnostics of the issue of a given severity
+	 * @public
+	 * @since 2.0.0
+	 */
+	FHIROperationOutcome.prototype.getDiagnosticsBySeverity = function (sSeverity) {
+		var oIssue = this._aIssue.find(function (oIssue) {
+			return oIssue.severity === sSeverity;
+		});
+		return oIssue &amp;&amp; oIssue.diagnostics ? oIssue.diagnostics : "";
+	};
+
+	/**
+	 * Get error details
+	 *
+	 * @returns {string} Details of the issue based on the severity type error
+	 * @public
+	 * @since 2.0.0
+	 */
+	FHIROperationOutcome.prototype.getErrorText = function () {
+		return this.getDetailsTextBySeverity("error");
+	};
+
+	/**
+	 * Get error diagnostics
+	 *
+	 * @returns {string}  Diagnostics of the issue based on the severity type error
+	 * @public
+	 * @since 2.0.0
+	 */
+	FHIROperationOutcome.prototype.getErrorDiagnostics = function () {
+		return this.getDiagnosticsBySeverity("error");
+	};
+
+	return FHIROperationOutcome;
+});
+</code></pre>
         </article>
     </section>
 

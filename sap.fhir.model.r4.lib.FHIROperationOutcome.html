@@ -31,165 +31,1193 @@
 
 <div id="main" class="content">
     
-    <h1 class="page-title">Context.js</h1>
+    <h1 class="page-title">FHIROperationOutcome</h1>
     
     
 
 
 
+
+<section>
+
+<header>
     
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/*!
- * ${copyright}
- */
+        <h2>
+        FHIROperationOutcome
+        </h2>
+        
+    
+</header>
 
-//Provides class sap.fhir.model.r4.Context
-sap.ui.define([
-	"sap/base/Log",
-	"sap/ui/model/ChangeReason",
-	"sap/fhir/model/r4/FHIRUtils",
-	"sap/ui/model/Context"
-], function (Log, ChangeReason, FHIRUtils, BaseContext) {
-	"use strict";
+<article>
+    <div class="container-overview">
+    
+        
+<div class="section-method">
 
-	/**
-	 * Constructor for a new Context, should not be used, use the static Context.create function
-	 *
-	 * @class
-	 * @classdesc Context implementation for the FHIRModel
-	 * @alias sap.fhir.model.r4.Context
-	 * @param {sap.fhir.model.r4.FHIRModel} oModel
-	 *   The model
-	 * @param {sap.fhir.model.r4.FHIRContextBinding|sap.fhir.model.r4.FHIRListBinding|sap.fhir.model.r4.FHIRTreeBinding} oBinding
-	 *   A binding that belongs to the model
-	 * @param {string} sPath
-	 *   An absolute path without trailing slash
-	 * @param {string} [sGroupId]
-	 *   The group where the context belongs to
-	 * @author SAP SE
-	 * @extends sap.ui.model.Context
-	 * @public
-	 * @since 1.0.0
-	 * @version 1.2.0
-	 *
-	 * @see sap.fhir.model.r4.Context.create
-	 */
-	var Context = BaseContext.extend("sap.fhir.model.r4.Context", {
-		constructor : function (oModel, oBinding, sPath, sGroupId) {
-			BaseContext.call(this, oModel, sPath);
-			this.oBinding = oBinding;
-			this.sGroupId = sGroupId;
-		}
-	});
+    
 
-	/**
-	 * Loads the context based on the configured &lt;code>sPath&lt;/code> and the created context
-	 *
-	 * @param {sap.ui.model.ChangeReason} sChangeReason The reason for refreshing the binding
-	 * @private
-	 * @since 1.0.0
-	 */
-	Context.prototype._loadContext = function(sChangeReason) {
-		var oBindingInfo = this.oModel.getBindingInfo(this.sPath, this.oBinding.oContext, this.oBinding.bUnique);
-		if (oBindingInfo &amp;&amp; !this.oBinding.bPendingRequest){
-			var oRequestInfo = this.oModel._getProperty(this.oModel.mChangedResources, oBindingInfo.getBinding().slice(0, 2));
-			if (!oRequestInfo || oRequestInfo.method !== "POST"){
-				var oResource = this.oModel._getProperty(this.oModel.oData, oBindingInfo.getBinding());
-				if (!oResource || sChangeReason === ChangeReason.Refresh){
-					var fnAfterContextRequest = function(oData){
-						if (oData.message !== "abort"){
-							this._markAsReady(oData &amp;&amp; oData.total, sChangeReason);
-						}
-					}.bind(this);
-					var mParameters = {
-						binding : this.oBinding,
-						forceDirectCall : false,
-						success : fnAfterContextRequest,
-						error : fnAfterContextRequest
-					};
-					FHIRUtils.addRequestQueryParameters(this.oBinding, mParameters);
-					this.oBinding.bPendingRequest = true;
-					this.oModel.loadData(oBindingInfo.getRequestPath(), mParameters);
-					this.bPendingRequest = true;
-				} else {
-					this.oBinding.bIsLoaded = true;
-				}
-			} else {
-				this.oBinding.bIsCreatedResource = true;
-			}
-		}
-	};
+    <h4 class="name" id="FHIROperationOutcome"><span class="type-signature"></span>new FHIROperationOutcome<span class="signature">(oResource)</span><span class="type-signature"></span></h4>
 
-	/**
-	 * Determines the dependent binding
-	 *
-	 * @returns {sap.fhir.model.r4.FHIRContextBinding|sap.fhir.model.r4.FHIRListBinding|sap.fhir.model.r4.FHIRTreeBinding} oBinding The dependent binding
-	 * @protected
-	 * @since 1.0.0
-	 */
-	Context.prototype.getBinding = function() {
-		return this.oBinding;
-	};
+    
 
-	/**
-	 * Marks the context binding initialization or update as completed
-	 *
-	 * @param {number} iTotal The total number of bound resources. This information is needed to enable the property binding %total%
-	 * @param {sap.ui.model.ChangeReason} sChangeReason The reason for refreshing the binding
-	 * @private
-	 * @since 1.0.0
-	 */
-	Context.prototype._markAsReady = function(iTotal, sChangeReason){
-		this.iTotal = iTotal;
-		this.oBinding.bInitial = false;
-		this.oBinding.bPendingRequest = false;
-		this.oBinding._fireChange({
-			reason : sChangeReason || ChangeReason.Change
-		});
-	};
 
-	/**
-	 * Refreshes all depending bindings
-	 *
-	 * @param {sap.ui.model.ChangeReason} sChangeReason The reason for refreshing the context
-	 * @public
-	 * @since 1.0.0
-	 */
-	Context.prototype.refresh = function(sChangeReason) {
-		this.oBinding.bInitial = true;
-		this._loadContext(ChangeReason.Refresh);
-	};
 
-	/**
-	 * Determines the context for the given path with the binding and if it not exists creates it
-	 *
-	 * @param {sap.fhir.model.r4.FHIRModel} oModel
-	 *   The model
-	 * @param {sap.fhir.model.r4.FHIRContextBinding|sap.fhir.model.r4.FHIRListBinding|sap.fhir.model.r4.FHIRTreeBinding} oBinding
-	 *   A binding that belongs to the model
-	 * @param {string} sPath
-	 *   An absolute path without trailing slash
-	 * @param {string} [sGroupId]
-	 *   The group where the context belongs to
-	 * @returns {sap.fhir.model.r4.Context} Context object used by this context binding or &lt;code>null&lt;/code>
-	 * @protected
-	 * @since 1.0.0
-	 */
-	Context.create = function(oModel, oBinding, sPath, sGroupId){
-		if (oModel.mContexts.hasOwnProperty(sPath) &amp;&amp; !oModel.mContexts[sPath].hasOwnProperty(oBinding.sId)){
-			oModel.mContexts[sPath][oBinding.sId] = new Context(oModel, oBinding, sPath, sGroupId);
-		} else if (!oModel.mContexts.hasOwnProperty(sPath)){
-			oModel.mContexts[sPath] = {};
-			oModel.mContexts[sPath][oBinding.sId] = new Context(oModel, oBinding, sPath, sGroupId);
-		}
-		return oModel.mContexts[sPath][oBinding.sId];
-	};
+<div class="description">
+    <p>Constructor for a new FHIROperationOutcome.</p>
+</div>
 
-	return Context;
-});</code></pre>
-        </article>
-    </section>
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-version">Version:</dt>
+    <dd class="tag-version"><ul class="dummy"><li>1.2.0</li></ul></dd>
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>2.0.0</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>SAP SE</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_FHIROperationOutcome.js.html">lib/FHIROperationOutcome.js</a>, <a href="lib_FHIROperationOutcome.js.html#line21">line 21</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><p><a href="https://www.hl7.org/fhir/operationoutcome.html">FHIR Specification</a></p></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>oResource</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>object</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>The FHIR resource</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="getDetailsTextBySeverity"><span class="type-signature"></span>getDetailsTextBySeverity<span class="signature">(sSeverity)</span><span class="type-signature"> &rarr; {string}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Get details text based on severity</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>2.0.0</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_FHIROperationOutcome.js.html">lib/FHIROperationOutcome.js</a>, <a href="lib_FHIROperationOutcome.js.html#line73">line 73</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>sSeverity</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>Issue severity(fatal | error | warning | information)</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>string</code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>Details of the issue of a given severity</p>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="getDiagnosticsBySeverity"><span class="type-signature"></span>getDiagnosticsBySeverity<span class="signature">(sSeverity)</span><span class="type-signature"> &rarr; {string}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Get diagnostics based on severity</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>2.0.0</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_FHIROperationOutcome.js.html">lib/FHIROperationOutcome.js</a>, <a href="lib_FHIROperationOutcome.js.html#line88">line 88</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>sSeverity</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>Issue severity(fatal | error | warning | information)</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>string</code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>Diagnostics of the issue of a given severity</p>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="getErrorDiagnostics"><span class="type-signature"></span>getErrorDiagnostics<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Get error diagnostics</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>2.0.0</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_FHIROperationOutcome.js.html">lib/FHIROperationOutcome.js</a>, <a href="lib_FHIROperationOutcome.js.html#line113">line 113</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>string</code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>Diagnostics of the issue based on the severity type error</p>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="getErrorText"><span class="type-signature"></span>getErrorText<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Get error details</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>2.0.0</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_FHIROperationOutcome.js.html">lib/FHIROperationOutcome.js</a>, <a href="lib_FHIROperationOutcome.js.html#line102">line 102</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>string</code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>Details of the issue based on the severity type error</p>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="getIssueByCode"><span class="type-signature"></span>getIssueByCode<span class="signature">(sCode)</span><span class="type-signature"> &rarr; {object}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Get Issue based on code</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>2.0.0</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_FHIROperationOutcome.js.html">lib/FHIROperationOutcome.js</a>, <a href="lib_FHIROperationOutcome.js.html#line59">line 59</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>sCode</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>Error or warning code</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>object</code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>The issue which matches the given code</p>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="getIssueBySeverity"><span class="type-signature"></span>getIssueBySeverity<span class="signature">(sSeverity)</span><span class="type-signature"> &rarr; {object}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Get Issue based on severity</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>2.0.0</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_FHIROperationOutcome.js.html">lib/FHIROperationOutcome.js</a>, <a href="lib_FHIROperationOutcome.js.html#line45">line 45</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>sSeverity</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>Issue severity(fatal | error | warning | information)</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>object</code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>The issue which matches the given severity</p>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="getIssues"><span class="type-signature"></span>getIssues<span class="signature">()</span><span class="type-signature"> &rarr; {array}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Get All Issues</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>2.0.0</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_FHIROperationOutcome.js.html">lib/FHIROperationOutcome.js</a>, <a href="lib_FHIROperationOutcome.js.html#line33">line 33</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>array</code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>All the issues in the given instance</p>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 
