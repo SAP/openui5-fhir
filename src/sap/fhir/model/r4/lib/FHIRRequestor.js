@@ -108,7 +108,7 @@ sap.ui.define([
 				return oFHIRBundle;
 			} else {
 				oRequestHandle = this._mBundleQueue[sGroupId];
-				if (oRequestHandle && oRequestHandle instanceof RequestHandle) {
+				if (oRequestHandle && oRequestHandle instanceof RequestHandle){
 					oRequestHandle.getRequest().abort();
 				}
 				oRequestHandle = this._sendBundle(oFHIRBundle);

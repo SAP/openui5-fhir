@@ -186,7 +186,7 @@ sap.ui.define([ "sap/fhir/model/r4/FHIRUtils" ], function(FHIRUtils) {
 	 * @public
 	 * @since 2.0.1
 	 */
-	RequestHandle.prototype.isAborted = function() {
+	RequestHandle.prototype.isAborted = function () {
 		return this.getRequest().statusText === "abort";
 	};
 
