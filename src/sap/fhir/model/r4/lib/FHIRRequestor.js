@@ -308,8 +308,8 @@ sap.ui.define([
 	 */
 	FHIRRequestor.prototype._ajax = function(oRequestHandle, mParameters, fnSuccess, fnError) {
 		var jqXHR = jQuery.ajax(mParameters);
-		if (jqXHR.statusText !== "canceled") {
-			jqXHR.complete(function(oGivenRequestHandle) {
+		if (!oRequestHandle.isAborted()) {
+			jqXHR.complete(function (oGivenRequestHandle) {
 				this.oModel.fireRequestCompleted(this._createEventParameters(oGivenRequestHandle));
 			}.bind(this, oRequestHandle));
 			this._add(oRequestHandle, fnSuccess, fnError);
