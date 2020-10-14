@@ -108,7 +108,8 @@ sap.ui.define([
 				return oFHIRBundle;
 			} else {
 				oRequestHandle = this._mBundleQueue[sGroupId];
-				if (oRequestHandle && oRequestHandle instanceof RequestHandle){
+				if (oRequestHandle && oRequestHandle instanceof RequestHandle) {
+					oRequestHandle.bAborted = true;
 					oRequestHandle.getRequest().abort();
 				}
 				oRequestHandle = this._sendBundle(oFHIRBundle);
@@ -336,7 +337,9 @@ sap.ui.define([
 		jqXHR.fail(function(oGivenRequestHandle) {
 			this._deleteRequestHandle(oGivenRequestHandle);
 			fnError(oGivenRequestHandle);
-			this.oModel.fireRequestFailed(this._createEventParameters(oGivenRequestHandle));
+			if (!oGivenRequestHandle.bAborted) {
+				this.oModel.fireRequestFailed(this._createEventParameters(oGivenRequestHandle));
+			}
 		}.bind(this, oRequestHandle));
 	};
 
