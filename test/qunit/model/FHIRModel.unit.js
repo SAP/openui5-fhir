@@ -1215,4 +1215,11 @@ sap.ui.define([
 		assert.equal(oRequestHandlePatient.isAborted(), true);
 	});
 
+	QUnit.test("RequestHandle isAborted should be true for canceled requests", function(assert){
+		var oRequestHandle = this.oFhirModel1.sendGetRequest("dummy");
+		assert.equal(oRequestHandle.isAborted(), false);
+		oRequestHandle = this.oFhirModel1.sendGetRequest("dummy");
+		assert.equal(oRequestHandle.isAborted(), true);
+	});
+
 });
