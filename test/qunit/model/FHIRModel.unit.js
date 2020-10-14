@@ -1205,4 +1205,14 @@ sap.ui.define([
 		assert.strictEqual(sStrucDefUrl, undefined, "Structure definition URL is undefined since resource type doesnot exist");
 	});
 
+	QUnit.test("RequestHandle isAborted should be true for aborted requests", function(assert){
+		this.loadDataIntoModel("Patient2", this.sPatientPath2.substring(1));
+		this.oPropertyBinding3.setValue("2008-04-27");
+		var mRequestHandles = this.oFhirModel1.submitChanges();
+		var oRequestHandlePatient = mRequestHandles.patientDetails;
+		assert.equal(oRequestHandlePatient.isAborted(), false);
+		oRequestHandlePatient.abort();
+		assert.equal(oRequestHandlePatient.isAborted(), true);
+	});
+
 });
