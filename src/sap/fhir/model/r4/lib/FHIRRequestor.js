@@ -109,7 +109,6 @@ sap.ui.define([
 			} else {
 				oRequestHandle = this._mBundleQueue[sGroupId];
 				if (oRequestHandle && oRequestHandle instanceof RequestHandle) {
-					oRequestHandle.bAborted = true;
 					oRequestHandle.getRequest().abort();
 				}
 				oRequestHandle = this._sendBundle(oFHIRBundle);
@@ -337,7 +336,7 @@ sap.ui.define([
 		jqXHR.fail(function(oGivenRequestHandle) {
 			this._deleteRequestHandle(oGivenRequestHandle);
 			fnError(oGivenRequestHandle);
-			if (!oGivenRequestHandle.bAborted) {
+			if (!oGivenRequestHandle.isAborted()) {
 				this.oModel.fireRequestFailed(this._createEventParameters(oGivenRequestHandle));
 			}
 		}.bind(this, oRequestHandle));

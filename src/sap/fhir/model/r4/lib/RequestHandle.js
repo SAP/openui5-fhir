@@ -178,5 +178,17 @@ sap.ui.define([ "sap/fhir/model/r4/FHIRUtils" ], function(FHIRUtils) {
 		this.getRequest().abort();
 	};
 
+
+	/**
+	 * Checks if the request is aborted
+	 *
+	 * @returns {boolean} true if the request is aborted
+	 * @public
+	 * @since 2.0.1
+	 */
+	RequestHandle.prototype.isAborted = function() {
+		return this.getRequest().statusText === "abort";
+	};
+
 	return RequestHandle;
 });
