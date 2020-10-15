@@ -1,3 +1,10 @@
+## [2.0.1](https://github.com/SAP/openui5-fhir/compare/v2.0.0...v2.0.1) (2020-10-15)
+
+
+### Bug Fixes
+
+* dont trigger request failed for aborted requests ([#186](https://github.com/SAP/openui5-fhir/issues/186)) ([05286bb](https://github.com/SAP/openui5-fhir/commit/05286bbb2b7d1ee8ac311019c3821259dc022520)), closes [/github.com/SAP/openui5/blob/master/src/sap.ui.core/src/sap/ui/model/odata/ODataModel.js#L869](https://github.com//github.com/SAP/openui5/blob/master/src/sap.ui.core/src/sap/ui/model/odata/ODataModel.js/issues/L869)
+
 # [2.0.0](https://github.com/SAP/openui5-fhir/compare/v1.1.7...v2.0.0) (2020-09-07)
 
 
