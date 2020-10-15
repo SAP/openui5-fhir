@@ -183,7 +183,7 @@ sap.ui.define([ "sap/fhir/model/r4/FHIRUtils" ], function(FHIRUtils) {
 	 * Checks if the request is aborted or canceled
 	 *
 	 * @returns {boolean} true if the request is aborted or canceled
-	 * @public
+	 * @protected
 	 * @since 2.0.1
 	 */
 	RequestHandle.prototype.isAborted = function () {
