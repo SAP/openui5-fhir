@@ -308,8 +308,8 @@ sap.ui.define([
 	 */
 	FHIRRequestor.prototype._ajax = function(oRequestHandle, mParameters, fnSuccess, fnError) {
 		var jqXHR = jQuery.ajax(mParameters);
-		if (jqXHR.statusText !== "canceled") {
-			jqXHR.complete(function(oGivenRequestHandle) {
+		if (!oRequestHandle.isAborted()) {
+			jqXHR.complete(function (oGivenRequestHandle) {
 				this.oModel.fireRequestCompleted(this._createEventParameters(oGivenRequestHandle));
 			}.bind(this, oRequestHandle));
 			this._add(oRequestHandle, fnSuccess, fnError);
@@ -336,7 +336,9 @@ sap.ui.define([
 		jqXHR.fail(function(oGivenRequestHandle) {
 			this._deleteRequestHandle(oGivenRequestHandle);
 			fnError(oGivenRequestHandle);
-			this.oModel.fireRequestFailed(this._createEventParameters(oGivenRequestHandle));
+			if (!oGivenRequestHandle.isAborted()) {
+				this.oModel.fireRequestFailed(this._createEventParameters(oGivenRequestHandle));
+			}
 		}.bind(this, oRequestHandle));
 	};
 
