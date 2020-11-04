@@ -317,8 +317,8 @@ sap.ui.define([
 	 */
 	FHIRModel.prototype._storeResourceInModel = function(oResource, oBinding, sGroupId) {
 		var aResourcePath;
-		if (oResource.resourceType === "ValueSet") {
-			aResourcePath = [oResource.resourceType , "§" + oResource.expansion.identifier + "§"];
+		if (oResource.resourceType === "ValueSet" && oResource.expansion && oResource.expansion.identifier) {
+			aResourcePath = [oResource.resourceType, "§" + oResource.expansion.identifier + "§"];
 			oResource = oResource.expansion.contains;
 		} else {
 			// generate a uuid id in case resource id is not present in the response
@@ -425,7 +425,7 @@ sap.ui.define([
 	 */
 	FHIRModel.prototype._mapResourceToResourceMap = function(oData) {
 		var mResources = {};
-		if (oData && oData.resourceType === "ValueSet") {
+		if (oData && oData.resourceType === "ValueSet" && oData.expansion && oData.expansion.identifier) {
 			this._setProperty(mResources, ["ValueSet", "§" + oData.expansion.identifier + "§"], oData.expansion.contains, true);
 		} else if (oData && oData.resourceType && oData.id && oData.resourceType !== "Bundle") {
 			this._setProperty(mResources, [oData.resourceType, oData.id], oData, true);

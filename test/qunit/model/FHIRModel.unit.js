@@ -1222,4 +1222,15 @@ sap.ui.define([
 		assert.equal(oRequestHandle.isAborted(), true);
 	});
 
+	QUnit.test("ValueSet search response should not throw error", function(assert){
+		var oJSONData = TestUtils.loadJSONFile("ValueSetSearchResponse");
+		var mResponseHeaders = { "etag": "W/\"1\"" };
+		this.oRequestHandle.setUrl("https://example.com/fhir/ValueSet?url=https://standards.digital.health.nz/fhir/ValueSet/sact-location-medication-collection-code");
+		this.oRequestHandle.setRequest(TestUtils.createAjaxCallMock(mResponseHeaders));
+		this.oFhirModel1._onSuccessfulRequest(this.oRequestHandle, oJSONData);
+		var sValueSetPath = "/ValueSet/sact-location-medication-collection-code";
+		var oValueSet = this.oFhirModel1.getProperty(sValueSetPath);
+		assert.strictEqual(oValueSet.url, "https://standards.digital.health.nz/fhir/ValueSet/sact-location-medication-collection-code", "ValueSet Search Response is saved in the model data without throwing an error");
+	});
+
 });
