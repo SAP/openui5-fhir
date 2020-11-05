@@ -1,3 +1,10 @@
+## [2.0.2](https://github.com/SAP/openui5-fhir/compare/v2.0.1...v2.0.2) (2020-11-05)
+
+
+### Bug Fixes
+
+* Valueset calls without expand option ([#193](https://github.com/SAP/openui5-fhir/issues/193)) ([0c5ebb5](https://github.com/SAP/openui5-fhir/commit/0c5ebb581a13728ec18d16a7258d1e600e7df844))
+
 ## [2.0.1](https://github.com/SAP/openui5-fhir/compare/v2.0.0...v2.0.1) (2020-10-15)
 
 
