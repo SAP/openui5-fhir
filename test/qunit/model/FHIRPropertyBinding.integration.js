@@ -61,4 +61,8 @@ sap.ui.define(["../utils/TestUtilsIntegration", "../utils/TestUtils"], function 
 		};
 		oContextBinding.attachChange(fnChangeHandler1);
 	});
+
+	QUnit.test("Its red", function(assert){
+		assert.ok(false);
+	});
 });
