@@ -459,7 +459,7 @@ sap.ui.define([
 		this.oFhirModel2.oRequestor.sToken = "123";
 		var oRequestHandle = this.oFhirModel2.loadData("/Patient");
 		assert.strictEqual(this.oFhirModel2.oRequestor.bCSRF, true, "The x-csrf-token is enabled.");
-		assert.strictEqual(oRequestHandle.getUrl(), "https://example.com/fhir/Patient?_format=json&_total=accurate");
+		assert.strictEqual(oRequestHandle.getUrl(), "https://example.com/fhir/Patient?_total=accurate&_format=json");
 		assert.strictEqual(oRequestHandle.getHeaders()["x-csrf-token"], "123", "The request headers are correct.");
 		this.oFhirModel2.oRequestor.sToken = undefined;
 	});
