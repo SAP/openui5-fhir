@@ -26,7 +26,7 @@ sap.ui.define([
 	 *
 	 * @param {string} sServiceUrl The root URL of the FHIR server to request data from, e.g. http://example.com/fhir
 	 * @param {sap.fhir.model.r4.FHIRModel} oModel The FHIRModel
-	 * @param {boolean} bCSRF If the FHIR service supports the csrf token
+	 * @param {boolean} [bCSRF=false] If the FHIR service supports the csrf token
 	 * @param {string} sPrefer In which kind the FHIR service shall return the responses described here https://www.hl7.org/fhir/http.html#2.21.0.5.2
 	 * @param {object} oDefaultQueryParams The default query parameters to be passed on resource type specific requests and not resource instance specific requests (e.g /Patient?_total:accurate&_format:json). It should be of type key:value pairs. e.g. {'_total':'accurate'} -> http://hl7.org/fhir/http.html#parameters
 	 * @alias sap.fhir.model.r4.lib.FHIRRequestor
@@ -41,7 +41,7 @@ sap.ui.define([
 		this.oModel = oModel;
 		this._sServiceUrl = sServiceUrl;
 		this._aPendingRequestHandles = [];
-		this.bCSRF = bCSRF === true ? true : false;
+		this.bCSRF = !!bCSRF;
 		this.sPrefer = sPrefer ?  "return=minimal" : sPrefer;
 		this.oDefaultQueryParams = oDefaultQueryParams;
 		this._oRegex = {
@@ -284,15 +284,12 @@ sap.ui.define([
 	 *
 	 * @param {function} [fnOriginSuccess] The original success callback which will be executed when the request was successful
 	 * @param {sap.fhir.model.r4.lib.RequestHandle} oRequestHandle The request handle object to identify the executed request
-	 * @param {object} oData The server response
-	 * @param {string} sStatusText The status text of the response
-	 * @param {object} jqXHR The request object
 	 * @private
 	 * @since 1.0.0
 	 */
-	FHIRRequestor.prototype._callBackForXcsrfToken = function(fnOriginSuccess, oRequestHandle, oData, sStatusText, jqXHR){
-		this.sToken = this.getResponseHeaders(jqXHR)["x-csrf-token"];
-		fnOriginSuccess(oRequestHandle, oData);
+	FHIRRequestor.prototype._callBackForXcsrfToken = function(fnOriginSuccess, oRequestHandle){
+		this.sToken = this.getResponseHeaders(oRequestHandle.getRequest())["x-csrf-token"];
+		fnOriginSuccess(oRequestHandle);
 	};
 
 	/**
