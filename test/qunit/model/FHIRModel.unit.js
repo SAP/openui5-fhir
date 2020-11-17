@@ -50,12 +50,13 @@ sap.ui.define([
 					"valueSets" : {
 						"submit" : "Batch"
 					}
-				}
+				},
+				"defaultQueryParameters": { "_total": "accurate" }
 			};
 
 			this.oRequestHandle = TestUtils.createRequestHandle();
 			this.oFhirModel1 = createModel(mParameters);
-			this.oFhirModel2 = createModel({"x-csrf-token" : true});
+			this.oFhirModel2 = createModel({ "x-csrf-token": true, "defaultQueryParameters": { "_total": "accurate" } });
 			this.oFhirModel3 = createModel(mParameters);
 			this.loadDataIntoModel = function(sFilePath, sResourcePath, mParams, sMethod) {
 				var mResponseHeaders = {"etag" : "W/\"1\""};
@@ -165,8 +166,11 @@ sap.ui.define([
 
 	QUnit.test("check that format request parameter", function(assert) {
 		assert.strictEqual(this.oFhirModel1.oRequestor._buildQueryParameters(), "");
-		assert.strictEqual(this.oFhirModel1.oRequestor._buildQueryParameters({_format : "xml"}, this.oFhirModel1.getBindingInfo("/Patient")), "?_format=json&_total=accurate");
-		assert.strictEqual(this.oFhirModel1.oRequestor._buildQueryParameters({_format : "xml"}, this.oFhirModel1.getBindingInfo("/Patient/123")), "?_format=json");
+		assert.strictEqual(this.oFhirModel1.oRequestor._buildQueryParameters({ _format: "xml" }, this.oFhirModel1.getBindingInfo("/Patient")), "?_format=json&_total=accurate");
+		assert.strictEqual(this.oFhirModel1.oRequestor._buildQueryParameters({ _format: "xml" }, this.oFhirModel1.getBindingInfo("/Patient/123")), "?_format=json");
+		assert.strictEqual(this.oFhirModel1.oRequestor._buildQueryParameters({ _format: "application/json" }, this.oFhirModel1.getBindingInfo("/Patient/123")), "?_format=application/json");
+		assert.strictEqual(this.oFhirModel1.oRequestor._buildQueryParameters({ _format: "application/fhir+json" }, this.oFhirModel1.getBindingInfo("/Patient/123")), "?_format=application/fhir%2Bjson");
+		assert.strictEqual(this.oFhirModel1.oRequestor._buildQueryParameters({ _format: "json" }, this.oFhirModel1.getBindingInfo("/Patient/123")), "?_format=json");
 	});
 
 	QUnit.test("check listbinding getcontexts in relative case for different depths of paths when resource gets newly created", function(assert) {
@@ -309,6 +313,11 @@ sap.ui.define([
 		this.loadDataIntoModel("Patient", this.sPatientPath.substring(1));
 		this.oFhirModel1.setProperty(this.sPatientPath + "/birthDate", "2008-04-27");
 		assert.strictEqual(this.oFhirModel1.submitChanges(), undefined, "submit changes returns undefined because of no changes");
+		this.oFhirModel1.setProperty(this.sPatientPath + "/birthDate", "2008-04-29");
+		assert.strictEqual(this.oFhirModel1.hasResourceTypePendingChanges("Patient"), true, "hasResourceTypePendingChanges returns true since there is an actual change");
+		this.oFhirModel1.setProperty(this.sPatientPath + "/birthDate", "2008-04-27");
+		assert.strictEqual(this.oFhirModel1.submitChanges(), undefined, "submit changes returns undefined because the changes made is same as that of the server state");
+		assert.strictEqual(this.oFhirModel1.hasResourceTypePendingChanges("Patient"), false, "hasResourceTypePendingChanges returns false since there is no actual change");
 	});
 
 	QUnit.test("get group submit mode", function(assert) {
@@ -440,7 +449,7 @@ sap.ui.define([
 
 	QUnit.test("loadData without parameters", function(assert) {
 		var oRequestHandle = this.oFhirModel1.loadData("/Patient");
-		assert.equal(oRequestHandle.getUrl(), "https://example.com/fhir/Patient?_format=json&_total=accurate");
+		assert.equal(oRequestHandle.getUrl(), "https://example.com/fhir/Patient?_total=accurate&_format=json");
 
 		var oRequestHandle1 = this.oFhirModel1.loadData("/Patient/123");
 		assert.equal(oRequestHandle1.getUrl(), "https://example.com/fhir/Patient/123?_format=json");
@@ -529,6 +538,7 @@ sap.ui.define([
 		assert.equal(mRequestHandles.direct[0].getData(), JSON.stringify(oPatient2));
 		assert.equal(mRequestHandles.direct[1].getUrl(),"https://example.com/fhir/Patient/27f89dba-b3ee-465d-aec4-b732da01ead5?_format=json");
 		assert.equal(mRequestHandles.direct[1].getData(), JSON.stringify(oPatientUpdated));
+		assert.strictEqual(mRequestHandles.direct[1].getHeaders()["If-Match"], "W/\"1\"", "If-Match Header for PUT request is of correct syntax");
 	});
 
 	QUnit.test("submit changes without any changes", function(assert){
@@ -876,25 +886,78 @@ sap.ui.define([
 		assert.strictEqual(this.oFhirModel1.getGroupProperty("valueSets", sPropertyNameValid), SubmitMode.Batch);
 	});
 
+	QUnit.test("Should determine correct fullUrl type for group or throw exception", function(assert){
+		var sPropertyNameFail = "myFullUrlType";
+		var sPropertyNameValid = "uri";
+		var sSubmitProperty = "submit";
+		var sGroupId = "myGroup1";
+		assert.throws(function () { return this.oFhirModel1.getGroupProperty(sGroupId, sPropertyNameFail); }, new Error("Unsupported group property: " + sPropertyNameFail));
+
+		// default is uuid
+		assert.strictEqual(this.oFhirModel1.getGroupProperty(sGroupId, sPropertyNameValid).toString(), "uuid");
+
+		// if the default submit mode is not direct then default fullUrlType is  uuid
+		var oTmpFhirModel = createModel({ defaultSubmitMode: SubmitMode.Batch });
+		assert.strictEqual(oTmpFhirModel.getGroupProperty(sGroupId, sSubmitProperty), SubmitMode.Batch);
+		assert.strictEqual(oTmpFhirModel.getGroupProperty(sGroupId, sPropertyNameValid).toString(), "uuid");
+
+		// set default fullUrlType
+		oTmpFhirModel = createModel({ defaultSubmitMode: SubmitMode.Batch, defaultFullUrlType: "url" });
+		assert.strictEqual(oTmpFhirModel.getGroupProperty(sGroupId, sSubmitProperty), SubmitMode.Batch);
+		assert.strictEqual(oTmpFhirModel.getGroupProperty(sGroupId, sPropertyNameValid).toString(), "url");
+
+		// set default fullUrlType
+		oTmpFhirModel = createModel({ defaultSubmitMode: SubmitMode.Batch, defaultFullUrlType: "uuid" });
+		assert.strictEqual(oTmpFhirModel.getGroupProperty(sGroupId, sSubmitProperty), SubmitMode.Batch);
+		assert.strictEqual(oTmpFhirModel.getGroupProperty(sGroupId, sPropertyNameValid).toString(), "uuid");
+
+		// for group "patientDetails"
+		assert.strictEqual(this.oFhirModel1.getGroupProperty("patientDetails", sSubmitProperty), SubmitMode.Transaction);
+		assert.strictEqual(this.oFhirModel1.getGroupProperty("patientDetails", sPropertyNameValid).toString(), "uuid");
+
+		// for group "patients"
+		assert.strictEqual(this.oFhirModel1.getGroupProperty("patients", sSubmitProperty), SubmitMode.Direct);
+		assert.strictEqual(this.oFhirModel1.getGroupProperty("patients", sPropertyNameValid).toString(), "uuid");
+
+		// for group "valueSets"
+		assert.strictEqual(this.oFhirModel1.getGroupProperty("valueSets", sSubmitProperty), SubmitMode.Batch);
+		assert.strictEqual(this.oFhirModel1.getGroupProperty("patients", sPropertyNameValid).toString(), "uuid");
+	});
+
 	QUnit.test("Should throw exception for invalid group properties", function(assert){
 		// it's not an object as group properties
-		var mTmpParameters = {groupProperties: { testGroup1: "This is a test group"}};
-		assert.throws( function() {return createModel(mTmpParameters);}, new Error("Group \"testGroup1\" has invalid properties. The properties must be of type object, found \"This is a test group\""));
+		var mTmpParameters = { groupProperties: { testGroup1: "This is a test group" } };
+		assert.throws(function () { return createModel(mTmpParameters); }, new Error("Group \"testGroup1\" has invalid properties. The properties must be of type object, found \"This is a test group\""));
 
 		// submit mode is not from type sap.fhir.model.r4.SubmitMode
-		mTmpParameters = {groupProperties: { testGroup1: {submit: "test"}}};
-		assert.throws( function() {return createModel(mTmpParameters);}, new Error("Group \"testGroup1\" has invalid properties. The value of property \"submit\" must be of type sap.fhir.model.r4.SubmitMode, found: \""
-				+ mTmpParameters.groupProperties.testGroup1.submit + "\""));
+		mTmpParameters = { groupProperties: { testGroup1: { submit: "test" } } };
+		assert.throws(function () { return createModel(mTmpParameters); }, new Error("Group \"testGroup1\" has invalid properties. The value of property \"submit\" must be of type sap.fhir.model.r4.SubmitMode, found: \""
+			+ mTmpParameters.groupProperties.testGroup1.submit + "\""));
 
 		// more group properties are defined as allowed
-		mTmpParameters = {groupProperties: { testGroup1: {submit: "test", submit2: "test1234"}}};
-		assert.throws( function() {return createModel(mTmpParameters);}, new Error("Group \"testGroup1\" has invalid properties. Only the property \"submit\" is allowed and has to be set, found \"" + JSON.stringify(mTmpParameters.groupProperties.testGroup1)
-		+ "\""));
+		mTmpParameters = { groupProperties: { testGroup1: { submit: "test", submit2: "test1234" } } };
+		assert.throws(function () { return createModel(mTmpParameters); }, new Error("Group \"testGroup1\" has invalid properties. Only the property \"submit\" and \"fullUrlType\" is allowed and has to be set, found \"" + JSON.stringify(mTmpParameters.groupProperties.testGroup1)
+			+ "\""));
+
+		// check for fullurl type
+		mTmpParameters = { groupProperties: { testGroup1: { submit: "Batch", fullUrlType: "test1234" } } };
+		assert.throws(function () { return createModel(mTmpParameters); }, new Error("Group \"testGroup1\" has invalid properties. The value of property \"fullUrlType\" must be either uuid or url, found: \""
+			+ mTmpParameters.groupProperties.testGroup1.fullUrlType + "\""));
+
+		// check for fullurl type with submit mode not batch /transaction
+		mTmpParameters = { groupProperties: { testGroup1: { submit: "Direct", fullUrlType: "uuid" } } };
+		assert.throws(function () { return createModel(mTmpParameters); }, new Error("Group \"testGroup1\" has invalid properties. The value of property \"fullUrlType\" is applicable only for batch and transaction submit modes, found: \""
+			+ mTmpParameters.groupProperties.testGroup1.submit + "\""));
+
+		// only fullurl without submit mode
+		mTmpParameters = { groupProperties: { testGroup1: { fullUrlType: "test1234" } } };
+		assert.throws(function () { return createModel(mTmpParameters); }, new Error("Group \"testGroup1\" has invalid properties. The property \"fullUrlType\" is allowed only when submit property is present, found \"" + JSON.stringify(mTmpParameters.groupProperties.testGroup1)
+			+ "\""));
 
 		// submit mode is not defined in group properties
-		mTmpParameters = {groupProperties: { testGroup1: {submit2: "test1234"}}};
-		assert.throws( function() {return createModel(mTmpParameters);}, new Error("Group \"testGroup1\" has invalid properties. Only the property \"submit\" is allowed and has to be set, found \"" + JSON.stringify(mTmpParameters.groupProperties.testGroup1)
-		+ "\""));
+		mTmpParameters = { groupProperties: { testGroup1: { submit2: "test1234" } } };
+		assert.throws(function () { return createModel(mTmpParameters); }, new Error("Group \"testGroup1\" has invalid properties. Only the property \"submit\" is allowed and has to be set, found \"" + JSON.stringify(mTmpParameters.groupProperties.testGroup1)
+			+ "\""));
 	});
 
 	QUnit.test("ListBinding should be successfully if context is not there at initialization", function(assert){
@@ -1097,4 +1160,84 @@ sap.ui.define([
 		}.bind(this));
 		assert.ok(bMatch, "The filter matched one of the given values for dummy property");
 	});
+
+	QUnit.test("Get Updated Resource from response when location has / or not shouldnot fail ", function(assert) {
+		this.loadDataIntoModel("TwoUpdatedPatients");
+		var oJSONData = TestUtils.loadJSONFile("ResponseOfMultiplePutInBundle");
+		this.oRequestHandle.setUrl("https://example.com/fhir/");
+		this.oFhirModel1._onSuccessfulRequest(this.oRequestHandle, oJSONData);
+		var sPatientPath = "/Patient/253";
+		var oResource = this.oFhirModel1.getProperty(sPatientPath);
+		assert.strictEqual(oResource.id, "253", "Response with location having / at the beginning gives proper resource object and doesnot throw error");
+		sPatientPath = "/Patient/254";
+		oResource = this.oFhirModel1.getProperty(sPatientPath);
+		assert.strictEqual(oResource.id, "254", "Response with location without having / at the beginning gives proper resource object and doesnot throw error");
+	});
+
+	QUnit.test("Search Bundle Response should not throw an error if resource id is not present", function(assert) {
+		var oJSONData = TestUtils.loadJSONFile("BundleWithoutResourceId");
+		var mResponseHeaders = { "etag": "W/\"1\"" };
+		this.oRequestHandle.setUrl("https://example.com/fhir/Patient?_count=0&total=accurate&_format=json");
+		this.oRequestHandle.setRequest(TestUtils.createAjaxCallMock(mResponseHeaders));
+		this.oFhirModel1._onSuccessfulRequest(this.oRequestHandle, oJSONData);
+		var sOperationOutcomePath = "/OperationOutcome";
+		var oOperationOutcome = this.oFhirModel1.getProperty(sOperationOutcomePath);
+		assert.strictEqual(Object.keys(oOperationOutcome).length, 1, "Bundle Response without resource id is parsed without throwing an error");
+	});
+
+	QUnit.test("Submit Bundle with correct ETag", function(assert){
+		this.loadDataIntoModel("Patient2", this.sPatientPath2.substring(1));
+		this.oPropertyBinding3.setValue("2008-04-27");
+		this.oPropertyBinding4.setValue("female");
+		var mRequestHandles = this.oFhirModel1.submitChanges("patientDetails");
+		assert.strictEqual("W/\"1\"", mRequestHandles.patientDetails.getBundle().getBundlyEntry(1).getRequest().getBundleRequestData().ifMatch, "If-Match header is of correct syntax in bundle enteries ");
+	});
+
+	QUnit.test("Determine the correct Structure Definition URL for a resource", function(assert){
+		var oJSONData = TestUtils.loadJSONFile("Patient3");
+		this.loadDataIntoModel("Patient3");
+		var oBindingInfo = this.oFhirModel1.getBindingInfo("/Patient/125678");
+		var oResource = this.oFhirModel1.getProperty(oBindingInfo.getResourcePath());
+		var sStrucDefUrl = this.oFhirModel1.getStructureDefinitionUrl(oResource);
+		assert.strictEqual(sStrucDefUrl, oJSONData.meta.profile[0], "Structure definition URL is determined correctly from the meta of the resource");
+		this.loadDataIntoModel("Patient2");
+		oBindingInfo = this.oFhirModel1.getBindingInfo("/Patient/127e23a0-6db1-4ced-b433-98c7a70646b8");
+		oResource = this.oFhirModel1.getProperty(oBindingInfo.getResourcePath());
+		sStrucDefUrl = this.oFhirModel1.getStructureDefinitionUrl(oResource);
+		assert.strictEqual(sStrucDefUrl, oJSONData.meta.profile[0], "Default Structure definition URL is returned since resource doesnot have profile information");
+		sStrucDefUrl = this.oFhirModel1.getStructureDefinitionUrl(undefined);
+		assert.strictEqual(sStrucDefUrl, undefined, "Structure definition URL is undefined since resource is undefined");
+		oResource.resourceType = undefined;
+		sStrucDefUrl = this.oFhirModel1.getStructureDefinitionUrl(oResource);
+		assert.strictEqual(sStrucDefUrl, undefined, "Structure definition URL is undefined since resource type doesnot exist");
+	});
+
+	QUnit.test("RequestHandle isAborted should be true for aborted requests", function(assert){
+		this.loadDataIntoModel("Patient2", this.sPatientPath2.substring(1));
+		this.oPropertyBinding3.setValue("2008-04-27");
+		var mRequestHandles = this.oFhirModel1.submitChanges();
+		var oRequestHandlePatient = mRequestHandles.patientDetails;
+		assert.equal(oRequestHandlePatient.isAborted(), false);
+		oRequestHandlePatient.abort();
+		assert.equal(oRequestHandlePatient.isAborted(), true);
+	});
+
+	QUnit.test("RequestHandle isAborted should be true for canceled requests", function(assert){
+		var oRequestHandle = this.oFhirModel1.sendGetRequest("dummy");
+		assert.equal(oRequestHandle.isAborted(), false);
+		oRequestHandle = this.oFhirModel1.sendGetRequest("dummy");
+		assert.equal(oRequestHandle.isAborted(), true);
+	});
+
+	QUnit.test("ValueSet search response should not throw error", function(assert){
+		var oJSONData = TestUtils.loadJSONFile("ValueSetSearchResponse");
+		var mResponseHeaders = { "etag": "W/\"1\"" };
+		this.oRequestHandle.setUrl("https://example.com/fhir/ValueSet?url=https://standards.digital.health.nz/fhir/ValueSet/sact-location-medication-collection-code");
+		this.oRequestHandle.setRequest(TestUtils.createAjaxCallMock(mResponseHeaders));
+		this.oFhirModel1._onSuccessfulRequest(this.oRequestHandle, oJSONData);
+		var sValueSetPath = "/ValueSet/sact-location-medication-collection-code";
+		var oValueSet = this.oFhirModel1.getProperty(sValueSetPath);
+		assert.strictEqual(oValueSet.url, "https://standards.digital.health.nz/fhir/ValueSet/sact-location-medication-collection-code", "ValueSet Search Response is saved in the model data without throwing an error");
+	});
+
 });

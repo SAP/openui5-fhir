@@ -1,0 +1,24 @@
+{
+   "resourceType": "Bundle",
+   "id": "42010AEE-26B3-1EEA-AF9D-7B64E4CCBA2F",
+   "type": "searchset",
+   "total": 0,
+   "entry": [
+      {
+         "fullUrl": "urn:uuid:42010AEE-26B3-1EEA-AF9D-7B64E4CCDA2F",
+         "resource": {
+            "resourceType": "OperationOutcome",
+            "issue": [
+               {
+                  "severity": "error",
+                  "code": "transient",
+                  "diagnostics": "Cannot access the resource"
+               }
+            ]
+         },
+         "search": {
+            "mode": "outcome"
+         }
+      }
+   ]
+}

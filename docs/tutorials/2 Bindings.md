@@ -1,5 +1,5 @@
 In UI5, four different types of bindings can be consumed by controls. To learn more about the general concept of binding in UI5, see [UI5 Binding](https://openui5.hana.ondemand.com/#/topic/e5310932a71f42daa41f3a6143efca9c). The *UI5 FHIR Model* provides a corresponding FHIR® implementation for each of these UI5 bindings. The following sections explain these bindings by using examples. 
-> Hint: In this section, binding paths with simple strings, for example, `binding="/Patient/123"`. But you can also use the new binding syntax, which allows additional configurations, for example, `binding="{path: '/Patient/123'}"`.
+> Hint: In this section, binding paths with simple strings will be used e.g. `binding="{/Patient/123}"`. But you can also use the new UI5 binding syntax, which allows additional configurations e.g. `binding="{path: '/Patient/123'}"`.
 
 ### Step 2.1: FHIRContextBinding
 Context binding allows you to bind elements to a specific object in the model data. Binding elements to objects creates a binding context and enables relative binding within the control and all of its children. Using the `binding` property of a UI5 control is the simplest way of binding a context to a control.
@@ -60,7 +60,7 @@ List binding allows you to create child controls according to model data automat
 *Example: Bind a List to All Patients in Your Clinical System and Show Their Gender and Birthdate*
 ```xml
 <List id="myList" items="{/Patient}">
-	<StandardListItem title="{gender} "description="{birthdate}"/> 
+	<StandardListItem title="{gender} "description="{birthDate}"/> 
 </List>
 ```
 In some scenarios, user input is needed to decide to which aggregation the control should be bound. So, you can use the `bindAggregation` function of a UI5 control.

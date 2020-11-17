@@ -36,9 +36,11 @@ sap.ui.define([
 	"sap/ui/core/message/Message",
 	"sap/ui/core/library",
 	"sap/fhir/model/r4/FHIRFilterProcessor",
-	"sap/fhir/model/r4/FHIRFilterOperator"
+	"sap/fhir/model/r4/FHIRFilterOperator",
+	"sap/fhir/model/r4/type/Url",
+	"sap/fhir/model/r4/type/Uuid"
 ], function(Model, FHIRListBinding, FHIRPropertyBinding,
-	FHIRContextBinding, FHIRTreeBinding, FHIRUtils, OperationMode, URI, BindingInfo, Sliceable, SubmitMode, FHIRRequestor, HTTPMethod, FHIRBundle, ChangeReason, FHIRUrl, Log, deepEqual, each, Context, Message, coreLibrary, FHIRFilterProcessor, FHIRFilterOperator) {
+	FHIRContextBinding, FHIRTreeBinding, FHIRUtils, OperationMode, URI, BindingInfo, Sliceable, SubmitMode, FHIRRequestor, HTTPMethod, FHIRBundle, ChangeReason, FHIRUrl, Log, deepEqual, each, Context, Message, coreLibrary, FHIRFilterProcessor, FHIRFilterOperator, Url, Uuid) {
 
 	"use strict";
 
@@ -55,7 +57,9 @@ sap.ui.define([
 	 * @param {string} [mParameters.baseProfileUrl] The URL of the base profiles for all resource types. If no one is given, the model will use the FHIR default profiles located at
 	 *            http://hl7.org/fhir/StructureDefinition/ The base profile of a resource type is used to load the structure definition of a requested resource type, if no profile is maintained
 	 *            (oResource.meta.profile[0]) at the requested resource
-	 * @param {string} [mParameters.defaultSubmitMode] The default SumbitMode for all bindings which are associated with this model
+	 * @param {string} [mParameters.defaultSubmitMode] The default SubmitMode for all bindings which are associated with this model
+	 * @param {string} [mParameters.defaultFullUrlType='uuid'] The default FullUrlType if the default submit mode is either batch or transaction
+	 * @param {object} [mParameters.defaultQueryParameters={}] The default query parameters to be passed on resource type specific requests and not resource instance specific requests (e.g /Patient?_total:accurate&_format:json). It should be of type key:value pairs. e.g. {'_total':'accurate'} -> http://hl7.org/fhir/http.html#parameters
 	 * @param {string} [mParameters.Prefer='return=minimal'] The FHIR server won't return the changed resource by an POST/PUT request -> https://www.hl7.org/fhir/http.html#2.21.0.5.2
 	 * @param {boolean} [mParameters.x-csrf-token=false] The model handles the csrf token between the browser and the FHIR server
 	 * @throws {Error} If no service URL is given, if the given service URL does not end with a forward slash
@@ -79,8 +83,11 @@ sap.ui.define([
 			this.sDefaultOperationMode = OperationMode.Server;
 			this.sBaseProfileUrl = mParameters && mParameters.baseProfileUrl ? mParameters.baseProfileUrl : "http://hl7.org/fhir/StructureDefinition/";
 			this._buildGroupProperties(mParameters);
-			this.oRequestor = new FHIRRequestor(sServiceUrl, this, mParameters && mParameters["x-csrf-token"], mParameters && mParameters.Prefer);
+			this.oDefaultQueryParameters = mParameters && mParameters.defaultQueryParameters && mParameters.defaultQueryParameters instanceof Object ? mParameters.defaultQueryParameters : {};
+			this.oRequestor = new FHIRRequestor(sServiceUrl, this, mParameters && mParameters["x-csrf-token"], mParameters && mParameters.Prefer, this.oDefaultQueryParameters);
 			this.sDefaultSubmitMode = (mParameters && mParameters.defaultSubmitMode) ? mParameters.defaultSubmitMode : SubmitMode.Direct;
+			this.sDefaultFullUrlType = (mParameters && mParameters.defaultSubmitMode && mParameters.defaultSubmitMode !== SubmitMode.Direct && mParameters.defaultFullUrlType) ? mParameters.defaultFullUrlType : "uuid";
+			this.oDefaultUri = this.sDefaultFullUrlType === "url" ? new Url() : new Uuid();
 			this.iSizeLimit = 10;
 			if (mParameters && mParameters.simpleFiltering === false){
 				throw new Error("Complex filtering not supported");
@@ -310,10 +317,14 @@ sap.ui.define([
 	 */
 	FHIRModel.prototype._storeResourceInModel = function(oResource, oBinding, sGroupId) {
 		var aResourcePath;
-		if (oResource.resourceType === "ValueSet") {
-			aResourcePath = [oResource.resourceType , "§" + oResource.expansion.identifier + "§"];
+		if (oResource.resourceType === "ValueSet" && oResource.expansion && oResource.expansion.identifier) {
+			aResourcePath = [oResource.resourceType, "§" + oResource.expansion.identifier + "§"];
 			oResource = oResource.expansion.contains;
 		} else {
+			// generate a uuid id in case resource id is not present in the response
+			if (!oResource.id) {
+				oResource.id = FHIRUtils.uuidv4();
+			}
 			aResourcePath = [oResource.resourceType, oResource.id];
 			var aHistoryResourcePath = [
 				"$_history",
@@ -343,6 +354,10 @@ sap.ui.define([
 	 * @since 1.0.0
 	 */
 	FHIRModel.prototype._getUpdatedResourceFromFHIRResponse = function(mResponseHeaders, oFHIRBundleEntry){
+		// remove possible slash at the beginning
+		if (mResponseHeaders.location && mResponseHeaders.location.charAt(0) === "/") {
+			mResponseHeaders.location = mResponseHeaders.location.slice(1);
+		}
 		var oBindingInfo = this.getBindingInfo("/" + mResponseHeaders.location);
 		var oRes;
 		if (oFHIRBundleEntry){
@@ -410,7 +425,7 @@ sap.ui.define([
 	 */
 	FHIRModel.prototype._mapResourceToResourceMap = function(oData) {
 		var mResources = {};
-		if (oData && oData.resourceType === "ValueSet") {
+		if (oData && oData.resourceType === "ValueSet" && oData.expansion && oData.expansion.identifier) {
 			this._setProperty(mResources, ["ValueSet", "§" + oData.expansion.identifier + "§"], oData.expansion.contains, true);
 		} else if (oData && oData.resourceType && oData.id && oData.resourceType !== "Bundle") {
 			this._setProperty(mResources, [oData.resourceType, oData.id], oData, true);
@@ -610,8 +625,12 @@ sap.ui.define([
 	 * Submits the client changes of the model to the FHIR service
 	 *
 	 * @param {string} [sGroupId] The group id to submit only a specific group, leave empty when all changes should be submitted
-	 * @param {function} [fnSuccessCallback] The callback function which is executed after the changes are send successfully to the server
-	 * @param {function} [fnErrorCallback] The callback function which is executed when the transport to the server failed
+	 * @param {function} [fnSuccessCallback] The callback function which is executed with specific parameters after the changes are send successfully to the server<br>
+	 *                                   Batch/Transaction Submit Mode fnSuccessCallback(aFHIRResources)<br>
+	 *                                   Direct Mode fnSuccessCallback(oFHIRResource)
+	 * @param {function} [fnErrorCallback] The callback function which is executed with specific parameters when the transport to the server failed<br>
+	 *                                   Batch/Transaction Submit Mode fnErrorCallback(oMessage, aSuccessResource, aOperationOutcome)<br>
+	 *                                   Direct Mode fnErrorCallback(oMessage)
 	 * @returns {object} mRequestHandles contains all request groups and direct requests which where submitted, e.g. {"patientDetails": oFHIRBundle1, "direct": [oRequestHandle1, oRequestHandle2],
 	 *          "patientList": oFHIRBundle2}, if there are no changes undefined is returned
 	 * @public
@@ -624,23 +643,58 @@ sap.ui.define([
 					fnSuccessCallback = FHIRUtils.deepClone(sGroupId);
 					sGroupId = undefined;
 				}
-				var fnError = function(oParams) {
+				var fnError = function (oParams) {
 					if (fnErrorCallback) {
 						fnErrorCallback(oParams);
 					}
 				};
 
-				var fnSuccess = function() {
+				var fnSuccess = function () {
 					this.resetChanges(sGroupId, true);
 				}.bind(this);
 
 				var mRequestHandles;
+				var aPromises = [];
 				var iTriggeredVersionRequests = 0;
 
-				var fnSubmitBundles = function (){
-					for ( var sRequestHandleKey in mRequestHandles) {
+				var fnSubmitBundles = function () {
+					var oPromiseHandler = {};
+					var fnSuccessPromise = function (aFHIRResource) {
+						oPromiseHandler.resolve(aFHIRResource);
+					};
+					var fnErrorPromise = function (oRequestHandle, aFHIRResource, aFHIROperationOutcome) {
+						var oError = {};
+						// this is done since promise catch can have only one parameter
+						oError.requestHandle = oRequestHandle;
+						oError.resources = aFHIRResource;
+						oError.operationOutcomes = aFHIROperationOutcome;
+						oPromiseHandler.reject(oError);
+					};
+					for (var sRequestHandleKey in mRequestHandles) {
 						if (sRequestHandleKey !== "direct") {
-							mRequestHandles[sRequestHandleKey] = this.oRequestor.submitBundle(sRequestHandleKey);
+							// eslint-disable-next-line no-undef
+							var oPromise = new Promise(
+								function (resolve, reject) {
+									oPromiseHandler.resolve = resolve;
+									oPromiseHandler.reject = reject;
+								}
+							);
+							aPromises.push(oPromise);
+							oPromise.then(function (aFHIRResource) {
+								fnSuccessCallback(aFHIRResource);
+							}).catch(function (oError) {
+								if (fnErrorCallback && oError.requestHandle) {
+									var mParameters = {
+										message: oError.requestHandle.getRequest().statusText,
+										description: oError.requestHandle.getRequest().responseText,
+										code: oError.requestHandle.getRequest().status,
+										descriptionUrl: oError.requestHandle.getUrl()
+									};
+									var oMessage = new Message(mParameters);
+									fnErrorCallback(oMessage, oError.resources, oError.operationOutcomes);
+								}
+							});
+							mRequestHandles[sRequestHandleKey] = this.oRequestor.submitBundle(sRequestHandleKey, fnSuccessPromise, fnErrorPromise);
 						}
 					}
 				}.bind(this);
@@ -673,6 +727,10 @@ sap.ui.define([
 										 groupId : sResourceGroupId,
 										 manualSubmit : true
 								};
+								if (sGroupId && sResourceGroupId === sGroupId && this.getGroupSubmitMode(sGroupId) !== "Direct") {
+									mParameters.success = function () { };
+									mParameters.error = function () { };
+								}
 								var vRequestHandle = this.loadData(oRequestInfo.url, mParameters, oRequestInfo.method, oResourceNew);
 								mRequestHandles = mRequestHandles ? mRequestHandles : {};
 								if (vRequestHandle instanceof FHIRBundle && !mRequestHandles[vRequestHandle.getGroupId()]) {
@@ -686,10 +744,10 @@ sap.ui.define([
 							}.bind(this);
 
 
-							var fnVersionReadSuccess = function(sEtag){
+							var fnVersionReadSuccess = function(sETag){
 								iTriggeredVersionRequestsCompleted++;
 								mHeaders = {
-									"If-Match" : sEtag
+									"If-Match" : sETag
 								};
 								fnSubmitChange();
 								if (iTriggeredVersionRequests === iTriggeredVersionRequestsCompleted){
@@ -698,13 +756,13 @@ sap.ui.define([
 							};
 
 							if (oRequestInfo.method === HTTPMethod.PUT) {
-								var sEtag = oBindingInfo.getEtag();
-								if (!sEtag){
+								var sETag = oBindingInfo.getETag();
+								if (!sETag){
 									this.readLatestVersionOfResource(oBindingInfo.getResourceServerPath(), fnVersionReadSuccess);
 									iTriggeredVersionRequests++;
 								} else {
 									mHeaders = {
-										"If-Match" : sEtag
+										"If-Match" : sETag
 									};
 									fnSubmitChange();
 								}
@@ -890,10 +948,10 @@ sap.ui.define([
 			oRequestInfo = this._createRequestInfo(HTTPMethod.POST, oBindingInfo.getResourceType());
 			this._setProperty(this.mChangedResources, FHIRUtils.deepClone(aResPath), oRequestInfo, true);
 		}
-		if (sGroupId){
+		if (sGroupId) {
 			this._setProperty(this.mResourceGroupId, FHIRUtils.deepClone(aResPath), sGroupId, true);
 		}
-		if (!vServerValue && oRequestInfo.method === HTTPMethod.PUT){
+		if (!vServerValue && oRequestInfo.method === HTTPMethod.PUT) {
 			this._setProperty(this.oDataServerState, aResPath, FHIRUtils.deepClone(oResource), true);
 		}
 	};
@@ -912,7 +970,16 @@ sap.ui.define([
 		var oBindingInfo = this.getBindingInfo(sPath, oContext);
 		this._handleClientChanges(oBindingInfo);
 		this._setProperty(this.oData, oBindingInfo.getBinding(), vValue, undefined, oBindingInfo.getGroupId());
-		this.mChangedResources.path = {lastUpdated : oBindingInfo.getAbsolutePath()};
+		var aResPath = oBindingInfo.getResourcePathArray();
+		var vServerValue = this._getProperty(this.oDataServerState, aResPath);
+		var oRequestInfo = this._getProperty(this.mChangedResources, aResPath);
+		var oResource = this._getProperty(this.oData, aResPath);
+		// special handling when the server data and the client changed data is the same
+		if (oRequestInfo && oRequestInfo.method === HTTPMethod.PUT && deepEqual(vServerValue, oResource)) {
+			delete this.mChangedResources[aResPath[0]][aResPath[1]];
+		} else {
+			this.mChangedResources.path = { lastUpdated: oBindingInfo.getAbsolutePath() };
+		}
 		this.checkUpdate(false, this.mChangedResources, oBinding);
 	};
 
@@ -1044,7 +1111,7 @@ sap.ui.define([
 			var sCompletePathChange;
 			var sRequestablePath;
 			var sResourceServerPath;
-			var sEtag;
+			var sETag;
 			var sGroupId = oContext && oContext.sGroupId;
 			var sOperation = "";
 			if (sCompletePath.indexOf("_history") > -1 || bUnique){
@@ -1104,14 +1171,17 @@ sap.ui.define([
 			}
 			if (sResType && sId){
 				sResourceServerPath = "/" + sResType + "/" + sId;
-				sEtag = this._getProperty(this.oData, [
+				sETag = this._getProperty(this.oData, [
 					sResType,
 					sId,
 					"meta",
 					"versionId"
 				]);
+				if (sETag) {
+					sETag = "W/\"" + sETag + "\"";
+				}
 			}
-			return new BindingInfo(sId, sResType, sResPath, sRelPath, sCompletePath, aSplittedPath.slice(1), sGroupId, sRequestablePath, aResPath, sResourceServerPath, sEtag);
+			return new BindingInfo(sId, sResType, sResPath, sRelPath, sCompletePath, aSplittedPath.slice(1), sGroupId, sRequestablePath, aResPath, sResourceServerPath, sETag);
 		}
 		return undefined;
 	};
@@ -1193,7 +1263,7 @@ sap.ui.define([
 	 * @since 1.0.0
 	 */
 	FHIRModel.prototype.hasResourceTypePendingChanges = function(sResourceType) {
-		return this.mChangedResources[sResourceType] !== undefined;
+		return this.mChangedResources[sResourceType] !== undefined && Object.keys(this.mChangedResources[sResourceType]).length > 0;
 	};
 
 	/**
@@ -1217,7 +1287,7 @@ sap.ui.define([
 	 * @param {string} sGroupId The group id
 	 * @param {string} sPropertyName The group property in question
 	 * @returns {any} The group property value
-	 * @throws {Error} If the name of the group property is not 'submit'
+	 * @throws {Error} If the name of the group property is not 'submit' or 'uri'
 	 * @protected
 	 * @see sap.ui.model.odata.v4.ODataModel#constructor
 	 * @since 1.0.0
@@ -1226,6 +1296,8 @@ sap.ui.define([
 		switch (sPropertyName) {
 			case "submit":
 				return this.getGroupSubmitMode(sGroupId);
+			case "uri":
+				return this.getGroupUri(sGroupId);
 			default:
 				throw new Error("Unsupported group property: " + sPropertyName);
 		}
@@ -1246,6 +1318,23 @@ sap.ui.define([
 	};
 
 	/**
+	 * Determines the fullUrl type mode for the given <code>sGroupId</code>. If no submit mode is defined in the group properties or there are no group properties at all for the given
+	 * <code>sGroupId</code> the default URI is returned
+	 *
+	 * @param {string} sGroupId The group id
+	 * @returns {sap.fhir.model.r4.type.Uri} the URI Object
+	 * @protected
+	 * @since 1.1.0
+	 */
+	FHIRModel.prototype.getGroupUri = function(sGroupId) {
+		var oGroupUri = this.oDefaultUri;
+		if (this.mGroupProperties && this.mGroupProperties[sGroupId] && this.mGroupProperties[sGroupId].fullUrlType === "url"){
+			oGroupUri = new Url();
+		}
+		return oGroupUri;
+	};
+
+	/**
 	 * Sets the group properties of the model by the given <code>mParameters</code>
 	 *
 	 * @param {object} mParameters The parameters
@@ -1261,11 +1350,23 @@ sap.ui.define([
 						oGroupProperties = mParameters.groupProperties[sGroupId];
 						if (typeof oGroupProperties !== "object") {
 							throw new Error("Group \"" + sGroupId + "\" has invalid properties. The properties must be of type object, found \"" + oGroupProperties + "\"");
-						} else if (Object.keys(oGroupProperties).length !== 1 || !oGroupProperties.submit) {
+						} else if (Object.keys(oGroupProperties).length === 2 && (!oGroupProperties.submit || !oGroupProperties.fullUrlType)) {
+							throw new Error("Group \"" + sGroupId + "\" has invalid properties. Only the property \"submit\" and \"fullUrlType\" is allowed and has to be set, found \"" + JSON.stringify(oGroupProperties)
+									+ "\"");
+						} else if (Object.keys(oGroupProperties).length === 1 && !oGroupProperties.submit && oGroupProperties.fullUrlType) {
+							throw new Error("Group \"" + sGroupId + "\" has invalid properties. The property \"fullUrlType\" is allowed only when submit property is present, found \"" + JSON.stringify(oGroupProperties)
+									+ "\"");
+						} else if (Object.keys(oGroupProperties).length === 1 && !oGroupProperties.submit) {
 							throw new Error("Group \"" + sGroupId + "\" has invalid properties. Only the property \"submit\" is allowed and has to be set, found \"" + JSON.stringify(oGroupProperties)
 									+ "\"");
-						} else if (!(oGroupProperties.submit in SubmitMode)) {
+						} else if (oGroupProperties.submit && !(oGroupProperties.submit in SubmitMode)) {
 							throw new Error("Group \"" + sGroupId + "\" has invalid properties. The value of property \"submit\" must be of type sap.fhir.model.r4.SubmitMode, found: \""
+									+ oGroupProperties.submit + "\"");
+						} else if (oGroupProperties.fullUrlType && (oGroupProperties.fullUrlType !== "uuid" && oGroupProperties.fullUrlType !== "url")) {
+							throw new Error("Group \"" + sGroupId + "\" has invalid properties. The value of property \"fullUrlType\" must be either uuid or url, found: \""
+									+ oGroupProperties.fullUrlType + "\"");
+						} else if (oGroupProperties.submit && (oGroupProperties.submit !== SubmitMode.Batch && oGroupProperties.submit !== SubmitMode.Transaction) && oGroupProperties.fullUrlType) {
+							throw new Error("Group \"" + sGroupId + "\" has invalid properties. The value of property \"fullUrlType\" is applicable only for batch and transaction submit modes, found: \""
 									+ oGroupProperties.submit + "\"");
 						}
 					}
@@ -1312,17 +1413,27 @@ sap.ui.define([
 	 */
 	FHIRModel.prototype.readLatestVersionOfResource = function(sPath, fnSuccess) {
 		var oRequestHandle;
-		var fnExtractVersion = function(oData){
+		var fnExtractVersion = function (oData) {
 			var mHeaders = this.oRequestor.getResponseHeaders(oRequestHandle.getRequest());
-			var oFHIRUrl = new FHIRUrl(mHeaders["content-location"], this.sServiceUrl);
-			fnSuccess(oFHIRUrl.getHistoryVersion() || oData && oData.meta && oData.meta.versionId);
+			var sETagHeader = mHeaders ? mHeaders["etag"] : undefined;
+			var sLocationHeader = mHeaders ? mHeaders["location"] || mHeaders["content-location"] : undefined;
+			var oFHIRUrl = sLocationHeader ? new FHIRUrl(sLocationHeader, this.sServiceUrl) : undefined;
+			var sETag;
+			if (sETagHeader) {
+				sETag = sETagHeader;
+			} else if (oFHIRUrl && oFHIRUrl.getHistoryVersion()) {
+				sETag = "W/\"" + oFHIRUrl.getHistoryVersion() + "\"";
+			} else if (oData && oData.meta && oData.meta.versionId) {
+				sETag = "W/\"" + oData.meta.versionId + "\"";
+			}
+			fnSuccess(sETag);
 		}.bind(this);
 		var mParameters = {
-			success : fnExtractVersion,
-			error : function(){
-				oRequestHandle.getRequest().complete(function(){
+			success: fnExtractVersion,
+			error: function () {
+				oRequestHandle.getRequest().complete(function () {
 					mParameters = {
-						success : fnExtractVersion
+						success: fnExtractVersion
 					};
 					oRequestHandle = this.loadData(sPath, mParameters, HTTPMethod.GET);
 				}.bind(this));
@@ -1470,6 +1581,25 @@ sap.ui.define([
 	 */
 	FHIRModel.prototype.getContext = function(){
 		throw new Error("Unsupported operation: sap.fhir.model.r4.FHIRModel#getContext");
+	};
+
+	/**
+	 * Determines the URL of the StructureDefinition of a given resource instance
+	 * Default URL would be base profile URL + resource type
+	 *
+	 * @param {object} oResource The FHIR resource
+	 * @returns {string} The structure definition for the given binding info
+	 * @protected
+	 * @since 1.1.6
+	 */
+	FHIRModel.prototype.getStructureDefinitionUrl = function (oResource){
+		var sStrucDefUrl;
+		if (oResource && oResource.meta && oResource.meta.profile && oResource.meta.profile.length > 0) {
+			sStrucDefUrl = oResource.meta.profile[0];
+		} else if (oResource && oResource.resourceType) {
+			sStrucDefUrl = this.getBaseProfileUrl() + oResource.resourceType;
+		}
+		return sStrucDefUrl;
 	};
 
 	return FHIRModel;

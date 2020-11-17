@@ -57,6 +57,9 @@ FHIR® bundle requests have some advantages over direct requests. The number of 
 
 #### Step 4.2.1: Declaration of Groups
 Depending on the use case, every binding can be configured to use either `batch` or `transaction`. This can be done by introducing binding groups. Application developers decide which binding groups are necessary for a particular UI5 application and which request type should be used for these groups before assigning these groups to the associated bindings. With this concept, it’s possible to reduce the number of HTTP requests to an appropriate level for the respective UI5 application. The declaration of groups is done in the `manifest.json` of the UI5 application.
+With using `batch` or `transaction` as request type, the different requests are packed in a bundle as bundle entries. Every bundle entry has to contain the property `fullUrl`. This `fullUrl` property is of FHIR® datatype [uri](http://hl7.org/fhir/datatypes.html#uri) which can be an `url`, `canonical`, `uuid` or `oid`. Since version 1.1.0 `url` and `uuid` is supported by openui5-fhir. With `uuid` the `fullUrl` property is generated with following syntax `urn:uuid:uuidv4`, e.g. "urn:uuid:e91a94c7-b874-4b46-af6a-3412b487c3af". With `url` the `fullUrl` property is generated with following syntax `http://fhirServerUrl/ResourcePath`, e.g. "http://example.com/Patient/123"
+
+For more information see the [FHIR®-Documentation](https://www.hl7.org/fhir/R4/bundle-definitions.html#Bundle.entry.fullUrl).
 
 
 *Example: Declaration of two groups A and B. All bindings of group A should be processed with a batch request, all bindings of group B should be processed with a transaction request.*
@@ -68,10 +71,11 @@ Depending on the use case, every binding can be configured to use either `batch`
         "settings": {
             "groupProperties": {
                 "A": {
-                    "submit": "Batch"
+                    "submit": "Batch",
+                    "fullUrlType":"uuid"
                 },
                 "B": {
-                    "submit": "Transcation"
+                    "submit": "Transaction"
                 }
             }
         }
@@ -95,12 +99,27 @@ To assign a binding to a specific group, you need to add the `groupId` parameter
 </List>
 ```
 
-#### Step 4.2.3: Submitting Changes
+#### Step 4.2.3: Submitting Changes and Callback Parameters
 By introducing of the group concept, you can also control which changes will be send to the FHIR® server by mentioning the `groupId` when submitting the changes. Now, only the changes that are triggered by bindings assigned to group `A` are send to the FHIR® server.
 
 ```javascript
 onSavePress: function(){
     this.getView().getModel().submitChanges("A");
+}
+```
+Depending on the submit mode the callback will be invoked with specific type of parameters. 
+
+If the group submit mode is Batch/Transaction then the success callback will contain all the FHIR Resources which were part of the request and in case of failed enteries in Bundle the error callback will be invoked with the successful resources and the operation outcome enteries.
+
+```javascript
+onSavePress: function() {
+    var fnSuccessCallback = function(aFHIRResource){
+        // Here the list of resources which got processed successfully as part of bundle request can be accessed
+    }
+    var fnErrorCallback = function(oMessage, aFHIRResource, aFHIROperationOutcome){
+        // all the successful and failure resources as part of bundle can be accessed
+    }
+    this.getView().getModel().submitChanges("A", fnSuccessCallback, fnErrorCallback);
 }
 ```
 
@@ -119,10 +138,10 @@ Furthermore, you can mix the direct and bundle requests in one UI5 application w
                     "submit": "Batch"
                 },
                 "B": {
-                    "submit": "Transcation"
-                },
-                "C": {
-                    "submit": "Direct"
+                    "submit": "Transaction"
+                },	
+                "C": {	
+                    "submit": "Direct"	
                 }
             }
         }

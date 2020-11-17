@@ -1,13 +1,15 @@
 # OpenUI5-FHIR <a href="https://openui5.org/"><img height="30px" src="https://openui5.hana.ondemand.com/resources/sap/ui/documentation/sdk/images/logo_ui5.png"></a>🔥 
 [![NPM Version](https://badge.fury.io/js/openui5-fhir.svg)](https://npmjs.com/package/openui5-fhir)
-[![Build Status](https://img.shields.io/travis/SAP/openui5-fhir.svg)](https://travis-ci.org/SAP/openui5-fhir)
+[![Build Status](https://travis-ci.com/SAP/openui5-fhir.svg?branch=master)](https://travis-ci.com/SAP/openui5-fhir)
 [![Coverage Status](https://img.shields.io/coveralls/github/SAP/openui5-fhir.svg)](https://coveralls.io/github/SAP/openui5-fhir?branch=master)
 [![Monthly Downloads](https://img.shields.io/npm/dm/openui5-fhir.svg)](https://npmjs.com/package/openui5-fhir)
 [![Dependency Status](https://img.shields.io/david/SAP/openui5-fhir.svg)](https://david-dm.org/SAP/openui5-fhir/master)
 [![devDependency Status](https://img.shields.io/david/dev/SAP/openui5-fhir.svg)](https://david-dm.org/SAP/openui5-fhir?type=dev)
-[![License](https://img.shields.io/npm/l/openui5-fhir.svg?color=blue)](LICENSE.txt)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 [![Slack-Channel](https://img.shields.io/badge/slack-openui5--fhir-blue.svg?logo=slack)](https://openui5.slack.com/messages/openui5-fhir)
+[![REUSE status](https://api.reuse.software/badge/github.com/SAP/openui5-fhir)](https://api.reuse.software/info/github.com/SAP/openui5-fhir)
+
 
 **The OpenUI5-FHIR project connects the worlds of UI5 and FHIR®. Build beautiful and enterprise-ready web applications based on the FHIR® specification.**
 
@@ -73,12 +75,6 @@ The following table displays the versions of *OpenUI5-FHIR* and the correspondin
 | *OpenUI5-FHIR*	| *OpenUI5*	|
 | -----------------	| ---------	|
 | 1.X.Y				| > 1.58.0	|
-
-## License
-
-Copyright (c) 2019 SAP SE or an SAP affiliate company. All rights reserved.
-
-This project is licensed under the Apache Software License, v.2 except as noted otherwise in the [LICENSE file](LICENSE.txt).
 
 ## References
 

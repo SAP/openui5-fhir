@@ -42,8 +42,23 @@ sap.ui.define([
 					},
 					"valueSets" : {
 						"submit" : "Batch"
+					},
+					"practitioner":{
+						"submit":"Batch",
+						"fullUrlType":"uuid"
+					},
+					"practitioner1":{
+						"submit":"Transaction",
+						"fullUrlType":"url"
+					},
+					"practitioner2":{
+						"submit":"Direct"
+					},
+					"bundle":{
+						"submit":"Batch"
 					}
-				}
+				},
+				"defaultQueryParameters": { "_total": "accurate" }
 			};
 			this.oMessageModel = sap.ui.getCore().getMessageManager().getMessageModel();
 			this.oFhirModel = createModel(mParameters);
@@ -63,7 +78,7 @@ sap.ui.define([
 	QUnit.test("check if response has no total property that error in list binding is thrown", function(assert) {
 		var sPath = "/Patient";
 		var oListBinding = this.oFhirModel.bindList(sPath);
-		TestUtilsIntegration.manipulateResponse("http://localhost:8080/fhir/R4/Patient?_count=10&_format=json&_total=accurate", this.oFhirModel, TestUtilsIntegration.setTotalUndefined, TestUtilsIntegration.checkErrorMsg.bind(undefined, this.oFhirModel, assert, "FHIR Server error: The \"total\" property is missing in the response for the requested FHIR resource " + sPath));
+		TestUtilsIntegration.manipulateResponse("http://localhost:8080/fhir/R4/Patient?_count=10&_total=accurate&_format=json", this.oFhirModel, TestUtilsIntegration.setTotalUndefined, TestUtilsIntegration.checkErrorMsg.bind(undefined, this.oFhirModel, assert, "FHIR Server error: The \"total\" property is missing in the response for the requested FHIR resource " + sPath), undefined);
 		oListBinding.getContexts();
 	});
 
@@ -402,7 +417,7 @@ sap.ui.define([
 			};
 			oListBinding.attachDataReceived(fnCheck);
 		};
-		TestUtilsIntegration.manipulateResponse("http://localhost:8080/fhir/R4/ValueSet/$expand?_count=10&url=http://hl7.org/fhir/ValueSet/v3-hl7Realm&displayLanguage=" + sap.ui.getCore().getConfiguration().getLanguage() + "&_format=json", this.oFhirModel, TestUtilsIntegration.setTotalOfValueSetOperationUndefined, fnAssertion);
+		TestUtilsIntegration.manipulateResponse("http://localhost:8080/fhir/R4/ValueSet/$expand?_count=10&url=http://hl7.org/fhir/ValueSet/v3-hl7Realm&displayLanguage=" + sap.ui.getCore().getConfiguration().getLanguage() + "&_format=json", this.oFhirModel, TestUtilsIntegration.setTotalOfValueSetOperationUndefined, fnAssertion, undefined);
 		oListBinding.getContexts();
 	});
 
@@ -417,7 +432,7 @@ sap.ui.define([
 			};
 			oListBinding.attachDataReceived(fnCheck);
 		};
-		TestUtilsIntegration.manipulateResponse("http://localhost:8080/fhir/R4/ValueSet/$expand?_count=10&url=http://hl7.org/fhir/ValueSet/v3-hl7Realm&displayLanguage=" + sap.ui.getCore().getConfiguration().getLanguage() + "&_format=json", this.oFhirModel, TestUtilsIntegration.setValueSetPropertiesUndefined, fnAssertion);
+		TestUtilsIntegration.manipulateResponse("http://localhost:8080/fhir/R4/ValueSet/$expand?_count=10&url=http://hl7.org/fhir/ValueSet/v3-hl7Realm&displayLanguage=" + sap.ui.getCore().getConfiguration().getLanguage() + "&_format=json", this.oFhirModel, TestUtilsIntegration.setValueSetPropertiesUndefined, fnAssertion, undefined);
 		oListBinding.getContexts();
 	});
 
@@ -426,7 +441,11 @@ sap.ui.define([
 		var mParameters = {
 			success : function(oData){
 				var oValidateResponse = TestUtils.loadJSONFile("Validate");
-				assert.deepEqual(oData, oValidateResponse, "Validate response was correct");
+				var rUUIDTypeRegex = /^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i;
+				assert.strictEqual(true, TestUtils.checkRegularExpression(oData.id, rUUIDTypeRegex), "Validate response for resource id for type uuidv4 is correct");
+				assert.deepEqual(oData.resourceType, oValidateResponse.resourceType, "Validate response for resource type field is correct");
+				assert.deepEqual(oData.text, oValidateResponse.text, "Validate response for text field is correct");
+				assert.deepEqual(oData.issue, oValidateResponse.issue, "Validate response for issue field is correct");
 				done1();
 			}
 		};
@@ -471,7 +490,7 @@ sap.ui.define([
 			var oDate = new Date();
 			var sOldDate = oPropertyBinding.getValue();
 			oPropertyBinding.setValue(oDate);
-			this.oFhirModel.submitChanges(undefined, function(oData){
+			this.oFhirModel.submitChanges("patientDetails", function(oData){
 				aContext = oListBinding.getContexts();
 				assert.strictEqual(aContext[0].getObject().birthDate, oDate, "The history context binding load works");
 				assert.strictEqual(oPropertyBinding._getValue(), sOldDate, "The history context binding load works");
@@ -498,7 +517,7 @@ sap.ui.define([
 			done();
 			assert.strictEqual(TestUtils.getQueryParameters(oRequestHandle.getUrl())._total, "accurate");
 		};
-		TestUtilsIntegration.checkSendRequest("http://localhost:8080/fhir/R4/Patient?_format=json&_total=accurate", this.oFhirModel, fnCheck);
+		TestUtilsIntegration.checkSendRequest("http://localhost:8080/fhir/R4/Patient?_total=accurate&_format=json", this.oFhirModel, fnCheck);
 		this.oFhirModel.bindContext("/Patient");
 	});
 
@@ -568,9 +587,12 @@ sap.ui.define([
 			this.oFhirModel.aBindings.push(oPropertyBinding);
 			var oDate = new Date();
 			oPropertyBinding.setValue(oDate);
-			this.oFhirModel.submitChanges("patientDetails", function(oData){
-				this.oFhirModel.remove(["/Claim/" + oData.id]);
-				this.oFhirModel.submitChanges(undefined, function(oData){
+			this.oFhirModel.submitChanges("patientDetails", function(aFHIRResource){
+				var oFHIRResource = aFHIRResource.find(function (oResource) {
+					return oResource.resourceType === "Claim";
+				});
+				this.oFhirModel.remove(["/Claim/" + oFHIRResource.id]);
+				this.oFhirModel.submitChanges("patientDetails", function(oData){
 					assert.deepEqual(this.oFhirModel.mChangedResources["Claim"], {} , "Claim in changed resources got cleared");
 					done();
 				}.bind(this));
@@ -583,7 +605,7 @@ sap.ui.define([
 	QUnit.test("Conditional reference in transaction success", function(assert) {
 		var sPatientId = this.oFhirModel.create("Patient", {}, "patientDetails");
 		this.oFhirModel.create("Coverage", { payor : {
-			reference : "Patient/" + sPatientId
+			reference : "urn:uuid:" + sPatientId
 		}}, "patientDetails");
 		var done = assert.async();
 		var mRequestHandle;
@@ -604,4 +626,153 @@ sap.ui.define([
 		mRequestHandle = this.oFhirModel.submitChanges("patientDetails");
 		mRequestHandle["patientDetails"].getRequest().complete(fnAssertion);
 	});
+
+	QUnit.test("Test batch bundle entry fullUrl generation", function(assert) {
+		var sPractitionerId = this.oFhirModel.create("Practitioner", {
+			name: [
+				{
+					family: "warne",
+					given: ["dexter"]
+				}
+			]
+		}, "practitioner");
+		var mRequestHandle;
+		mRequestHandle = this.oFhirModel.submitChanges("practitioner");
+		var oBundle = mRequestHandle["practitioner"].getBundle();
+		var sFullUrl = oBundle._aBundleEntries[0]._sFullUrl;
+		assert.strictEqual(sFullUrl, "urn:uuid:" + sPractitionerId, "Full Generated for Batch entry is of type uuid");
+	});
+
+	QUnit.test("Test transaction bundle entry fullUrl generation", function(assert) {
+		var sPractitionerId = this.oFhirModel.create("Practitioner", {
+			name: [
+				{
+					family: "johnson",
+					given: ["dexter"]
+				}
+			]
+		}, "practitioner1");
+		var mRequestHandle;
+		mRequestHandle = this.oFhirModel.submitChanges("practitioner1");
+		var oBundle = mRequestHandle["practitioner1"].getBundle();
+		var sFullUrl = oBundle._aBundleEntries[0]._sFullUrl;
+		assert.strictEqual(sFullUrl, this.oFhirModel.sServiceUrl + "/Practitioner/" + sPractitionerId, "Full Generated for Transaction entry is of type url");
+	});
+
+	QUnit.test("Read Latest Version of Resources should give ETag in proper format", function(assert){
+		var sPatientPath = "/Patient/a2519";
+		var done = assert.async();
+		var fnSuccessCallback = function (sETag) {
+			assert.strictEqual(sETag, "W/\"2\"", "Read latest version gives the ETag in proper format");
+			done();
+		};
+		this.oFhirModel.readLatestVersionOfResource(sPatientPath, fnSuccessCallback);
+	});
+
+	/**
+	 * The request handle has to be deleted in case of success AND failure before the jQuery.complete hook is executed.
+	 * In case of an update call with version read (direct request) the request handle has to be deleted right in the beginning of the success or failure to trigger the update call.
+	 */
+	QUnit.test("Test Submit Changes after version read", function(assert) {
+		var done = assert.async();
+		this.oFhirModel.create("Practitioner", {
+			name: [
+				{
+					family: "johnson1",
+					given: ["dexter1"]
+				}
+			],
+			birthDate: "1987-03-03"
+		}, "practitioner2");
+		var successFn = function (oData) {
+			this.oFhirModel.setProperty("/" + oData.resourceType + "/" + oData.id + "/birthDate", "1988-03-04");
+			delete this.oFhirModel.oData.Practitioner[oData.id].meta;
+			this.oFhirModel.getBindingInfo("/" + oData.resourceType + "/" + oData.id)._sETag = undefined;
+			this.oFhirModel.submitChanges(undefined, function (oData) {
+				assert.strictEqual(oData.birthDate, "1988-03-04", "Submit is called successfully after version read");
+				done();
+			});
+		}.bind(this);
+		this.oFhirModel.submitChanges("practitioner2", successFn, undefined);
+	});
+
+	QUnit.test("Test bundle callback with only successful entries ", function(assert){
+		this.oFhirModel.create("Practitioner", {
+			name: [
+				{
+					family: "johnson",
+					given: ["dexter"]
+				}
+			]
+		}, "bundle");
+		this.oFhirModel.create("Practitioner", {
+			name: [
+				{
+					family: "johnson",
+					given: ["falk"]
+				}
+			]
+		}, "bundle");
+		var done = assert.async();
+		var fnSuccessCallback = function (aFHIRResource) {
+			assert.strictEqual(aFHIRResource.length, 2, "Bundle success callback contains all the resources which was sent as part of request");
+			done();
+		};
+		this.oFhirModel.submitChanges("bundle",fnSuccessCallback);
+	});
+
+	QUnit.test("Test bundle callback containing both successful enteries and operation outcome", function(assert){
+		var oJSONData = TestUtils.loadJSONFile("BundleWithSuccessAndFailureEntries");
+		this.oFhirModel.create("Practitioner", {
+			name: [
+				{
+					family: "dwayne",
+					given: ["new"]
+				}
+			]
+		}, "bundle");
+		this.oFhirModel.create("PractitionerRole", {
+			practitioner: {
+				reference: "Practitioner/random22"
+			}
+		}, "bundle");
+		var done = assert.async();
+		var fnErrorCallback = function (oMessage, aFHIRResource, aOperationOutcome) {
+			assert.strictEqual(aFHIRResource.length, 1, "Bundle error callback contains all the successful resources which was sent as part of request");
+			assert.strictEqual(aOperationOutcome.length, 1, "Bundle error callback contains the opertion outcome of the failed enteries ");
+			assert.strictEqual(aOperationOutcome[0].getErrorText(), "Reference not found");
+			assert.strictEqual(aOperationOutcome[0].getDetailsTextBySeverity("error"), "Reference not found");
+			assert.strictEqual(aOperationOutcome[0].getDetailsTextBySeverity("fatal"), "");
+			done();
+		};
+		TestUtilsIntegration.manipulateResponse("http://localhost:8080/fhir/R4", this.oFhirModel, TestUtilsIntegration.setResponseJSON, undefined, oJSONData);
+		this.oFhirModel.submitChanges("bundle", undefined, fnErrorCallback);
+	});
+
+	QUnit.test("Test bundle callback containing only operation outcome entries", function(assert){
+		var oJSONData = TestUtils.loadJSONFile("BundleWithFailureEntries");
+		this.oFhirModel.create("PractitionerRole", {
+			practitioner: {
+				reference: "Practitioner/random2ww2"
+			}
+		}, "bundle");
+		this.oFhirModel.create("PractitionerRole", {
+			practitioner: {
+				reference: "Practitioner/random2www2"
+			}
+		}, "bundle");
+		var done = assert.async();
+		var fnErrorCallback = function (oMessage, aFHIRResource, aOperationOutcome) {
+			assert.strictEqual(aOperationOutcome.length, 2, "Bundle error callback contains the opertion outcome of the failed enteries ");
+			assert.strictEqual(aOperationOutcome[0].getIssues().length, 1, "Operation outcome get issues returns all the issues");
+			assert.strictEqual(aOperationOutcome[0].getDetailsTextBySeverity("fatal"), "no such data exists");
+			assert.strictEqual(aOperationOutcome[0].getIssueBySeverity("fatal").code, "processing");
+			assert.strictEqual(aOperationOutcome[1].getIssueByCode("not-found").severity, "error", "Operation outcome get issue by code returns the proper entry");
+			assert.strictEqual(aOperationOutcome[1].getErrorDiagnostics(), "Reference not found");
+			done();
+		};
+		TestUtilsIntegration.manipulateResponse("http://localhost:8080/fhir/R4", this.oFhirModel, TestUtilsIntegration.setResponseJSON, undefined, oJSONData);
+		this.oFhirModel.submitChanges("bundle", undefined, fnErrorCallback);
+	});
+
 });

@@ -504,4 +504,16 @@ sap.ui.define(["../utils/TestUtils", "sap/fhir/model/r4/FHIRUtils"], function(Te
 		FHIRUtils.addRequestQueryParameters(oBindingMock, mRequestParameters);
 		assert.deepEqual(mRequestParameters.urlParameters, {});
 	});
+
+	QUnit.test("Test function generateFullUrl ", function (assert) {
+		var sFullUrl = FHIRUtils.generateFullUrl(TestUtils.createUri("uuid"), "/Patient/123", "123", "http://example.com");
+		var rUUIDTypeRegex = /^(urn):(uuid):[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i;
+		assert.strictEqual(true, FHIRUtils.checkRegularExpression(sFullUrl, rUUIDTypeRegex));
+		sFullUrl = FHIRUtils.generateFullUrl(TestUtils.createUri("uuid"), "/Patient/f1db03d0-9414-49ea-8554-cdbdede32c98", "f1db03d0-9414-49ea-8554-cdbdede32c98", "http://example.com");
+		assert.strictEqual("urn:uuid:f1db03d0-9414-49ea-8554-cdbdede32c98", sFullUrl);
+		sFullUrl = FHIRUtils.generateFullUrl(undefined, "/Patient/123", "123", "http://example.com");
+		assert.strictEqual(sFullUrl, undefined);
+		sFullUrl = FHIRUtils.generateFullUrl(TestUtils.createUri("url"), "/Patient/123", "123", "http://example.com");
+		assert.strictEqual(sFullUrl, "http://example.com/Patient/123");
+	});
 });

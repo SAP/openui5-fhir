@@ -96,13 +96,11 @@ sap.ui.define([
 			Log.info("Successful save operation with response: " + JSON.stringify(oResponse));
 		},
 
-		onFailureSave : function(oError) {
+		onFailureSave : function(oError, aResource, aOperationOutcome) {
 			this.closeStructureDefinitionBusyDialog();
-			if (oError.statusText !== "abort") {
-				MessageBox.error(Utils.getI18nText(this.getView(), "structureDefinitionMsgSaveFailed", [ oError.message ]), {
-					styleClass : this.getOwnerComponent().getContentDensityClass()
-				});
-			}
+			MessageBox.error(Utils.getI18nText(this.getView(), "structureDefinitionMsgSaveFailed", [oError.message]), {
+				styleClass: this.getOwnerComponent().getContentDensityClass()
+			});
 		},
 
 		createStructDef : function() {

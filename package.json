@@ -1,6 +1,6 @@
 {
   "name": "openui5-fhir",
-  "version": "1.0.4",
+  "version": "2.0.2",
   "author": "SAP SE",
   "license": "Apache-2.0",
   "description": "The OpenUI5-FHIR Library enables UI5 to the FHIR world",
@@ -21,23 +21,23 @@
     "fhir"
   ],
   "engines": {
-    "node": ">= 8.5",
+    "node": ">= 10",
     "npm": ">= 5"
   },
   "devDependencies": {
-    "eslint": "^6.8.0",
-    "eslint-watch": "^6.0.1",
-    "js-beautify": "^1.10.3",
-    "jsdoc": "^3.6.3",
-    "karma": "^4.4.1",
+    "eslint": "^7.13.0",
+    "eslint-watch": "^7.0.0",
+    "js-beautify": "^1.13.0",
+    "jsdoc": "^3.6.6",
+    "karma": "^5.2.3",
     "karma-chrome-launcher": "^3.1.0",
-    "karma-coverage": "^2.0.1",
+    "karma-coverage": "^2.0.3",
     "karma-junit-reporter": "^2.0.1",
-    "karma-ui5": "^1.1.0",
-    "@ui5/cli": "^1.14.0",
-    "coveralls": "^3.0.11",
-    "replace-in-file": "^5.0.2",
-    "js-yaml": "^3.13.1",
+    "karma-ui5": "^2.3.1",
+    "@ui5/cli": "^2.6.4",
+    "coveralls": "^3.1.0",
+    "replace-in-file": "^6.1.0",
+    "js-yaml": "^3.14.0",
     "@semantic-release/git": "^9.0.0",
     "@semantic-release/changelog": "^5.0.1"
   },
@@ -65,6 +65,8 @@
   },
   "files": [
     "src/sap/fhir/**/*.js",
-    "ui5.yaml"
+    "ui5.yaml",
+    "LICENSES/**",
+    ".reuse/**"
   ]
 }

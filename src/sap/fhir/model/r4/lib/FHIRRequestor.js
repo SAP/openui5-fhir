@@ -14,9 +14,11 @@ sap.ui.define([
 	"sap/fhir/model/r4/lib/RequestHandle",
 	"sap/fhir/model/r4/lib/HTTPMethod",
 	"sap/fhir/model/r4/lib/FHIRUrl",
-	"sap/base/util/each"
+	"sap/base/util/each",
+	"sap/base/util/merge",
+	"sap/fhir/model/r4/lib/FHIROperationOutcome"
 ], function(jQuery, FHIRUtils, SubmitMode, FHIRBundle,
-	FHIRBundleEntry, FHIRBundleRequest, FHIRBundleType, RequestHandle, HTTPMethod, FHIRUrl, each) {
+	FHIRBundleEntry, FHIRBundleRequest, FHIRBundleType, RequestHandle, HTTPMethod, FHIRUrl, each, merge, FHIROperationOutcome) {
 	"use strict";
 
 	/**
@@ -26,6 +28,7 @@ sap.ui.define([
 	 * @param {sap.fhir.model.r4.FHIRModel} oModel The FHIRModel
 	 * @param {boolean} [bCSRF=false] If the FHIR service supports the csrf token
 	 * @param {string} sPrefer In which kind the FHIR service shall return the responses described here https://www.hl7.org/fhir/http.html#2.21.0.5.2
+	 * @param {object} oDefaultQueryParams The default query parameters to be passed on resource type specific requests and not resource instance specific requests (e.g /Patient?_total:accurate&_format:json). It should be of type key:value pairs. e.g. {'_total':'accurate'} -> http://hl7.org/fhir/http.html#parameters
 	 * @alias sap.fhir.model.r4.lib.FHIRRequestor
 	 * @author SAP SE
 	 * @constructs {FHIRRequestor} Provides the implementation of the FHIR Requestor to send and retrieve content from a FHIR server
@@ -33,13 +36,14 @@ sap.ui.define([
 	 * @since 1.0.0
 	 * @version ${version}
 	 */
-	var FHIRRequestor = function(sServiceUrl, oModel, bCSRF, sPrefer) {
+	var FHIRRequestor = function(sServiceUrl, oModel, bCSRF, sPrefer, oDefaultQueryParams) {
 		this._mBundleQueue = {};
 		this.oModel = oModel;
 		this._sServiceUrl = sServiceUrl;
 		this._aPendingRequestHandles = [];
 		this.bCSRF = !!bCSRF;
 		this.sPrefer = sPrefer ?  "return=minimal" : sPrefer;
+		this.oDefaultQueryParams = oDefaultQueryParams;
 		this._oRegex = {
 			rAmpersand : /&/g,
 			rEquals : /\=/g,
@@ -59,13 +63,15 @@ sap.ui.define([
 	 * Submits a FHIR bundle request call with all entries associated with the given <code>sGroupId</code>
 	 *
 	 * @param {string} sGroupId The group id
+	 * @param {function} fnSuccessPromise The callback function which gets invoked once the submit is successful
+	 * @param {function} fnErrorPromise The callback function which gets invoked when the submit fails
 	 * @returns {sap.fhir.model.r4.lib.RequestHandle} oRequesthandle
 	 * @protected
 	 * @since 1.0.0
 	 */
-	FHIRRequestor.prototype.submitBundle = function(sGroupId) {
+	FHIRRequestor.prototype.submitBundle = function (sGroupId, fnSuccessPromise, fnErrorPromise) {
 		var oFHIRBundle = this._mBundleQueue[sGroupId];
-		return this._sendBundle(oFHIRBundle);
+		return this._sendBundle(oFHIRBundle, fnSuccessPromise, fnErrorPromise);
 	};
 
 	/**
@@ -94,7 +100,8 @@ sap.ui.define([
 		// it's a bundle (Batch or Transaction)
 		if (!bForceDirectCall && this._getGroupSubmitMode(sGroupId) !== SubmitMode.Direct) {
 			var oFHIRBundle = this._getBundleByGroup(sGroupId);
-			var oFHIRBundleEntry = this._createBundleEntry(sMethod, sPath, mParameters, oPayload, fnSuccess, fnError, oBinding);
+			var oUri = this._getGroupUri(sGroupId);
+			var oFHIRBundleEntry = this._createBundleEntry(sMethod, sPath, mParameters, oPayload, fnSuccess, fnError, oBinding, oUri);
 			oFHIRBundle.addBundleEntry(oFHIRBundleEntry);
 			if (bManualSubmit){
 				this._mBundleQueue[sGroupId] = oFHIRBundle;
@@ -125,11 +132,12 @@ sap.ui.define([
 	 * @param {function} [fnSuccess] The callback which will be executed when the request was successful
 	 * @param {function} [fnError] The callback which will be executed when the request failed
 	 * @param {sap.fhir.model.r4.FHIRContextBinding | sap.fhir.model.r4.FHIRListBinding | sap.fhir.model.r4.FHIRTreeBinding} [oBinding] The binding which triggered the request
+	 * @param {sap.fhir.model.r4.type.Uri} oUri The fullUrl instance format to be used in bundle entries
 	 * @returns {sap.fhir.model.r4.lib.FHIRBundleEntry} A FHIRBundleEntry instance.
 	 * @private
 	 * @since 1.0.0
 	 */
-	FHIRRequestor.prototype._createBundleEntry = function(sMethod, sResourcePath, mParameters, oResource, fnSuccess, fnError, oBinding) {
+	FHIRRequestor.prototype._createBundleEntry = function(sMethod, sResourcePath, mParameters, oResource, fnSuccess, fnError, oBinding, oUri) {
 		// remove possible slash at the beginning
 		if (sResourcePath && sResourcePath.charAt(0) === "/") {
 			sResourcePath = sResourcePath.slice(1);
@@ -137,12 +145,12 @@ sap.ui.define([
 		var oBindingInfo = sMethod === HTTPMethod.POST ? this.oModel.getBindingInfo("/" + sResourcePath, undefined, false, oResource) : this.oModel.getBindingInfo("/" + sResourcePath);
 		var sRequestUrl = sResourcePath + (HTTPMethod.GET === sMethod ? this._buildQueryParameters(mParameters, oBindingInfo, sMethod) : "");
 		var sFullUrl;
-		var sEtag;
-		if (HTTPMethod.GET !== sMethod){
-			sFullUrl = oBindingInfo.getResourceServerPath();
-			sEtag = oBindingInfo.getEtag();
+		var sETag;
+		if (HTTPMethod.GET !== sMethod) {
+			sFullUrl = FHIRUtils.generateFullUrl(oUri, oBindingInfo.getResourceServerPath(), oBindingInfo.getResourceId(), this._sServiceUrl);
+			sETag = oBindingInfo.getETag();
 		}
-		var oFHIRBundleRequest = new FHIRBundleRequest(oBinding, sMethod, sRequestUrl, fnSuccess, fnError, sEtag);
+		var oFHIRBundleRequest = new FHIRBundleRequest(oBinding, sMethod, sRequestUrl, fnSuccess, fnError, sETag);
 		var oFHIRBundleEntry = new FHIRBundleEntry(sFullUrl, oResource, oFHIRBundleRequest);
 		return oFHIRBundleEntry;
 	};
@@ -151,33 +159,53 @@ sap.ui.define([
 	 * Sends the given <code>oFHIRBundle</code>
 	 *
 	 * @param {sap.fhir.model.r4.lib.FHIRBundle} oFHIRBundle The bundle to send
+	 * @param {function} fnSubmitSuccessBundle The callback function which gets invoked once the submit is successful
+	 * @param {function} fnSubmitErrorBundle The callback function which gets invoked when the submit fails
 	 * @returns {sap.fhir.model.r4.lib.RequestHandle} A request handle.
 	 * @private
 	 * @since 1.0.0
 	 */
-	FHIRRequestor.prototype._sendBundle = function(oFHIRBundle) {
-		var fnSuccess = function(oGivenFHIRBundle, oRequestHandle) {
+	FHIRRequestor.prototype._sendBundle = function(oFHIRBundle, fnSubmitSuccessBundle, fnSubmitErrorBundle) {
+		var fnSuccess = function (oGivenFHIRBundle, oRequestHandle) {
+			var aSuccessResource = [];
+			var aOperationOutcome = [];
 			this._deleteBundleFromQueue(oFHIRBundle.getGroupId());
 			for (var i = 0; i < oGivenFHIRBundle.getNumberOfBundleEntries(); i++) {
 				var oFHIRBundleEntry = oGivenFHIRBundle.getBundlyEntry(i);
 				var oResponse = oRequestHandle.getRequest().responseJSON.entry[i];
 				if (oResponse && oResponse.response.status.startsWith("2")) {
+					if (oResponse.resource) {
+						aSuccessResource.push(oResponse.resource);
+					} else if (oFHIRBundleEntry.getResource()) {
+						aSuccessResource.push(oFHIRBundleEntry.getResource());
+					}
 					oFHIRBundleEntry.getRequest().executeSuccessCallback(oRequestHandle, oResponse, oFHIRBundleEntry);
 				} else {
+					if (oResponse && oResponse.response.outcome) {
+						aOperationOutcome.push(new FHIROperationOutcome(oResponse.response.outcome));
+					}
 					oFHIRBundleEntry.getRequest().executeErrorCallback(oRequestHandle, oResponse, oFHIRBundleEntry);
 				}
 			}
+			if (fnSubmitErrorBundle && aOperationOutcome.length > 0) {
+				fnSubmitErrorBundle(oRequestHandle, aSuccessResource, aOperationOutcome);
+			} else if (fnSubmitSuccessBundle) {
+				fnSubmitSuccessBundle(aSuccessResource);
+			}
 		}.bind(this, oFHIRBundle);
 
-		var fnError = function(oGivenFHIRBundle, oRequestHandle) {
+		var fnError = function (oGivenFHIRBundle, oRequestHandle) {
 			this._deleteBundleFromQueue(oFHIRBundle.getGroupId());
 			for (var i = 0; i < oGivenFHIRBundle.getNumberOfBundleEntries(); i++) {
 				var oFHIRBundleEntry = oGivenFHIRBundle.getBundlyEntry(i);
 				oFHIRBundleEntry.getRequest().executeErrorCallback(oRequestHandle);
 			}
+			if (fnSubmitErrorBundle) {
+				fnSubmitErrorBundle(oRequestHandle);
+			}
 		}.bind(this, oFHIRBundle);
 
-		var oRequestHandle = this._sendRequest(HTTPMethod.POST, "", {} , {}, oFHIRBundle.getBundleData(), fnSuccess, fnError);
+		var oRequestHandle = this._sendRequest(HTTPMethod.POST, "", {}, {}, oFHIRBundle.getBundleData(), fnSuccess, fnError);
 		oRequestHandle.setBundle(oFHIRBundle);
 		return oRequestHandle;
 	};
@@ -277,9 +305,8 @@ sap.ui.define([
 	 */
 	FHIRRequestor.prototype._ajax = function(oRequestHandle, mParameters, fnSuccess, fnError) {
 		var jqXHR = jQuery.ajax(mParameters);
-		if (jqXHR.statusText !== "canceled") {
-			jqXHR.complete(function(oGivenRequestHandle) {
-				this._deleteRequestHandle(oGivenRequestHandle);
+		if (!oRequestHandle.isAborted()) {
+			jqXHR.complete(function (oGivenRequestHandle) {
 				this.oModel.fireRequestCompleted(this._createEventParameters(oGivenRequestHandle));
 			}.bind(this, oRequestHandle));
 			this._add(oRequestHandle, fnSuccess, fnError);
@@ -300,11 +327,15 @@ sap.ui.define([
 	FHIRRequestor.prototype._add = function(oRequestHandle, fnSuccess, fnError) {
 		var jqXHR = oRequestHandle.getRequest();
 		jqXHR.done(function(oGivenRequestHandle){
+			this._deleteRequestHandle(oGivenRequestHandle);
 			fnSuccess(oGivenRequestHandle);
 		}.bind(this, oRequestHandle));
 		jqXHR.fail(function(oGivenRequestHandle) {
+			this._deleteRequestHandle(oGivenRequestHandle);
 			fnError(oGivenRequestHandle);
-			this.oModel.fireRequestFailed(this._createEventParameters(oGivenRequestHandle));
+			if (!oGivenRequestHandle.isAborted()) {
+				this.oModel.fireRequestFailed(this._createEventParameters(oGivenRequestHandle));
+			}
 		}.bind(this, oRequestHandle));
 	};
 
@@ -330,6 +361,18 @@ sap.ui.define([
 	 */
 	FHIRRequestor.prototype._getGroupSubmitMode = function(sGroupId) {
 		return this.oModel.getGroupProperty(sGroupId, "submit");
+	};
+
+	/**
+	 * Returns the fullUrl type  for the given group Id.
+	 *
+	 * @param {string} sGroupId The group id
+	 * @returns {sap.fhir.model.r4.type.URI} FHIR URI type for batch/transaction entries.
+	 * @private
+	 * @since 1.1.0
+	 */
+	FHIRRequestor.prototype._getGroupUri = function(sGroupId) {
+		return this.oModel.getGroupProperty(sGroupId, "uri");
 	};
 
 	/**
@@ -403,10 +446,12 @@ sap.ui.define([
 			return "";
 		}
 
-		mParameters._format = "json";
+		if (!oBindingInfo.getResourceId() && sMethod === HTTPMethod.GET) {
+			mParameters = merge(mParameters, this.oDefaultQueryParams);
+		}
 
-		if (!oBindingInfo.getResourceId() && sMethod === HTTPMethod.GET){
-			mParameters._total = "accurate";
+		if (!this._isFormatSupported(mParameters._format)) {
+			mParameters._format = "json";
 		}
 
 		aQuery = [];
@@ -497,6 +542,23 @@ sap.ui.define([
 			mResponseHeaders[aKeyValue[0]] = jqXHR.getResponseHeader(aKeyValue[0]);
 		}
 		return mResponseHeaders;
+	};
+
+	/**
+	 * Checks if the _format is part of supported types (according to fhir all these kinds shall be intrepreted as json)
+	 *
+	 * @param {string} sFormat The format in a particular request
+	 * @returns {boolean} Whether its supported or not
+	 * @private
+	 * @since 1.1.2
+	 */
+	FHIRRequestor.prototype._isFormatSupported = function(sFormat) {
+		var aSupportedFormats = [
+			"json",
+			"application/json",
+			"application/fhir+json"
+		];
+		return aSupportedFormats.indexOf(sFormat) >= 0;
 	};
 
 	return FHIRRequestor;
