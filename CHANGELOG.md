@@ -1,3 +1,10 @@
+## [2.0.3](https://github.com/SAP/openui5-fhir/compare/v2.0.2...v2.0.3) (2020-11-17)
+
+
+### Bug Fixes
+
+* restore csrf token handling ([#108](https://github.com/SAP/openui5-fhir/issues/108)) ([5c0ed46](https://github.com/SAP/openui5-fhir/commit/5c0ed46e377f390e2575a8c661189549a14bab6a))
+
 ## [2.0.2](https://github.com/SAP/openui5-fhir/compare/v2.0.1...v2.0.2) (2020-11-05)
 
 

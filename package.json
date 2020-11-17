@@ -1,6 +1,6 @@
 {
   "name": "openui5-fhir",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "author": "SAP SE",
   "license": "Apache-2.0",
   "description": "The OpenUI5-FHIR Library enables UI5 to the FHIR world",
