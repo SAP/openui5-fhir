@@ -1526,6 +1526,7 @@ sap.ui.define([
 					this._setProperty(this.mResourceGroupId, FHIRUtils.deepClone(aResPath));
 					this._removeFromOrderResources(oBindingInfo);
 				}
+				this._setProperty(this.oDataServerState, FHIRUtils.deepClone(aResPath));
 				this._setProperty(this.mChangedResources, FHIRUtils.deepClone(aResPath));
 			}.bind(this);
 			if (sResGroupId === sGroupId){
