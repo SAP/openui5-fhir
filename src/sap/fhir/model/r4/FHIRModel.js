@@ -953,6 +953,10 @@ sap.ui.define([
 		}
 		if (!vServerValue && oRequestInfo.method === HTTPMethod.PUT) {
 			this._setProperty(this.oDataServerState, aResPath, FHIRUtils.deepClone(oResource), true);
+		} else if (vServerValue && oRequestInfo.method === HTTPMethod.PUT && deepEqual(vServerValue, oResource)) {
+			// special handling when the server data and the client changed data is the same(after multiple reset changes)
+			// forcefully update the existing server state
+			this._setProperty(this.oDataServerState, aResPath, FHIRUtils.deepClone(oResource), true);
 		}
 	};
 
@@ -1525,9 +1529,6 @@ sap.ui.define([
 					this._setProperty(this.oData, FHIRUtils.deepClone(aResPath));
 					this._setProperty(this.mResourceGroupId, FHIRUtils.deepClone(aResPath));
 					this._removeFromOrderResources(oBindingInfo);
-				}
-				if (Object.keys(this.oDataServerState).length > 0 && this.oDataServerState[aResPath[0]] != undefined && this.oDataServerState[aResPath[0]][aResPath[1]] != undefined) {
-					this._setProperty(this.oDataServerState, FHIRUtils.deepClone(aResPath));
 				}
 				this._setProperty(this.mChangedResources, FHIRUtils.deepClone(aResPath));
 			}.bind(this);
