@@ -954,7 +954,7 @@ sap.ui.define([
 		if (!vServerValue && oRequestInfo.method === HTTPMethod.PUT) {
 			this._setProperty(this.oDataServerState, aResPath, FHIRUtils.deepClone(oResource), true);
 		} else if (vServerValue && oRequestInfo.method === HTTPMethod.PUT && deepEqual(vServerValue, oResource)) {
-			// special handling when the server data and the client changed data is the same(after multiple reset changes)
+			// special handling when the server data and the client data before applying the change is the same(after multiple reset changes)
 			// forcefully update the existing server state
 			this._setProperty(this.oDataServerState, aResPath, FHIRUtils.deepClone(oResource), true);
 		}
