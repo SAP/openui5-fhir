@@ -1521,12 +1521,12 @@ sap.ui.define([
 				if (oRequestInfo.method === HTTPMethod.PUT){
 					var oResourceServerState = this._getProperty(this.oDataServerState, aResPath);
 					this._setProperty(this.oData, FHIRUtils.deepClone(aResPath), oResourceServerState);
-					this._setProperty(this.oDataServerState, FHIRUtils.deepClone(aResPath));
 				} else if (oRequestInfo.method === HTTPMethod.POST){
 					this._setProperty(this.oData, FHIRUtils.deepClone(aResPath));
 					this._setProperty(this.mResourceGroupId, FHIRUtils.deepClone(aResPath));
 					this._removeFromOrderResources(oBindingInfo);
 				}
+				this._setProperty(this.oDataServerState, FHIRUtils.deepClone(aResPath));
 				this._setProperty(this.mChangedResources, FHIRUtils.deepClone(aResPath));
 			}.bind(this);
 			if (sResGroupId === sGroupId){
