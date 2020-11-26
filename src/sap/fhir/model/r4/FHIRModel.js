@@ -951,7 +951,7 @@ sap.ui.define([
 		if (sGroupId) {
 			this._setProperty(this.mResourceGroupId, FHIRUtils.deepClone(aResPath), sGroupId, true);
 		}
-		if (!vServerValue && oRequestInfo.method === HTTPMethod.PUT) {
+		if (!this._isServerStateUpToDate(vServerValue, oResource, oRequestInfo.method)) {
 			this._setProperty(this.oDataServerState, aResPath, FHIRUtils.deepClone(oResource), true);
 		}
 	};
@@ -1600,6 +1600,27 @@ sap.ui.define([
 			sStrucDefUrl = this.getBaseProfileUrl() + oResource.resourceType;
 		}
 		return sStrucDefUrl;
+	};
+
+	/**
+	 * Determines whether server state variable needs an update
+	 *
+	 * @param {object} vServerValue Existing server state value
+	 * @param {object} oResource The FHIR resource
+	 * @param {sap.fhir.model.r4.HTTPMethod} sHTTPMethod HTTP Method for the resource
+	 * @returns {boolean} if true then server state variable will not be updated
+	 * @private
+	 * @since 2.0.4
+	 */
+	FHIRModel.prototype._isServerStateUpToDate = function(vServerValue, oResource, sHTTPMethod){
+		if (!vServerValue && sHTTPMethod === HTTPMethod.PUT) {
+			return false;
+		} else if (vServerValue && sHTTPMethod === HTTPMethod.PUT && deepEqual(vServerValue, oResource)) {
+			// special handling when the server data and the client data before applying the change is the same (after multiple reset changes)
+			// forcefully update the existing server state
+			return false;
+		}
+		return true;
 	};
 
 	return FHIRModel;

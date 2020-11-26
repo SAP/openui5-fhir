@@ -566,6 +566,9 @@ sap.ui.define([
 		this.oFhirModel1.setProperty(this.sPatientPath + "/name/0/given/1", "Peterle");
 		this.oFhirModel1.resetChanges();
 		assert.deepEqual(this.oFhirModel1.oData.Patient[this.sPatientId], oPatient);
+		this.oFhirModel1.setProperty(this.sPatientPath + "/name/0/given/1", "Peterle1");
+		this.oFhirModel1.resetChanges();
+		assert.deepEqual(this.oFhirModel1.oData.Patient[this.sPatientId], oPatient);
 	});
 
 	QUnit.test("reset created/changed resources", function(assert) {
