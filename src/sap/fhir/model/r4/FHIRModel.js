@@ -1607,7 +1607,7 @@ sap.ui.define([
 	 *
 	 * @param {object} vServerValue Existing server state value
 	 * @param {object} oResource The FHIR resource
-	 * @param {string} sHTTPMethod HTTP Method for the resource
+	 * @param {sap.fhir.model.r4.HTTPMethod} sHTTPMethod HTTP Method for the resource
 	 * @returns {boolean} if true then server state variable will not be updated
 	 * @private
 	 * @since 2.0.4
