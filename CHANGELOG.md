@@ -1,3 +1,10 @@
+## [2.0.4](https://github.com/SAP/openui5-fhir/compare/v2.0.3...v2.0.4) (2020-11-26)
+
+
+### Bug Fixes
+
+* forceful update of server state variable in handleClient changes for multiple reset changes scenario ([#201](https://github.com/SAP/openui5-fhir/issues/201)) ([efcafbd](https://github.com/SAP/openui5-fhir/commit/efcafbd5f94af28da7cf6c6464fcd19b7095ee53))
+
 ## [2.0.3](https://github.com/SAP/openui5-fhir/compare/v2.0.2...v2.0.3) (2020-11-17)
 
 
