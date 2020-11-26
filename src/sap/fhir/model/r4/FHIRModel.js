@@ -951,7 +951,7 @@ sap.ui.define([
 		if (sGroupId) {
 			this._setProperty(this.mResourceGroupId, FHIRUtils.deepClone(aResPath), sGroupId, true);
 		}
-		if (!this._isServerDateUpToDate(vServerValue, oResource, oRequestInfo.method)) {
+		if (!this._isServerStateUpToDate(vServerValue, oResource, oRequestInfo.method)) {
 			this._setProperty(this.oDataServerState, aResPath, FHIRUtils.deepClone(oResource), true);
 		}
 	};
@@ -1612,7 +1612,7 @@ sap.ui.define([
 	 * @private
 	 * @since 2.0.4
 	 */
-	FHIRModel.prototype._isServerDateUpToDate = function(vServerValue, oResource, sHTTPMethod){
+	FHIRModel.prototype._isServerStateUpToDate = function(vServerValue, oResource, sHTTPMethod){
 		if (!vServerValue && sHTTPMethod === HTTPMethod.PUT) {
 			return false;
 		} else if (vServerValue && sHTTPMethod === HTTPMethod.PUT && deepEqual(vServerValue, oResource)) {
