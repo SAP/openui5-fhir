@@ -29,7 +29,7 @@
     "eslint-watch": "^7.0.0",
     "js-beautify": "^1.13.5",
     "jsdoc": "^3.6.6",
-    "karma": "^6.1.1",
+    "karma": "^6.1.2",
     "karma-chrome-launcher": "^3.1.0",
     "karma-coverage": "^2.0.3",
     "karma-junit-reporter": "^2.0.1",
