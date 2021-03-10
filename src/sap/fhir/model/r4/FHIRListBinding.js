@@ -49,8 +49,8 @@ sap.ui.define([
 
 		constructor : function(oModel, sPath, oContext, aSorters, aFilters, mParameters) {
 			ListBinding.apply(this, arguments);
-			this.aFilters = aFilters;
-			this.aSorters = aSorters;
+			this.aFilters = aFilters instanceof Filter ? [aFilters] : aFilters;
+			this.aSorters = aSorters instanceof Sorter ? [aSorters] : aSorters;
 			this.mParameters = mParameters;
 			this.sOperationMode = (mParameters && mParameters.operationMode) || this.oModel.sDefaultOperationMode;
 			if (this.sOperationMode !== OperationMode.Server) {

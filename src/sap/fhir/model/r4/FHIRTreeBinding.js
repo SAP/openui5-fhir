@@ -46,7 +46,8 @@ sap.ui.define([
 
 		constructor : function(oModel, sPath, oContext, aFilters, mParameters, aSorters) {
 			TreeBinding.apply(this, arguments);
-			this.aFilters = aFilters;
+			this.aFilters = aFilters instanceof Filter ? [aFilters] : aFilters;
+			this.aSorters = aSorters instanceof Sorter ? [aSorters] : aSorters;
 			this.aSorters = aSorters;
 			this.sId = FHIRUtils.uuidv4();
 			this._checkParameters(mParameters);
