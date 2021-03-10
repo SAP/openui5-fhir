@@ -666,8 +666,13 @@ sap.ui.define([
 		assert.deepEqual(mGoalParameters.birthdate, mParameters.urlParameters.birthdate);
 	});
 
-	QUnit.test("filtering and sorting a list with a single object", function (assert) {
+	QUnit.test("filtering and sorting a list with a single or no object", function (assert) {
 		this.loadDataIntoModel("Patients");
+		this.oListBinding.sort(undefined);
+		this.oListBinding.filter(undefined);
+		assert.deepEqual(this.oListBinding.getFilters(), []);
+		assert.deepEqual(this.oListBinding.getSorters(), []);
+
 		var oGenderFilter = new sap.ui.model.Filter({ path: "gender", operator: FHIRFilterOperator.EQ, value1: "male" });
 		var oSort = new sap.ui.model.Sorter("birthdate", true);
 
