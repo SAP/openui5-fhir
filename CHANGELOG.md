@@ -1,3 +1,10 @@
+## [2.0.5](https://github.com/SAP/openui5-fhir/compare/v2.0.4...v2.0.5) (2021-03-10)
+
+
+### Bug Fixes
+
+* single filter or sorter object ([#237](https://github.com/SAP/openui5-fhir/issues/237)) ([552f2fc](https://github.com/SAP/openui5-fhir/commit/552f2fcb04314705f4ac8aa81f2b0c35714fe87d))
+
 ## [2.0.4](https://github.com/SAP/openui5-fhir/compare/v2.0.3...v2.0.4) (2020-11-26)
 
 
