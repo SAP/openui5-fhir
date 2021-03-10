@@ -23,7 +23,7 @@ sap.ui.define([
 	 * @param {sap.fhir.model.r4.FHIRModel} oModel The FHIRModel
 	 * @param {string} sPath The binding path in the model
 	 * @param {sap.fhir.model.r4.Context} [oContext] The parent context which is required as base for a relative path
-	 * @param {sap.ui.model.Filter[]} [aFilters] The dynamic application filters to be used initially
+	 * @param {sap.ui.model.Filter | sap.ui.model.Filter[]} [aFilters] The dynamic application filters to be used initially (can be either a filter or an array of filters)
 	 * @param {object} [mParameters] The map which contains additional parameters for the binding
 	 * @param {string} [mParameters.groupId] The group id
 	 * @param {sap.fhir.model.r4.OperationMode} [mParameters.operationMode] The operation mode, how to handle operations like filtering and sorting
@@ -35,7 +35,7 @@ sap.ui.define([
 	 * @param {boolean} [mParameters.collapseRecursive=true] Determines if all sub nodes of a single node will be collapsed also, if this single node is collapsed
 	 * @param {number} [mParameters.numberOfExpandedLevels=0] Determines the number of levels, which will be auto-expanded initially
 	 *
-	 * @param {sap.ui.model.Sorter[]} [aSorters] The dynamic sorters to be used initially
+	 * @param {sap.ui.model.Sorter | sap.ui.model.Sorter[]} [aSorters] The dynamic sorters to be used initially (can be either a sorter or an array of sorters)
 	 * @author SAP SE
 	 * @extends sap.ui.model.TreeBinding
 	 * @public
@@ -46,7 +46,8 @@ sap.ui.define([
 
 		constructor : function(oModel, sPath, oContext, aFilters, mParameters, aSorters) {
 			TreeBinding.apply(this, arguments);
-			this.aFilters = aFilters;
+			this.aFilters = aFilters instanceof Filter ? [aFilters] : aFilters;
+			this.aSorters = aSorters instanceof Sorter ? [aSorters] : aSorters;
 			this.aSorters = aSorters;
 			this.sId = FHIRUtils.uuidv4();
 			this._checkParameters(mParameters);

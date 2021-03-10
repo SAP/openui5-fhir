@@ -8,8 +8,10 @@ sap.ui.define([
 	"sap/fhir/model/r4/FHIRFilterOperator",
 	"sap/ui/model/ChangeReason",
 	"sap/base/util/merge",
-	"sap/base/util/deepEqual"
-], function(FHIRFilterOperatorUtils, FHIRFilterOperator, ChangeReason, merge, deepEqual) {
+	"sap/base/util/deepEqual",
+	"sap/ui/model/Filter",
+	"sap/ui/model/Sorter"
+], function(FHIRFilterOperatorUtils, FHIRFilterOperator, ChangeReason, merge, deepEqual, Filter, Sorter) {
 
 	"use strict";
 
@@ -509,12 +511,18 @@ sap.ui.define([
 	/**
 	 * Filters the actual binding depending on the given <code>aFilters</code>
 	 *
-	 * @param {sap.ui.model.Filter[]} [aFilters] The filters defined for the list binding
+	 * @param {sap.ui.model.Filter | sap.ui.model.Filter[]} [aFilters] The filters defined for the list binding (can be either a filter or an array of filters)
 	 * @param {sap.fhir.model.r4.FHIRListBinding | sap.fhir.model.r4.FHIRTreeBinding} oBinding The binding which triggered the filter
 	 * @public
 	 * @since 1.0.0
 	 */
 	FHIRUtils.filter = function(aFilters, oBinding){
+		if (!aFilters) {
+			aFilters = [];
+		}
+		if (aFilters instanceof Filter) {
+			aFilters = [aFilters];
+		}
 		if (oBinding.bPendingRequest){
 			var fnQueryLastFilters = function() {
 				if (!oBinding.bPendingRequest){
@@ -538,13 +546,19 @@ sap.ui.define([
 	/**
 	 * Sorts the actual list binding based on the given <code>aSorters</code>
 	 *
-	 * @param {sap.ui.model.Sorter[]} aSorters The sorters defined for the list binding
+	 * @param {sap.ui.model.Sorter | sap.ui.model.Sorter[]} aSorters The sorters defined for the list binding (can be either a sorter or an array of sorters)
 	 * @param {sap.fhir.model.r4.FHIRListBinding | sap.fhir.model.r4.FHIRTreeBinding} oBinding The binding which triggered the sort
 	 * @param {boolean} bRefresh If the binding should directly send a call or wait for the filters, for p13ndialog
 	 * @public
 	 * @since 1.0.0
 	 */
 	FHIRUtils.sort = function(aSorters, oBinding, bRefresh){
+		if (!aSorters) {
+			aSorters = [];
+		}
+		if (aSorters instanceof Sorter) {
+			aSorters = [aSorters];
+		}
 		if (oBinding.bPendingRequest){
 			var fnQueryLastSorters = function() {
 				if (!oBinding.bPendingRequest){

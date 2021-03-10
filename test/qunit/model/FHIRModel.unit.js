@@ -666,6 +666,28 @@ sap.ui.define([
 		assert.deepEqual(mGoalParameters.birthdate, mParameters.urlParameters.birthdate);
 	});
 
+	QUnit.test("filtering and sorting a list with a single or no object", function (assert) {
+		this.loadDataIntoModel("Patients");
+		this.oListBinding.sort(undefined);
+		this.oListBinding.filter(undefined);
+		assert.deepEqual(this.oListBinding.getFilters(), []);
+		assert.deepEqual(this.oListBinding.getSorters(), []);
+
+		var oGenderFilter = new sap.ui.model.Filter({ path: "gender", operator: FHIRFilterOperator.EQ, value1: "male" });
+		var oSort = new sap.ui.model.Sorter("birthdate", true);
+
+		this.oListBinding.sort(oSort);
+		this.oListBinding.filter(oGenderFilter);
+
+		assert.deepEqual(this.oListBinding.getFilters(), [oGenderFilter]);
+		assert.deepEqual(this.oListBinding.getSorters(), [oSort]);
+
+		var mParameters = this.oListBinding._buildParameters();
+		var mGoalParameters = { "_sort": "-birthdate", "gender:exact": "male" };
+		assert.equal(mGoalParameters["gender:exact"], mParameters.urlParameters["gender:exact"]);
+		assert.equal(mGoalParameters._sort, mParameters.urlParameters._sort);
+	});
+
 	QUnit.test("initial duplicate includes, has chaining and filter", function(assert){
 		var mParameters = this.oListBinding7._buildParameters();
 		var mGoalParameters = {"_include" : ["PractitionerRole:practitioner", "PractitionerRole:organization"], "_has:PractitionerRole:practitioner:organization" : "252", "organization:contains" : "252"};
