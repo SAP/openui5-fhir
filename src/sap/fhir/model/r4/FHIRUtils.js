@@ -459,7 +459,12 @@ sap.ui.define([
 		if (aFilters){
 			for (var i = 0; i < aFilters.length; i++) {
 				var oFilter = aFilters[i];
-				if (oFilter._bMultiFilter && iLvl <= iSupportedFilterDepth){
+				if (!iSupportedFilterDepth) {
+					if (!mParameters._filter) {
+						mParameters._filter = "";
+					}
+					this._complexFilterBuilder(oFilter, mParameters, undefined);
+				} else if (oFilter._bMultiFilter && iLvl <= iSupportedFilterDepth){
 					this.filterBuilder(oFilter.aFilters, mParameters, iSupportedFilterDepth, bIsValueSet, iLvl + 1, oFilter._bMultiFilter, oFilter.bAnd);
 				} else if (iLvl > iSupportedFilterDepth) {
 					throw new Error("A depth of " + iLvl + " is not supported for simple filtering, please reduce it to a maximum of 2");
@@ -505,6 +510,50 @@ sap.ui.define([
 			}
 		} else {
 			mParameters[sPath + sFhirSearchModifier] =  vValue;
+		}
+	};
+
+	/**
+	 * Creates a complex filter
+	 *
+	 * @param {object} oFilter The filter which should be added to the parameters
+	 * @param {object} mParameters The parameters which should be passed to the request
+	 * @param {string} sLogicalConnection if list of filters needs to be combined either with AND or OR
+	 * @private
+	 * @since 2.1.0
+	 */
+	FHIRUtils._complexFilterBuilder = function (oFilter, mParameters, sLogicalConnection) {
+		if (oFilter instanceof Filter) {
+			if (oFilter._bMultiFilter) {
+				// recursive
+				var sLogicalConnection1;
+				if (oFilter.bAnd != undefined) {
+					sLogicalConnection1 = oFilter.bAnd ? " and " : " or ";
+				}
+				if (oFilter.aFilters) {
+					mParameters._filter = mParameters._filter + " ( ";
+					// TODO See if this can be done in a better way
+					// for the first filter the logical connection shouldnt be appended
+					this._complexFilterBuilder(oFilter.aFilters[0], mParameters, undefined);
+					for (var i = 1; i < oFilter.aFilters.length; i++) {
+						this._complexFilterBuilder(oFilter.aFilters[i], mParameters, sLogicalConnection1);
+					}
+					mParameters._filter = mParameters._filter + " ) ";
+				}
+			} else {
+				// validate the filter operator
+				// if BT operator use 'and' to generate the filter value
+				var sPath = oFilter.sPath;
+				var sFilterOperator = oFilter.sOperator;
+				var oValue1 = FHIRFilterOperatorUtils.getFilterValue(oFilter.oValue1);
+
+				var sFilter = sPath + " " + sFilterOperator + " " + oValue1;
+				if (sLogicalConnection) {
+					mParameters._filter = mParameters._filter + sLogicalConnection + sFilter;
+				} else {
+					mParameters._filter = mParameters._filter + sFilter;
+				}
+			}
 		}
 	};
 

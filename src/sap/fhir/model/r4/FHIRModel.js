@@ -90,7 +90,7 @@ sap.ui.define([
 			this.oDefaultUri = this.sDefaultFullUrlType === "url" ? new Url() : new Uuid();
 			this.iSizeLimit = 10;
 			if (mParameters && mParameters.simpleFiltering === false){
-				throw new Error("Complex filtering not supported");
+				this.iSupportedFilterDepth = undefined;
 			} else {
 				this.iSupportedFilterDepth = 2;
 			}
