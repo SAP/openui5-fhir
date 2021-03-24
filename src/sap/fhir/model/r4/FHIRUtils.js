@@ -523,10 +523,10 @@ sap.ui.define([
 	 * @since 2.1.0
 	 */
 	FHIRUtils._complexFilterBuilder = function (oFilter, mParameters, sLogicalConnection) {
+		var sLogicalConnection1;
 		if (oFilter instanceof Filter) {
 			if (oFilter._bMultiFilter) {
 				// recursive
-				var sLogicalConnection1;
 				if (oFilter.bAnd != undefined) {
 					sLogicalConnection1 = oFilter.bAnd ? " and " : " or ";
 				}
@@ -545,9 +545,17 @@ sap.ui.define([
 				// if BT operator use 'and' to generate the filter value
 				var sPath = oFilter.sPath;
 				var sFilterOperator = oFilter.sOperator;
-				var oValue1 = FHIRFilterOperatorUtils.getFilterValue(oFilter.oValue1);
-
-				var sFilter = sPath + " " + sFilterOperator + " " + oValue1;
+				var oValue1 = FHIRFilterOperatorUtils.getFilterValueForComplexFilter(oFilter.sValueType, oFilter.oValue1);
+				var oValue2 = FHIRFilterOperatorUtils.getFilterValueForComplexFilter(oFilter.sValueType, oFilter.oValue2);
+				var sFilter;
+				if (oFilter.sOperator === FHIRFilterOperator.BT) {
+					sFilter = " ( " + sPath + " ge " + oValue1 + " and " + sPath + " le " + oValue2 + " ) ";
+				} else if (oFilter.bAnd != undefined) {
+					sLogicalConnection1 = oFilter.bAnd ? " and " : " or ";
+					sFilter = " ( " + sPath + " ge " + oValue1 + sLogicalConnection1 + sPath + " le " + oValue2 + " ) ";
+				} else {
+					sFilter = sPath + " " + sFilterOperator + " " + oValue1;
+				}
 				if (sLogicalConnection) {
 					mParameters._filter = mParameters._filter + sLogicalConnection + sFilter;
 				} else {

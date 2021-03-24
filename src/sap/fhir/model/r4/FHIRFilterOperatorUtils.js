@@ -137,5 +137,27 @@ sap.ui.define(["sap/fhir/model/r4/FHIRFilterOperator", "sap/fhir/model/r4/FHIRFi
 		return sFHIRSearchPrefix;
 	};
 
+	/**
+	 * Parses the JS filter value to an FHIR filter value
+	 *
+	 * @param {string} sFilterValue The value type of a filter object
+	 * @param {string} oValue The value type of a filter object
+	 * @returns {string} Formatted FHIR filter value
+	 * @public
+	 * @since 2.1.0
+	 */
+	FHIRFilterOperatorUtils.getFilterValueForComplexFilter = function (sFilterValue, oValue) {
+		var isStringFilterType = sFilterValue && sFilterValue === FHIRFilterType.string ? true : false;
+		var sValue;
+		if (isStringFilterType) {
+			// special handling for string parameter as per fhir
+			// given eq "peter"
+			sValue = '"' + oValue + '"';
+		} else {
+			sValue = oValue;
+		}
+		return sValue;
+	};
+
 	return FHIRFilterOperatorUtils;
 });
