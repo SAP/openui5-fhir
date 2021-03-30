@@ -1281,13 +1281,19 @@ sap.ui.define([
 		oListBinding.filter(aFilters);
 		mParameters = oListBinding._buildParameters();
 		oRequestHandle = oFhirModel.loadData("/Patient", mParameters);
-		assert.deepEqual(mParameters.urlParameters["_filter"], "( name eq \"Ruediger\" or name eq \"Habibi\" )", "The _filter parameter object is the same");
+		assert.deepEqual(mParameters.urlParameters["_filter"], "( name eq \"Ruediger\" or name eq \"Habibi\" )", "The _filter parameter for array of filters is the formed correctly");
 		var oGenderFilter = new FHIRFilter({ path: "gender", operator: FilterOperator.EQ, value1: "male" });
 		var oCombinedFilter1 = new sap.ui.model.Filter([oCombinedFilter, oGenderFilter], true);
 		aFilters = [oCombinedFilter1];
 		oListBinding.filter(aFilters);
 		mParameters = oListBinding._buildParameters();
 		assert.deepEqual(mParameters.urlParameters["_filter"], "( ( name eq \"Ruediger\" or name eq \"Habibi\" ) and gender eq male )", "The _filter parameter object is the same");
+		var oBirthDateFilter = new FHIRFilter({ path: "birthdate", operator: FilterOperator.BT, value1: "1965-03-23", value2: "1985-04-14" });
+		aFilters = [oBirthDateFilter];
+		oListBinding.filter(aFilters);
+		mParameters = oListBinding._buildParameters();
+		oRequestHandle = oFhirModel.loadData("/Patient", mParameters);
+		assert.deepEqual(mParameters.urlParameters["_filter"], " ( birthdate ge 1965-03-23 and birthdate le 1985-04-14 ) ", "The _filter parameter for BT operator is the formed correctly");
 	});
 
 });
