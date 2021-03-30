@@ -549,11 +549,7 @@ sap.ui.define([
 				var sFilter;
 				if (oFilter.sOperator === FHIRFilterOperator.BT) {
 					oValue2 = FHIRFilterOperatorUtils.getFilterValueForComplexFilter(oFilter.sValueType, oFilter.oValue2);
-					sFilter = " ( " + sPath + " ge " + oValue1 + " and " + sPath + " le " + oValue2 + " ) ";
-				} else if (oFilter.bAnd != undefined) {
-					oValue2 = FHIRFilterOperatorUtils.getFilterValueForComplexFilter(oFilter.sValueType, oFilter.oValue2);
-					sLogicalConnection1 = oFilter.bAnd ? " and " : " or ";
-					sFilter = " ( " + sPath + " ge " + oValue1 + sLogicalConnection1 + sPath + " le " + oValue2 + " ) ";
+					sFilter = "( " + sPath + " ge " + oValue1 + " and " + sPath + " le " + oValue2 + " )";
 				} else {
 					sFilter = sPath + " " + sFilterOperator + " " + oValue1;
 				}

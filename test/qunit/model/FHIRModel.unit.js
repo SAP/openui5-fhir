@@ -1293,7 +1293,15 @@ sap.ui.define([
 		oListBinding.filter(aFilters);
 		mParameters = oListBinding._buildParameters();
 		oRequestHandle = oFhirModel.loadData("/Patient", mParameters);
-		assert.deepEqual(mParameters.urlParameters["_filter"], " ( birthdate ge 1965-03-23 and birthdate le 1985-04-14 ) ", "The _filter parameter for BT operator is the formed correctly");
+		assert.deepEqual(mParameters.urlParameters["_filter"], "( birthdate ge 1965-03-23 and birthdate le 1985-04-14 )", "The _filter parameter for BT operator is the formed correctly");
+		oNameFilter = new FHIRFilter({ path: "name", operator: FilterOperator.StartsWith, value1: "Ra", valueType: FHIRFilterType.string });
+		oNameFilter1 = new FHIRFilter({ path: "name", operator: FilterOperator.EndsWith, value1: "er", valueType: FHIRFilterType.string });
+		oCombinedFilter = new sap.ui.model.Filter([oNameFilter, oNameFilter1], true);
+		aFilters = [oCombinedFilter];
+		oListBinding.filter(aFilters);
+		mParameters = oListBinding._buildParameters();
+		oRequestHandle = oFhirModel.loadData("/Patient", mParameters);
+		assert.deepEqual(mParameters.urlParameters["_filter"], "( name sw \"Ra\" and name ew \"er\" )", "The _filter parameter for StartsWith and EndsWith operator is the formed correctly");
 	});
 
 });
