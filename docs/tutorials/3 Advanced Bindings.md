@@ -307,8 +307,8 @@ sap.ui.define([ ...
 ]
 ...
 var oNameFilter = new FHIRFilter({ path: "name", operator: FilterOperator.StartsWith, value1: "Da", valueType: FHIRFilterType.string });
-var	oNameFilter1 = new FHIRFilter({ path: "name", operator: FilterOperator.EndsWith, value1: "on", valueType: FHIRFilterType.string });
-var	oCombinedFilter = new sap.ui.model.Filter([oNameFilter, oNameFilter1], true);
+var oNameFilter1 = new FHIRFilter({ path: "name", operator: FilterOperator.EndsWith, value1: "on", valueType: FHIRFilterType.string });
+var oCombinedFilter = new sap.ui.model.Filter([oNameFilter, oNameFilter1], true);
 var oBirthDateFilter = 	new FHIRFilter({ path: "birthdate", operator: FilterOperator.EQ, value1: "1987-12-25"});
 oBinding.filter([oCombinedFilter,oBirthDateFilter],true);
 ```
