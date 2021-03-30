@@ -138,6 +138,81 @@ sap.ui.define(["sap/fhir/model/r4/FHIRFilterOperator", "sap/fhir/model/r4/FHIRFi
 	};
 
 	/**
+	 * Transforms the UI5 filter operator to an FHIR valid filter prefix based on the given UI5 <code>oFilter</code>
+	 *
+	 * @param {sap.ui.model.Filter} oFilter The given filter
+	 * @returns {string} The FHIR filter prefix
+	 * @protected
+	 * @since 2.1.0
+	 */
+	FHIRFilterOperatorUtils.getFHIRFilterPrefix = function (oFilter) {
+		var sFHIRFilterPrefix;
+		switch (oFilter.sOperator) {
+			case FHIRFilterOperator.EQ:
+				sFHIRFilterPrefix = "eq";
+				break;
+			case FHIRFilterOperator.NE:
+				sFHIRFilterPrefix = "ne";
+				break;
+			case FHIRFilterOperator.GT:
+				sFHIRFilterPrefix = "gt";
+				break;
+			case FHIRFilterOperator.GE:
+				sFHIRFilterPrefix = "ge";
+				break;
+			case FHIRFilterOperator.LT:
+				sFHIRFilterPrefix = "lt";
+				break;
+			case FHIRFilterOperator.LE:
+				sFHIRFilterPrefix = "le";
+				break;
+			case FHIRFilterOperator.SA:
+				sFHIRFilterPrefix = "sa";
+				break;
+			case FHIRFilterOperator.EB:
+				sFHIRFilterPrefix = "eb";
+				break;
+			case FHIRFilterOperator.AP:
+				sFHIRFilterPrefix = "ap";
+				break;
+			case FHIRFilterOperator.StartsWith:
+				sFHIRFilterPrefix = "sw";
+				break;
+			case FHIRFilterOperator.EndsWith:
+				sFHIRFilterPrefix = "ew";
+				break;
+			case FHIRFilterOperator.Contains:
+				sFHIRFilterPrefix = "co";
+				break;
+			case FHIRFilterOperator.PR:
+				sFHIRFilterPrefix = "pr";
+				break;
+			case FHIRFilterOperator.PO:
+				sFHIRFilterPrefix = "po";
+				break;
+			case FHIRFilterOperator.SS:
+				sFHIRFilterPrefix = "ss";
+				break;
+			case FHIRFilterOperator.SB:
+				sFHIRFilterPrefix = "sb";
+				break;
+			case FHIRFilterOperator.IN:
+				sFHIRFilterPrefix = "in";
+				break;
+			case FHIRFilterOperator.NI:
+				sFHIRFilterPrefix = "ni";
+				break;
+			case FHIRFilterOperator.RE:
+				sFHIRFilterPrefix = "re";
+				break;
+			default:
+				sFHIRFilterPrefix = oFilter.sOperator.toLowerCase();
+				break;
+		}
+		return sFHIRFilterPrefix;
+	};
+
+	/**
 	 * Parses the JS filter value to an FHIR filter value
 	 *
 	 * @param {string} sFilterValue The value type of a filter object
@@ -152,7 +227,7 @@ sap.ui.define(["sap/fhir/model/r4/FHIRFilterOperator", "sap/fhir/model/r4/FHIRFi
 		if (isStringFilterType) {
 			// special handling for string parameter as per fhir
 			// given eq "peter"
-			sValue = '"' + oValue + '"';
+			sValue = "\"" + oValue + "\"";
 		} else {
 			sValue = oValue;
 		}

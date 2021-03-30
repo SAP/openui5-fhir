@@ -518,7 +518,7 @@ sap.ui.define([
 	 *
 	 * @param {object} oFilter The filter which should be added to the parameters
 	 * @param {object} mParameters The parameters which should be passed to the request
-	 * @param {string} sLogicalConnection if list of filters needs to be combined either with AND or OR
+	 * @param {string} sLogicalConnection if the list of filters needs to be combined either with AND or OR
 	 * @private
 	 * @since 2.1.0
 	 */
@@ -531,20 +531,19 @@ sap.ui.define([
 					sLogicalConnection1 = oFilter.bAnd ? " and " : " or ";
 				}
 				if (oFilter.aFilters) {
-					mParameters._filter = mParameters._filter + " ( ";
-					// TODO See if this can be done in a better way
+					mParameters._filter = mParameters._filter + "( ";
 					// for the first filter the logical connection shouldnt be appended
 					this._complexFilterBuilder(oFilter.aFilters[0], mParameters, undefined);
 					for (var i = 1; i < oFilter.aFilters.length; i++) {
 						this._complexFilterBuilder(oFilter.aFilters[i], mParameters, sLogicalConnection1);
 					}
-					mParameters._filter = mParameters._filter + " ) ";
+					mParameters._filter = mParameters._filter + " )";
 				}
 			} else {
 				// validate the filter operator
 				// if BT operator use 'and' to generate the filter value
 				var sPath = oFilter.sPath;
-				var sFilterOperator = oFilter.sOperator;
+				var sFilterOperator = FHIRFilterOperatorUtils.getFHIRFilterPrefix(oFilter);
 				var oValue1 = FHIRFilterOperatorUtils.getFilterValueForComplexFilter(oFilter.sValueType, oFilter.oValue1);
 				var oValue2 = FHIRFilterOperatorUtils.getFilterValueForComplexFilter(oFilter.sValueType, oFilter.oValue2);
 				var sFilter;

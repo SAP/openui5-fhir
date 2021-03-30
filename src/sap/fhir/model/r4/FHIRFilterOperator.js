@@ -21,7 +21,7 @@ sap.ui.define(["sap/ui/model/FilterOperator"], function(FilterOperator) {
 		 *
 		 * @public
 		 */
-		Missing : "Missing",
+		Missing: "Missing",
 		/**
 		 * starts-after
 		 * e.g.: sa2013-03-14
@@ -41,7 +41,49 @@ sap.ui.define(["sap/ui/model/FilterOperator"], function(FilterOperator) {
 		 *
 		 * @public
 		 */
-		AP: "ap"
+		AP: "ap",
+		/**
+		 * The set is empty or not (value is false or true)
+		 *
+		 * @public
+		 */
+		PR: "pr",
+		/**
+		 * if a (implied) date period in the set overlaps with the implied period in the value
+		 *
+		 * @public
+		 */
+		PO: "po",
+		/**
+		 * if the value subsumes a concept in the set
+		 *
+		 * @public
+		 */
+		SS: "ss",
+		/**
+		 * if the value is subsumed by a concept in the set
+		 *
+		 * @public
+		 */
+		SB: "sb",
+		/**
+		 * if one of the concepts is in the nominated value set by URI, either a relative, literal or logical vs
+		 *
+		 * @public
+		 */
+		IN: "in",
+		/**
+		 * if none of the concepts is in the nominated value set by URI, either a relative, literal or logical vs
+		 *
+		 * @public
+		 */
+		NI: "ni",
+		/**
+		 * if one of the references in set points to the given URL
+		 *
+		 * @public
+		 */
+		RE: "re"
 	};
 
 	// merge the UI5 FilterOperator object into the FHIRFilterOperator
