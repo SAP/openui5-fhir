@@ -258,9 +258,9 @@ To ensure complex filtering support is enabled the model is initialised with `si
 "": {
 	"type": "sap.fhir.model.r4.FHIRModel",
 	"dataSource": "fhir",
-    "settings":{
-      "simpleFiltering": false
-   }            
+        "settings":{
+          "simpleFiltering": false
+         }            
 }
 ```
 For more information regarding `_filter` refer the following [FHIR® Filters](https://www.hl7.org/fhir/search_filter.html).
