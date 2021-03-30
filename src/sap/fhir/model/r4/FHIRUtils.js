@@ -527,9 +527,7 @@ sap.ui.define([
 		if (oFilter instanceof Filter) {
 			if (oFilter._bMultiFilter) {
 				// recursive
-				if (oFilter.bAnd != undefined) {
-					sLogicalConnection1 = oFilter.bAnd ? " and " : " or ";
-				}
+				sLogicalConnection1 = oFilter.bAnd && oFilter.bAnd == true ? " and " : " or ";
 				if (oFilter.aFilters) {
 					mParameters._filter = mParameters._filter + "( ";
 					// for the first filter the logical connection shouldnt be appended
