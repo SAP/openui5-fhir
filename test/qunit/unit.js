@@ -1,6 +1,7 @@
 sap.ui.define([
 	"./model/FHIRUtils.unit",
 	"./model/FHIRUrl.unit",
+	"./model/FHIRFilterOperatorUtils.unit",
 	"./model/FHIRModel.unit",
 	"./model/FHIRModel.integration",
 	"./model/FHIRTreeBinding.unit",

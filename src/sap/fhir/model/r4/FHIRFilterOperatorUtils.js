@@ -206,7 +206,6 @@ sap.ui.define(["sap/fhir/model/r4/FHIRFilterOperator", "sap/fhir/model/r4/FHIRFi
 				sFHIRFilterPrefix = "re";
 				break;
 			default:
-				sFHIRFilterPrefix = oFilter.sOperator.toLowerCase();
 				break;
 		}
 		return sFHIRFilterPrefix;
