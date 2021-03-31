@@ -22,36 +22,42 @@ sap.ui.define(["sap/fhir/model/r4/FHIRFilterOperator"], function (FHIRFilterOper
 		 * @public
 		 */
 		PR: "pr",
+
 		/**
 		 * If a (implied) date period in the set overlaps with the implied period in the value
 		 *
 		 * @public
 		 */
 		PO: "po",
+
 		/**
 		 * If the value subsumes a concept in the set
 		 *
 		 * @public
 		 */
 		SS: "ss",
+
 		/**
 		 * If the value is subsumed by a concept in the set
 		 *
 		 * @public
 		 */
 		SB: "sb",
+
 		/**
 		 * If one of the concepts is in the nominated value set by URI, either a relative, literal or logical vs
 		 *
 		 * @public
 		 */
 		IN: "in",
+
 		/**
 		 * If none of the concepts is in the nominated value set by URI, either a relative, literal or logical vs
 		 *
 		 * @public
 		 */
 		NI: "ni",
+		
 		/**
 		 * If one of the references in set points to the given URL
 		 *
