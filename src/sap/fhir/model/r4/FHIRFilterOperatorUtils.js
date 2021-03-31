@@ -3,7 +3,11 @@
  */
 
 // Provides class sap.fhir.model.r4.FHIRFilterOperatorUtils
-sap.ui.define(["sap/fhir/model/r4/FHIRFilterOperator", "sap/fhir/model/r4/FHIRFilterType"], function(FHIRFilterOperator, FHIRFilterType) {
+sap.ui.define([
+	"sap/fhir/model/r4/FHIRFilterOperator",
+	"sap/fhir/model/r4/FHIRFilterType",
+	"sap/fhir/model/r4/FHIRFilterComplexOperator"
+], function (FHIRFilterOperator, FHIRFilterType, FHIRFilterComplexOperator) {
 
 	"use strict";
 
@@ -28,7 +32,7 @@ sap.ui.define(["sap/fhir/model/r4/FHIRFilterOperator", "sap/fhir/model/r4/FHIRFi
 	 * @protected
 	 * @since 1.0.0
 	 */
-	FHIRFilterOperatorUtils.getFHIRSearchParameterModifier = function(oFilter) {
+	FHIRFilterOperatorUtils.getFHIRSearchParameterModifier = function (oFilter) {
 		var sFHIRSearchModifier = "";
 		if (this.isSearchParameterModifiable(oFilter) || FHIRFilterOperator.Missing === oFilter.sOperator) {
 			switch (oFilter.sOperator) {
@@ -59,7 +63,7 @@ sap.ui.define(["sap/fhir/model/r4/FHIRFilterOperator", "sap/fhir/model/r4/FHIRFi
 	 * @public
 	 * @since 1.0.0
 	 */
-	FHIRFilterOperatorUtils.isSearchParameterModifiable = function(oFilter) {
+	FHIRFilterOperatorUtils.isSearchParameterModifiable = function (oFilter) {
 		return oFilter.sValueType !== FHIRFilterType.date && oFilter.sValueType !== FHIRFilterType.number && (typeof oFilter.oValue1 === "string" || Array.isArray(oFilter.oValue1));
 	};
 
@@ -71,7 +75,7 @@ sap.ui.define(["sap/fhir/model/r4/FHIRFilterOperator", "sap/fhir/model/r4/FHIRFi
 	 * @public
 	 * @since 1.0.0
 	 */
-	FHIRFilterOperatorUtils.isSearchParameterPrefixable = function(oFilter) {
+	FHIRFilterOperatorUtils.isSearchParameterPrefixable = function (oFilter) {
 		return !(typeof oFilter.oValue1 === "string" || Array.isArray(oFilter.oValue1)) || oFilter.sValueType === FHIRFilterType.date || !isNaN(oFilter.oValue1);
 	};
 
@@ -83,7 +87,7 @@ sap.ui.define(["sap/fhir/model/r4/FHIRFilterOperator", "sap/fhir/model/r4/FHIRFi
 	 * @public
 	 * @since 1.0.0
 	 */
-	FHIRFilterOperatorUtils.getFilterValue = function(oValue) {
+	FHIRFilterOperatorUtils.getFilterValue = function (oValue) {
 		var sValue = oValue;
 		if (oValue instanceof Date) {
 			sValue = oValue.toISOString();
@@ -99,7 +103,7 @@ sap.ui.define(["sap/fhir/model/r4/FHIRFilterOperator", "sap/fhir/model/r4/FHIRFi
 	 * @protected
 	 * @since 1.0.0
 	 */
-	FHIRFilterOperatorUtils.getFHIRSearchPrefix = function(oFilter) {
+	FHIRFilterOperatorUtils.getFHIRSearchPrefix = function (oFilter) {
 		var sFHIRSearchPrefix;
 		if (this.isSearchParameterPrefixable(oFilter)) {
 			switch (oFilter.sOperator) {
@@ -138,7 +142,7 @@ sap.ui.define(["sap/fhir/model/r4/FHIRFilterOperator", "sap/fhir/model/r4/FHIRFi
 	};
 
 	/**
-	 * Transforms the UI5 filter operator to an FHIR valid filter prefix based on the given UI5 <code>oFilter</code>
+	 * Transforms the UI5 filter operator to a FHIR valid filter prefix based on the given UI5 <code>oFilter</code>
 	 *
 	 * @param {sap.ui.model.Filter} oFilter The given filter
 	 * @returns {string} The FHIR filter prefix
@@ -148,61 +152,61 @@ sap.ui.define(["sap/fhir/model/r4/FHIRFilterOperator", "sap/fhir/model/r4/FHIRFi
 	FHIRFilterOperatorUtils.getFHIRFilterPrefix = function (oFilter) {
 		var sFHIRFilterPrefix;
 		switch (oFilter.sOperator) {
-			case FHIRFilterOperator.EQ:
+			case FHIRFilterComplexOperator.EQ:
 				sFHIRFilterPrefix = "eq";
 				break;
-			case FHIRFilterOperator.NE:
+			case FHIRFilterComplexOperator.NE:
 				sFHIRFilterPrefix = "ne";
 				break;
-			case FHIRFilterOperator.GT:
+			case FHIRFilterComplexOperator.GT:
 				sFHIRFilterPrefix = "gt";
 				break;
-			case FHIRFilterOperator.GE:
+			case FHIRFilterComplexOperator.GE:
 				sFHIRFilterPrefix = "ge";
 				break;
-			case FHIRFilterOperator.LT:
+			case FHIRFilterComplexOperator.LT:
 				sFHIRFilterPrefix = "lt";
 				break;
-			case FHIRFilterOperator.LE:
+			case FHIRFilterComplexOperator.LE:
 				sFHIRFilterPrefix = "le";
 				break;
-			case FHIRFilterOperator.SA:
+			case FHIRFilterComplexOperator.SA:
 				sFHIRFilterPrefix = "sa";
 				break;
-			case FHIRFilterOperator.EB:
+			case FHIRFilterComplexOperator.EB:
 				sFHIRFilterPrefix = "eb";
 				break;
-			case FHIRFilterOperator.AP:
+			case FHIRFilterComplexOperator.AP:
 				sFHIRFilterPrefix = "ap";
 				break;
-			case FHIRFilterOperator.StartsWith:
+			case FHIRFilterComplexOperator.StartsWith:
 				sFHIRFilterPrefix = "sw";
 				break;
-			case FHIRFilterOperator.EndsWith:
+			case FHIRFilterComplexOperator.EndsWith:
 				sFHIRFilterPrefix = "ew";
 				break;
-			case FHIRFilterOperator.Contains:
+			case FHIRFilterComplexOperator.Contains:
 				sFHIRFilterPrefix = "co";
 				break;
-			case FHIRFilterOperator.PR:
+			case FHIRFilterComplexOperator.PR:
 				sFHIRFilterPrefix = "pr";
 				break;
-			case FHIRFilterOperator.PO:
+			case FHIRFilterComplexOperator.PO:
 				sFHIRFilterPrefix = "po";
 				break;
-			case FHIRFilterOperator.SS:
+			case FHIRFilterComplexOperator.SS:
 				sFHIRFilterPrefix = "ss";
 				break;
-			case FHIRFilterOperator.SB:
+			case FHIRFilterComplexOperator.SB:
 				sFHIRFilterPrefix = "sb";
 				break;
-			case FHIRFilterOperator.IN:
+			case FHIRFilterComplexOperator.IN:
 				sFHIRFilterPrefix = "in";
 				break;
-			case FHIRFilterOperator.NI:
+			case FHIRFilterComplexOperator.NI:
 				sFHIRFilterPrefix = "ni";
 				break;
-			case FHIRFilterOperator.RE:
+			case FHIRFilterComplexOperator.RE:
 				sFHIRFilterPrefix = "re";
 				break;
 			default:
@@ -217,7 +221,7 @@ sap.ui.define(["sap/fhir/model/r4/FHIRFilterOperator", "sap/fhir/model/r4/FHIRFi
 	 * @param {string} sFilterValue The value type of a filter object
 	 * @param {string} oValue The value type of a filter object
 	 * @returns {string} Formatted FHIR filter value
-	 * @public
+	 * @protected
 	 * @since 2.1.0
 	 */
 	FHIRFilterOperatorUtils.getFilterValueForComplexFilter = function (sFilterValue, oValue) {
