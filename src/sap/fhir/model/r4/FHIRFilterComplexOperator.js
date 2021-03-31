@@ -57,7 +57,7 @@ sap.ui.define(["sap/fhir/model/r4/FHIRFilterOperator"], function (FHIRFilterOper
 		 * @public
 		 */
 		NI: "ni",
-		
+
 		/**
 		 * If one of the references in set points to the given URL
 		 *
