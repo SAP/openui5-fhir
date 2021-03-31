@@ -80,7 +80,7 @@ sap.ui.define([
 	};
 
 	/**
-	 * Parses the JS filter value to an FHIR filter value
+	 * Parses the JS filter value to a FHIR filter value
 	 *
 	 * @param {any} oValue The value of a filter object
 	 * @returns {string} Formatted FHIR filter value
@@ -96,7 +96,7 @@ sap.ui.define([
 	};
 
 	/**
-	 * Transforms the UI5 filter operator to an FHIR valid search prefix based on the given UI5 <code>oFilter</code>
+	 * Transforms the UI5 filter operator to a FHIR valid search prefix based on the given UI5 <code>oFilter</code>
 	 *
 	 * @param {sap.ui.model.Filter} oFilter The given filter
 	 * @returns {string} The date FHIR search prefix
@@ -216,7 +216,7 @@ sap.ui.define([
 	};
 
 	/**
-	 * Parses the JS filter value to an FHIR filter value
+	 * Parses the JS filter value to a FHIR filter value
 	 *
 	 * @param {string} sFilterValue The value type of a filter object
 	 * @param {any} vValue The value of a filter object
