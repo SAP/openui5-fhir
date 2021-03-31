@@ -219,20 +219,20 @@ sap.ui.define([
 	 * Parses the JS filter value to an FHIR filter value
 	 *
 	 * @param {string} sFilterValue The value type of a filter object
-	 * @param {any} oValue The value of a filter object
+	 * @param {any} vValue The value of a filter object
 	 * @returns {string} Formatted FHIR filter value
 	 * @protected
 	 * @since 2.1.0
 	 */
-	FHIRFilterOperatorUtils.getFilterValueForComplexFilter = function (sFilterValue, oValue) {
+	FHIRFilterOperatorUtils.getFilterValueForComplexFilter = function (sFilterValue, vValue) {
 		var isStringFilterType = sFilterValue && sFilterValue === FHIRFilterType.string ? true : false;
 		var sValue;
 		if (isStringFilterType) {
 			// special handling for string parameter as per fhir
 			// given eq "peter"
-			sValue = "\"" + oValue + "\"";
+			sValue = "\"" + vValue + "\"";
 		} else {
-			sValue = oValue;
+			sValue = vValue;
 		}
 		return sValue;
 	};
