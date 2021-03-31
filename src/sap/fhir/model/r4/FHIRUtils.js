@@ -502,7 +502,7 @@ sap.ui.define([
 			mParameters.filter = oFilter.oValue1;
 		} else if (oFilter.sOperator === FHIRFilterOperator.BT) {
 			var oValue2 = FHIRFilterOperatorUtils.getFilterValue(oFilter.oValue2);
-			mParameters[sPath + sFhirSearchModifier] = ["ge" + oValue1, "le" + oValue2];
+			mParameters[sPath + sFhirSearchModifier] = [FHIRFilterOperator.GE.toLowerCase() + oValue1, FHIRFilterOperator.LE.toLowerCase() + oValue2];
 		} else if (bLogicalConnection && !bLogicalOperator) {
 			if (mParameters[sPath + sFhirSearchModifier]) {
 				mParameters[sPath + sFhirSearchModifier].push(vValue);
@@ -517,7 +517,7 @@ sap.ui.define([
 	/**
 	 * Creates a complex filter
 	 *
-	 * @param {object} oFilter The filter which should be added to the parameters
+	 * @param {sap.ui.model.Filter} oFilter The filter which should be added to the parameters
 	 * @param {object} mParameters The parameters which should be passed to the request
 	 * @param {string} [sLogicalConnection] if the list of filters needs to be combined either with AND or OR
 	 * @private
@@ -528,7 +528,7 @@ sap.ui.define([
 		if (oFilter instanceof Filter) {
 			if (oFilter._bMultiFilter) {
 				// recursive
-				sLogicalConnection1 = oFilter.bAnd && oFilter.bAnd == true ? " and " : " or ";
+				sLogicalConnection1 = oFilter.bAnd && oFilter.bAnd == true ? "and" : "or";
 				if (oFilter.aFilters) {
 					mParameters._filter = mParameters._filter + "( ";
 					// for the first filter the logical connection shouldnt be appended
@@ -548,12 +548,12 @@ sap.ui.define([
 				var sFilter;
 				if (oFilter.sOperator === FHIRFilterComplexOperator.BT) {
 					oValue2 = FHIRFilterOperatorUtils.getFilterValueForComplexFilter(oFilter.sValueType, oFilter.oValue2);
-					sFilter = "( " + sPath + " ge " + oValue1 + " and " + sPath + " le " + oValue2 + " )";
+					sFilter = "( " + sPath + " " + FHIRFilterComplexOperator.GE.toLowerCase() + " " + oValue1 + " and " + sPath + " " + FHIRFilterComplexOperator.LE.toLowerCase() + " " + oValue2 + " )";
 				} else {
 					sFilter = sPath + " " + sFilterOperator + " " + oValue1;
 				}
 				if (sLogicalConnection) {
-					mParameters._filter = mParameters._filter + sLogicalConnection + sFilter;
+					mParameters._filter = mParameters._filter + " " + sLogicalConnection + " " + sFilter;
 				} else {
 					mParameters._filter = mParameters._filter + sFilter;
 				}
