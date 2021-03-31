@@ -220,8 +220,10 @@ A FHIR® operation can also return a collection of versions of a specific FHIR®
 ```
 
 ### Step 3.9 Filtering in FHIR® Resources
-`sap.fhir.model.r4.FHIRFilter`, which extends `sap.ui.model.Filter`, and necessary helper classes support the special syntax that the FHIR® query language uses because of the different search parameter data types. The following example shows how these classes are used.
-For more information refer the following [FHIR®-Specific Filters](https://www.hl7.org/fhir/search.html#prefix) and [FHIR®- SearchModifiers](https://www.hl7.org/fhir/search.html#modifiers).
+`sap.fhir.model.r4.FHIRFilter`, which extends `sap.ui.model.Filter`, and necessary helper classes support the special syntax that the FHIR® query language uses because of the different search parameter data types. 
+
+#### 1. Simple Filtering
+For more information regarding simple filtering and the operators to be used refer the following [FHIR®-Specific Filters](https://www.hl7.org/fhir/search.html#prefix) and [FHIR®- SearchModifiers](https://www.hl7.org/fhir/search.html#modifiers). The following example shows how these classes are used.
 
 *Example: Filtering a Binding with FHIR®-Specific Filters and SearchModifier :missing* 
 ```javascript
@@ -249,4 +251,69 @@ oBinding.filter(
 		})
 	]
 );
+```
+
+#### 2. Complex Filtering
+FHIR® specifies the use of `_filter` search expression parameter to support complex combination queries.
+To ensure complex filtering support is enabled the model is initialised with `filtering: {complex: true}` property
+```json
+"": {
+	"type": "sap.fhir.model.r4.FHIRModel",
+	"dataSource": "fhir",
+        "settings":{
+           "filtering": {
+			  "complex": true
+		   }
+         }            
+}
+```
+For more information regarding `_filter` refer the following [FHIR® Filters](https://www.hl7.org/fhir/search_filter.html).
+It's necessary to initialise the filter with valueType as "string" if the value is of type string. This is to ensure that the value is encoded with "".
+
+*Example: Find all patients whose names are either "Habibi" or "Damon" 
+`( name eq "Habibi" or name eq "Damon" )`* 
+```javascript
+
+sap.ui.define([ ...
+	"sap/ui/model/Filter",
+	"sap/fhir/model/r4/FHIRFilter",
+	"sap/fhir/model/r4/FHIRFilterOperator",
+	"sap/fhir/model/r4/FHIRFilterType",
+	...
+]
+...
+oBinding.filter(
+	[
+		new FHIRFilter({
+			path : "name",
+			operator : FHIRFilterOperator.EQ,
+			valueType : FHIRFilterType.string,
+			value1: "Habibi"
+		}),
+		new Filter({
+			path : "name",
+			operator : FHIRFilterOperator.EQ,
+			valueType : FHIRFilterType.string,
+			value1: "Damon"
+		})
+	], false
+);
+```
+*Example: Find all patients whose names starts with either "Da" and ends with "on" and whose birthdate is 25-12-1987 `( ( name sw "Da" and name ew "on" ) and birthdate eq 1987-12-25 )`* 
+```javascript
+
+sap.ui.define([...
+    "sap/ui/model/Filter",
+    "sap/fhir/model/r4/FHIRFilter",
+    "sap/fhir/model/r4/FHIRFilterComplexOperator",
+    "sap/fhir/model/r4/FHIRFilterType",
+...
+]
+...
+var oNameFilter = new FHIRFilter({ path: "name", operator: FHIRFilterComplexOperator.StartsWith, value1: "Da", valueType: FHIRFilterType.string });
+var oNameFilter1 = new FHIRFilter({ path: "name", operator: FHIRFilterComplexOperator.EndsWith, value1: "on", valueType: FHIRFilterType.string });
+var oCombinedFilter = new sap.ui.model.Filter([oNameFilter, oNameFilter1], true);
+var oBirthDateFilter = new FHIRFilter({ path: "birthdate", operator: FHIRFilterComplexOperator.EQ, value1: "1987-12-25" });
+oBinding.filter([oCombinedFilter, oBirthDateFilter], true);
+
 ```

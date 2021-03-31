@@ -125,10 +125,9 @@ sap.ui.define([
 		assert.throws(function() {return TestUtils.createFHIRModel();}, new Error("Missing service root URL"), "Error with message 'Missing service root URL' is thrown");
 	});
 
-	QUnit.test("initialize model with complex filtering", function(assert) {
-		assert.throws(function() {
-			createModel({simpleFiltering : false});
-		}, new Error("Complex filtering not supported"));
+	QUnit.test("initialize model with complex filtering", function (assert) {
+		var oFhirModel = createModel({ filtering: { complex: true } });
+		assert.strictEqual(oFhirModel.iSupportedFilterDepth, undefined);
 	});
 
 	QUnit.test("filter test with multiple group filters", function(assert) {
@@ -1263,6 +1262,55 @@ sap.ui.define([
 		var sValueSetPath = "/ValueSet/sact-location-medication-collection-code";
 		var oValueSet = this.oFhirModel1.getProperty(sValueSetPath);
 		assert.strictEqual(oValueSet.url, "https://standards.digital.health.nz/fhir/ValueSet/sact-location-medication-collection-code", "ValueSet Search Response is saved in the model data without throwing an error");
+	});
+
+	QUnit.test("complex filter test with multiple group filters", function (assert) {
+		// simple filter query
+		var oFhirModel = createModel({ filtering: { complex: true } });
+		var oNameFilter = new FHIRFilter({ path: "name", operator: FilterOperator.EQ, value1: "Ruediger", valueType: FHIRFilterType.string });
+		var aFilters = [oNameFilter];
+		var oListBinding = oFhirModel.bindList("/Patient");
+		oListBinding.filter(aFilters);
+		var mParameters = oListBinding._buildParameters();
+		var oRequestHandle = oFhirModel.loadData("/Patient", mParameters);
+		assert.deepEqual(mParameters.urlParameters["_filter"], "name eq \"Ruediger\"", "The _filter parameter object is the same");
+		assert.strictEqual(oRequestHandle.getUrl().indexOf("name%20eq%20%22Ruediger%22") > -1, true, "The url is encoded for _filter parameter");
+
+		// multivalued filter
+		var oNameFilter1 = new FHIRFilter({ path: "name", operator: FilterOperator.EQ, value1: "Ruediger", valueType: FHIRFilterType.string });
+		var oNameFilter2 = new FHIRFilter({ path: "name", operator: FilterOperator.EQ, value1: "Habibi", valueType: FHIRFilterType.string });
+		var oCombinedFilter = new sap.ui.model.Filter([oNameFilter1, oNameFilter2], false);
+		aFilters = [oCombinedFilter];
+		oListBinding.filter(aFilters);
+		mParameters = oListBinding._buildParameters();
+		oRequestHandle = oFhirModel.loadData("/Patient", mParameters);
+		assert.deepEqual(mParameters.urlParameters["_filter"], "( name eq \"Ruediger\" or name eq \"Habibi\" )", "The _filter parameter for array of filters is the formed correctly");
+
+		// multivalued filter with different value type
+		var oGenderFilter = new FHIRFilter({ path: "gender", operator: FilterOperator.EQ, value1: "male" });
+		var oCombinedFilter1 = new sap.ui.model.Filter([oCombinedFilter, oGenderFilter], true);
+		aFilters = [oCombinedFilter1];
+		oListBinding.filter(aFilters);
+		mParameters = oListBinding._buildParameters();
+		assert.deepEqual(mParameters.urlParameters["_filter"], "( ( name eq \"Ruediger\" or name eq \"Habibi\" ) and gender eq male )", "The _filter parameter object is the same");
+
+		// filter with BT operator
+		var oBirthDateFilter = new FHIRFilter({ path: "birthdate", operator: FilterOperator.BT, value1: "1965-03-23", value2: "1985-04-14" });
+		aFilters = [oBirthDateFilter];
+		oListBinding.filter(aFilters);
+		mParameters = oListBinding._buildParameters();
+		oRequestHandle = oFhirModel.loadData("/Patient", mParameters);
+		assert.deepEqual(mParameters.urlParameters["_filter"], "( birthdate ge 1965-03-23 and birthdate le 1985-04-14 )", "The _filter parameter for BT operator is the formed correctly");
+
+		// filter with StartsWith and EndsWith Operator
+		oNameFilter = new FHIRFilter({ path: "name", operator: FilterOperator.StartsWith, value1: "Ra", valueType: FHIRFilterType.string });
+		oNameFilter1 = new FHIRFilter({ path: "name", operator: FilterOperator.EndsWith, value1: "er", valueType: FHIRFilterType.string });
+		oCombinedFilter = new sap.ui.model.Filter([oNameFilter, oNameFilter1], true);
+		aFilters = [oCombinedFilter];
+		oListBinding.filter(aFilters);
+		mParameters = oListBinding._buildParameters();
+		oRequestHandle = oFhirModel.loadData("/Patient", mParameters);
+		assert.deepEqual(mParameters.urlParameters["_filter"], "( name sw \"Ra\" and name ew \"er\" )", "The _filter parameter for StartsWith and EndsWith operator is the formed correctly");
 	});
 
 });

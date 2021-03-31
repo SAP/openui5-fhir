@@ -62,6 +62,8 @@ sap.ui.define([
 	 * @param {object} [mParameters.defaultQueryParameters={}] The default query parameters to be passed on resource type specific requests and not resource instance specific requests (e.g /Patient?_total:accurate&_format:json). It should be of type key:value pairs. e.g. {'_total':'accurate'} -> http://hl7.org/fhir/http.html#parameters
 	 * @param {string} [mParameters.Prefer='return=minimal'] The FHIR server won't return the changed resource by an POST/PUT request -> https://www.hl7.org/fhir/http.html#2.21.0.5.2
 	 * @param {boolean} [mParameters.x-csrf-token=false] The model handles the csrf token between the browser and the FHIR server
+	 * @param {object} [mParameters.filtering={}] The filtering options
+	 * @param {boolean} [mParameters.filtering.complex=false}] The default filtering type. If <code>true</code>, all search parameters would be modelled via {@link https://www.hl7.org/fhir/search_filter.html _filter}
 	 * @throws {Error} If no service URL is given, if the given service URL does not end with a forward slash
 	 * @author SAP SE
 	 * @public
@@ -89,8 +91,8 @@ sap.ui.define([
 			this.sDefaultFullUrlType = (mParameters && mParameters.defaultSubmitMode && mParameters.defaultSubmitMode !== SubmitMode.Direct && mParameters.defaultFullUrlType) ? mParameters.defaultFullUrlType : "uuid";
 			this.oDefaultUri = this.sDefaultFullUrlType === "url" ? new Url() : new Uuid();
 			this.iSizeLimit = 10;
-			if (mParameters && mParameters.simpleFiltering === false){
-				throw new Error("Complex filtering not supported");
+			if (mParameters && mParameters.filtering && mParameters.filtering.complex === true){
+				this.iSupportedFilterDepth = undefined;
 			} else {
 				this.iSupportedFilterDepth = 2;
 			}

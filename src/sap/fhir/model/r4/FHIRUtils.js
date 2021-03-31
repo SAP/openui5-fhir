@@ -6,12 +6,13 @@
 sap.ui.define([
 	"sap/fhir/model/r4/FHIRFilterOperatorUtils",
 	"sap/fhir/model/r4/FHIRFilterOperator",
+	"sap/fhir/model/r4/FHIRFilterComplexOperator",
 	"sap/ui/model/ChangeReason",
 	"sap/base/util/merge",
 	"sap/base/util/deepEqual",
 	"sap/ui/model/Filter",
 	"sap/ui/model/Sorter"
-], function(FHIRFilterOperatorUtils, FHIRFilterOperator, ChangeReason, merge, deepEqual, Filter, Sorter) {
+], function (FHIRFilterOperatorUtils, FHIRFilterOperator, FHIRFilterComplexOperator, ChangeReason, merge, deepEqual, Filter, Sorter) {
 
 	"use strict";
 
@@ -36,7 +37,7 @@ sap.ui.define([
 	 * @protected
 	 * @since 1.0.0
 	 */
-	FHIRUtils.createSortParams = function(aSorters) {
+	FHIRUtils.createSortParams = function (aSorters) {
 		var sSorterURLPart;
 		if (aSorters && Array.isArray(aSorters) && aSorters.length > 0) {
 			sSorterURLPart = "";
@@ -64,12 +65,12 @@ sap.ui.define([
 	 * @protected
 	 * @since 1.0.0
 	 */
-	FHIRUtils.addRequestQueryParameters = function(oBinding, mParametersRequest){
-		if (oBinding.mParameters && oBinding.mParameters.hasOwnProperty("request")){
-			if (!mParametersRequest.urlParameters){
+	FHIRUtils.addRequestQueryParameters = function (oBinding, mParametersRequest) {
+		if (oBinding.mParameters && oBinding.mParameters.hasOwnProperty("request")) {
+			if (!mParametersRequest.urlParameters) {
 				mParametersRequest.urlParameters = {};
 			}
-			for (var sKey in oBinding.mParameters.request){
+			for (var sKey in oBinding.mParameters.request) {
 				mParametersRequest.urlParameters[sKey] = oBinding.mParameters.request[sKey];
 			}
 		}
@@ -84,7 +85,7 @@ sap.ui.define([
 	 * @protected
 	 * @since 1.0.0
 	 */
-	FHIRUtils.insertArrayIntoArray = function(aArray, aSubArray, iPos) {
+	FHIRUtils.insertArrayIntoArray = function (aArray, aSubArray, iPos) {
 		Array.prototype.splice.apply(aArray, [iPos, 0].concat(aSubArray));
 	};
 
@@ -97,8 +98,8 @@ sap.ui.define([
 	 * @protected
 	 * @since 1.0.0
 	 */
-	FHIRUtils.removeArrayFromArray = function(aArray, aSubArray) {
-		return aArray.filter(function(x) {
+	FHIRUtils.removeArrayFromArray = function (aArray, aSubArray) {
+		return aArray.filter(function (x) {
 			return aSubArray.indexOf(x) < 0;
 		});
 	};
@@ -106,17 +107,17 @@ sap.ui.define([
 	/**
 	 * Determines if the index of the first occurrence of <code>vValue</code> in the given <code>aValue</code>
 	 *
-     * @param {any} vValue The value to be checked
+	 * @param {any} vValue The value to be checked
 	 * @param {any[]} aValue The array might contains the <code>vValue</code>
 	 * @returns {number} The index of the first occurrence of <code>vValue</code> in the <code>aValue</code>
 	 * @protected
 	 * @since 1.0.0
 	 */
-	FHIRUtils.getIndexOfValueInArray = function(vValue, aValue){
-		if (aValue && Array.isArray(aValue)){
-			for (var i = 0; i < aValue.length; i++){
+	FHIRUtils.getIndexOfValueInArray = function (vValue, aValue) {
+		if (aValue && Array.isArray(aValue)) {
+			for (var i = 0; i < aValue.length; i++) {
 				var oEntry = aValue[i];
-				if (deepEqual(oEntry, vValue)){
+				if (deepEqual(oEntry, vValue)) {
 					return i;
 				}
 			}
@@ -135,8 +136,8 @@ sap.ui.define([
 	 * @protected
 	 * @since 1.0.0
 	 */
-	FHIRUtils.isSubset = function(aSubCollection, aCollection) {
-		return aSubCollection.every(function(vValue) {
+	FHIRUtils.isSubset = function (aSubCollection, aCollection) {
+		return aSubCollection.every(function (vValue) {
 			return aCollection.indexOf(vValue) >= 0;
 		});
 	};
@@ -149,7 +150,7 @@ sap.ui.define([
 	 * @public
 	 * @since 1.0.0
 	 */
-	FHIRUtils.isQuantity = function(vValue) {
+	FHIRUtils.isQuantity = function (vValue) {
 		return false;
 	};
 
@@ -161,7 +162,7 @@ sap.ui.define([
 	 * @public
 	 * @since 1.0.0
 	 */
-	FHIRUtils.isString = function(vValue) {
+	FHIRUtils.isString = function (vValue) {
 		return typeof vValue === "string";
 	};
 
@@ -173,7 +174,7 @@ sap.ui.define([
 	 * @public
 	 * @since 1.0.0
 	 */
-	FHIRUtils.isObject = function(vValue) {
+	FHIRUtils.isObject = function (vValue) {
 		return typeof vValue === "object";
 	};
 
@@ -185,7 +186,7 @@ sap.ui.define([
 	 * @public
 	 * @since 1.0.0
 	 */
-	FHIRUtils.isNumber = function(vValue) {
+	FHIRUtils.isNumber = function (vValue) {
 		return typeof vValue === "number";
 	};
 
@@ -198,7 +199,7 @@ sap.ui.define([
 	 * @protected
 	 * @since 1.0.0
 	 */
-	FHIRUtils.isEmptyObject = function(oObject) {
+	FHIRUtils.isEmptyObject = function (oObject) {
 		for (var sName in oObject) {
 			return false;
 		}
@@ -222,8 +223,8 @@ sap.ui.define([
 	 * @protected
 	 * @since 1.0.0
 	 */
-	FHIRUtils.filterArray = function(aArray, sAttribute, sFilterValue, fnCallback) {
-		return aArray.filter(function(oArrayAttribute) {
+	FHIRUtils.filterArray = function (aArray, sAttribute, sFilterValue, fnCallback) {
+		return aArray.filter(function (oArrayAttribute) {
 			if (fnCallback) {
 				return fnCallback(oArrayAttribute);
 			} else {
@@ -245,9 +246,9 @@ sap.ui.define([
 	 * @protected
 	 * @since 1.0.0
 	 */
-	FHIRUtils.filterObject = function(oObject, sAttribute, sFilterValue, iLevel, aObjects, fnPreprocessResult) {
+	FHIRUtils.filterObject = function (oObject, sAttribute, sFilterValue, iLevel, aObjects, fnPreprocessResult) {
 		if (iLevel > 0) {
-			for ( var sKey in oObject) {
+			for (var sKey in oObject) {
 				this.filterObject(oObject[sKey], sAttribute, sFilterValue, iLevel - 1, aObjects, fnPreprocessResult);
 			}
 		}
@@ -269,7 +270,7 @@ sap.ui.define([
 	 * @protected
 	 * @since 1.0.0
 	 */
-	FHIRUtils.deepClone = function(oObject) {
+	FHIRUtils.deepClone = function (oObject) {
 		if (oObject && typeof oObject === "object") {
 			if (Array.isArray(oObject)) {
 				return merge([], oObject);
@@ -291,8 +292,8 @@ sap.ui.define([
 	 * @protected
 	 * @since 1.0.0
 	 */
-	FHIRUtils.uuidv4 = function() {
-		return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(c) {
+	FHIRUtils.uuidv4 = function () {
+		return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
 			var r = Math.floor(Math.random() * 16), v = c === "x" ? r : r % 4 + 8;
 			return v.toString(16);
 		});
@@ -307,7 +308,7 @@ sap.ui.define([
 	 * @protected
 	 * @since 1.0.0
 	 */
-	FHIRUtils.getLinkUrl = function(aLinks, sRelation) {
+	FHIRUtils.getLinkUrl = function (aLinks, sRelation) {
 		var oLink = this.filterArray(aLinks, "relation", sRelation)[0];
 		return oLink && oLink.url ? oLink.url : undefined;
 	};
@@ -320,7 +321,7 @@ sap.ui.define([
 	 * @protected
 	 * @since 1.0.0
 	 */
-	FHIRUtils.getNumberOfLevelsByPath = function(sPath) {
+	FHIRUtils.getNumberOfLevelsByPath = function (sPath) {
 		return this.countOccurrence(sPath, "/");
 	};
 
@@ -333,14 +334,14 @@ sap.ui.define([
 	 * @protected
 	 * @since 1.0.0
 	 */
-	FHIRUtils.countOccurrence = function(sBase, sSearch) {
+	FHIRUtils.countOccurrence = function (sBase, sSearch) {
 		var iCount = -1;
 
-		if (sBase === undefined){
+		if (sBase === undefined) {
 			throw new Error("sBase is undefined");
 		}
 
-		if (!this.isString(sBase)){
+		if (!this.isString(sBase)) {
 			throw new Error("sBase is not a string");
 		}
 
@@ -360,7 +361,7 @@ sap.ui.define([
 	 * @protected
 	 * @since 1.0.0
 	 */
-	FHIRUtils.checkStringParameter = function(mParameters, sParameter) {
+	FHIRUtils.checkStringParameter = function (mParameters, sParameter) {
 		if (!mParameters.hasOwnProperty(sParameter)) {
 			throw new Error("Missing parameter: '" + sParameter + "'.");
 		} else if (!FHIRUtils.isString(mParameters[sParameter])) {
@@ -377,7 +378,7 @@ sap.ui.define([
 	 * @protected
 	 * @since 1.0.0
 	 */
-	FHIRUtils.checkPathParameter = function(mParameters, sParameter) {
+	FHIRUtils.checkPathParameter = function (mParameters, sParameter) {
 		this.checkStringParameter(mParameters, sParameter);
 		if (mParameters[sParameter].startsWith("/")) {
 			throw new Error("Unsupported parameter: '" + sParameter + "'. Parameter must not start with a '/'.");
@@ -395,7 +396,7 @@ sap.ui.define([
 	 * @protected
 	 * @since 1.0.0
 	 */
-	FHIRUtils.checkFHIRSearchParameter = function(mParameters, sParameter) {
+	FHIRUtils.checkFHIRSearchParameter = function (mParameters, sParameter) {
 		this.checkStringParameter(mParameters, sParameter);
 	};
 
@@ -408,7 +409,7 @@ sap.ui.define([
 	 * @protected
 	 * @since 1.0.0
 	 */
-	FHIRUtils.checkRegularExpression = function(sText, rRegExp) {
+	FHIRUtils.checkRegularExpression = function (sText, rRegExp) {
 		if (!sText) {
 			throw new Error("Empty string. Can not check the regular expression: " + rRegExp + " for an undefined text.");
 		}
@@ -426,7 +427,7 @@ sap.ui.define([
 	 * @public
 	 * @since 1.0.0
 	 */
-	FHIRUtils.splitPath = function(sPath) {
+	FHIRUtils.splitPath = function (sPath) {
 		var rSliceableExpression = /((\s*(\[|§)(.*?)(\]|§)\s*)+)/g;
 		var aMatches = sPath.match(rSliceableExpression);
 		var sPathWithoutSlices = sPath.replace(rSliceableExpression, "");
@@ -452,14 +453,19 @@ sap.ui.define([
 	 * @protected
 	 * @since 1.0.0
 	 */
-	FHIRUtils.filterBuilder = function(aFilters, mParameters, iSupportedFilterDepth, bIsValueSet, iLvl, bLogicalConnection, bLogicalOperator){
-		if (iLvl === undefined){
+	FHIRUtils.filterBuilder = function (aFilters, mParameters, iSupportedFilterDepth, bIsValueSet, iLvl, bLogicalConnection, bLogicalOperator) {
+		if (iLvl === undefined) {
 			iLvl = 0;
 		}
-		if (aFilters){
+		if (aFilters) {
 			for (var i = 0; i < aFilters.length; i++) {
 				var oFilter = aFilters[i];
-				if (oFilter._bMultiFilter && iLvl <= iSupportedFilterDepth){
+				if (!iSupportedFilterDepth) {
+					if (!mParameters._filter) {
+						mParameters._filter = "";
+					}
+					this._complexFilterBuilder(oFilter, mParameters, undefined);
+				} else if (oFilter._bMultiFilter && iLvl <= iSupportedFilterDepth) {
 					this.filterBuilder(oFilter.aFilters, mParameters, iSupportedFilterDepth, bIsValueSet, iLvl + 1, oFilter._bMultiFilter, oFilter.bAnd);
 				} else if (iLvl > iSupportedFilterDepth) {
 					throw new Error("A depth of " + iLvl + " is not supported for simple filtering, please reduce it to a maximum of 2");
@@ -481,13 +487,13 @@ sap.ui.define([
 	 * @private
 	 * @since 1.0.0
 	 */
-	FHIRUtils._filterBuilder = function(oFilter, mParameters, bIsValueSet, bLogicalConnection, bLogicalOperator){
+	FHIRUtils._filterBuilder = function (oFilter, mParameters, bIsValueSet, bLogicalConnection, bLogicalOperator) {
 		var sPath = oFilter.sPath;
 		var sFhirSearchModifier = FHIRFilterOperatorUtils.getFHIRSearchParameterModifier(oFilter);
 		var oValue1 = FHIRFilterOperatorUtils.getFilterValue(oFilter.oValue1);
 		var sSearchPrefix = FHIRFilterOperatorUtils.getFHIRSearchPrefix(oFilter);
 		var vValue;
-		if (sSearchPrefix){
+		if (sSearchPrefix) {
 			vValue = sSearchPrefix + oValue1;
 		} else {
 			vValue = oValue1;
@@ -496,15 +502,62 @@ sap.ui.define([
 			mParameters.filter = oFilter.oValue1;
 		} else if (oFilter.sOperator === FHIRFilterOperator.BT) {
 			var oValue2 = FHIRFilterOperatorUtils.getFilterValue(oFilter.oValue2);
-			mParameters[sPath + sFhirSearchModifier] = ["ge" + oValue1, "le" + oValue2];
-		} else if (bLogicalConnection && !bLogicalOperator){
-			if (mParameters[sPath + sFhirSearchModifier]){
+			mParameters[sPath + sFhirSearchModifier] = [FHIRFilterOperator.GE.toLowerCase() + oValue1, FHIRFilterOperator.LE.toLowerCase() + oValue2];
+		} else if (bLogicalConnection && !bLogicalOperator) {
+			if (mParameters[sPath + sFhirSearchModifier]) {
 				mParameters[sPath + sFhirSearchModifier].push(vValue);
 			} else {
-				mParameters[sPath + sFhirSearchModifier] = [ vValue ];
+				mParameters[sPath + sFhirSearchModifier] = [vValue];
 			}
 		} else {
-			mParameters[sPath + sFhirSearchModifier] =  vValue;
+			mParameters[sPath + sFhirSearchModifier] = vValue;
+		}
+	};
+
+	/**
+	 * Creates a complex filter
+	 *
+	 * @param {sap.ui.model.Filter} oFilter The filter which should be added to the parameters
+	 * @param {object} mParameters The parameters which should be passed to the request
+	 * @param {string} [sLogicalConnection] if the list of filters needs to be combined either with AND or OR
+	 * @private
+	 * @since 2.1.0
+	 */
+	FHIRUtils._complexFilterBuilder = function (oFilter, mParameters, sLogicalConnection) {
+		var sLogicalConnection1;
+		if (oFilter instanceof Filter) {
+			if (oFilter._bMultiFilter) {
+				// recursive
+				sLogicalConnection1 = oFilter.bAnd && oFilter.bAnd == true ? "and" : "or";
+				if (oFilter.aFilters) {
+					mParameters._filter = mParameters._filter + "( ";
+					// for the first filter the logical connection shouldnt be appended
+					this._complexFilterBuilder(oFilter.aFilters[0], mParameters, undefined);
+					for (var i = 1; i < oFilter.aFilters.length; i++) {
+						this._complexFilterBuilder(oFilter.aFilters[i], mParameters, sLogicalConnection1);
+					}
+					mParameters._filter = mParameters._filter + " )";
+				}
+			} else {
+				// validate the filter operator
+				// if BT operator use 'and' to generate the filter value
+				var sPath = oFilter.sPath;
+				var sFilterOperator = FHIRFilterOperatorUtils.getFHIRFilterPrefix(oFilter);
+				var oValue1 = FHIRFilterOperatorUtils.getFilterValueForComplexFilter(oFilter.sValueType, oFilter.oValue1);
+				var oValue2;
+				var sFilter;
+				if (oFilter.sOperator === FHIRFilterComplexOperator.BT) {
+					oValue2 = FHIRFilterOperatorUtils.getFilterValueForComplexFilter(oFilter.sValueType, oFilter.oValue2);
+					sFilter = "( " + sPath + " " + FHIRFilterComplexOperator.GE.toLowerCase() + " " + oValue1 + " and " + sPath + " " + FHIRFilterComplexOperator.LE.toLowerCase() + " " + oValue2 + " )";
+				} else {
+					sFilter = sPath + " " + sFilterOperator + " " + oValue1;
+				}
+				if (sLogicalConnection) {
+					mParameters._filter = mParameters._filter + " " + sLogicalConnection + " " + sFilter;
+				} else {
+					mParameters._filter = mParameters._filter + sFilter;
+				}
+			}
 		}
 	};
 
@@ -516,23 +569,23 @@ sap.ui.define([
 	 * @public
 	 * @since 1.0.0
 	 */
-	FHIRUtils.filter = function(aFilters, oBinding){
+	FHIRUtils.filter = function (aFilters, oBinding) {
 		if (!aFilters) {
 			aFilters = [];
 		}
 		if (aFilters instanceof Filter) {
 			aFilters = [aFilters];
 		}
-		if (oBinding.bPendingRequest){
-			var fnQueryLastFilters = function() {
-				if (!oBinding.bPendingRequest){
+		if (oBinding.bPendingRequest) {
+			var fnQueryLastFilters = function () {
+				if (!oBinding.bPendingRequest) {
 					oBinding.detachDataReceived(fnQueryLastFilters);
 					oBinding.bIsDataReceivedAttached = false;
 					oBinding.aFilters = oBinding.aFilterCache;
 					oBinding.refresh(ChangeReason.Filter);
 				}
 			};
-			if (!oBinding.bIsDataReceivedAttached){
+			if (!oBinding.bIsDataReceivedAttached) {
 				oBinding.bIsDataReceivedAttached = true;
 				oBinding.attachDataReceived(fnQueryLastFilters);
 			}
@@ -552,32 +605,32 @@ sap.ui.define([
 	 * @public
 	 * @since 1.0.0
 	 */
-	FHIRUtils.sort = function(aSorters, oBinding, bRefresh){
+	FHIRUtils.sort = function (aSorters, oBinding, bRefresh) {
 		if (!aSorters) {
 			aSorters = [];
 		}
 		if (aSorters instanceof Sorter) {
 			aSorters = [aSorters];
 		}
-		if (oBinding.bPendingRequest){
-			var fnQueryLastSorters = function() {
-				if (!oBinding.bPendingRequest){
+		if (oBinding.bPendingRequest) {
+			var fnQueryLastSorters = function () {
+				if (!oBinding.bPendingRequest) {
 					oBinding.detachDataReceived(fnQueryLastSorters);
 					oBinding.bIsDataReceivedAttached = false;
 					oBinding.aSorters = oBinding.aSortersCache;
-					if (bRefresh){
+					if (bRefresh) {
 						oBinding.refresh(ChangeReason.Sort);
 					}
 				}
 			};
-			if (!oBinding.bIsDataReceivedAttached){
+			if (!oBinding.bIsDataReceivedAttached) {
 				oBinding.bIsDataReceivedAttached = true;
 				oBinding.attachDataReceived(fnQueryLastSorters);
 			}
 			oBinding.aSortersCache = aSorters;
 		} else {
 			oBinding.aSorters = aSorters;
-			if (bRefresh){
+			if (bRefresh) {
 				oBinding.refresh(ChangeReason.Sort);
 			}
 		}
@@ -591,7 +644,7 @@ sap.ui.define([
 	 * @protected
 	 * @since 1.0.0
 	 */
-	FHIRUtils.isRequestable = function(sPath) {
+	FHIRUtils.isRequestable = function (sPath) {
 		return sPath && (sPath.indexOf("$") > -1 || (sPath.match(/\//g) || []).length <= 2 || sPath.indexOf("_history") > -1);
 	};
 
@@ -603,7 +656,7 @@ sap.ui.define([
 	 * @protected
 	 * @since 1.0.0
 	 */
-	FHIRUtils.isContextBinding = function(oContext) {
+	FHIRUtils.isContextBinding = function (oContext) {
 		return oContext && oContext.getMetadata().getName() === "sap.fhir.model.r4.FHIRContextBinding";
 	};
 
@@ -615,7 +668,7 @@ sap.ui.define([
 	 * @protected
 	 * @since 1.0.0
 	 */
-	FHIRUtils.isPropertyBinding = function(oBinding) {
+	FHIRUtils.isPropertyBinding = function (oBinding) {
 		return oBinding && oBinding.getMetadata().getName() === "sap.fhir.model.r4.FHIRPropertyBinding";
 	};
 
@@ -630,7 +683,7 @@ sap.ui.define([
 	 * @protected
 	 * @since 1.1.0
 	 */
-	FHIRUtils.generateFullUrl = function(oUri, sResourceServerPath, sResourceId, sServiceUrl) {
+	FHIRUtils.generateFullUrl = function (oUri, sResourceServerPath, sResourceId, sServiceUrl) {
 		var sFullUrl;
 		if (oUri) {
 			switch (oUri.getName()) {

@@ -3,7 +3,7 @@
  */
 
 // Provides class sap.fhir.model.r4.FHIRFilterOperator
-sap.ui.define(["sap/ui/model/FilterOperator"], function(FilterOperator) {
+sap.ui.define(["sap/ui/model/FilterOperator"], function (FilterOperator) {
 
 	"use strict";
 
@@ -21,7 +21,7 @@ sap.ui.define(["sap/ui/model/FilterOperator"], function(FilterOperator) {
 		 *
 		 * @public
 		 */
-		Missing : "Missing",
+		Missing: "Missing",
 		/**
 		 * starts-after
 		 * e.g.: sa2013-03-14
