@@ -519,7 +519,7 @@ sap.ui.define([
 	 *
 	 * @param {object} oFilter The filter which should be added to the parameters
 	 * @param {object} mParameters The parameters which should be passed to the request
-	 * @param {string} sLogicalConnection if the list of filters needs to be combined either with AND or OR
+	 * @param {string} [sLogicalConnection] if the list of filters needs to be combined either with AND or OR
 	 * @private
 	 * @since 2.1.0
 	 */

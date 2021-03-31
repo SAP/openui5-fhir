@@ -255,13 +255,15 @@ oBinding.filter(
 
 #### 2. Complex Filtering
 FHIR® specifies the use of `_filter` search expression parameter to support complex combination queries.
-To ensure complex filtering support is enabled the model is initialised with `simpleFiltering:false` property
+To ensure complex filtering support is enabled the model is initialised with `filtering: {complex: true}` property
 ```json
 "": {
 	"type": "sap.fhir.model.r4.FHIRModel",
 	"dataSource": "fhir",
         "settings":{
-          "simpleFiltering": false
+           "filtering": {
+			  "complex": true
+		   }
          }            
 }
 ```

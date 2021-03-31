@@ -126,7 +126,7 @@ sap.ui.define([
 	});
 
 	QUnit.test("initialize model with complex filtering", function (assert) {
-		var oFhirModel = createModel({ simpleFiltering: false });
+		var oFhirModel = createModel({ filtering: { complex: true } });
 		assert.strictEqual(oFhirModel.iSupportedFilterDepth, undefined);
 	});
 
@@ -1266,7 +1266,7 @@ sap.ui.define([
 
 	QUnit.test("complex filter test with multiple group filters", function (assert) {
 		// simple filter query
-		var oFhirModel = createModel({ simpleFiltering: false });
+		var oFhirModel = createModel({ filtering: { complex: true } });
 		var oNameFilter = new FHIRFilter({ path: "name", operator: FilterOperator.EQ, value1: "Ruediger", valueType: FHIRFilterType.string });
 		var aFilters = [oNameFilter];
 		var oListBinding = oFhirModel.bindList("/Patient");
@@ -1294,7 +1294,7 @@ sap.ui.define([
 		mParameters = oListBinding._buildParameters();
 		assert.deepEqual(mParameters.urlParameters["_filter"], "( ( name eq \"Ruediger\" or name eq \"Habibi\" ) and gender eq male )", "The _filter parameter object is the same");
 
-		//filter with BT operator
+		// filter with BT operator
 		var oBirthDateFilter = new FHIRFilter({ path: "birthdate", operator: FilterOperator.BT, value1: "1965-03-23", value2: "1985-04-14" });
 		aFilters = [oBirthDateFilter];
 		oListBinding.filter(aFilters);
