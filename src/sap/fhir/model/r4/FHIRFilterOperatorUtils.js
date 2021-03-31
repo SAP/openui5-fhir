@@ -84,7 +84,7 @@ sap.ui.define([
 	 *
 	 * @param {any} oValue The value of a filter object
 	 * @returns {string} Formatted FHIR filter value
-	 * @public
+	 * @protected
 	 * @since 1.0.0
 	 */
 	FHIRFilterOperatorUtils.getFilterValue = function (oValue) {
@@ -219,7 +219,7 @@ sap.ui.define([
 	 * Parses the JS filter value to an FHIR filter value
 	 *
 	 * @param {string} sFilterValue The value type of a filter object
-	 * @param {string} oValue The value type of a filter object
+	 * @param {any} oValue The value of a filter object
 	 * @returns {string} Formatted FHIR filter value
 	 * @protected
 	 * @since 2.1.0
