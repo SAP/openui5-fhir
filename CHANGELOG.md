@@ -1,3 +1,10 @@
+# [2.1.0](https://github.com/SAP/openui5-fhir/compare/v2.0.5...v2.1.0) (2021-03-31)
+
+
+### Features
+
+* Implement the support for _filter ([#244](https://github.com/SAP/openui5-fhir/issues/244)) ([3fc0634](https://github.com/SAP/openui5-fhir/commit/3fc0634c65e79f54ac3e1cbc481171d31b062464))
+
 ## [2.0.5](https://github.com/SAP/openui5-fhir/compare/v2.0.4...v2.0.5) (2021-03-10)
 
 
