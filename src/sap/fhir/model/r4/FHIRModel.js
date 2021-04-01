@@ -63,7 +63,7 @@ sap.ui.define([
 	 * @param {string} [mParameters.Prefer='return=minimal'] The FHIR server won't return the changed resource by an POST/PUT request -> https://www.hl7.org/fhir/http.html#2.21.0.5.2
 	 * @param {boolean} [mParameters.x-csrf-token=false] The model handles the csrf token between the browser and the FHIR server
 	 * @param {object} [mParameters.filtering={}] The filtering options
-	 * @param {boolean} [mParameters.filtering.complex=false}] The default filtering type. If <code>true</code>, all search parameters would be modelled via {@link https://www.hl7.org/fhir/search_filter.html _filter}
+	 * @param {boolean} [mParameters.filtering.complex=false] The default filtering type. If <code>true</code>, all search parameters would be modelled via {@link https://www.hl7.org/fhir/search_filter.html _filter}
 	 * @throws {Error} If no service URL is given, if the given service URL does not end with a forward slash
 	 * @author SAP SE
 	 * @public
