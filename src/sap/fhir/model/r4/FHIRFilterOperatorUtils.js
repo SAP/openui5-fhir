@@ -231,6 +231,8 @@ sap.ui.define([
 			// special handling for string parameter as per fhir
 			// given eq "peter"
 			sValue = "\"" + vValue + "\"";
+		} else if (vValue instanceof Date) {
+			sValue = vValue.toISOString();
 		} else {
 			sValue = vValue;
 		}
