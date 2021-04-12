@@ -1311,6 +1311,16 @@ sap.ui.define([
 		mParameters = oListBinding._buildParameters();
 		oRequestHandle = oFhirModel.loadData("/Patient", mParameters);
 		assert.deepEqual(mParameters.urlParameters["_filter"], "( name sw \"Ra\" and name ew \"er\" )", "The _filter parameter for StartsWith and EndsWith operator is the formed correctly");
+
+		var oBirthDate = new Date(Date.UTC(2014, 2, 1, 23, 0, 0));
+		var sBirthDateISOString = "2014-03-01T23:00:00.000Z";
+		oBirthDateFilter = new FHIRFilter({ path: "birthdate", operator: FHIRFilterOperator.GT, value1: oBirthDate });
+		aFilters = [oBirthDateFilter];
+		oListBinding.filter(aFilters);
+		mParameters = oListBinding._buildParameters();
+		oRequestHandle = oFhirModel.loadData("/Patient", mParameters);
+		var sFilterParams = "birthdate gt " + sBirthDateISOString;
+		assert.deepEqual(mParameters.urlParameters["_filter"], sFilterParams, "The _filter parameter for instance of type date is the formed correctly");
 	});
 
 });
