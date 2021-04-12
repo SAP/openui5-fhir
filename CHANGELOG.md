@@ -1,3 +1,10 @@
+## [2.1.1](https://github.com/SAP/openui5-fhir/compare/v2.1.0...v2.1.1) (2021-04-12)
+
+
+### Bug Fixes
+
+* instance value of type date ([#247](https://github.com/SAP/openui5-fhir/issues/247)) ([ef6a228](https://github.com/SAP/openui5-fhir/commit/ef6a228db2ce7fad344d72e265ec512d31785c10))
+
 # [2.1.0](https://github.com/SAP/openui5-fhir/compare/v2.0.5...v2.1.0) (2021-03-31)
 
 
