@@ -174,13 +174,28 @@ sap.ui.define([
 				this._submitRequest("/ValueSet/$expand", mParameters, fnSuccessValueSet);
 			} else if (!this.aSortersCache && !this.aFilterCache && this.sNextLink && iLength > this.iLastLength) {
 				this.iLastLength += this.iLength;
-				this._submitRequest(this.sNextLink, undefined, fnSuccess, true);
+				// if secure search is enabled convert the next link so that the subsequent calls are handled appropriately
+				if (this.oModel.isSecureSearchModeEnabled() && this.sNextLink && this.sNextLink.indexOf("?") > -1) {
+					var sQueryParams = this.sNextLink.substring(this.sNextLink.indexOf("?") + 1, this.sNextLink.length);
+					var aParameter = sQueryParams ? sQueryParams.split("&") : [];
+					var aKeyValue;
+					for (var i = 0; i < aParameter.length; i++) {
+						aKeyValue = aParameter[i].split("=");
+						mParameters.urlParameters[aKeyValue[0]] = aKeyValue[1];
+					}
+					this._submitRequest(this.sPath, mParameters, fnSuccess, true);
+				} else {
+					this._submitRequest(this.sNextLink, undefined, fnSuccess, true);
+				}
 			} else if (this.iTotalLength === undefined){ // load context based resources
 				this.iLastLength = this.iLength;
 				this._loadProfile(fnSuccessStructDef, fnLoadResources, fnSuccess, mParameters, iLength);
 			} else if (!this._isValueSet()){
 				if (iLength > this.iLastLength){
 					this.iLastLength += this.iLength;
+				}
+				if (!this.iLastLength){
+					this.iLastLength = this.iLength;
 				}
 				this._loadResources(this.iLastLength);
 			}

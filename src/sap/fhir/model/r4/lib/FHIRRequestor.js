@@ -50,6 +50,7 @@ sap.ui.define([
 			rHash : /#/g,
 			rPlus : /\+/g
 		};
+		this.bSecureSearch = oModel && oModel.bSecureSearch ? oModel.bSecureSearch : false;
 	};
 
 	/**
@@ -228,25 +229,40 @@ sap.ui.define([
 	FHIRRequestor.prototype._sendRequest = function(sMethod, sPath, mParameters, mHeaders, oPayload, fnSuccess, fnError, oBinding) {
 		var oRequestHandle = new RequestHandle(oBinding);
 		var oFHIRUrl = new FHIRUrl(sPath, this._sServiceUrl);
-		var sQueryParameter =  oFHIRUrl.getQueryParameters() ? "" : this._buildQueryParameters(mParameters, this.oModel.getBindingInfo(oFHIRUrl.getRelativeUrlWithoutQueryParameters()), sMethod);
-		var sRequestUrl = sPath.startsWith("http") ? sPath : this._sServiceUrl + oFHIRUrl.getRelativeUrlWithQueryParameters() + sQueryParameter;
+		var sRequestUrl;
+		var sContentType = "application/json";
+		var oBindingInfo = this.oModel.getBindingInfo(oFHIRUrl.getRelativeUrlWithoutQueryParameters());
+		// if the method is GET , secure search is enabled
+		// convert the path to _search and all the url paramters will be converted to POST form data
+	    // except ValueSet/$expand or specific operations  like Patient/53/_history
+		if (sMethod == HTTPMethod.GET && this.bSecureSearch && oFHIRUrl.isSearchAtBaseLevel() && !this._isCsrfTokenRequest()) {
+			sMethod = HTTPMethod.POST;
+			oPayload = this._getFormData(mParameters, oBindingInfo, oFHIRUrl.getQueryParameters());
+			sRequestUrl = this._sServiceUrl + "/" + oFHIRUrl.getResourceType() + "/_search";
+			// for secure search the content type should be url form encoded
+			sContentType = "application/x-www-form-urlencoded";
+		} else {
+			var sQueryParameter = oFHIRUrl.getQueryParameters() ? "" : this._buildQueryParameters(mParameters, oBindingInfo, sMethod);
+			sRequestUrl = sPath.startsWith("http") ? sPath : this._sServiceUrl + oFHIRUrl.getRelativeUrlWithQueryParameters() + sQueryParameter;
+		}
 		mHeaders = mHeaders ? mHeaders : {};
 		mHeaders["Accept-Language"] = sap.ui.getCore().getConfiguration().getLanguageTag();
 		mHeaders["cache-control"] = "no-cache";
+
 		mHeaders.Prefer = this.sPrefer;
 
-		var fnTriggerRequest = function(){
+		var fnTriggerRequest = function () {
 			return this._ajax(oRequestHandle, {
-				url : sRequestUrl,
-				data : JSON.stringify(oPayload),
-				beforeSend : function(jqXHR, settings) {
+				url: sRequestUrl,
+				data: sContentType == "application/json" ? JSON.stringify(oPayload) : oPayload,
+				beforeSend: function (jqXHR, settings) {
 					oRequestHandle.setUrl(settings.url);
 					oRequestHandle.setData(settings.data);
 					oRequestHandle.setRequest(jqXHR);
 					oRequestHandle.setHeaders(settings.headers);
 					var aPendingRequestHandles = [];
-					if (settings.url !== this._sServiceUrl){
-						aPendingRequestHandles = FHIRUtils.filterArray(this._aPendingRequestHandles, undefined, undefined, function(oRequestHandle){return oRequestHandle.getUrl() === settings.url;});
+					if (settings.url !== this._sServiceUrl) {
+						aPendingRequestHandles = FHIRUtils.filterArray(this._aPendingRequestHandles, undefined, undefined, function (oRequestHandle) { return oRequestHandle.getUrl() === settings.url; });
 					}
 					if (aPendingRequestHandles.length > 0) {
 						this._add(aPendingRequestHandles[0], fnSuccess, fnError);
@@ -255,23 +271,23 @@ sap.ui.define([
 						this.oModel.fireRequestSent(this._createEventParameters(oRequestHandle));
 					}
 				}.bind(this),
-				headers : mHeaders,
-				type : sMethod,
-				contentType : "application/json",
-				traditional : true
+				headers: mHeaders,
+				type: sMethod,
+				contentType: sContentType,
+				traditional: true
 			}, fnSuccess, fnError);
 		}.bind(this);
 
-		if (this.bCSRF && !this.sToken){
+		if (this._isCsrfTokenRequest()) {
 			mHeaders["x-csrf-token"] = "fetch";
 			var tmpFnSuccess = FHIRUtils.deepClone(fnSuccess);
 			var tmpFnError = FHIRUtils.deepClone(fnError);
 			fnSuccess = this._callBackForXcsrfToken.bind(this, tmpFnSuccess);
-			fnError = function(oRequestHandle, oData){
+			fnError = function (oRequestHandle, oData) {
 				tmpFnError(oRequestHandle, oData);
 			};
 			return fnTriggerRequest();
-		} else if (this.bCSRF && this.sToken){
+		} else if (this.bCSRF && this.sToken) {
 			mHeaders["x-csrf-token"] = this.sToken;
 			return fnTriggerRequest();
 		} else {
@@ -559,6 +575,46 @@ sap.ui.define([
 			"application/fhir+json"
 		];
 		return aSupportedFormats.indexOf(sFormat) >= 0;
+	};
+
+	/**
+	 * Transforms the given <code>mParameters</code> to form object
+	 *
+	 * @param {object} [mParameters] A map of key-value pairs representing the query string, the value in this pair has to be a string or an array of strings; if it is an array, the resulting query
+	 *            string repeats the key for each array value
+	 * @param {sap.fhir.model.r4.lib.BindingInfo} oBindingInfo The binding info containing path and context
+	 * @param {object} [mQueryParameters] The query parameters from the url
+	 * @returns {object} The form data for the secure call
+	 * @private
+	 * @since 2.2.0
+	 */
+	FHIRRequestor.prototype._getFormData = function (mParameters, oBindingInfo, mQueryParameters) {
+		mParameters = mParameters ? mParameters : {};
+		if (mQueryParameters) {
+			mParameters = merge(mParameters, mQueryParameters);
+		}
+		if (!this._isFormatSupported(mParameters._format)) {
+			mParameters._format = "json";
+		}
+		if (!oBindingInfo) {
+			return mParameters;
+		}
+
+		if (!oBindingInfo.getResourceId()) {
+			mParameters = merge(mParameters, this.oDefaultQueryParams);
+		}
+		return mParameters;
+	};
+
+	/**
+	 * Checks if given request is to fetch csrf token
+	 *
+	 * @returns {boolean} True if its request to fetch csrf token
+	 * @private
+	 * @since 2.2.0
+	 */
+	FHIRRequestor.prototype._isCsrfTokenRequest = function () {
+		return this.bCSRF ? !this.sToken : false;
 	};
 
 	return FHIRRequestor;

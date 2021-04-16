@@ -132,5 +132,24 @@ sap.ui.define(["sap/fhir/model/r4/lib/FHIRUrl"], function(FHIRUrl) {
 		assert.strictEqual(oFHIRUrl.getFullUrl("http://test.com/fhir/Patient/1234"), "http://test.com/fhir/Patient/1234");
 		assert.strictEqual(oFHIRUrl.getFullUrl("http://test.com/fhir/Patient/1234?param=value1"), "http://test.com/fhir/Patient/1234");
 		assert.strictEqual(oFHIRUrl.getFullUrl("Patient/XYZ"), undefined);
+
+		// test with custom operation
+		sUrl = "Patient/1234/$look-up";
+		oFHIRUrl = new FHIRUrl(sUrl, sServiceUrl);
+		assert.strictEqual(oFHIRUrl.getRelativeUrlWithoutQueryParameters(), "/Patient/1234/$look-up");
+		assert.strictEqual(oFHIRUrl.getRelativeUrlWithQueryParameters(), "/Patient/1234/$look-up");
+		assert.strictEqual(oFHIRUrl.getResourceType(), "Patient");
+		assert.strictEqual(oFHIRUrl.getResourceId(), "1234");
+		assert.strictEqual(oFHIRUrl.getCustomOperation(), "$look-up");
+
+		// test with custom operation
+		sUrl = "Patient/$look-up";
+		oFHIRUrl = new FHIRUrl(sUrl, sServiceUrl);
+		assert.strictEqual(oFHIRUrl.getRelativeUrlWithoutQueryParameters(), "/Patient/$look-up");
+		assert.strictEqual(oFHIRUrl.getRelativeUrlWithQueryParameters(), "/Patient/$look-up");
+		assert.strictEqual(oFHIRUrl.getResourceType(), "Patient");
+		assert.strictEqual(oFHIRUrl.getResourceId(), undefined);
+		assert.strictEqual(oFHIRUrl.getCustomOperation(), "$look-up");
+
 	});
 });

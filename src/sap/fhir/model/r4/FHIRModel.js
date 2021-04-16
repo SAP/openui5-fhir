@@ -64,6 +64,7 @@ sap.ui.define([
 	 * @param {boolean} [mParameters.x-csrf-token=false] The model handles the csrf token between the browser and the FHIR server
 	 * @param {object} [mParameters.filtering={}] The filtering options
 	 * @param {boolean} [mParameters.filtering.complex=false] The default filtering type. If <code>true</code>, all search parameters would be modelled via {@link https://www.hl7.org/fhir/search_filter.html _filter}
+	 * @param {boolean} [mParameters.securesearch=false] To enable RESTful search via {@link https://www.hl7.org/fhir/http.html#search POST}
 	 * @throws {Error} If no service URL is given, if the given service URL does not end with a forward slash
 	 * @author SAP SE
 	 * @public
@@ -86,6 +87,7 @@ sap.ui.define([
 			this.sBaseProfileUrl = mParameters && mParameters.baseProfileUrl ? mParameters.baseProfileUrl : "http://hl7.org/fhir/StructureDefinition/";
 			this._buildGroupProperties(mParameters);
 			this.oDefaultQueryParameters = mParameters && mParameters.defaultQueryParameters && mParameters.defaultQueryParameters instanceof Object ? mParameters.defaultQueryParameters : {};
+			this.bSecureSearch = mParameters && mParameters.securesearch ? mParameters.securesearch : false;
 			this.oRequestor = new FHIRRequestor(sServiceUrl, this, mParameters && mParameters["x-csrf-token"], mParameters && mParameters.Prefer, this.oDefaultQueryParameters);
 			this.sDefaultSubmitMode = (mParameters && mParameters.defaultSubmitMode) ? mParameters.defaultSubmitMode : SubmitMode.Direct;
 			this.sDefaultFullUrlType = (mParameters && mParameters.defaultSubmitMode && mParameters.defaultSubmitMode !== SubmitMode.Direct && mParameters.defaultFullUrlType) ? mParameters.defaultFullUrlType : "uuid";
@@ -597,7 +599,6 @@ sap.ui.define([
 				}
 				var oBinding = mParameters.binding;
 				var sGroupId = mParameters.groupId || (oBinding && oBinding.sGroupId);
-
 				var fnSuccess = function(oRequestHandle, oResponse, oBundleEntry) {
 					if (!oResponse){
 						oResponse = oRequestHandle.getRequest().responseJSON;
@@ -1623,6 +1624,17 @@ sap.ui.define([
 			return false;
 		}
 		return true;
+	};
+
+	/**
+	 * Determines the value of securesearch mode
+	 *
+	 * @returns {boolean} The value of secure search mode
+	 * @protected
+	 * @since 2.2.0
+	 */
+	FHIRModel.prototype.isSecureSearchModeEnabled = function () {
+		return this.bSecureSearch;
 	};
 
 	return FHIRModel;
