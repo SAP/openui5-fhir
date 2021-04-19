@@ -1,3 +1,10 @@
+# [2.2.0](https://github.com/SAP/openui5-fhir/compare/v2.1.1...v2.2.0) (2021-04-19)
+
+
+### Features
+
+* Implement RESTful Search Via POST ([#251](https://github.com/SAP/openui5-fhir/issues/251)) ([33f1280](https://github.com/SAP/openui5-fhir/commit/33f1280d878c6a43f39fe8b25fce868eaaf044ec))
+
 ## [2.1.1](https://github.com/SAP/openui5-fhir/compare/v2.1.0...v2.1.1) (2021-04-12)
 
 
