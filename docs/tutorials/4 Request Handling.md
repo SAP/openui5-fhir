@@ -44,6 +44,23 @@ onSavePress: function(){
 }
 ```
 
+#### Step 4.1.1: RESTful based `Search` via POST Requests
+When a FHIR® server supports GET in Search requests it could mean that PHI (Personal health information) might appear in search parameters and https logs. To prevent such sensitive information from being logged FHIR® specification suggests the server that support `search` SHALL also support a [POST](https://www.hl7.org/fhir/http.html#search) based search.
+To enable this feature from the model the `manifest.json ` is initialised with the following settings
+```json
+"models": {
+    "": {
+        "type": "sap.fhir.model.r4.FHIRModel",
+        "dataSource": "local",
+        "settings": {
+            "search":{
+                "secure": true
+            }
+        }
+    }
+}
+```
+
 ### Step 4.2: Bundle Requests
 <table>
   <tr valign="top">

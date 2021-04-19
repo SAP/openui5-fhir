@@ -50,7 +50,6 @@ sap.ui.define([
 			rHash : /#/g,
 			rPlus : /\+/g
 		};
-		this.bSecureSearch = oModel && oModel.bSecureSearch ? oModel.bSecureSearch : false;
 	};
 
 	/**
@@ -232,10 +231,10 @@ sap.ui.define([
 		var sRequestUrl;
 		var sContentType = "application/json";
 		var oBindingInfo = this.oModel.getBindingInfo(oFHIRUrl.getRelativeUrlWithoutQueryParameters());
-		// if the method is GET , secure search is enabled
+		// if the method is GET, secure search is enabled
 		// convert the path to _search and all the url paramters will be converted to POST form data
-	    // except ValueSet/$expand or specific operations  like Patient/53/_history
-		if (sMethod == HTTPMethod.GET && this.bSecureSearch && oFHIRUrl.isSearchAtBaseLevel() && !this._isCsrfTokenRequest()) {
+		// except ValueSet/$expand or specific operations  like Patient/53/_history
+		if (this._canRequestBeTransformed(sMethod, oFHIRUrl)) {
 			sMethod = HTTPMethod.POST;
 			oPayload = this._getFormData(mParameters, oBindingInfo, oFHIRUrl.getQueryParameters());
 			sRequestUrl = this._sServiceUrl + "/" + oFHIRUrl.getResourceType() + "/_search";
@@ -581,7 +580,7 @@ sap.ui.define([
 	 * Transforms the given <code>mParameters</code> to form object
 	 *
 	 * @param {object} [mParameters] A map of key-value pairs representing the query string, the value in this pair has to be a string or an array of strings; if it is an array, the resulting query
-	 *            string repeats the key for each array value
+	 *           string repeats the key for each array value
 	 * @param {sap.fhir.model.r4.lib.BindingInfo} oBindingInfo The binding info containing path and context
 	 * @param {object} [mQueryParameters] The query parameters from the url
 	 * @returns {object} The form data for the secure call
@@ -609,12 +608,25 @@ sap.ui.define([
 	/**
 	 * Checks if given request is to fetch csrf token
 	 *
-	 * @returns {boolean} True if its request to fetch csrf token
+	 * @returns {boolean} True if the request is to fetch csrf token
 	 * @private
 	 * @since 2.2.0
 	 */
 	FHIRRequestor.prototype._isCsrfTokenRequest = function () {
 		return this.bCSRF ? !this.sToken : false;
+	};
+
+	/**
+	 * Checks if given request needs to be transformed to POST
+	 *
+	 * @param {string} sMethod The HTTP method which was used by the request e.g. GET, HTTPMethod.POST, etc.
+	 * @param {sap.fhir.model.r4.lib.FHIRUrl} oFHIRUrl The request url object
+	 * @returns {boolean} True if the criteria matches
+	 * @private
+	 * @since 2.2.0
+	 */
+	FHIRRequestor.prototype._canRequestBeTransformed = function (sMethod, oFHIRUrl) {
+		return sMethod == HTTPMethod.GET && this.oModel.isSecureSearchModeEnabled() && oFHIRUrl.isSearchAtBaseLevel() && !this._isCsrfTokenRequest();
 	};
 
 	return FHIRRequestor;

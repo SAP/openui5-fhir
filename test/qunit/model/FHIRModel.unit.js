@@ -1324,7 +1324,7 @@ sap.ui.define([
 	});
 
 	QUnit.test("RESTful search tests", function (assert) {
-		var oFhirModel = createModel({ "securesearch": true });
+		var oFhirModel = createModel({ "search": { "secure": true } });
 		// simple search call without query parameters
 		var oRequestHandle = oFhirModel.loadData("/Patient");
 		assert.strictEqual(oRequestHandle.getUrl(), "https://example.com/fhir/Patient/_search", "Search GET calls are converted to POST _search call");
