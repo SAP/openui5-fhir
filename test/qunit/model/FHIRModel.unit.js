@@ -1323,4 +1323,80 @@ sap.ui.define([
 		assert.deepEqual(mParameters.urlParameters["_filter"], sFilterParams, "The _filter parameter for instance of type date is the formed correctly");
 	});
 
+	QUnit.test("RESTful search tests", function (assert) {
+		var oFhirModel = createModel({ "search": { "secure": true } });
+		// simple search call without query parameters
+		var oRequestHandle = oFhirModel.loadData("/Patient");
+		assert.strictEqual(oRequestHandle.getUrl(), "https://example.com/fhir/Patient/_search", "Search GET calls are converted to POST _search call");
+		assert.strictEqual(oRequestHandle.getData(), "_format=json", "Secure search POST body is formed correctly without query parameters");
+
+		// simple search call with query parameters
+		oRequestHandle = oFhirModel.loadData("/Patient?gender=male");
+		assert.strictEqual(oRequestHandle.getUrl(), "https://example.com/fhir/Patient/_search", "Search GET calls are converted to POST _search call");
+		assert.strictEqual(oRequestHandle.getData(), "gender=male&_format=json", "Secure search POST body is formed correctly with query parameters");
+
+		// read by id call with query parameters
+		oRequestHandle = oFhirModel.loadData("/Patient/123?gender=male");
+		assert.strictEqual(oRequestHandle.getUrl(), "https://example.com/fhir/Patient/123?gender=male", "Query parameters that are not part of search requests at resource level is not converted to POST _search call");
+
+		// history operation
+		oRequestHandle = oFhirModel.loadData("/Patient/123/_history/1");
+		assert.strictEqual(oRequestHandle.getUrl(), "https://example.com/fhir/Patient/123/_history/1?_format=json", "History operation is not converted to POST _search call");
+
+		// custom operation
+		oRequestHandle = oFhirModel.loadData("/Patient/123/$look-up");
+		assert.strictEqual(oRequestHandle.getUrl(), "https://example.com/fhir/Patient/123/$look-up?_format=json", "Any custom operation call is not converted to POST _search call");
+
+		// search call with url parameters
+		var mParameters = {
+			urlParameters: {
+				gender: "male"
+			}
+		};
+		oRequestHandle = oFhirModel.loadData("/Patient", mParameters);
+		assert.strictEqual(oRequestHandle.getUrl(), "https://example.com/fhir/Patient/_search", "Search GET calls having custom url parameters are converted to POST _search call");
+		assert.strictEqual(oRequestHandle.getData(), "gender=male&_format=json", "Secure search POST body with custom url parameters is formed correctly with query parameters");
+
+		// list binding
+		var oListBinding = oFhirModel.bindList("/Account");
+		oListBinding.getContexts(0, 10);
+		var bFound = false;
+		oFhirModel.oRequestor._aPendingRequestHandles.forEach(function (oEntry, i) {
+			if (oEntry.getUrl().endsWith("Account/_search")) {
+				bFound = true;
+				assert.strictEqual(oEntry.getData(), "_count=10&_format=json", "The form data of the listbinding with RESTful search is correct");
+			}
+		});
+		assert.strictEqual(bFound, true, "The request of the listbinding with RESTful search is triggered correctly");
+
+		// list binding with filters
+		oListBinding = oFhirModel.bindList("/Organization");
+		var oNameFilter = new sap.ui.model.Filter({ path: "name", operator: "eq", value1: "TestOrg" });
+		var aFilters = [oNameFilter];
+		oListBinding.filter(aFilters);
+		oListBinding.getContexts(0, 10);
+		bFound = false;
+		oFhirModel.oRequestor._aPendingRequestHandles.forEach(function (oEntry, i) {
+			if (oEntry.getUrl().endsWith("Organization/_search")) {
+				bFound = true;
+				assert.strictEqual(oEntry.getData(), "_count=10&name=TestOrg&_format=json", "The form data of the listbinding with RESTful search is correct");
+			}
+		});
+		assert.strictEqual(bFound, true, "The request of the listbinding with RESTful search and filters is correct");
+
+		// list binding with next link
+		oListBinding = oFhirModel.bindList("/Practitioner");
+		oListBinding.sNextLink = "https://example.com/fhir/Practitioner?_getpages=1263645";
+		oListBinding.iLastLength = 10;
+		oListBinding.getContexts(0, 20);
+		bFound = false;
+		oFhirModel.oRequestor._aPendingRequestHandles.forEach(function (oEntry, i) {
+			if (oEntry.getUrl().endsWith("Practitioner/_search")) {
+				bFound = true;
+				assert.strictEqual(oEntry.getData(), "_count=10&_getpages=1263645&_format=json", "The form data of the listbinding with RESTful search is correct");
+			}
+		});
+		assert.strictEqual(bFound, true, "The request of the listbinding with next link with RESTful search is triggered correctly");
+	});
+
 });
