@@ -231,10 +231,7 @@ sap.ui.define([
 		var sRequestUrl;
 		var sContentType = "application/json";
 		var oBindingInfo = this.oModel.getBindingInfo(oFHIRUrl.getRelativeUrlWithoutQueryParameters());
-		// if the method is GET, secure search is enabled
-		// convert the path to _search and all the url paramters will be converted to POST form data
-		// except ValueSet/$expand or specific operations  like Patient/53/_history
-		if (this._canRequestBeTransformed(sMethod, oFHIRUrl)) {
+		if (this._isRequestTransformable(sMethod, oFHIRUrl)) {
 			sMethod = HTTPMethod.POST;
 			oPayload = this._getFormData(mParameters, oBindingInfo, oFHIRUrl.getQueryParameters());
 			sRequestUrl = this._sServiceUrl + "/" + oFHIRUrl.getResourceType() + "/_search";
@@ -625,7 +622,10 @@ sap.ui.define([
 	 * @private
 	 * @since 2.2.0
 	 */
-	FHIRRequestor.prototype._canRequestBeTransformed = function (sMethod, oFHIRUrl) {
+	FHIRRequestor.prototype._isRequestTransformable = function (sMethod, oFHIRUrl) {
+		// if the method is GET, secure search is enabled
+		// convert the path to _search and all the url paramters will be converted to POST form data
+		// except ValueSet/$expand or specific operations  like Patient/53/_history
 		return sMethod == HTTPMethod.GET && this.oModel.isSecureSearchModeEnabled() && oFHIRUrl.isSearchAtBaseLevel() && !this._isCsrfTokenRequest();
 	};
 
