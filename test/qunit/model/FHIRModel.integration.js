@@ -783,7 +783,7 @@ sap.ui.define([
 			success: function (oData) {
 				assert.deepEqual(oData.entry[0].resource, this.oFhirModel.getProperty("/Patient/a2522"));
 				assert.deepEqual(oData.entry[1].resource.total, Object.keys(this.oFhirModel.getProperty("/Coverage")).length);
-				done()
+				done();
 			}.bind(this)
 		};
 		this.oFhirModel.sendPostRequest("", {

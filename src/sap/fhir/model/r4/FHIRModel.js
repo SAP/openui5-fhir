@@ -302,12 +302,10 @@ sap.ui.define([
 				var oResource = oData.entry[i].resource;
 				if (oResource && oResource.resourceType === "Bundle") {
 					this._mapFHIRResponse(oResource, mResponseHeaders, oBundleEntry, sGroupId);
+				} else if (!oResource && oData.entry[i].response) {
+					this._updateResourceFromFHIRResponse(oData.entry[i].response, oData.entry[i].fullUrl, oBundleEntry);
 				} else {
-					if (!oResource && oData.entry[i].response) {
-						this._updateResourceFromFHIRResponse(oData.entry[i].response, oData.entry[i].fullUrl, oBundleEntry);
-					} else {
-						this._storeResourceInModel(oResource, oBinding, sGroupId);
-					}
+					this._storeResourceInModel(oResource, oBinding, sGroupId);
 				}
 			}
 		} else if (oData.resourceType !== "Bundle") {
@@ -417,12 +415,10 @@ sap.ui.define([
 			}
 			if (oResource && oResource.resourceType == "Bundle" && oResource.entry) {
 				mResources = this._mapBundleEntriesToResourceMap(oResource.entry);
+			} else if (oResource && oResource.resourceType && oResource.id) {
+				this._setProperty(mResources, [oResource.resourceType, oResource.id], oResource, true);
 			} else {
-				if (oResource && oResource.resourceType && oResource.id) {
-					this._setProperty(mResources, [oResource.resourceType, oResource.id], oResource, true);
-				} else {
-					throw new Error("No resource could be found for bundle entry: " + aBundleEntries[i]);
-				}
+				throw new Error("No resource could be found for bundle entry: " + aBundleEntries[i]);
 			}
 		}
 		return mResources;
