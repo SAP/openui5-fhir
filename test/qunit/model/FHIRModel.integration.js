@@ -775,4 +775,36 @@ sap.ui.define([
 		this.oFhirModel.submitChanges("bundle", undefined, fnErrorCallback);
 	});
 
+	QUnit.test("Send Batch/Transaction via POST request", function (assert) {
+		var done = assert.async();
+		this.oFhirModel.setProperty("/Patient/a2522", undefined);
+		var mParameters = {
+			headers: { "Accept": "application/json" },
+			success: function (oData) {
+				assert.deepEqual(oData.entry[0].resource, this.oFhirModel.getProperty("/Patient/a2522"));
+				assert.deepEqual(oData.entry[1].resource.total, Object.keys(this.oFhirModel.getProperty("/Coverage")).length);
+				done()
+			}.bind(this)
+		};
+		this.oFhirModel.sendPostRequest("", {
+			"id": "7ff09ab5-6af1-4349-bb19-7fccfd62850d",
+			"type": "batch",
+			"resourceType": "Bundle",
+			"entry": [
+				{
+					"request": {
+						"method": "GET",
+						"url": "Patient/a2522"
+					}
+				},
+				{
+					"request": {
+						"method": "GET",
+						"url": "Coverage"
+					}
+				}
+			]
+		}, mParameters);
+	});
+
 });
