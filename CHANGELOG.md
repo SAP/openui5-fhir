@@ -1,3 +1,10 @@
+## [2.2.1](https://github.com/SAP/openui5-fhir/compare/v2.2.0...v2.2.1) (2021-04-26)
+
+
+### Bug Fixes
+
+* send batch/transaction requests  ([#254](https://github.com/SAP/openui5-fhir/issues/254)) ([b7d6fdd](https://github.com/SAP/openui5-fhir/commit/b7d6fdd47e0b2f166f4dc7e84857b5ae5a5ebe7a))
+
 # [2.2.0](https://github.com/SAP/openui5-fhir/compare/v2.1.1...v2.2.0) (2021-04-19)
 
 
