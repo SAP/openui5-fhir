@@ -300,13 +300,15 @@ sap.ui.define([
 		if (oData.entry && oData.resourceType === "Bundle") {
 			for (var i = 0; i < oData.entry.length; i++) {
 				var oResource = oData.entry[i].resource;
-				if (!oResource && oData.entry[i].response){
+				if (oResource && oResource.resourceType === "Bundle") {
+					this._mapFHIRResponse(oResource, mResponseHeaders, oBundleEntry, sGroupId);
+				} else if (!oResource && oData.entry[i].response) {
 					this._updateResourceFromFHIRResponse(oData.entry[i].response, oData.entry[i].fullUrl, oBundleEntry);
 				} else {
 					this._storeResourceInModel(oResource, oBinding, sGroupId);
 				}
 			}
-		} else if (oData.resourceType !== "Bundle"){
+		} else if (oData.resourceType !== "Bundle") {
 			this._storeResourceInModel(oData, oBinding, sGroupId);
 		}
 	};
@@ -403,15 +405,17 @@ sap.ui.define([
 		var mResources = {};
 		for (var i = 0; i < aBundleEntries.length; i++) {
 			var oResource;
-			if (!aBundleEntries[i]){
+			if (!aBundleEntries[i]) {
 				throw new Error("No response from the FHIR Service available");
 			}
-			if (!aBundleEntries[i].resource && aBundleEntries[i].response){
+			if (!aBundleEntries[i].resource && aBundleEntries[i].response) {
 				oResource = this._getUpdatedResourceFromFHIRResponse(aBundleEntries[i].response);
 			} else {
 				oResource = aBundleEntries[i].resource;
 			}
-			if (oResource && oResource.resourceType && oResource.id) {
+			if (oResource && oResource.resourceType == "Bundle" && oResource.entry) {
+				mResources = this._mapBundleEntriesToResourceMap(oResource.entry);
+			} else if (oResource && oResource.resourceType && oResource.id) {
 				this._setProperty(mResources, [oResource.resourceType, oResource.id], oResource, true);
 			} else {
 				throw new Error("No resource could be found for bundle entry: " + aBundleEntries[i]);
@@ -1404,6 +1408,10 @@ sap.ui.define([
 	 * @since 1.0.0
 	 */
 	FHIRModel.prototype.sendPostRequest = function(sPath, oPayload, mParameters) {
+		var bBundleType = oPayload && oPayload.type && (oPayload.type == "batch" || oPayload.type == "transaction") ? true : false;
+		if (bBundleType) {
+			mParameters.forceDirectCall = true;
+		}
 		return this.loadData(sPath, mParameters, HTTPMethod.POST, oPayload);
 	};
 
