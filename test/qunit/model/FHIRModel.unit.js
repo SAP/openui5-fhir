@@ -1279,8 +1279,8 @@ sap.ui.define([
 		// multivalued filter
 		var oNameFilter1 = new FHIRFilter({ path: "name", operator: FilterOperator.EQ, value1: "Ruediger", valueType: FHIRFilterType.string });
 		var oNameFilter2 = new FHIRFilter({ path: "name", operator: FilterOperator.EQ, value1: "Habibi", valueType: FHIRFilterType.string });
-		var oCombinedFilter = new sap.ui.model.Filter([oNameFilter1, oNameFilter2], false);
-		aFilters = [oCombinedFilter];
+		var oNameCombinedFilter = new sap.ui.model.Filter([oNameFilter1, oNameFilter2], false);
+		aFilters = [oNameCombinedFilter];
 		oListBinding.filter(aFilters);
 		mParameters = oListBinding._buildParameters();
 		oRequestHandle = oFhirModel.loadData("/Patient", mParameters);
@@ -1288,11 +1288,20 @@ sap.ui.define([
 
 		// multivalued filter with different value type
 		var oGenderFilter = new FHIRFilter({ path: "gender", operator: FilterOperator.EQ, value1: "male" });
-		var oCombinedFilter1 = new sap.ui.model.Filter([oCombinedFilter, oGenderFilter], true);
-		aFilters = [oCombinedFilter1];
+		var oCombinedFilter = new sap.ui.model.Filter([oNameCombinedFilter, oGenderFilter], true);
+		aFilters = [oCombinedFilter];
 		oListBinding.filter(aFilters);
 		mParameters = oListBinding._buildParameters();
 		assert.deepEqual(mParameters.urlParameters["_filter"], "( ( name eq \"Ruediger\" or name eq \"Habibi\" ) and gender eq male )", "The _filter parameter object is the same");
+
+		// chain of multileveled filters with `and` operator to be concatenated
+		var oGenderFilter1 = new FHIRFilter({ path: "gender", operator: FilterOperator.EQ, value1: "other" });
+		var oGenderCombinedFilter = new sap.ui.model.Filter([oGenderFilter, oGenderFilter1], false);
+		oCombinedFilter = new sap.ui.model.Filter([oNameCombinedFilter, oGenderCombinedFilter], true);
+		aFilters = [oCombinedFilter];
+		oListBinding.filter(aFilters);
+		mParameters = oListBinding._buildParameters();
+		assert.deepEqual(mParameters.urlParameters["_filter"], "( ( name eq \"Ruediger\" or name eq \"Habibi\" ) and ( gender eq male or gender eq other ) )", "The _filter parameter for multilevel filter values is the formed with the correct operator");
 
 		// filter with BT operator
 		var oBirthDateFilter = new FHIRFilter({ path: "birthdate", operator: FilterOperator.BT, value1: "1965-03-23", value2: "1985-04-14" });
