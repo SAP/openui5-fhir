@@ -464,7 +464,7 @@ sap.ui.define([
 					if (!mParameters._filter) {
 						mParameters._filter = "";
 					}
-					this._complexFilterBuilder(oFilter, mParameters, undefined);
+					this._complexFilterBuilder(oFilter, mParameters);
 				} else if (oFilter._bMultiFilter && iLvl <= iSupportedFilterDepth) {
 					this.filterBuilder(oFilter.aFilters, mParameters, iSupportedFilterDepth, bIsValueSet, iLvl + 1, oFilter._bMultiFilter, oFilter.bAnd);
 				} else if (iLvl > iSupportedFilterDepth) {
@@ -519,22 +519,24 @@ sap.ui.define([
 	 *
 	 * @param {sap.ui.model.Filter} oFilter The filter which should be added to the parameters
 	 * @param {object} mParameters The parameters which should be passed to the request
-	 * @param {string} [sLogicalConnection] if the list of filters needs to be combined either with AND or OR
 	 * @private
 	 * @since 2.1.0
 	 */
-	FHIRUtils._complexFilterBuilder = function (oFilter, mParameters, sLogicalConnection) {
-		var sLogicalConnection1;
+	FHIRUtils._complexFilterBuilder = function (oFilter, mParameters) {
+		var sLogicalConnection;
 		if (oFilter instanceof Filter) {
 			if (oFilter._bMultiFilter) {
 				// recursive
-				sLogicalConnection1 = oFilter.bAnd && oFilter.bAnd == true ? "and" : "or";
+				sLogicalConnection = oFilter.bAnd && oFilter.bAnd == true ? "and" : "or";
 				if (oFilter.aFilters) {
 					mParameters._filter = mParameters._filter + "( ";
 					// for the first filter the logical connection shouldnt be appended
-					this._complexFilterBuilder(oFilter.aFilters[0], mParameters, undefined);
+					this._complexFilterBuilder(oFilter.aFilters[0], mParameters);
 					for (var i = 1; i < oFilter.aFilters.length; i++) {
-						this._complexFilterBuilder(oFilter.aFilters[i], mParameters, sLogicalConnection1);
+						if (sLogicalConnection) {
+							mParameters._filter = mParameters._filter + " " + sLogicalConnection + " ";
+						}
+						this._complexFilterBuilder(oFilter.aFilters[i], mParameters);
 					}
 					mParameters._filter = mParameters._filter + " )";
 				}
@@ -552,11 +554,7 @@ sap.ui.define([
 				} else {
 					sFilter = sPath + " " + sFilterOperator + " " + oValue1;
 				}
-				if (sLogicalConnection) {
-					mParameters._filter = mParameters._filter + " " + sLogicalConnection + " " + sFilter;
-				} else {
-					mParameters._filter = mParameters._filter + sFilter;
-				}
+				mParameters._filter = mParameters._filter + sFilter;
 			}
 		}
 	};
