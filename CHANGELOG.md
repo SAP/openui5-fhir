@@ -1,3 +1,10 @@
+## [2.2.2](https://github.com/SAP/openui5-fhir/compare/v2.2.1...v2.2.2) (2021-05-03)
+
+
+### Bug Fixes
+
+* operators concatenation in _filter ([#257](https://github.com/SAP/openui5-fhir/issues/257)) ([5bc09db](https://github.com/SAP/openui5-fhir/commit/5bc09dbacfc318fabc9665e8d4d384ed368d7194))
+
 ## [2.2.1](https://github.com/SAP/openui5-fhir/compare/v2.2.0...v2.2.1) (2021-04-26)
 
 
