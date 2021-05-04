@@ -39,7 +39,7 @@ The *OpenUI5-FHIR* project is completely integrated into the world of UI5. That 
 The underlaying FHIR® server has to full following requirements:
 - Provide the FHIR® data as JSON
 
-## Usage
+## Download and Installation
 
 The *OpenUI5-FHIR* project is published at npm on package `openui5-fhir`, which includes all necessary files. Add following snippet to your project `package.json` and update the version of `openui5-fhir` to the desired [version](https://github.com/SAP/openui5-fhir/releases).
 ```json
@@ -75,6 +75,9 @@ The following table displays the versions of *OpenUI5-FHIR* and the correspondin
 | *OpenUI5-FHIR*	| *OpenUI5*	|
 | -----------------	| ---------	|
 | 1.X.Y				| > 1.58.0	|
+
+## Licensing
+Please see our [LICENSE](LICENSE) for copyright and license information. Detailed information including third-party components and their licensing/copyright information is available via the [REUSE tool](https://api.reuse.software/info/github.com/SAP/openui5-fhir).
 
 ## References
 
