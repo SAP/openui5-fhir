@@ -342,7 +342,7 @@ sap.ui.define([
 				bFound = true;
 			}
 		});
-		assert.strictEqual(bFound, true, "The request of the listbinding with next link id formed based on the resource path");
+		assert.strictEqual(bFound, true, "The request of the listbinding with next link is formed based on the resource path");
 	});
 
 	QUnit.test("Context binding after _loadcontext change event has to be fired", function(assert) {
