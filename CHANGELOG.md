@@ -1,3 +1,10 @@
+## [2.2.3](https://github.com/SAP/openui5-fhir/compare/v2.2.2...v2.2.3) (2021-05-14)
+
+
+### Bug Fixes
+
+* pagination calls when the service url is relative ([#262](https://github.com/SAP/openui5-fhir/issues/262)) ([c998624](https://github.com/SAP/openui5-fhir/commit/c998624c42c7b7f1d8e9889bb744d61245374988))
+
 ## [2.2.2](https://github.com/SAP/openui5-fhir/compare/v2.2.1...v2.2.2) (2021-05-03)
 
 
