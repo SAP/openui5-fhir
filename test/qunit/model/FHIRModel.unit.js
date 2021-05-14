@@ -333,16 +333,16 @@ sap.ui.define([
 	});
 
 	QUnit.test("Call next link, which has no query params, and check that it is directly call", function(assert) {
-		this.oListBinding9.sNextLink = "https://example.com/fhir/abc?_getpages=1263645";
+		this.oListBinding9.sNextLink = "https://example.com/fhir/DummyResource?_getpages=1263645";
 		this.oListBinding9.iLastLength = 10;
 		this.oListBinding9.getContexts(0,20);
 		var bFound = false;
 		this.oFhirModel1.oRequestor._aPendingRequestHandles.forEach(function(oEntry, i) {
-			if (oEntry.getUrl().endsWith("abc?_getpages=1263645")){
+			if (oEntry.getUrl().endsWith("DummyResource?_count=10&_getpages=1263645&_total=accurate&_format=json")){
 				bFound = true;
 			}
 		});
-		assert.strictEqual(bFound, true, "The request of the listbinding with next link without params was found");
+		assert.strictEqual(bFound, true, "The request of the listbinding with next link is formed based on the resource path");
 	});
 
 	QUnit.test("Context binding after _loadcontext change event has to be fired", function(assert) {
@@ -1406,6 +1406,25 @@ sap.ui.define([
 			}
 		});
 		assert.strictEqual(bFound, true, "The request of the listbinding with next link with RESTful search is triggered correctly");
+	});
+
+	QUnit.test("Test pagination when the service url is relative and next links is absolute", function (assert) {
+		var oFhirModel = createModel();
+		var oListBinding = oFhirModel.bindList("/Practitioner");
+		oListBinding.sNextLink = "https://example.com/fhir/Practitioner?_count=10&_skip=5";
+		oListBinding.iLastLength = 10;
+		// manually set the service url to a relative url
+		// in an ideal scenario the service url is absolute but while integrating with a middleware (nginx server)
+		// the url can be relative
+		oFhirModel.oRequestor._sServiceUrl = "/../fhir";
+		oListBinding.getContexts(0, 20);
+		var bFound = false;
+		oFhirModel.oRequestor._aPendingRequestHandles.forEach(function (oEntry, i) {
+			if (oEntry.getUrl().endsWith("Practitioner?_count=10&_skip=5&_format=json")) {
+				bFound = true;
+			}
+		});
+		assert.strictEqual(bFound, true, "The request of the listbinding with next link is triggered correctly");
 	});
 
 });
