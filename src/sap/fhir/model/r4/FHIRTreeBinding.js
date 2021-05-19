@@ -628,11 +628,12 @@ sap.ui.define([
 	 * Filters the actual list binding depending on the given <code>aFilters</code>
 	 *
 	 * @param {sap.ui.model.Filter[]} [aFilters] The filters defined for the list binding
+	 * @param {sap.ui.model.FilterType} sFilterType Type of the filter which should be adjusted, if it is not given, the standard behaviour applies
 	 * @public
 	 * @since 1.0.0
 	 */
-	FHIRTreeBinding.prototype.filter = function(aFilters) {
-		FHIRUtils.filter(aFilters, this);
+	FHIRTreeBinding.prototype.filter = function (aFilters, sFilterType) {
+		FHIRUtils.filter(aFilters, this, sFilterType);
 	};
 
 	/**

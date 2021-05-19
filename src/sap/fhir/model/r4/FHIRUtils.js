@@ -11,8 +11,10 @@ sap.ui.define([
 	"sap/base/util/merge",
 	"sap/base/util/deepEqual",
 	"sap/ui/model/Filter",
-	"sap/ui/model/Sorter"
-], function (FHIRFilterOperatorUtils, FHIRFilterOperator, FHIRFilterComplexOperator, ChangeReason, merge, deepEqual, Filter, Sorter) {
+	"sap/ui/model/Sorter",
+	"sap/ui/model/FilterProcessor",
+	"sap/ui/model/FilterType"
+], function (FHIRFilterOperatorUtils, FHIRFilterOperator, FHIRFilterComplexOperator, ChangeReason, merge, deepEqual, Filter, Sorter, FilterProcessor, FilterType) {
 
 	"use strict";
 
@@ -564,16 +566,29 @@ sap.ui.define([
 	 *
 	 * @param {sap.ui.model.Filter | sap.ui.model.Filter[]} [aFilters] The filters defined for the list binding (can be either a filter or an array of filters)
 	 * @param {sap.fhir.model.r4.FHIRListBinding | sap.fhir.model.r4.FHIRTreeBinding} oBinding The binding which triggered the filter
+	 * @param {sap.ui.model.FilterType} sFilterType Type of the filter which should be adjusted, if it is not given, the standard behaviour applies
 	 * @public
 	 * @since 1.0.0
 	 */
-	FHIRUtils.filter = function (aFilters, oBinding) {
+	FHIRUtils.filter = function (aFilters, oBinding, sFilterType) {
 		if (!aFilters) {
 			aFilters = [];
 		}
 		if (aFilters instanceof Filter) {
 			aFilters = [aFilters];
 		}
+
+		if (sFilterType == FilterType.Application) {
+			oBinding.aApplicationFilters = aFilters;
+		} else {
+			oBinding.aFilters = aFilters;
+		}
+		//if no application-filters are present, or they are not in array form/empty array, init the filters with []
+		if (!oBinding.aApplicationFilters || !Array.isArray(oBinding.aApplicationFilters) || oBinding.aApplicationFilters.length === 0) {
+			oBinding.aApplicationFilters = [];
+		}
+		oBinding.oCombinedFilter = FilterProcessor.combineFilters(oBinding.aFilters, oBinding.aApplicationFilters);
+
 		if (oBinding.bPendingRequest) {
 			var fnQueryLastFilters = function () {
 				if (!oBinding.bPendingRequest) {
@@ -589,7 +604,6 @@ sap.ui.define([
 			}
 			oBinding.aFilterCache = aFilters;
 		} else {
-			oBinding.aFilters = aFilters;
 			oBinding.refresh(ChangeReason.Filter);
 		}
 	};

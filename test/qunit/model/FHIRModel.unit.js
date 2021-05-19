@@ -1427,4 +1427,18 @@ sap.ui.define([
 		assert.strictEqual(bFound, true, "The request of the listbinding with next link is triggered correctly");
 	});
 
+	QUnit.test("Test combined filters", function (assert) {
+		var oFhirModel = createModel({ filtering: { complex: true } });
+		var oNameFilter = new FHIRFilter({ path: "name", operator: FilterOperator.EQ, value1: "Ruediger", valueType: FHIRFilterType.string });
+		var aFilters = [oNameFilter];
+		var oListBinding = oFhirModel.bindList("/Patient");
+		oListBinding.filter(oNameFilter, sap.ui.model.FilterType.Application);
+		assert.deepEqual(oListBinding.aApplicationFilters, aFilters, "List Binding Application Filters are populated correctly if the filter type is application");
+
+		var oBirthDateFilter = new FHIRFilter({ path: "birthdate", operator: FilterOperator.BT, value1: "1965-03-23", value2: "1985-04-14" });
+		aFilters.push(oBirthDateFilter);
+		oListBinding.filter(aFilters, sap.ui.model.FilterType.Application);
+		assert.deepEqual(oListBinding.oCombinedFilter.bAnd, true, "Combined filters are formed correctly with bAnd as true");
+	});
+
 });
