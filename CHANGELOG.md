@@ -1,3 +1,10 @@
+## [2.2.4](https://github.com/SAP/openui5-fhir/compare/v2.2.3...v2.2.4) (2021-05-19)
+
+
+### Bug Fixes
+
+* support combined filters  ([#265](https://github.com/SAP/openui5-fhir/issues/265)) ([cffc66a](https://github.com/SAP/openui5-fhir/commit/cffc66af875ed579752fa01f8b09a0eb2e98b6de))
+
 ## [2.2.3](https://github.com/SAP/openui5-fhir/compare/v2.2.2...v2.2.3) (2021-05-14)
 
 
