@@ -583,10 +583,6 @@ sap.ui.define([
 		} else {
 			oBinding.aFilters = aFilters;
 		}
-
-		if (!aFilters || !Array.isArray(aFilters) || aFilters.length == 0) {
-			oBinding.aFilters = [];
-		}
 		//if no application-filters are present, or they are not in array form/empty array, init the filters with []
 		if (!oBinding.aApplicationFilters || !Array.isArray(oBinding.aApplicationFilters) || oBinding.aApplicationFilters.length === 0) {
 			oBinding.aApplicationFilters = [];
@@ -608,7 +604,6 @@ sap.ui.define([
 			}
 			oBinding.aFilterCache = aFilters;
 		} else {
-			oBinding.aFilters = aFilters;
 			oBinding.refresh(ChangeReason.Filter);
 		}
 	};
