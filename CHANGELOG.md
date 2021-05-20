@@ -1,3 +1,10 @@
+## [2.2.5](https://github.com/SAP/openui5-fhir/compare/v2.2.4...v2.2.5) (2021-05-20)
+
+
+### Bug Fixes
+
+* binding filters are not updated correctly in case of application filter types ([#266](https://github.com/SAP/openui5-fhir/issues/266)) ([60403c1](https://github.com/SAP/openui5-fhir/commit/60403c1352839491043a31bad9b134aa194b8d67))
+
 ## [2.2.4](https://github.com/SAP/openui5-fhir/compare/v2.2.3...v2.2.4) (2021-05-19)
 
 
