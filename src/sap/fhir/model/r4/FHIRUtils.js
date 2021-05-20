@@ -604,6 +604,7 @@ sap.ui.define([
 			}
 			oBinding.aFilterCache = aFilters;
 		} else {
+			oBinding.aFilters = aFilters;
 			oBinding.refresh(ChangeReason.Filter);
 		}
 	};
