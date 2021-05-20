@@ -580,9 +580,8 @@ sap.ui.define([
 
 		if (sFilterType == FilterType.Application) {
 			oBinding.aApplicationFilters = aFilters;
-		} else {
-			oBinding.aFilters = aFilters;
 		}
+
 		//if no application-filters are present, or they are not in array form/empty array, init the filters with []
 		if (!oBinding.aApplicationFilters || !Array.isArray(oBinding.aApplicationFilters) || oBinding.aApplicationFilters.length === 0) {
 			oBinding.aApplicationFilters = [];

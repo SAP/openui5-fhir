@@ -1439,6 +1439,8 @@ sap.ui.define([
 		aFilters.push(oBirthDateFilter);
 		oListBinding.filter(aFilters, sap.ui.model.FilterType.Application);
 		assert.deepEqual(oListBinding.oCombinedFilter.bAnd, true, "Combined filters are formed correctly with bAnd as true");
+		assert.deepEqual(oListBinding.aFilters, aFilters, "Binding filters are added correctly");
+
 	});
 
 });
