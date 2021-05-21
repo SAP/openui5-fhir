@@ -1292,7 +1292,7 @@ sap.ui.define([
 		aFilters = [oCombinedFilter];
 		oListBinding.filter(aFilters);
 		mParameters = oListBinding._buildParameters();
-		assert.deepEqual(mParameters.urlParameters["_filter"], "( ( name eq \"Ruediger\" or name eq \"Habibi\" ) and gender eq male )", "The _filter parameter object is the same");
+		assert.deepEqual(mParameters.urlParameters["_filter"], "( ( name eq \"Ruediger\" or name eq \"Habibi\" ) and gender eq \"male\" )", "The _filter parameter object is the same");
 
 		// chain of multileveled filters with `and` operator to be concatenated
 		var oGenderFilter1 = new FHIRFilter({ path: "gender", operator: FilterOperator.EQ, value1: "other" });
@@ -1301,7 +1301,7 @@ sap.ui.define([
 		aFilters = [oCombinedFilter];
 		oListBinding.filter(aFilters);
 		mParameters = oListBinding._buildParameters();
-		assert.deepEqual(mParameters.urlParameters["_filter"], "( ( name eq \"Ruediger\" or name eq \"Habibi\" ) and ( gender eq male or gender eq other ) )", "The _filter parameter for multilevel filter values is the formed with the correct operator");
+		assert.deepEqual(mParameters.urlParameters["_filter"], "( ( name eq \"Ruediger\" or name eq \"Habibi\" ) and ( gender eq \"male\" or gender eq \"other\" ) )", "The _filter parameter for multilevel filter values is the formed with the correct operator");
 
 		// filter with BT operator
 		var oBirthDateFilter = new FHIRFilter({ path: "birthdate", operator: FilterOperator.BT, value1: "1965-03-23", value2: "1985-04-14" });
@@ -1321,14 +1321,13 @@ sap.ui.define([
 		oRequestHandle = oFhirModel.loadData("/Patient", mParameters);
 		assert.deepEqual(mParameters.urlParameters["_filter"], "( name sw \"Ra\" and name ew \"er\" )", "The _filter parameter for StartsWith and EndsWith operator is the formed correctly");
 
-		var oBirthDate = new Date(Date.UTC(2014, 2, 1, 23, 0, 0));
-		var sBirthDateISOString = "2014-03-01T23:00:00.000Z";
-		oBirthDateFilter = new FHIRFilter({ path: "birthdate", operator: FHIRFilterOperator.GT, value1: oBirthDate });
+		var sBirthDate = "2014-03-01";
+		oBirthDateFilter = new FHIRFilter({ path: "birthdate", operator: FHIRFilterOperator.GT, value1: sBirthDate });
 		aFilters = [oBirthDateFilter];
 		oListBinding.filter(aFilters);
 		mParameters = oListBinding._buildParameters();
 		oRequestHandle = oFhirModel.loadData("/Patient", mParameters);
-		var sFilterParams = "birthdate gt " + sBirthDateISOString;
+		var sFilterParams = "birthdate gt " + sBirthDate;
 		assert.deepEqual(mParameters.urlParameters["_filter"], sFilterParams, "The _filter parameter for instance of type date is the formed correctly");
 	});
 

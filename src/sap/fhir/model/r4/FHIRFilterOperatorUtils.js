@@ -225,14 +225,14 @@ sap.ui.define([
 	 * @since 2.1.0
 	 */
 	FHIRFilterOperatorUtils.getFilterValueForComplexFilter = function (sFilterValue, vValue) {
-		var isStringFilterType = sFilterValue && sFilterValue === FHIRFilterType.string ? true : false;
 		var sValue;
-		if (isStringFilterType) {
-			// special handling for string parameter as per fhir
-			// given eq "peter"
+		// special handling for string parameter as per fhir
+		// given eq "peter"
+		if (sFilterValue && sFilterValue === FHIRFilterType.string) {
 			sValue = "\"" + vValue + "\"";
-		} else if (vValue instanceof Date) {
-			sValue = vValue.toISOString();
+		} else if (typeof vValue === "string" && isNaN(new Date(vValue).getTime())) {
+			// incase of date as string it shouldnt be encoded
+			sValue = "\"" + vValue + "\"";
 		} else {
 			sValue = vValue;
 		}
