@@ -1,3 +1,10 @@
+## [2.2.6](https://github.com/SAP/openui5-fhir/compare/v2.2.5...v2.2.6) (2021-05-22)
+
+
+### Bug Fixes
+
+* complex filter query ([#267](https://github.com/SAP/openui5-fhir/issues/267)) ([5da8585](https://github.com/SAP/openui5-fhir/commit/5da8585b17e9c78ed1e54ed60f5fb60f2811b20d))
+
 ## [2.2.5](https://github.com/SAP/openui5-fhir/compare/v2.2.4...v2.2.5) (2021-05-20)
 
 
