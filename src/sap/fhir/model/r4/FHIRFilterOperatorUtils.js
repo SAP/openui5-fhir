@@ -228,9 +228,10 @@ sap.ui.define([
 		var sValue;
 		// special handling for string parameter as per fhir
 		// given eq "peter"
+		var sRegex = "[ \r\n\t\S]+";
 		if (sFilterValue && sFilterValue === FHIRFilterType.string) {
 			sValue = "\"" + vValue + "\"";
-		} else if (typeof vValue === "string" && isNaN(new Date(vValue).getTime())) {
+		} else if (typeof vValue === "string" && (vValue.match(sRegex) != null || isNaN(new Date(vValue).getTime()))) {
 			// incase of date as string it shouldnt be encoded
 			sValue = "\"" + vValue + "\"";
 		} else {
