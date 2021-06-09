@@ -226,18 +226,38 @@ sap.ui.define([
 	 */
 	FHIRFilterOperatorUtils.getFilterValueForComplexFilter = function (sFilterValue, vValue) {
 		var sValue;
-		// special handling for string parameter as per fhir
-		// given eq "peter"
-		var sRegex = "[ \r\n\t\S]+";
-		if (sFilterValue && sFilterValue === FHIRFilterType.string) {
-			sValue = "\"" + vValue + "\"";
-		} else if (typeof vValue === "string" && (vValue.match(sRegex) != null || isNaN(new Date(vValue).getTime()))) {
-			// incase of date as string it shouldnt be encoded
+		if (this.canBeEncoded(sFilterValue, vValue)) {
 			sValue = "\"" + vValue + "\"";
 		} else {
 			sValue = vValue;
 		}
 		return sValue;
+	};
+
+	/**
+	 * Determines if the value should be encoded or not
+	 *
+	 * @param {string} sFilterValue The value type of a filter object
+	 * @param {any} vValue The value of a filter object
+	 * @returns {boolean} true if the value needs to be encoded
+	 * @private
+	 * @since 2.2.7
+	 */
+	FHIRFilterOperatorUtils.canBeEncoded = function (sFilterValue, vValue) {
+		var sRegex = "[ \r\n\t\S]+";
+		return (sFilterValue && sFilterValue === FHIRFilterType.string) || (typeof vValue === "string" && (vValue.match(sRegex) != null || this.isValidDate(vValue)));
+	};
+
+	/**
+	 * Determines if the value is valid date object
+	 *
+	 * @param {any} vValue The value of a filter object
+	 * @returns {boolean} true if the value is not valid date
+	 * @private
+	 * @since 2.2.7
+	 */
+	FHIRFilterOperatorUtils.isValidDate = function (vValue) {
+		return isNaN(new Date(vValue).getTime());
 	};
 
 	return FHIRFilterOperatorUtils;

@@ -1357,6 +1357,15 @@ sap.ui.define([
 		assert.deepEqual(mParameters.urlParameters["_filter"], "name eq \"Cardi abc\"", "The _filter parameter object is the same even if the value type of string is not present");
 		assert.strictEqual(oRequestHandle.getUrl().indexOf("name%20eq%20%22Cardi%20abc%22") > -1, true, "The url is encoded for _filter parameter");
 
+		oNameFilter = new FHIRFilter({ path: "name", operator: FilterOperator.EQ, value1: "Cardi1" });
+		aFilters = [oNameFilter];
+		oListBinding = oFhirModel.bindList("/Patient");
+		oListBinding.filter(aFilters);
+		mParameters = oListBinding._buildParameters();
+		oRequestHandle = oFhirModel.loadData("/Patient", mParameters);
+		assert.deepEqual(mParameters.urlParameters["_filter"], "name eq \"Cardi1\"", "The _filter parameter object is the same even if the value type of string is not present");
+		assert.strictEqual(oRequestHandle.getUrl().indexOf("name%20eq%20%22Cardi1%22") > -1, true, "The url is encoded for _filter parameter");
+
 	});
 
 	QUnit.test("RESTful search tests", function (assert) {
