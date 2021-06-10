@@ -1,3 +1,10 @@
+## [2.2.7](https://github.com/SAP/openui5-fhir/compare/v2.2.6...v2.2.7) (2021-06-10)
+
+
+### Bug Fixes
+
+* better handling of strings with ws and numbers ([#272](https://github.com/SAP/openui5-fhir/issues/272)) ([d196651](https://github.com/SAP/openui5-fhir/commit/d19665169a0af3e5c057c653be0f07830070b558))
+
 ## [2.2.6](https://github.com/SAP/openui5-fhir/compare/v2.2.5...v2.2.6) (2021-05-22)
 
 
