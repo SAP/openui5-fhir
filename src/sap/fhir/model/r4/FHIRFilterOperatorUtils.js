@@ -218,15 +218,15 @@ sap.ui.define([
 	/**
 	 * Parses the JS filter value to a FHIR filter value
 	 *
-	 * @param {string} sFilterValue The value type of a filter object
+	 * @param {string} sFilterType The value type of a filter object
 	 * @param {any} vValue The value of a filter object
 	 * @returns {string} Formatted FHIR filter value
 	 * @public
 	 * @since 2.1.0
 	 */
-	FHIRFilterOperatorUtils.getFilterValueForComplexFilter = function (sFilterValue, vValue) {
+	FHIRFilterOperatorUtils.getFilterValueForComplexFilter = function (sFilterType, vValue) {
 		var sValue;
-		if (this.canBeEncoded(sFilterValue, vValue)) {
+		if (this.isFilterValueEncodable(sFilterType, vValue)) {
 			sValue = "\"" + vValue + "\"";
 		} else {
 			sValue = vValue;
@@ -237,19 +237,19 @@ sap.ui.define([
 	/**
 	 * Determines if the value should be encoded or not
 	 *
-	 * @param {string} sFilterValue The value type of a filter object
+	 * @param {string} sFilterType The value type of a filter object
 	 * @param {any} vValue The value of a filter object
 	 * @returns {boolean} true if the value needs to be encoded
 	 * @private
 	 * @since 2.2.7
 	 */
-	FHIRFilterOperatorUtils.canBeEncoded = function (sFilterValue, vValue) {
+	FHIRFilterOperatorUtils.isFilterValueEncodable = function (sFilterType, vValue) {
 		var sRegex = "[ \r\n\t\S]+";
-		return (sFilterValue && sFilterValue === FHIRFilterType.string) || (typeof vValue === "string" && (vValue.match(sRegex) != null || this.isValidDate(vValue)));
+		return (sFilterType && sFilterType === FHIRFilterType.string) || (typeof vValue === "string" && (vValue.match(sRegex) != null || this.isValidDate(vValue)));
 	};
 
 	/**
-	 * Determines if the value is valid date object
+	 * Determines if the given vValue can be parsed to a valid date object
 	 *
 	 * @param {any} vValue The value of a filter object
 	 * @returns {boolean} true if the value is not valid date
