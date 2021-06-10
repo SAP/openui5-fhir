@@ -218,25 +218,46 @@ sap.ui.define([
 	/**
 	 * Parses the JS filter value to a FHIR filter value
 	 *
-	 * @param {string} sFilterValue The value type of a filter object
-	 * @param {any} vValue The value of a filter object
+	 * @param {string} sFilterType The value type of a filter object
+	 * @param {any} vFilterValue The value of a filter object
 	 * @returns {string} Formatted FHIR filter value
 	 * @public
 	 * @since 2.1.0
 	 */
-	FHIRFilterOperatorUtils.getFilterValueForComplexFilter = function (sFilterValue, vValue) {
+	FHIRFilterOperatorUtils.getFilterValueForComplexFilter = function (sFilterType, vFilterValue) {
 		var sValue;
-		// special handling for string parameter as per fhir
-		// given eq "peter"
-		if (sFilterValue && sFilterValue === FHIRFilterType.string) {
-			sValue = "\"" + vValue + "\"";
-		} else if (typeof vValue === "string" && isNaN(new Date(vValue).getTime())) {
-			// incase of date as string it shouldnt be encoded
-			sValue = "\"" + vValue + "\"";
+		if (this.isFilterValueEncodable(sFilterType, vFilterValue)) {
+			sValue = "\"" + vFilterValue + "\"";
 		} else {
-			sValue = vValue;
+			sValue = vFilterValue;
 		}
 		return sValue;
+	};
+
+	/**
+	 * Determines if the value should be encoded or not
+	 *
+	 * @param {string} sFilterType The value type of a filter object
+	 * @param {any} vFilterValue The value of a filter object
+	 * @returns {boolean} true if the value needs to be encoded
+	 * @private
+	 * @since 2.2.7
+	 */
+	FHIRFilterOperatorUtils.isFilterValueEncodable = function (sFilterType, vFilterValue) {
+		var sRegex = "[ \r\n\t\S]+";
+		return (sFilterType && sFilterType === FHIRFilterType.string) || (typeof vFilterValue === "string" && (vFilterValue.match(sRegex) != null || this.isValidDate(vFilterValue)));
+	};
+
+	/**
+	 * Determines if the given vValue can be parsed to a valid date object
+	 *
+	 * @param {any} vFilterValue The value of a filter object
+	 * @returns {boolean} true if the value is not valid date
+	 * @private
+	 * @since 2.2.7
+	 */
+	FHIRFilterOperatorUtils.isValidDate = function (vFilterValue) {
+		return isNaN(new Date(vFilterValue).getTime());
 	};
 
 	return FHIRFilterOperatorUtils;
