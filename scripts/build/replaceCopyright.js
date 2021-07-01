@@ -5,7 +5,7 @@ const yamlPath = "ui5.yaml";
 
 function getDefaultCopyRight() {
     const content = replaceCurrentYear(fs.readFileSync(yamlPath, 'utf8'));
-    const yamlContent = yaml.safeLoad(content);
+    const yamlContent = yaml.load(content);
     return yamlContent.metadata.copyright;
 }
 

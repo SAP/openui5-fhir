@@ -1,5 +1,5 @@
 ---
-specVersion: "2.1"
+specVersion: "2.4"
 type: library
 metadata:
   name: sap.fhir

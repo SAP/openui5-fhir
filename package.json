@@ -64,7 +64,7 @@
     "prepublishOnly": "node ./scripts/build/builder.js"
   },
   "files": [
-    "src/sap/fhir/**/*.js",
+    "src/sap/fhir/**",
     "ui5.yaml",
     "LICENSES/**",
     ".reuse/**"
