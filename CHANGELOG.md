@@ -1,3 +1,10 @@
+## [2.2.8](https://github.com/SAP/openui5-fhir/compare/v2.2.7...v2.2.8) (2021-07-02)
+
+
+### Bug Fixes
+
+* include .library and manifest files as part of packaging ([#282](https://github.com/SAP/openui5-fhir/issues/282)) ([77c9efe](https://github.com/SAP/openui5-fhir/commit/77c9efedb9211ebbaa98e60b6c85f76e90a10661))
+
 ## [2.2.7](https://github.com/SAP/openui5-fhir/compare/v2.2.6...v2.2.7) (2021-06-10)
 
 
