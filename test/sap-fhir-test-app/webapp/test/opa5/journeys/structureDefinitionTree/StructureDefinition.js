@@ -89,11 +89,11 @@ sap.ui.require(["sap/ui/test/Opa5", "sap/ui/test/opaQunit"], function(Opa5, opaT
 	});
 
 	QUnit.module("Treetable expand by value 2 and multiple select actions");
-	opaSkip("full test", function(Given, When, Then) {
+	opaTest("full test", function(Given, When, Then) {
 		Given.iStartMyApp(sHashTable);
 		When.iEnterDataInInput("2", sViewTable,sLvlOfExpansion);
 		When.iPressButton(sViewTable, sExpandToLvlBtn);
-		Then.theTextShouldAppear("TestAppointmentExtended", sViewTable);
+		//Then.theTextShouldAppear("TestAppointmentExtended", sViewTable);
 		When.iScrollInTableToBottom(sViewTable, sTreeTable);
 		Then.theTextShouldAppear("ProcessResponse", sViewTable);
 		When.iScrollInTableToBottom(sViewTable, sTreeTable);
