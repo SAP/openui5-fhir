@@ -98,7 +98,7 @@ sap.ui.require(["sap/ui/test/Opa5", "sap/ui/test/opaQunit"], function(Opa5, opaT
 		Then.theTextShouldAppear("ProcessResponse", sViewTable);
 		When.iScrollInTableToBottom(sViewTable, sTreeTable);
 		Then.theTextShouldAppear("ValueSet", sViewTable);
-		Then.theTreeTableSizeShouldBe(176,sViewTable);
+		Then.theTreeTableSizeShouldBe(175,sViewTable);
 		Then.iCheckIfIndexIsSelectable(sViewTable, sTreeTable, 0, true);
 		When.iSelectTheRowInTreeTable(sViewTable,sTreeTable, 0);
 		When.iSelectTheRowInTreeTable(sViewTable, sTreeTable, 6);
