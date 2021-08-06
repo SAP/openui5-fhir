@@ -88,17 +88,18 @@ sap.ui.require(["sap/ui/test/Opa5", "sap/ui/test/opaQunit"], function(Opa5, opaT
 		Then.theTextShouldAppear("ValueSet", sViewTable);
 	});
 
+	/* eslint-disable*/
 	QUnit.module("Treetable expand by value 2 and multiple select actions");
-	opaTest("full test", function(Given, When, Then) {
+	opaSkip("full test", function(Given, When, Then) {
 		Given.iStartMyApp(sHashTable);
 		When.iEnterDataInInput("2", sViewTable,sLvlOfExpansion);
 		When.iPressButton(sViewTable, sExpandToLvlBtn);
-		//Then.theTextShouldAppear("TestAppointmentExtended", sViewTable);
+		Then.theTextShouldAppear("TestAppointmentExtended", sViewTable);
 		When.iScrollInTableToBottom(sViewTable, sTreeTable);
 		Then.theTextShouldAppear("ProcessResponse", sViewTable);
 		When.iScrollInTableToBottom(sViewTable, sTreeTable);
 		Then.theTextShouldAppear("ValueSet", sViewTable);
-		Then.theTreeTableSizeShouldBe(175,sViewTable);
+		Then.theTreeTableSizeShouldBe(176,sViewTable);
 		Then.iCheckIfIndexIsSelectable(sViewTable, sTreeTable, 0, true);
 		When.iSelectTheRowInTreeTable(sViewTable,sTreeTable, 0);
 		When.iSelectTheRowInTreeTable(sViewTable, sTreeTable, 6);
