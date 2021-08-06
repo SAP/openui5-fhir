@@ -1,0 +1,71 @@
+name: Continous Integration
+
+on:
+  push:
+    branches:
+      - master
+      - main
+jobs:
+  build:
+     if: "!contains(github.event.commits[0].message, '[skip ci]')"
+     name: Build, Lint Checks and Tests
+     runs-on: ubuntu-latest
+     steps:
+      - name: Checkout  
+        uses: actions/checkout@v2
+      - name: Setup Node 
+        uses: actions/setup-node@v2
+        with:
+          node-version: 12.13.1
+      - name: Install NPM dependencies
+        run: npm install
+      - name: Setup Java 
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: '8'
+          check-latest: true
+      - name: Start Mock Server 
+        shell: bash
+        run: |
+         chmod +x "${GITHUB_WORKSPACE}/scripts/setup_mock.sh"
+         "${GITHUB_WORKSPACE}/scripts/setup_mock.sh"
+      - name: JSLint
+        run: npm run lint
+      - name: Tests
+        run: npm run test
+      - name: Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path-to-lcov: ./test-results/coverage/all/lcov/lcov-all.info 
+  release:
+     needs: build
+     name: Release
+     runs-on: ubuntu-latest
+     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.FHIRBOT_GH_TOKEN }}
+          fetch-depth: 0
+          persist-credentials: false 
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 12.13.1
+      - name: Install dependencies
+        run: npm install
+      - name: Run Semantic Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.FHIRBOT_GH_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npx semantic-release
+      - name: Generate API Documentation
+        run: npm run docs
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@4.1.4
+        with:
+          branch: gh-pages # The branch the action should deploy to.
+          folder: generated_docs/html
+          token: ${{ secrets.FHIRBOT_GH_TOKEN }}
