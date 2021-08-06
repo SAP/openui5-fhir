@@ -37,3 +37,7 @@ jobs:
         run: npm run lint
       - name: Tests
         run: npm run test
+      - name: Coveralls
+        uses: coverallsapp/github-action@1.1.3
+        with:
+          github-token: ${{ secrets.FHIRBOT_GH_TOKEN }}  
