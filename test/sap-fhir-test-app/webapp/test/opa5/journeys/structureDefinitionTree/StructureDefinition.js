@@ -88,9 +88,8 @@ sap.ui.require(["sap/ui/test/Opa5", "sap/ui/test/opaQunit"], function(Opa5, opaT
 		Then.theTextShouldAppear("ValueSet", sViewTable);
 	});
 
-	/* eslint-disable*/
 	QUnit.module("Treetable expand by value 2 and multiple select actions");
-	opaSkip("full test", function(Given, When, Then) {
+	opaTest("full test", function(Given, When, Then) {
 		Given.iStartMyApp(sHashTable);
 		When.iEnterDataInInput("2", sViewTable,sLvlOfExpansion);
 		When.iPressButton(sViewTable, sExpandToLvlBtn);
