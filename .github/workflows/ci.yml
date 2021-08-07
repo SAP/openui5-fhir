@@ -69,3 +69,5 @@ jobs:
           branch: gh-pages # The branch the action should deploy to.
           folder: generated_docs/html
           token: ${{ secrets.FHIRBOT_GH_TOKEN }}
+          git-config-name: openui5fhirbot
+          git-config-email: openui5-fhir@sap.com
