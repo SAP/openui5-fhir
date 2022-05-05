@@ -151,7 +151,12 @@ sap.ui.define([
 			sETag = oBindingInfo.getETag();
 		}
 		var oFHIRBundleRequest = new FHIRBundleRequest(oBinding, sMethod, sRequestUrl, fnSuccess, fnError, sETag);
-		var oFHIRBundleEntry = new FHIRBundleEntry(sFullUrl, oResource, oFHIRBundleRequest);
+		var oFHIRBundleEntry;
+		if (sMethod == HTTPMethod.POST || sMethod == HTTPMethod.PUT) {
+			oFHIRBundleEntry = new FHIRBundleEntry(sFullUrl, oResource, oFHIRBundleRequest);
+		} else {
+			oFHIRBundleEntry = new FHIRBundleEntry(sFullUrl, undefined, oFHIRBundleRequest);
+		}
 		return oFHIRBundleEntry;
 	};
 

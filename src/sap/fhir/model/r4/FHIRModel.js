@@ -1492,16 +1492,17 @@ sap.ui.define([
 	 *
 	 * @param {string[]} aResources the resources which shall be deleted, e.g. ["/Patient/123", "/Organization/XYZ"]
 	 * @param {function} [fnPreProcess] to preprocess the objects of the given aResources
+	 * @param {string} [sGroupId] The group where the resource should belongs to
 	 * @public
 	 * @since 1.0.0
 	 */
-	FHIRModel.prototype.remove = function(aResources, fnPreProcess){
-		for (var i = 0; i < aResources.length; i++){
+	FHIRModel.prototype.remove = function (aResources, fnPreProcess, sGroupId) {
+		for (var i = 0; i < aResources.length; i++) {
 			var sResourcePath = fnPreProcess ? fnPreProcess(aResources[i]) : aResources[i];
 			var oBindingInfo = this.getBindingInfo(sResourcePath);
 			var aResPath = oBindingInfo.getResourcePathArray();
 			var oRequestInfo = this._getProperty(this.mChangedResources, aResPath);
-			if (oRequestInfo && oRequestInfo.method == HTTPMethod.POST){
+			if (oRequestInfo && oRequestInfo.method == HTTPMethod.POST) {
 				this._setProperty(this.oData, FHIRUtils.deepClone(aResPath));
 				this._setProperty(this.mResourceGroupId, FHIRUtils.deepClone(aResPath));
 				this._setProperty(this.mChangedResources, FHIRUtils.deepClone(aResPath));
@@ -1509,7 +1510,11 @@ sap.ui.define([
 				this.checkUpdate(true);
 			} else {
 				oRequestInfo = this._createRequestInfo(HTTPMethod.DELETE, oBindingInfo.getResourceServerPath());
-				this._setProperty(this.mChangedResources, FHIRUtils.deepClone(aResPath), oRequestInfo, true);
+				if (sGroupId) {
+					this._setProperty(this.mChangedResources, FHIRUtils.deepClone(aResPath), oRequestInfo, true, sGroupId);
+				} else {
+					this._setProperty(this.mChangedResources, FHIRUtils.deepClone(aResPath), oRequestInfo, true);
+				}
 			}
 		}
 	};

@@ -56,6 +56,9 @@ sap.ui.define([
 					},
 					"bundle":{
 						"submit":"Batch"
+					},
+					"transaction":{
+						"submit":"Transaction"
 					}
 				},
 				"defaultQueryParameters": { "_total": "accurate" }
@@ -574,26 +577,26 @@ sap.ui.define([
 		oListBinding.getContexts();
 	});
 
-	QUnit.test("Reset of client changes when resource had groupid via context binding but in other context no groupid and got deleted", function(assert) {
+	QUnit.test("Reset of client changes when resource had groupid via context binding but in other context no groupid doesnot got deleted", function (assert) {
 		var oListBinding = this.oFhirModel.bindList("/Claim");
 		this.oFhirModel.aBindings.push(oListBinding);
 		var done = assert.async();
-		var fnAssertion = function(){
+		var fnAssertion = function () {
 			oListBinding.attachDataReceived(fnAssertion);
 			var sId = this.oFhirModel.create("Claim");
-			var oContextBinding = this.oFhirModel.bindContext("/Claim/" + sId, undefined, { groupId : "patientDetails"});
+			var oContextBinding = this.oFhirModel.bindContext("/Claim/" + sId, undefined, { groupId: "patientDetails" });
 			var oPropertyBinding = this.oFhirModel.bindProperty("created", oContextBinding.getBoundContext());
 			this.oFhirModel.aBindings.push(oContextBinding);
 			this.oFhirModel.aBindings.push(oPropertyBinding);
 			var oDate = new Date();
 			oPropertyBinding.setValue(oDate);
-			this.oFhirModel.submitChanges("patientDetails", function(aFHIRResource){
+			this.oFhirModel.submitChanges("patientDetails", function (aFHIRResource) {
 				var oFHIRResource = aFHIRResource.find(function (oResource) {
 					return oResource.resourceType === "Claim";
 				});
 				this.oFhirModel.remove(["/Claim/" + oFHIRResource.id]);
-				this.oFhirModel.submitChanges("patientDetails", function(oData){
-					assert.deepEqual(this.oFhirModel.mChangedResources["Claim"], {} , "Claim in changed resources got cleared");
+				this.oFhirModel.submitChanges("patientDetails", function (oData) {
+					assert.deepEqual(Object.keys(this.oFhirModel.mChangedResources["Claim"]).length, 1, "Claim in changed resources doesnot get cleared if its not removed using the same group with which it got created");
 					done();
 				}.bind(this));
 			}.bind(this));
@@ -805,6 +808,45 @@ sap.ui.define([
 				}
 			]
 		}, mParameters);
+	});
+
+	QUnit.test("Remove resources from a group and submit changes together", function (assert) {
+		this.oFhirModel.create("Practitioner", {
+			name: [
+				{
+					family: "ray",
+					given: ["duncan"]
+				}
+			]
+		}, "transaction");
+		this.oFhirModel.create("Practitioner", {
+			name: [
+				{
+					family: "ray",
+					given: ["charles"]
+				}
+			]
+		}, "transaction");
+		var done = assert.async();
+		var sResId;
+		var fnSuccessCallback = function (aFHIRResource) {
+			sResId = aFHIRResource[0].id;
+			this.oFhirModel.create("Practitioner", {
+				name: [
+					{
+						family: "ray",
+						given: ["melise"]
+					}
+				]
+			}, "transaction");
+			this.oFhirModel.remove(["/Practitioner/" + sResId], undefined, "transaction");
+			var mRequestHandles = this.oFhirModel.submitChanges("transaction",function(aFHIRResource){
+				done();
+			});
+			assert.deepEqual(mRequestHandles.transaction.getBundle().getBundleEntries().length, 2, "Number of bundle entries are correct after the removing resource from a particular group");
+			done();
+		}.bind(this);
+		this.oFhirModel.submitChanges("transaction", fnSuccessCallback);
 	});
 
 });
