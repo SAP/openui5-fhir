@@ -577,7 +577,7 @@ sap.ui.define([
 		oListBinding.getContexts();
 	});
 
-	QUnit.test("Reset of client changes when resource had groupid via context binding but in other context no groupid does not got deleted", function (assert) {
+	QUnit.test("Reset of client changes when resource had groupid via context binding but in other context no groupid and got deleted", function (assert) {
 		var oListBinding = this.oFhirModel.bindList("/Claim");
 		this.oFhirModel.aBindings.push(oListBinding);
 		var done = assert.async();
@@ -596,7 +596,7 @@ sap.ui.define([
 				});
 				this.oFhirModel.remove(["/Claim/" + oFHIRResource.id]);
 				this.oFhirModel.submitChanges("patientDetails", function (oData) {
-					assert.deepEqual(Object.keys(this.oFhirModel.mChangedResources["Claim"]).length, 1, "Claim in changed resources does not get cleared if its not removed using the same group with which it got created");
+					assert.deepEqual(this.oFhirModel.mChangedResources["Claim"], {}, "Claim in changed resources got cleared");
 					done();
 				}.bind(this));
 			}.bind(this));
