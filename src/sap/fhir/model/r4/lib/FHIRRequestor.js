@@ -118,7 +118,7 @@ sap.ui.define([
 		}
 
 		// it's a direct call
-		oRequestHandle = this._sendRequest(sMethod, sPath, mParameters, mHeaders, oPayload, fnSuccess, fnError, oBinding);
+		oRequestHandle = this._sendRequest(sMethod, sPath, mParameters, mHeaders, sMethod === HTTPMethod.PUT || sMethod == HTTPMethod.POST ? oPayload : undefined, fnSuccess, fnError, oBinding);
 		return oRequestHandle;
 	};
 

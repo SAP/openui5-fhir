@@ -468,7 +468,7 @@ sap.ui.define([
 			sGroupId = oRequestHandle.getBundle().getGroupId();
 			if (oResponse.resource && HTTPMethod.GET === sMethod){
 				oResponse = oResponse.resource;
-			} else {
+			} else if (HTTPMethod.DELETE !== sMethod) {
 				mResponseHeaders = oResponse.response;
 				oResponse = this._updateResourceFromFHIRResponse(mResponseHeaders, oBundleEntry.getFullUrl(), oBundleEntry);
 			}
@@ -1511,7 +1511,7 @@ sap.ui.define([
 				this.checkUpdate(true);
 			} else {
 				oRequestInfo = this._createRequestInfo(HTTPMethod.DELETE, oBindingInfo.getResourceServerPath());
-				this._setProperty(this.mChangedResources, FHIRUtils.deepClone(aResPath), oRequestInfo, true, sResourceGroupId && sResourceGroupId == sGroupId ? sGroupId : undefined);
+				this._setProperty(this.mChangedResources, FHIRUtils.deepClone(aResPath), oRequestInfo, true, sResourceGroupId && sResourceGroupId === sGroupId ? sGroupId : undefined);
 			}
 		}
 	};
