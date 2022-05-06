@@ -1510,11 +1510,7 @@ sap.ui.define([
 				this.checkUpdate(true);
 			} else {
 				oRequestInfo = this._createRequestInfo(HTTPMethod.DELETE, oBindingInfo.getResourceServerPath());
-				if (sGroupId) {
-					this._setProperty(this.mChangedResources, FHIRUtils.deepClone(aResPath), oRequestInfo, true, sGroupId);
-				} else {
-					this._setProperty(this.mChangedResources, FHIRUtils.deepClone(aResPath), oRequestInfo, true);
-				}
+				this._setProperty(this.mChangedResources, FHIRUtils.deepClone(aResPath), oRequestInfo, true, sGroupId);
 			}
 		}
 	};
