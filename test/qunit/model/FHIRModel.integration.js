@@ -56,6 +56,9 @@ sap.ui.define([
 					},
 					"bundle":{
 						"submit":"Batch"
+					},
+					"transaction":{
+						"submit":"Transaction"
 					}
 				},
 				"defaultQueryParameters": { "_total": "accurate" }
@@ -805,6 +808,45 @@ sap.ui.define([
 				}
 			]
 		}, mParameters);
+	});
+
+	QUnit.test("Remove resources from a group and submit changes together", function (assert) {
+		this.oFhirModel.create("Practitioner", {
+			name: [
+				{
+					family: "ray",
+					given: ["duncan"]
+				}
+			]
+		}, "transaction");
+		this.oFhirModel.create("Practitioner", {
+			name: [
+				{
+					family: "ray",
+					given: ["charles"]
+				}
+			]
+		}, "transaction");
+		var done = assert.async();
+		var sResId;
+		var fnSuccessCallback = function (aFHIRResource) {
+			sResId = aFHIRResource[0].id;
+			this.oFhirModel.create("Practitioner", {
+				name: [
+					{
+						family: "ray",
+						given: ["melise"]
+					}
+				]
+			}, "transaction");
+			this.oFhirModel.remove(["/Practitioner/" + sResId], undefined, "transaction");
+			var mRequestHandles = this.oFhirModel.submitChanges("transaction",function(aFHIRResource){
+				done();
+			});
+			assert.deepEqual(mRequestHandles.transaction.getBundle().getBundleEntries().length, 2, "Number of bundle entries are correct after the removing resource from a particular group");
+			done();
+		}.bind(this);
+		this.oFhirModel.submitChanges("transaction", fnSuccessCallback);
 	});
 
 });
