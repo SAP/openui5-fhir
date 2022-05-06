@@ -1,3 +1,10 @@
+# [2.3.0](https://github.com/SAP/openui5-fhir/compare/v2.2.8...v2.3.0) (2022-05-06)
+
+
+### Features
+
+* Enable the support of groupId in remove calls ([#321](https://github.com/SAP/openui5-fhir/issues/321)) ([31ffa38](https://github.com/SAP/openui5-fhir/commit/31ffa38717a6b7581942424c1835709e97b4250e))
+
 ## [2.2.8](https://github.com/SAP/openui5-fhir/compare/v2.2.7...v2.2.8) (2021-07-02)
 
 
