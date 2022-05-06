@@ -1502,6 +1502,7 @@ sap.ui.define([
 			var oBindingInfo = this.getBindingInfo(sResourcePath);
 			var aResPath = oBindingInfo.getResourcePathArray();
 			var oRequestInfo = this._getProperty(this.mChangedResources, aResPath);
+			var sResourceGroupId = this._getProperty(this.mResourceGroupId, aResPath);
 			if (oRequestInfo && oRequestInfo.method == HTTPMethod.POST) {
 				this._setProperty(this.oData, FHIRUtils.deepClone(aResPath));
 				this._setProperty(this.mResourceGroupId, FHIRUtils.deepClone(aResPath));
@@ -1510,7 +1511,7 @@ sap.ui.define([
 				this.checkUpdate(true);
 			} else {
 				oRequestInfo = this._createRequestInfo(HTTPMethod.DELETE, oBindingInfo.getResourceServerPath());
-				this._setProperty(this.mChangedResources, FHIRUtils.deepClone(aResPath), oRequestInfo, true, sGroupId);
+				this._setProperty(this.mChangedResources, FHIRUtils.deepClone(aResPath), oRequestInfo, true, sResourceGroupId && sResourceGroupId == sGroupId ? sGroupId : undefined);
 			}
 		}
 	};
