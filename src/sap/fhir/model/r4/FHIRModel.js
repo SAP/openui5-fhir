@@ -187,6 +187,7 @@ sap.ui.define([
 		this.mResourceGroupId = {};
 		this.mContexts = {};
 		this.mMessages = {};
+		this.mRemovedResources = {};
 	};
 
 	/**
@@ -1512,6 +1513,12 @@ sap.ui.define([
 			} else {
 				oRequestInfo = this._createRequestInfo(HTTPMethod.DELETE, oBindingInfo.getResourceServerPath());
 				this._setProperty(this.mChangedResources, FHIRUtils.deepClone(aResPath), oRequestInfo, true, sResourceGroupId && sResourceGroupId === sGroupId ? sGroupId : undefined);
+				if (!this.mRemovedResources[oBindingInfo.getResourceType()]) {
+					this.mRemovedResources[oBindingInfo.getResourceType()] = [sResourcePath.substring(1)];
+				} else {
+					this.mRemovedResources[oBindingInfo.getResourceType()].unshift(sResourcePath.substring(1));
+				}
+				this.checkUpdate(true, this.mChangedResources, oBindingInfo, HTTPMethod.DELETE);
 			}
 		}
 	};
@@ -1539,6 +1546,8 @@ sap.ui.define([
 					this._setProperty(this.oData, FHIRUtils.deepClone(aResPath));
 					this._setProperty(this.mResourceGroupId, FHIRUtils.deepClone(aResPath));
 					this._removeFromOrderResources(oBindingInfo);
+				} else if (oRequestInfo.method === HTTPMethod.DELETE){
+					this._removeFromRemovedResources(oBindingInfo);
 				}
 				this._setProperty(this.mChangedResources, FHIRUtils.deepClone(aResPath));
 			}.bind(this);
@@ -1580,6 +1589,21 @@ sap.ui.define([
 		this.mOrderResources[sType].splice(iIndex, 1);
 		if (this.mOrderResources[sType].length === 0){
 			delete this.mOrderResources[sType];
+		}
+	};
+
+	/**
+	 * Removes a resource from the remove resources map
+	 *
+	 * @param {sap.fhir.model.r4.lib.BindingInfo} oBindingInfo The binding info object
+	 */
+	FHIRModel.prototype._removeFromRemovedResources = function (oBindingInfo) {
+		var sType = oBindingInfo.getResourceType();
+		var sId = oBindingInfo.getResourceId();
+		var iIndex = this.mRemovedResources[sType].indexOf(sType + "/" + sId);
+		this.mRemovedResources[sType].splice(iIndex, 1);
+		if (this.mRemovedResources[sType].length === 0) {
+			delete this.mRemovedResources[sType];
 		}
 	};
 

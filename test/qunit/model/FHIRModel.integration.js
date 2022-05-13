@@ -75,6 +75,7 @@ sap.ui.define([
 			this.oFhirModel.aBindings = [];
 			this.oFhirModel.refresh();
 			this.oFhirModel.mChangedResources = {};
+			this.oFhirModel.mRemovedResources = {};
 		}
 	});
 
@@ -847,6 +848,30 @@ sap.ui.define([
 			done();
 		}.bind(this);
 		this.oFhirModel.submitChanges("transaction", fnSuccessCallback);
+	});
+
+	QUnit.test("Test remove items from list and verify the contexts before and after submitting the changes", function (assert) {
+		var oListBinding = this.oFhirModel.bindList("/Practitioner", undefined, undefined, undefined, { groupId: "patientDetails" });
+		this.oFhirModel.aBindings.push(oListBinding);
+		var done = assert.async();
+		var fnAssertion = function () {
+			var iCurrentLength = oListBinding.getContexts().length;
+			var aContext = oListBinding.getContexts();
+			var sResPath = aContext[0].sPath;
+			this.oFhirModel.remove([sResPath], undefined, "patientDetails");
+			assert.deepEqual(oListBinding.getContexts().length, iCurrentLength - 1, "List doesn't show the removed items even if the changes are not submitted");
+			this.oFhirModel.resetChanges("patientDetails");
+			assert.deepEqual(oListBinding.getContexts().length, iCurrentLength, "List shows the previously removed items if the changes are not submitted and reset changes is triggered");
+			assert.deepEqual(this.oFhirModel.mRemovedResources["Practitioner"], undefined, "Removed Resources of the model is correctly cleared during reset changes");
+			this.oFhirModel.remove([sResPath], undefined, "patientDetails");
+			assert.deepEqual(this.oFhirModel.mRemovedResources["Practitioner"].length, 1, "Removed Resources of the model is correctly filled");
+			this.oFhirModel.submitChanges("patientDetails", function (aFHIRResource) {
+				assert.deepEqual(this.oFhirModel.mRemovedResources["Practitioner"], undefined, "Removed Resources of the model is correctly cleared after submitting changes");
+				done();
+			}.bind(this));
+		}.bind(this);
+		oListBinding.attachDataReceived(fnAssertion);
+		oListBinding.getContexts();
 	});
 
 });

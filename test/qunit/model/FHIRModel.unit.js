@@ -326,10 +326,12 @@ sap.ui.define([
 		assert.strictEqual(sSubmitMode, "Transaction", "The default submit mode is defined");
 	});
 
-	QUnit.test("Removing Resources from FHIR Model", function(assert) {
+	QUnit.test("Removing Resources from FHIR Model", function (assert) {
 		var mChangedResources = JSON.parse("{\"Patient\":{\"123\":{\"url\":\"/Patient/123\",\"method\":\"DELETE\"},\"abc\":{\"url\":\"/Patient/abc\",\"method\":\"DELETE\"}}}");
+		var mRemovedResources = JSON.parse("{\"Patient\":[\"Patient/abc\",\"Patient/123\"]}");
 		this.oFhirModel1.remove(["/Patient/123", "/Patient/abc"]);
 		assert.deepEqual(mChangedResources, this.oFhirModel1.mChangedResources, "The changed resources are equal");
+		assert.deepEqual(mRemovedResources, this.oFhirModel1.mRemovedResources, "The removed resources are equal");
 	});
 
 	QUnit.test("Call next link, which has no query params, and check that it is directly call", function(assert) {
