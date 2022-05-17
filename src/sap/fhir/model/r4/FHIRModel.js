@@ -1513,13 +1513,24 @@ sap.ui.define([
 			} else {
 				oRequestInfo = this._createRequestInfo(HTTPMethod.DELETE, oBindingInfo.getResourceServerPath());
 				this._setProperty(this.mChangedResources, FHIRUtils.deepClone(aResPath), oRequestInfo, true, sResourceGroupId && sResourceGroupId === sGroupId ? sGroupId : undefined);
-				if (!this.mRemovedResources[oBindingInfo.getResourceType()]) {
-					this.mRemovedResources[oBindingInfo.getResourceType()] = [sResourcePath.substring(1)];
-				} else {
-					this.mRemovedResources[oBindingInfo.getResourceType()].unshift(sResourcePath.substring(1));
-				}
+				this._addToRemovedResources(oBindingInfo, sResourcePath);
 				this.checkUpdate(true, this.mChangedResources, oBindingInfo, HTTPMethod.DELETE);
 			}
+		}
+	};
+
+	/**
+	 * Add the resource path to the removed resources map
+	 *
+	 * @param {sap.fhir.model.r4.lib.BindingInfo} oBindingInfo The binding info object
+	 * @param {string} [sResourcePath] The resource path of the removed resource
+	 * @private
+	 */
+	FHIRModel.prototype._addToRemovedResources = function (oBindingInfo, sResourcePath) {
+		if (!this.mRemovedResources[oBindingInfo.getResourceType()]) {
+			this.mRemovedResources[oBindingInfo.getResourceType()] = [sResourcePath.substring(1)];
+		} else {
+			this.mRemovedResources[oBindingInfo.getResourceType()].unshift(sResourcePath.substring(1));
 		}
 	};
 
@@ -1593,9 +1604,10 @@ sap.ui.define([
 	};
 
 	/**
-	 * Removes a resource from the remove resources map
+	 * Removes a resource from the removed resources map
 	 *
 	 * @param {sap.fhir.model.r4.lib.BindingInfo} oBindingInfo The binding info object
+	 * @private
 	 */
 	FHIRModel.prototype._removeFromRemovedResources = function (oBindingInfo) {
 		var sType = oBindingInfo.getResourceType();

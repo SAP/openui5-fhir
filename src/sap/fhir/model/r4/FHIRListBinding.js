@@ -111,12 +111,7 @@ sap.ui.define([
 				throw new Error("FHIR Server error: The \"total\" property is missing in the response for the requested FHIR resource " + this.sPath);
 			}
 			this.bDirectCallPending = false;
-			if (!this.aKeys) {
-				this.aKeys = [];
-				iStartIndex = 0;
-			} else {
-				iStartIndex = this.aKeys.length;
-			}
+			iStartIndex = this.aKeys.length;
 			if (oData.entry && oData.entry.length){
 				var oResource;
 				var oBindingInfo = this.oModel.getBindingInfo(this.sPath, this.oContext, this.bUnique);
