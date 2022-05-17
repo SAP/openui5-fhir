@@ -1592,6 +1592,7 @@ sap.ui.define([
 	 * Removes a resource from the order resources map
 	 *
 	 * @param {sap.fhir.model.r4.lib.BindingInfo} oBindingInfo The binding info object
+	 * @private
 	 */
 	FHIRModel.prototype._removeFromOrderResources = function(oBindingInfo){
 		var sType = oBindingInfo.getResourceType();
