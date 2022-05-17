@@ -849,4 +849,24 @@ sap.ui.define([
 		this.oFhirModel.submitChanges("transaction", fnSuccessCallback);
 	});
 
+	QUnit.test("Next link should not contain default query parameters if its not considered for preprocessing", function (assert) {
+		var mParameters = {
+			"preProcessNextLink": false,
+			"defaultQueryParameters": { "_total": "accurate" }
+		};
+		var oFhirModel = createModel(mParameters);
+		var oListBinding = oFhirModel.bindList("/Practitioner");
+		oListBinding.getContexts(0, 10);
+		var done1 = assert.async();
+		var fnRequestCompleted = function (oEvent) {
+			if (oEvent.getParameter("requestHandle").getUrl().indexOf("_total") == -1) {
+				assert.ok(true, "The default query parameters are not part of pagination requests if preprocess enum is false");
+				oFhirModel.detachRequestCompleted(fnRequestCompleted);
+				done1();
+			} else {
+				oListBinding.getContexts(0, 20);
+			}
+		};
+		oFhirModel.attachRequestCompleted(fnRequestCompleted);
+	});
 });
