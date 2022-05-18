@@ -863,10 +863,12 @@ sap.ui.define([
 			this.oFhirModel.resetChanges("patientDetails");
 			assert.deepEqual(oListBinding.getContexts().length, iCurrentLength, "List shows the previously removed items if the changes are not submitted and reset changes is triggered");
 			assert.deepEqual(this.oFhirModel.mRemovedResources["Practitioner"], undefined, "Removed Resources of the model is correctly cleared during reset changes");
+			assert.deepEqual(this.oFhirModel.mRemovedResources.hasOwnProperty("Practitioner"), false, "The key doesn't exists if there are no removed resources for a particular type");
 			this.oFhirModel.remove([sResPath], undefined, "patientDetails");
 			assert.deepEqual(this.oFhirModel.mRemovedResources["Practitioner"].length, 1, "Removed Resources of the model is correctly filled");
 			this.oFhirModel.submitChanges("patientDetails", function (aFHIRResource) {
 				assert.deepEqual(this.oFhirModel.mRemovedResources["Practitioner"], undefined, "Removed Resources of the model is correctly cleared after submitting changes");
+				assert.deepEqual(this.oFhirModel.mRemovedResources.hasOwnProperty("Practitioner"), false, "The key doesn't exists if there are no removed resources for a particular type");
 				done();
 			}.bind(this));
 		}.bind(this);
