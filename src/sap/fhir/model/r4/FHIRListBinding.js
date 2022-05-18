@@ -404,7 +404,7 @@ sap.ui.define([
 							// client changes (not yet submitted to server)
 							this.aKeys.splice(this.aKeys.indexOf(oBindingInfo.getResourceType() + "/" + sId), 1);
 						} else {
-							// if direct call(response from server after submit)
+							// server changes (response from server after submitted the removed resources directly)
 							this.aKeysServerState.splice(this.aKeysServerState.indexOf(oBindingInfo.getResourceType() + "/" + sId), 1);
 						}
 					} else if (sMethod === HTTPMethod.POST) {

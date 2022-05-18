@@ -1520,7 +1520,7 @@ sap.ui.define([
 	};
 
 	/**
-	 * Add the resource path to the removed resources map
+	 * Adds the resource path to the removed resources map
 	 *
 	 * @param {sap.fhir.model.r4.lib.BindingInfo} oBindingInfo The binding info object
 	 * @param {string} [sResourcePath] The resource path of the removed resource
