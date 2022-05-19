@@ -111,12 +111,7 @@ sap.ui.define([
 				throw new Error("FHIR Server error: The \"total\" property is missing in the response for the requested FHIR resource " + this.sPath);
 			}
 			this.bDirectCallPending = false;
-			if (!this.aKeys) {
-				this.aKeys = [];
-				iStartIndex = 0;
-			} else {
-				iStartIndex = this.aKeys.length;
-			}
+			iStartIndex = this.aKeys.length;
 			if (oData.entry && oData.entry.length){
 				var oResource;
 				var oBindingInfo = this.oModel.getBindingInfo(this.sPath, this.oContext, this.bUnique);
@@ -237,6 +232,13 @@ sap.ui.define([
 				this.aKeys = FHIRUtils.deepClone(this.aKeysServerState);
 			}
 			iValuesLength = this.aKeys.length - this.iClientChanges;
+			var aClientRemovedResources = this.oModel.mRemovedResources[oBindingInfo.getResourceType()];
+			if (aClientRemovedResources){
+				this.aKeys = this.aKeys.filter(function (sResPath) {
+					return !aClientRemovedResources.includes(sResPath);
+				});
+				this.iTotalLength = this.aKeys.length;
+			}
 		} else {
 			this.iClientChanges = 0;
 			this.aKeys = this.aKeysServerState;
@@ -391,28 +393,36 @@ sap.ui.define([
 	FHIRListBinding.prototype.checkUpdate = function(bForceUpdate, mChangedEntities, sMethod) {
 		var oBindingInfo = this.oModel.getBindingInfo(this.sPath, this.oContext, this.bUnique);
 		var mResources = oBindingInfo && mChangedEntities && mChangedEntities[oBindingInfo.getResourceType()];
-		if (mResources && sMethod && sMethod !== HTTPMethod.GET){
-			for (var sId in mResources){
-				if (!this.isRelative()){
-					if (sMethod === HTTPMethod.DELETE){
-						this.iTotalLength--;
-						this.aKeysServerState.splice(this.aKeysServerState.indexOf(oBindingInfo.getResourceType() + "/" + sId), 1);
-					} else if (sMethod === HTTPMethod.POST){
+		if (mResources && sMethod && sMethod !== HTTPMethod.GET) {
+			var sResType = oBindingInfo.getResourceType();
+			for (var sId in mResources) {
+				var sResPath = sResType + "/" + sId;
+				if (!this.isRelative()) {
+					if (sMethod === HTTPMethod.DELETE) {
+						// check for context
+						if (this.oModel.mRemovedResources[sResType] && this.oModel.mRemovedResources[sResType].indexOf(sResPath) > -1) {
+							// client changes (not yet submitted to server)
+							this.aKeys.splice(this.aKeys.indexOf(oBindingInfo.getResourceType() + "/" + sId), 1);
+						} else {
+							// server changes (response from server after submitted the removed resources directly)
+							this.aKeysServerState.splice(this.aKeysServerState.indexOf(oBindingInfo.getResourceType() + "/" + sId), 1);
+						}
+					} else if (sMethod === HTTPMethod.POST) {
 						this.iTotalLength++;
 						this.aKeysServerState.unshift(oBindingInfo.getResourceType() + "/" + sId);
-					} else if (sMethod === HTTPMethod.PUT && oBindingInfo.getBinding().length === 3){ // in case of history entry update
+					} else if (sMethod === HTTPMethod.PUT && oBindingInfo.getBinding().length === 3) { // in case of history entry update
 						this.iTotalLength++;
 						this.aKeysServerState.unshift(oBindingInfo.getAbsolutePath().substring(1) + "/" + mResources[sId].meta.versionId);
 					}
-				} else if (sMethod === HTTPMethod.PUT){
+				} else if (sMethod === HTTPMethod.PUT) {
 					this.iTotalLength = undefined;
 				}
 			}
 		}
 		var sPath = this.oModel._getProperty(mChangedEntities, ["path", "lastUpdated"]);
-		if (oBindingInfo && (sPath && FHIRUtils.getNumberOfLevelsByPath(sPath) < 3 && sPath.indexOf(oBindingInfo.getResourceType()) > -1 || sPath === oBindingInfo.getAbsolutePath()) || bForceUpdate === true || sMethod){
+		if (oBindingInfo && (sPath && FHIRUtils.getNumberOfLevelsByPath(sPath) < 3 && sPath.indexOf(oBindingInfo.getResourceType()) > -1 || sPath === oBindingInfo.getAbsolutePath()) || bForceUpdate === true || sMethod) {
 			this._fireChange({
-				reason : ChangeReason.Change
+				reason: ChangeReason.Change
 			});
 		}
 	};
@@ -547,7 +557,7 @@ sap.ui.define([
 					 * @since 1.0.0
 					 */
 	FHIRListBinding.prototype._resetData = function() {
-		this.aKeys = undefined;
+		this.aKeys = [];
 		this.aKeysServerState = [];
 		this.bResourceNotAvailable = false;
 		this.aContexts = undefined;

@@ -1,3 +1,10 @@
+## [2.3.1](https://github.com/SAP/openui5-fhir/compare/v2.3.0...v2.3.1) (2022-05-18)
+
+
+### Bug Fixes
+
+* **sap.fhir.model.r4.FHIRListBinding:** Trigger binding updates when resource is removed or a rollback is performed ([#331](https://github.com/SAP/openui5-fhir/issues/331)) ([aa33548](https://github.com/SAP/openui5-fhir/commit/aa33548e8f95967f2ae2e653cc734a4c10916b82))
+
 # [2.3.0](https://github.com/SAP/openui5-fhir/compare/v2.2.8...v2.3.0) (2022-05-06)
 
 
