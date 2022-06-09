@@ -226,24 +226,26 @@ sap.ui.define([
 		} else if (vValue && typeof vValue === "object") {
 			var aClientChanges = this.oModel.mOrderResources[oBindingInfo.getResourceType()];
 			this.iClientChanges = aClientChanges && aClientChanges.length || 0;
-			if (this.iClientChanges > 0){
+			if (this.iClientChanges > 0) {
 				this.aKeys = aClientChanges.concat(this.aKeysServerState);
 			} else {
 				this.aKeys = FHIRUtils.deepClone(this.aKeysServerState);
 			}
 			iValuesLength = this.aKeys.length - this.iClientChanges;
 			var aClientRemovedResources = this.oModel.mRemovedResources[oBindingInfo.getResourceType()];
-			if (aClientRemovedResources){
+			if (aClientRemovedResources) {
 				this.aKeys = this.aKeys.filter(function (sResPath) {
 					return !aClientRemovedResources.includes(sResPath);
 				});
+				this.iTotalLength = this.aKeys.length;
+			} else {
+				this.iTotalLength = iValuesLength;
 			}
-			this.iTotalLength = this.aKeys.length;
 		} else {
 			this.iClientChanges = 0;
 			this.aKeys = this.aKeysServerState;
 		}
-		if (this.iTotalLength === undefined){
+		if (this.iTotalLength === undefined) {
 			this._markSuccessRequest(vValue, iValuesLength);
 		}
 	};

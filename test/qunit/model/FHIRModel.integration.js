@@ -876,4 +876,25 @@ sap.ui.define([
 		oListBinding.getContexts();
 	});
 
+	QUnit.test("Test remove items from list, discard the changes and verify the count", function (assert) {
+		var oListBinding = this.oFhirModel.bindList("/Practitioner", undefined, undefined, undefined, { groupId: "patientDetails" });
+		this.oFhirModel.aBindings.push(oListBinding);
+		var done = assert.async();
+		var fnAssertion = function () {
+			debugger;
+			var aContext = oListBinding.getContexts();
+			var iOriginalLength = aContext.length;
+			var sResPath = aContext[0].sPath;
+			this.oFhirModel.remove([sResPath], undefined, "patientDetails");
+			oListBinding.getContexts();
+			assert.deepEqual(oListBinding.getLength(), iOriginalLength - 1, "List count reflects the number of binding contexts currently present");
+			this.oFhirModel.resetChanges("patientDetails");
+			oListBinding.getContexts();
+			assert.deepEqual(oListBinding.getLength(), iOriginalLength, "List shows the original count if the client side changes are discarded");
+			done();
+		}.bind(this);
+		oListBinding.attachDataReceived(fnAssertion);
+		oListBinding.getContexts();
+	});
+
 });
