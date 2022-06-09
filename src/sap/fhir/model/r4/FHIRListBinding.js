@@ -237,8 +237,8 @@ sap.ui.define([
 				this.aKeys = this.aKeys.filter(function (sResPath) {
 					return !aClientRemovedResources.includes(sResPath);
 				});
-				this.iTotalLength = this.aKeys.length;
 			}
+			this.iTotalLength = this.aKeys.length;
 		} else {
 			this.iClientChanges = 0;
 			this.aKeys = this.aKeysServerState;
