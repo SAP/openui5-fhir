@@ -172,15 +172,9 @@ sap.ui.define([
 				// the direct next links will not be used by default to send the request
 				// instead its converted into the necessary parameters and path before sending
 				// this is to address the if the service url is relative
-				if (this.sNextLink && this.sNextLink.indexOf("?") > -1 && this.oModel.bPreProcessNextLink) {
-					var sQueryParams = this.sNextLink.substring(this.sNextLink.indexOf("?") + 1, this.sNextLink.length);
-					var aParameter = sQueryParams ? sQueryParams.split("&") : [];
-					var aKeyValue;
-					for (var i = 0; i < aParameter.length; i++) {
-						aKeyValue = aParameter[i].split("=");
-						mParameters.urlParameters[aKeyValue[0]] = aKeyValue[1];
-					}
-					this._submitRequest(this.sPath, mParameters, fnSuccess, true);
+				if (this.sNextLink && this.sNextLink.indexOf("?") > -1) {
+					var oNextLink = this.oModel.getNextLink(this.sNextLink, this.sPath, mParameters);
+					this._submitRequest(oNextLink.url, oNextLink.parameters, fnSuccess, true);
 				} else {
 					this._submitRequest(this.sNextLink, undefined, fnSuccess, true);
 				}

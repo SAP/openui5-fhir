@@ -878,10 +878,12 @@ sap.ui.define([
 
 	QUnit.test("Next link should not contain default query parameters if its not considered for preprocessing", function (assert) {
 		var mParameters = {
-			"preProcessNextLink": false,
 			"defaultQueryParameters": { "_total": "accurate" }
 		};
 		var oFhirModel = createModel(mParameters);
+		oFhirModel.getNextLink = function (sNextLinkUrl, sPath, mParameters) {
+			return { url: sNextLinkUrl, parameters: undefined };
+		};
 		var oListBinding = oFhirModel.bindList("/Practitioner");
 		oListBinding.getContexts(0, 10);
 		var done1 = assert.async();

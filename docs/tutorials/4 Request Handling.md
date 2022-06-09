@@ -167,3 +167,12 @@ Furthermore, you can mix the direct and bundle requests in one UI5 application w
 }
 ```
 With this declaration, all bindings assigned to the group `C` will trigger separate direct requests. Also, the submit of the changes with `this.getView().getModel().submitChanges("C");` will lead to multiple requests. The other bindings assigned to group `A` or `B` still send bundle requests.
+
+### Step 4.3: Pagination Requests
+By default the pagination requests are preprocessed and a new url along with the necessary parameters is prepared before sending the request. However this behaviour can be customised depending on the how the server handles pagination requests. For e.g if the next link request should be sent without any processing then the application can overwrite the following method to return the next link appropriately.
+This should happen in  `Component.js` of the application after the model is loaded.
+```
+oFhirModel.getNextLink = function (sNextLinkUrl, sPath, mParameters) {
+			return { url: sNextLinkUrl, parameters: undefined };
+		};
+```

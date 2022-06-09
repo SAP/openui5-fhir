@@ -66,7 +66,6 @@ sap.ui.define([
 	 * @param {boolean} [mParameters.filtering.complex=false] The default filtering type. If <code>true</code>, all search parameters would be modelled via {@link https://www.hl7.org/fhir/search_filter.html _filter}
 	 * @param {boolean} [mParameters.search={}] The search options
 	 * @param {boolean} [mParameters.search.secure=false] To enable RESTful search via {@link https://www.hl7.org/fhir/http.html#search POST}
-	 * @param {boolean} [mParameters.preProcessNextLink=true] To preprocess the next link URL or consider it as such in case of pagination requests
 	 * @throws {Error} If no service URL is given, if the given service URL does not end with a forward slash
 	 * @author SAP SE
 	 * @public
@@ -90,7 +89,6 @@ sap.ui.define([
 			this._buildGroupProperties(mParameters);
 			this.oDefaultQueryParameters = mParameters && mParameters.defaultQueryParameters && mParameters.defaultQueryParameters instanceof Object ? mParameters.defaultQueryParameters : {};
 			this.bSecureSearch = mParameters && mParameters.search && mParameters.search.secure ? mParameters.search.secure : false;
-			this.bPreProcessNextLink = mParameters && mParameters.preProcessNextLink != undefined ? mParameters.preProcessNextLink : true;
 			this.oRequestor = new FHIRRequestor(sServiceUrl, this, mParameters && mParameters["x-csrf-token"], mParameters && mParameters.Prefer, this.oDefaultQueryParameters);
 			this.sDefaultSubmitMode = (mParameters && mParameters.defaultSubmitMode) ? mParameters.defaultSubmitMode : SubmitMode.Direct;
 			this.sDefaultFullUrlType = (mParameters && mParameters.defaultSubmitMode && mParameters.defaultSubmitMode !== SubmitMode.Direct && mParameters.defaultFullUrlType) ? mParameters.defaultFullUrlType : "uuid";
@@ -1687,5 +1685,28 @@ sap.ui.define([
 		return this.bSecureSearch;
 	};
 
+	/**
+	 * Determines how the next link url should be used
+	 *
+	 * @param {string} sNextLinkUrl The next link url
+	 * @param {string} sPath The FHIR resource path
+	 * @param {object} mParameters Existing parameters
+	 * @returns {object} Next link object containing the url and parameters
+	 * @public
+	 * @since 2.3.2
+	 */
+	FHIRModel.prototype.getNextLink = function (sNextLinkUrl, sPath, mParameters) {
+		var sQueryParams = sNextLinkUrl.substring(sNextLinkUrl.indexOf("?") + 1, sNextLinkUrl.length);
+		var aParameter = sQueryParams ? sQueryParams.split("&") : [];
+		var aKeyValue;
+		for (var i = 0; i < aParameter.length; i++) {
+			aKeyValue = aParameter[i].split("=");
+			mParameters.urlParameters[aKeyValue[0]] = aKeyValue[1];
+		}
+		return { url: sPath, parameters: mParameters };
+	};
+
 	return FHIRModel;
 });
+
+
