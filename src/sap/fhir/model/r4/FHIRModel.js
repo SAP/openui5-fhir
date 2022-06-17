@@ -1686,7 +1686,7 @@ sap.ui.define([
 	};
 
 	/**
-	 * Determines how the next link url should be used
+	 * Determines the next link url should be used
 	 *
 	 * @param {string} sNextLinkUrl The next link url
 	 * @param {string} sPath The FHIR resource path
