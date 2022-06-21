@@ -881,7 +881,6 @@ sap.ui.define([
 		this.oFhirModel.aBindings.push(oListBinding);
 		var done = assert.async();
 		var fnAssertion = function () {
-			debugger;
 			var aContext = oListBinding.getContexts();
 			var iOriginalLength = aContext.length;
 			var sResPath = aContext[0].sPath;
