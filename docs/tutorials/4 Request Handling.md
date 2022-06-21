@@ -171,8 +171,21 @@ With this declaration, all bindings assigned to the group `C` will trigger separ
 ### Step 4.3: Pagination Requests
 By default the pagination requests are preprocessed and a new url along with the necessary parameters is prepared before sending the request. However this behaviour can be customised depending on how the server handles pagination requests. For example if the next link request should be sent without any processing then the application can overwrite the following method to return the next link appropriately.
 This should happen in `Component.js` of the application after the model is loaded.
-```
-oFhirModel.getNextLink = function (sNextLinkUrl, sPath, mParameters) {
-			return { url: sNextLinkUrl, parameters: undefined };
-		};
+```javascript
+sap.ui.define([
+	"sap/ui/core/UIComponent"
+], function (UIComponent) {
+	"use strict";
+
+	return UIComponent.extend("sap.sample.fhir.Component", {
+          init: function(){
+	         UIComponent.prototype.init.apply(this, arguments);	
+             var oFHIRModel = this.getModel();
+             oFHIRModel.getNextLink = function (sNextLinkUrl, sPath, mParameters) {
+			     return { url: sNextLinkUrl, parameters: undefined };
+	         };
+             this.getRouter().initialize();
+          }
+    });
+});
 ```

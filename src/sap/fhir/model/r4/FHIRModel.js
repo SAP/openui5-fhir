@@ -1688,6 +1688,7 @@ sap.ui.define([
 	/**
 	 * Determines the next link url should be used
 	 *
+	 * This method might be overridden by the application to provide a customized next link processing because FHIR did not offer a standardized link structure.
 	 * @param {string} sNextLinkUrl The next link url
 	 * @param {string} sPath The FHIR resource path
 	 * @param {object} mParameters Existing parameters
@@ -1708,5 +1709,3 @@ sap.ui.define([
 
 	return FHIRModel;
 });
-
-
