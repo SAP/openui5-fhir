@@ -1686,6 +1686,13 @@ sap.ui.define([
 	};
 
 	/**
+	 * @typedef {object} mParameters
+	 * @prop {object} [urlParameters] The parameters that will be passed as query strings
+	 * @public
+	 * @since 1.0.0
+	 */
+
+	/**
 	 * Determines the next link url should be used
 	 *
 	 * This method might be overridden by the application to provide a customized next link processing because FHIR did not offer a standardized link structure.
