@@ -238,8 +238,6 @@ sap.ui.define([
 					return !aClientRemovedResources.includes(sResPath);
 				});
 				this.iTotalLength = this.aKeys.length;
-			} else {
-				this.iTotalLength = iValuesLength;
 			}
 		} else {
 			this.iClientChanges = 0;
@@ -493,6 +491,7 @@ sap.ui.define([
 					 * @since 1.0.0
 					 */
 	FHIRListBinding.prototype.getLength = function() {
+		console.log(this.iTotalLength);
 		if ( this.iTotalLength !== undefined ){
 			return this.iTotalLength + this.iClientChanges;
 		} else {
