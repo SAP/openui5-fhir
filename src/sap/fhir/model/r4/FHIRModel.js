@@ -1686,13 +1686,21 @@ sap.ui.define([
 	};
 
 	/**
+	 * @typedef {object} sap.fhir.model.r4.NextLink
+	 * @prop {string} [url] The url to which the request should fired
+	 * @prop {sap.fhir.model.r4.FHIRListBinding.Parameter | sap.fhir.model.r4.FHIRTreeBinding.Parameter} [mParameters] The parameters that will be passed as query strings
+	 * @public
+	 * @since 2.3.2
+	 */
+
+	/**
 	 * Determines the next link url should be used
 	 *
 	 * This method might be overridden by the application to provide a customized next link processing because FHIR did not offer a standardized link structure.
 	 * @param {string} sNextLinkUrl The next link url
 	 * @param {string} sPath The FHIR resource path
 	 * @param {sap.fhir.model.r4.FHIRListBinding.Parameter | sap.fhir.model.r4.FHIRTreeBinding.Parameter} mParameters Existing parameters
-	 * @returns {object} Next link object containing the url and parameters
+	 * @returns {sap.fhir.model.r4.NextLink} Next link object containing the url and parameters
 	 * @public
 	 * @since 2.3.2
 	 */
