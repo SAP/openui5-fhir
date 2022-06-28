@@ -876,7 +876,30 @@ sap.ui.define([
 		oListBinding.getContexts();
 	});
 
-	QUnit.test("Test remove items from list, discard the changes and verify the count", function (assert) {
+	QUnit.test("Next link should not contain default query parameters if its not considered for preprocessing", function (assert) {
+		var mParameters = {
+			"defaultQueryParameters": { "_total": "accurate" }
+		};
+		var oFhirModel = createModel(mParameters);
+		oFhirModel.getNextLink = function (sNextLinkUrl, sPath, mParameters) {
+			return { url: sNextLinkUrl, parameters: undefined };
+		};
+		var oListBinding = oFhirModel.bindList("/Practitioner");
+		oListBinding.getContexts(0, 10);
+		var done1 = assert.async();
+		var fnRequestCompleted = function (oEvent) {
+			if (oEvent.getParameter("requestHandle").getUrl().indexOf("_total") == -1) {
+				assert.ok(true, "The default query parameters are not part of pagination requests if preprocess enum is false");
+				oFhirModel.detachRequestCompleted(fnRequestCompleted);
+				done1();
+			} else {
+				oListBinding.getContexts(0, 20);
+			}
+		};
+		oFhirModel.attachRequestCompleted(fnRequestCompleted);
+	});
+  
+  QUnit.test("Test remove items from list, discard the changes and verify the count", function (assert) {
 		var oListBinding = this.oFhirModel.bindList("/Practitioner", undefined, undefined, undefined, { groupId: "patientDetails" });
 		this.oFhirModel.aBindings.push(oListBinding);
 		var done = assert.async();
@@ -894,6 +917,6 @@ sap.ui.define([
 		}.bind(this);
 		oListBinding.attachDataReceived(fnAssertion);
 		oListBinding.getContexts();
-	});
+   });
 
 });

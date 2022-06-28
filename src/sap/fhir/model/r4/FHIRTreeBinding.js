@@ -488,10 +488,17 @@ sap.ui.define([
 	};
 
 	/**
+	 * @typedef {object} sap.fhir.model.r4.FHIRTreeBinding.Parameter
+	 * @prop {object} [urlParameters] The parameters that will be passed as query strings
+	 * @public
+	 * @since 1.0.0
+	 */
+
+	/**
 	 * Creates the parameters for the FHIR request based on the configured filters and sorters
 	 *
 	 * @param {number} [iLength] The number of contexts to retrieve beginning from the start index
-	 * @returns {object} The map of parameters
+	 * @returns {sap.fhir.model.r4.FHIRTreeBinding.Parameter} The map of parameters
 	 * @private
 	 * @since 1.0.0
 	 */
