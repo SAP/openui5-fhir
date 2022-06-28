@@ -19,8 +19,11 @@ sap.ui.define([], function() {
 	 * @since 1.0.0
 	 * @version ${version}
 	 */
-	var FHIRUrl = function(sUrl, sServiceUrl) {
+	var FHIRUrl = function (sUrl, sServiceUrl) {
 		this._sServiceUrl = sServiceUrl;
+		if (sServiceUrl.indexOf("http") == 0 || sServiceUrl.indexOf("https") == 0) {
+			sServiceUrl = sServiceUrl.replace(/^https?\:\/\//i, "");
+		}
 		var iStartOfServiceBaseUrl = sUrl.indexOf(sServiceUrl);
 		sUrl = (iStartOfServiceBaseUrl > -1 ? sUrl.substring(iStartOfServiceBaseUrl + sServiceUrl.length) : sUrl);
 		sUrl = sUrl && sUrl.charAt(0) !== "/" && sUrl.charAt(0) !== "?" ? "/" + sUrl : sUrl;

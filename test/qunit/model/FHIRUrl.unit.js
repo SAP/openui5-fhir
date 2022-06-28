@@ -151,5 +151,13 @@ sap.ui.define(["sap/fhir/model/r4/lib/FHIRUrl"], function(FHIRUrl) {
 		assert.strictEqual(oFHIRUrl.getResourceId(), undefined);
 		assert.strictEqual(oFHIRUrl.getCustomOperation(), "$look-up");
 
+		// test with next page link
+		sUrl = "http://example.com/fhir/Patient/123?param1=2&param2=test";
+		oFHIRUrl = new FHIRUrl(sUrl, sServiceUrl);
+		assert.strictEqual(oFHIRUrl.getRelativeUrlWithoutQueryParameters(), "/Patient/123");
+		assert.strictEqual(oFHIRUrl.getRelativeUrlWithQueryParameters(), "/Patient/123?param1=2&param2=test");
+		assert.strictEqual(oFHIRUrl.getResourceType(), "Patient");
+		assert.strictEqual(oFHIRUrl.getResourceId(), "123");
+		assert.strictEqual(oFHIRUrl.getCustomOperation(), undefined);
 	});
 });
