@@ -72,6 +72,7 @@ sap.ui.define([
 			// as per suggestion Server-side bindings (e.g. ODataListBinding) are expected to start with a "refresh" event
 			// overwrite the ListBindings "initialize" + fire refresh-event (although not defined in the metadata)
 			this.fireEvent("refresh", { reason: ChangeReason.Refresh });
+			return this;
 		}
 
 	});
