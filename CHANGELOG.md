@@ -1,3 +1,10 @@
+## [2.3.2](https://github.com/SAP/openui5-fhir/compare/v2.3.1...v2.3.2) (2022-06-28)
+
+
+### Bug Fixes
+
+* **sap.fhir.model.r4.FHIRListBinding:** Preprocessing of next link ([#333](https://github.com/SAP/openui5-fhir/issues/333)) ([058dd78](https://github.com/SAP/openui5-fhir/commit/058dd783cb033c1aa8d20117327f4ca9e990ed72))
+
 ## [2.3.1](https://github.com/SAP/openui5-fhir/compare/v2.3.0...v2.3.1) (2022-05-18)
 
 
