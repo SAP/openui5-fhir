@@ -1687,8 +1687,8 @@ sap.ui.define([
 
 	/**
 	 * @typedef {object} sap.fhir.model.r4.NextLink
-	 * @prop {string} [url] The url to which the request should fired
-	 * @prop {sap.fhir.model.r4.FHIRListBinding.Parameter | sap.fhir.model.r4.FHIRTreeBinding.Parameter} [mParameters] The parameters that will be passed as query strings
+	 * @prop {string} url The url to which the request should fired
+	 * @prop {sap.fhir.model.r4.FHIRListBinding.Parameter | sap.fhir.model.r4.FHIRTreeBinding.Parameter} mParameters The parameters that will be passed as query strings
 	 * @public
 	 * @since 2.3.2
 	 */
