@@ -59,4 +59,16 @@ sap.ui.define(["../utils/TestUtilsIntegration", "../utils/TestUtils"], function 
 	QUnit.test("check if valueset is loaded if mentioned in the structure definition field description of type 'codeableconcept'", function (assert) {
 		testValueSetLoadedCorrectly(assert, "/Coverage/a7854", "type", 1, 21);
 	});
+
+	QUnit.test("check if refresh event is triggered during list binding initialization", function (assert) {
+		createContextBinding("/Patient/a2519");
+		oListBinding = oModel.bindList("gender", oContextBinding.getBoundContext(), undefined, undefined, undefined);
+		var done = assert.async();
+		var fnChangeHandler = function (oEvent) {
+			assert.strictEqual(oEvent.mParameters.reason, "refresh");
+			done();
+		};
+		oListBinding.attachRefresh(fnChangeHandler);
+		oListBinding.initialize();
+	});
 });
