@@ -1,3 +1,10 @@
+## [2.3.3](https://github.com/SAP/openui5-fhir/compare/v2.3.2...v2.3.3) (2022-06-29)
+
+
+### Bug Fixes
+
+* **sap.fhir.model.r4.FHIRListBinding:** Invalidate list bindings ([#342](https://github.com/SAP/openui5-fhir/issues/342)) ([d191c15](https://github.com/SAP/openui5-fhir/commit/d191c15170567e36725fc33ccdc54107fc7d5cef))
+
 ## [2.3.2](https://github.com/SAP/openui5-fhir/compare/v2.3.1...v2.3.2) (2022-06-28)
 
 
