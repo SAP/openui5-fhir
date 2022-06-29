@@ -898,9 +898,10 @@ sap.ui.define([
 		};
 		oFhirModel.attachRequestCompleted(fnRequestCompleted);
 	});
-  
-  QUnit.test("Test remove items from list, discard the changes and verify the count", function (assert) {
+
+	QUnit.test("Test remove items from list, discard the changes and verify the count", function (assert) {
 		var oListBinding = this.oFhirModel.bindList("/Practitioner", undefined, undefined, undefined, { groupId: "patientDetails" });
+		debugger;
 		this.oFhirModel.aBindings.push(oListBinding);
 		var done = assert.async();
 		var fnAssertion = function () {
@@ -917,6 +918,6 @@ sap.ui.define([
 		}.bind(this);
 		oListBinding.attachDataReceived(fnAssertion);
 		oListBinding.getContexts();
-   });
+	});
 
 });

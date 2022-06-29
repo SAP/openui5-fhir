@@ -247,7 +247,6 @@ sap.ui.define([
 				this.aKeys = this.aKeys.filter(function (sResPath) {
 					return !aClientRemovedResources.includes(sResPath);
 				});
-				this.iTotalLength = this.aKeys.length;
 			}
 		} else {
 			this.iClientChanges = 0;
@@ -412,9 +411,11 @@ sap.ui.define([
 						// check for context
 						if (this.oModel.mRemovedResources[sResType] && this.oModel.mRemovedResources[sResType].indexOf(sResPath) > -1) {
 							// client changes (not yet submitted to server)
+							this.iTotalLength--;
 							this.aKeys.splice(this.aKeys.indexOf(oBindingInfo.getResourceType() + "/" + sId), 1);
 						} else {
 							// server changes (response from server after submitted the removed resources directly)
+							this.iTotalLength--;
 							this.aKeysServerState.splice(this.aKeysServerState.indexOf(oBindingInfo.getResourceType() + "/" + sId), 1);
 						}
 					} else if (sMethod === HTTPMethod.POST) {
