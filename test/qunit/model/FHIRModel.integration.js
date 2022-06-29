@@ -905,14 +905,14 @@ sap.ui.define([
 		var done = assert.async();
 		var fnAssertion = function () {
 			var aContext = oListBinding.getContexts();
-			var iOriginalLength = aContext.length;
+			var iTotalLength = oListBinding.iTotalLength;
 			var sResPath = aContext[0].sPath;
 			this.oFhirModel.remove([sResPath], undefined, "patientDetails");
 			oListBinding.getContexts();
-			assert.deepEqual(oListBinding.getLength(), iOriginalLength - 1, "List count reflects the number of binding contexts currently present");
+			assert.deepEqual(oListBinding.getLength(), iTotalLength - 1, "List count reflects the number of binding contexts currently present");
 			this.oFhirModel.resetChanges("patientDetails");
 			oListBinding.getContexts();
-			assert.deepEqual(oListBinding.getLength(), iOriginalLength, "List shows the original count if the client side changes are discarded");
+			assert.deepEqual(oListBinding.getLength(), iTotalLength, "List shows the original count if the client side changes are discarded");
 			done();
 		}.bind(this);
 		oListBinding.attachDataReceived(fnAssertion);

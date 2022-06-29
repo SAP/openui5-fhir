@@ -243,6 +243,7 @@ sap.ui.define([
 			}
 			iValuesLength = this.aKeys.length - this.iClientChanges;
 			var aClientRemovedResources = this.oModel.mRemovedResources[oBindingInfo.getResourceType()];
+			this.iClientRemovedChanges = aClientRemovedResources && aClientRemovedResources.length  || 0;
 			if (aClientRemovedResources) {
 				this.aKeys = this.aKeys.filter(function (sResPath) {
 					return !aClientRemovedResources.includes(sResPath);
@@ -411,11 +412,14 @@ sap.ui.define([
 						// check for context
 						if (this.oModel.mRemovedResources[sResType] && this.oModel.mRemovedResources[sResType].indexOf(sResPath) > -1) {
 							// client changes (not yet submitted to server)
-							this.iTotalLength--;
+							this.iClientRemovedChanges++;
 							this.aKeys.splice(this.aKeys.indexOf(oBindingInfo.getResourceType() + "/" + sId), 1);
 						} else {
 							// server changes (response from server after submitted the removed resources directly)
 							this.iTotalLength--;
+							if (this.iClientRemovedChanges > 0) {
+								this.iClientRemovedChanges--;
+							}
 							this.aKeysServerState.splice(this.aKeysServerState.indexOf(oBindingInfo.getResourceType() + "/" + sId), 1);
 						}
 					} else if (sMethod === HTTPMethod.POST) {
@@ -503,7 +507,7 @@ sap.ui.define([
 					 */
 	FHIRListBinding.prototype.getLength = function() {
 		if ( this.iTotalLength !== undefined ){
-			return this.iTotalLength + this.iClientChanges;
+			return this.iTotalLength + this.iClientChanges - this.iClientRemovedChanges;
 		} else {
 			return undefined;
 		}
@@ -580,6 +584,7 @@ sap.ui.define([
 		this.aFilterCache = undefined;
 		this.aSortersCache = undefined;
 		this.iClientChanges = 0;
+		this.iClientRemovedChanges = 0;
 	};
 
 	/**
