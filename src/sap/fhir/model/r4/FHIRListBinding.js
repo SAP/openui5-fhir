@@ -65,7 +65,16 @@ sap.ui.define([
 			}
 			this.sId = FHIRUtils.uuidv4();
 			this._resetData();
+		},
+
+		initialize: function () {
+			// List doesn't get invalidated when context length is 0
+			// as per suggestion Server-side bindings (e.g. ODataListBinding) are expected to start with a "refresh" event
+			// overwrite the ListBindings "initialize" + fire refresh-event (although not defined in the metadata)
+			this.fireEvent("refresh", { reason: ChangeReason.Refresh });
+			return this;
 		}
+
 	});
 
 	/**
