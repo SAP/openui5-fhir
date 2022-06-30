@@ -417,9 +417,6 @@ sap.ui.define([
 						} else {
 							// server changes (response from server after submitted the removed resources directly)
 							this.iTotalLength--;
-							if (this.iClientRemovedChanges > 0) {
-								this.iClientRemovedChanges--;
-							}
 							this.aKeysServerState.splice(this.aKeysServerState.indexOf(oBindingInfo.getResourceType() + "/" + sId), 1);
 						}
 					} else if (sMethod === HTTPMethod.POST) {
