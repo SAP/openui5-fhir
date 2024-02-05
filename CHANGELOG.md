@@ -1,3 +1,10 @@
+## [2.3.5](https://github.com/SAP/openui5-fhir/compare/v2.3.4...v2.3.5) (2024-02-05)
+
+
+### Bug Fixes
+
+* avoid adding _format to delete calls ([#427](https://github.com/SAP/openui5-fhir/issues/427)) ([b2a40f2](https://github.com/SAP/openui5-fhir/commit/b2a40f2185432985b6495c68c2ad1cf150392cde))
+
 ## [2.3.4](https://github.com/SAP/openui5-fhir/compare/v2.3.3...v2.3.4) (2024-02-05)
 
 
