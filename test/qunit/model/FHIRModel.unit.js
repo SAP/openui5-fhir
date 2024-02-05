@@ -13,8 +13,9 @@ sap.ui.define([
 	"sap/fhir/model/r4/SubmitMode",
 	"sap/fhir/model/r4/lib/FHIRBundleType",
 	"sap/fhir/model/r4/lib/FHIRBundleRequest",
-	"sap/base/util/deepEqual"
-], function(jQuery, TestUtils, FHIRFilter, FHIRFilterType, FHIRFilterOperator, FHIRFilterProcessor, OperationMode, RequestHandle, Sliceable, FilterOperator, Filter, SubmitMode, FHIRBundleType, FHIRBundleRequest, deepEqual) {
+	"sap/base/util/deepEqual",
+	"sap/fhir/model/r4/lib/HTTPMethod"
+], function (jQuery, TestUtils, FHIRFilter, FHIRFilterType, FHIRFilterOperator, FHIRFilterProcessor, OperationMode, RequestHandle, Sliceable, FilterOperator, Filter, SubmitMode, FHIRBundleType, FHIRBundleRequest, deepEqual, HTTPMethod) {
 
 	"use strict";
 
@@ -163,13 +164,14 @@ sap.ui.define([
 		}.bind(this), new Error("A depth of 3 is not supported for simple filtering, please reduce it to a maximum of 2"));
 	});
 
-	QUnit.test("check that format request parameter", function(assert) {
+	QUnit.test("check that format request parameter", function (assert) {
 		assert.strictEqual(this.oFhirModel1.oRequestor._buildQueryParameters(), "");
 		assert.strictEqual(this.oFhirModel1.oRequestor._buildQueryParameters({ _format: "xml" }, this.oFhirModel1.getBindingInfo("/Patient")), "?_format=json&_total=accurate");
 		assert.strictEqual(this.oFhirModel1.oRequestor._buildQueryParameters({ _format: "xml" }, this.oFhirModel1.getBindingInfo("/Patient/123")), "?_format=json");
 		assert.strictEqual(this.oFhirModel1.oRequestor._buildQueryParameters({ _format: "application/json" }, this.oFhirModel1.getBindingInfo("/Patient/123")), "?_format=application/json");
 		assert.strictEqual(this.oFhirModel1.oRequestor._buildQueryParameters({ _format: "application/fhir+json" }, this.oFhirModel1.getBindingInfo("/Patient/123")), "?_format=application/fhir%2Bjson");
 		assert.strictEqual(this.oFhirModel1.oRequestor._buildQueryParameters({ _format: "json" }, this.oFhirModel1.getBindingInfo("/Patient/123")), "?_format=json");
+		assert.strictEqual(this.oFhirModel1.oRequestor._buildQueryParameters({}, this.oFhirModel1.getBindingInfo("/Patient/123"), HTTPMethod.DELETE), "");
 	});
 
 	QUnit.test("check listbinding getcontexts in relative case for different depths of paths when resource gets newly created", function(assert) {
