@@ -624,11 +624,11 @@ sap.ui.define([
 				var aCoverageKeys = Object.keys(this.oFhirModel.oData.Coverage);
 				this.oFhirModel.remove(["/Patient/" + aPatientKeys[0], "/Coverage/" + aCoverageKeys[0]]);
 				mRequestHandle = this.oFhirModel.submitChanges("patientDetails");
-				mRequestHandle["patientDetails"].getRequest().complete(fnAssertion);
+				mRequestHandle["patientDetails"].getRequest().always(fnAssertion);
 			}
 		}.bind(this);
 		mRequestHandle = this.oFhirModel.submitChanges("patientDetails");
-		mRequestHandle["patientDetails"].getRequest().complete(fnAssertion);
+		mRequestHandle["patientDetails"].getRequest().always(fnAssertion);
 	});
 
 	QUnit.test("Test batch bundle entry fullUrl generation", function(assert) {
@@ -674,7 +674,7 @@ sap.ui.define([
 	});
 
 	/**
-	 * The request handle has to be deleted in case of success AND failure before the jQuery.complete hook is executed.
+	 * The request handle has to be deleted in case of success AND failure before the jQuery.always hook is executed.
 	 * In case of an update call with version read (direct request) the request handle has to be deleted right in the beginning of the success or failure to trigger the update call.
 	 */
 	QUnit.test("Test Submit Changes after version read", function(assert) {

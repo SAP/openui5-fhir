@@ -1444,7 +1444,7 @@ sap.ui.define([
 		var mParameters = {
 			success: fnExtractVersion,
 			error: function () {
-				oRequestHandle.getRequest().complete(function () {
+				oRequestHandle.getRequest().always(function () {
 					mParameters = {
 						success: fnExtractVersion
 					};
