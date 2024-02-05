@@ -17,7 +17,7 @@ sap.ui.define(["sap/base/util/merge"], function (merge) {
 		var fnManipulateResponse = function (oEvent) {
 			if (oEvent.getParameter("requestHandle").getUrl() === sRequestedUrl) {
 				oModel.detachRequestSent(fnManipulateResponse);
-				oEvent.getParameter("requestHandle").getRequest().success(function (oRequestHandle) {
+				oEvent.getParameter("requestHandle").getRequest().done(function (oRequestHandle) {
 					fnSetResponse(oRequestHandle, oData);
 				}.bind(this, oEvent.getParameter("requestHandle")));
 			}

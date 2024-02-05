@@ -268,7 +268,7 @@ sap.ui.define([
 												mParams.urlParameters[this.sNodeProperty + ":exact"] = sRootValue;
 												oRequestHandle = this._submitRequest(this.sPath, mParams, fnSuccess);
 												this.mRequestHandle[oRequestHandle.getId()] = oRequestHandle;
-												oRequestHandle.getRequest().complete(function(oGivenRequestHandle) {
+												oRequestHandle.getRequest().always(function(oGivenRequestHandle) {
 													delete this.mRequestHandle[oGivenRequestHandle.getId()];
 													this._canRootAggregationsBeResolved(oData);
 												}.bind(this, oRequestHandle));
@@ -391,7 +391,7 @@ sap.ui.define([
 		if (FHIRUtils.isEmptyObject(this.mRequestHandle)) {
 			var oRequestHandle = this._submitRequest(this.sNextLink, undefined, fnSuccess, undefined, true);
 			this.mRequestHandle[oRequestHandle.getId()] = oRequestHandle;
-			oRequestHandle.getRequest().complete(function(oGivenRequestHandle) {
+			oRequestHandle.getRequest().always(function(oGivenRequestHandle) {
 				delete this.mRequestHandle[oGivenRequestHandle.getId()];
 			}.bind(this, oRequestHandle));
 		}
@@ -1325,7 +1325,7 @@ sap.ui.define([
 				var oRequestHandle = this._loadNumberOfChildren(oChildContext, function(oData) {
 					this._processChildren(oNode, oChildContext, j + oCurrentSection.startIndex, oData);
 				}.bind(this));
-				oRequestHandle.getRequest().complete(function(oGivenRequestHandle) {
+				oRequestHandle.getRequest().always(function(oGivenRequestHandle) {
 					delete this.mRequestHandle[oGivenRequestHandle.getId()];
 					if (FHIRUtils.isEmptyObject(this.mRequestHandle)) {
 						this.bPendingRequest = false;
