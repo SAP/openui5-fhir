@@ -470,7 +470,7 @@ sap.ui.define([
 			mParameters = merge(mParameters, this.oDefaultQueryParams);
 		}
 
-		if (!this._isFormatSupported(mParameters._format)) {
+		if (!this._isFormatSupported(mParameters._format) && sMethod !== HTTPMethod.DELETE) {
 			mParameters._format = "json";
 		}
 
@@ -486,7 +486,7 @@ sap.ui.define([
 			}
 		}.bind(this));
 
-		return "?" + aQuery.join("&");
+		return aQuery.length > 0 ? "?" + aQuery.join("&") : "";
 	};
 
 	/**
