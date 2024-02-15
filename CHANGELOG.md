@@ -1,3 +1,10 @@
+## [2.3.6](https://github.com/SAP/openui5-fhir/compare/v2.3.5...v2.3.6) (2024-02-15)
+
+
+### Bug Fixes
+
+* secure search requests for metadata ([#433](https://github.com/SAP/openui5-fhir/issues/433)) ([4ad3d56](https://github.com/SAP/openui5-fhir/commit/4ad3d5670ca20ad31b5b012252962ee430ce793a))
+
 ## [2.3.5](https://github.com/SAP/openui5-fhir/compare/v2.3.4...v2.3.5) (2024-02-05)
 
 
