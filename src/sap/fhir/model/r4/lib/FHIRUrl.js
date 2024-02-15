@@ -176,5 +176,16 @@ sap.ui.define([], function() {
 		return !this._sResourceId && !this._sHistoryVersion && !this._sCustomOperation;
 	};
 
+	/**
+	 * Determines if its metadata request
+	 *
+	 * @returns {boolean} True if its metadata request
+	 * @protected
+	 * @since 2.3.6
+	 */
+	FHIRUrl.prototype.isMetadataRequest = function () {
+		return this._sResourceType === "metadata";
+	};
+
 	return FHIRUrl;
 });
