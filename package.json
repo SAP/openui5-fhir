@@ -39,7 +39,7 @@
     "replace-in-file": "^7.1.0",
     "js-yaml": "^4.1.0",
     "@semantic-release/git": "^10.0.1",
-    "@semantic-release/changelog": "^6.0.1"
+    "@semantic-release/changelog": "^6.0.3"
   },
   "scripts": {
     "docs": "npm run docs:prod --packageVersion=$(npm view $npm_package_name version)",
