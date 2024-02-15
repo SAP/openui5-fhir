@@ -1396,6 +1396,9 @@ sap.ui.define([
 		oRequestHandle = oFhirModel.loadData("/Patient/123/$look-up");
 		assert.strictEqual(oRequestHandle.getUrl(), "https://example.com/fhir/Patient/123/$look-up?_format=json", "Any custom operation call is not converted to POST _search call");
 
+		oRequestHandle = oFhirModel.loadData("/metadata");
+		assert.strictEqual(oRequestHandle.getUrl(), "https://example.com/fhir/metadata?_format=json", "Any metadata request call is not converted to POST _search call");
+
 		// search call with url parameters
 		var mParameters = {
 			urlParameters: {

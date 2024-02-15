@@ -634,7 +634,7 @@ sap.ui.define([
 		// if the method is GET, secure search is enabled
 		// convert the path to _search and all the url paramters will be converted to POST form data
 		// except ValueSet/$expand or specific operations  like Patient/53/_history
-		return sMethod == HTTPMethod.GET && this.oModel.isSecureSearchModeEnabled() && oFHIRUrl.isSearchAtBaseLevel() && !this._isCsrfTokenRequest();
+		return sMethod == HTTPMethod.GET && this.oModel.isSecureSearchModeEnabled() && oFHIRUrl.isSearchAtBaseLevel() && !this._isCsrfTokenRequest() && !oFHIRUrl.isMetadataRequest();
 	};
 
 	return FHIRRequestor;

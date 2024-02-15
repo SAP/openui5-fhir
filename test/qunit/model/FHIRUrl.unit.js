@@ -159,5 +159,15 @@ sap.ui.define(["sap/fhir/model/r4/lib/FHIRUrl"], function(FHIRUrl) {
 		assert.strictEqual(oFHIRUrl.getResourceType(), "Patient");
 		assert.strictEqual(oFHIRUrl.getResourceId(), "123");
 		assert.strictEqual(oFHIRUrl.getCustomOperation(), undefined);
+
+		// test with metadata endpoint
+		sUrl = "/metadata";
+		oFHIRUrl = new FHIRUrl(sUrl, sServiceUrl);
+		assert.strictEqual(oFHIRUrl.getRelativeUrlWithoutQueryParameters(), "/metadata");
+		assert.strictEqual(oFHIRUrl.getRelativeUrlWithQueryParameters(), "/metadata");
+		assert.strictEqual(oFHIRUrl.getResourceType(), "metadata");
+		assert.strictEqual(oFHIRUrl.getResourceId(), undefined);
+		assert.strictEqual(oFHIRUrl.getCustomOperation(), undefined);
+		assert.strictEqual(oFHIRUrl.isMetadataRequest(), true);
 	});
 });
