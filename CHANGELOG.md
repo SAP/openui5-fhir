@@ -1,3 +1,10 @@
+## [2.3.7](https://github.com/SAP/openui5-fhir/compare/v2.3.6...v2.3.7) (2024-02-16)
+
+
+### Bug Fixes
+
+* list binding with secure search and group id ([#436](https://github.com/SAP/openui5-fhir/issues/436)) ([a9a1e09](https://github.com/SAP/openui5-fhir/commit/a9a1e095f184d46a736598f39da0086e58eefc8a))
+
 ## [2.3.6](https://github.com/SAP/openui5-fhir/compare/v2.3.5...v2.3.6) (2024-02-15)
 
 
