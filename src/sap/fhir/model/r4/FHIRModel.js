@@ -498,6 +498,9 @@ sap.ui.define([
 				oResponse.meta.lastUpdated = mResponseHeaders["last-modified"];
 				this.oData[oResponse.resourceType][oResponse.id] = oResponse;
 			} else {
+				if (oBinding && oBinding.sGroupId) {
+					sGroupId = oBinding.sGroupId;
+				}
 				this._mapFHIRResponse(oResponse, mResponseHeaders, oBundleEntry, oBinding, sGroupId);
 			}
 

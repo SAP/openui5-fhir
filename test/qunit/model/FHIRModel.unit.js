@@ -50,6 +50,9 @@ sap.ui.define([
 					},
 					"valueSets" : {
 						"submit" : "Batch"
+					},
+					"batch":{
+						"submit":"Batch"
 					}
 				},
 				"defaultQueryParameters": { "_total": "accurate" }
@@ -1396,6 +1399,7 @@ sap.ui.define([
 		oRequestHandle = oFhirModel.loadData("/Patient/123/$look-up");
 		assert.strictEqual(oRequestHandle.getUrl(), "https://example.com/fhir/Patient/123/$look-up?_format=json", "Any custom operation call is not converted to POST _search call");
 
+		// metadata requests
 		oRequestHandle = oFhirModel.loadData("/metadata");
 		assert.strictEqual(oRequestHandle.getUrl(), "https://example.com/fhir/metadata?_format=json", "Any metadata request call is not converted to POST _search call");
 
@@ -1449,6 +1453,19 @@ sap.ui.define([
 			}
 		});
 		assert.strictEqual(bFound, true, "The request of the listbinding with next link with RESTful search is triggered correctly");
+
+		// list binding with group id
+		oListBinding = oFhirModel.bindList("/RelatedPerson", undefined, undefined, undefined, { "groupId": "batch" });
+		oListBinding.getContexts(0, 10);
+		bFound = false;
+		oFhirModel.oRequestor._aPendingRequestHandles.forEach(function (oEntry, i) {
+			if (oEntry.getUrl().endsWith("RelatedPerson/_search")) {
+				bFound = true;
+				assert.strictEqual(oEntry.getData(), "_count=10&_format=json", "The form data of the listbinding with RESTful search is correct");
+			}
+		});
+		assert.strictEqual(bFound, true, "The request of the listbinding with RESTful search is triggered correctly even if the group id is present");
+
 	});
 
 	QUnit.test("Test pagination when the service url is relative and next links is absolute", function (assert) {

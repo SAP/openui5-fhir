@@ -66,6 +66,10 @@ sap.ui.define([
 			this.oMessageModel = sap.ui.getCore().getMessageManager().getMessageModel();
 			this.oFhirModel = createModel(mParameters);
 			this.oFhirModel1 = createModel(mParameters);
+			mParameters.search = {
+				"secure": true
+			};
+			this.oFhirModel2 = createModel(mParameters);
 		},
 
 		/**
@@ -897,6 +901,23 @@ sap.ui.define([
 			}
 		};
 		oFhirModel.attachRequestCompleted(fnRequestCompleted);
+	});
+
+	QUnit.test("check contexts in listbinding after and before paging along with group id and restful search enabled", function (assert) {
+		var oListBinding = this.oFhirModel2.bindList("/Patient", undefined, undefined, undefined, { "groupId": "bundle" });
+		oListBinding.getContexts(0, 2);
+		var done1 = assert.async();
+		var fnDataReceivedCheck = function (oData) {
+			if (oListBinding.aKeys.length === 4) {
+				var aKeys = Object.keys(this.oModel.mResourceGroupId.Patient);
+				assert.deepEqual(aKeys.length, oListBinding.aKeys.length, "The keys are generated correctly");
+				assert.deepEqual(this.oModel.mResourceGroupId.Patient[aKeys[0]], "bundle", "All the keys of the listbindings are mapped to the group id correctly even though the secure search is enabled");
+				done1();
+			} else {
+				oListBinding.getContexts(0, 4);
+			}
+		};
+		oListBinding.attachDataReceived(fnDataReceivedCheck);
 	});
 
 });

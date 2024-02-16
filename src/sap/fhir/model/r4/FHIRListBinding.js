@@ -57,6 +57,7 @@ sap.ui.define([
 				throw new Error("Unsupported OperationMode: " + this.sOperationMode + ". Only sap.fhir.model.r4.OperationMode.Server is supported.");
 			}
 			this.sGroupId = mParameters && mParameters.groupId || oContext && oContext.sGroupId;
+			this.bSecureSearch = oModel.bSecureSearch;
 			this.bUnique = mParameters && mParameters.unique;
 			if (mParameters) {
 				this.bValueSetLookupInStructureDefinition = mParameters.valueSetLookupInStructureDefinition === undefined ? true : mParameters.valueSetLookupInStructureDefinition;
@@ -372,7 +373,7 @@ sap.ui.define([
 					 */
 	FHIRListBinding.prototype._loadProfile = function(fnSuccessCallbackStructureDefintion, fnLoadResources, fnSuccessCallback, mParameters, iLength) {
 		if (!this.isRelative()) {
-			this._submitRequest(this.sPath, mParameters, fnSuccessCallback);
+			this._submitRequest(this.sPath, mParameters, fnSuccessCallback, this.bSecureSearch);
 		} else if (this.oContext && this.bValueSetLookupInStructureDefinition) {
 			var oBindingInfo = this.oModel.getBindingInfo(this.sPath, this.oContext, this.bUnique);
 			var oResource = this.oModel.getProperty(oBindingInfo.getResourcePath()) || {};
