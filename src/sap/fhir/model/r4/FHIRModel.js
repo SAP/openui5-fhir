@@ -649,162 +649,194 @@ sap.ui.define([
 	 * @since 1.0.0
 	 */
 	FHIRModel.prototype.submitChanges =
-			function(sGroupId, fnSuccessCallback, fnErrorCallback) {
-				if (typeof sGroupId === "function") {
-					fnErrorCallback = fnSuccessCallback;
-					fnSuccessCallback = FHIRUtils.deepClone(sGroupId);
-					sGroupId = undefined;
+		function (sGroupId, fnSuccessCallback, fnErrorCallback) {
+			var removedResources = this.getRemovedResourcesObject();
+			if (typeof sGroupId === "function") {
+				fnErrorCallback = fnSuccessCallback;
+				fnSuccessCallback = FHIRUtils.deepClone(sGroupId);
+				sGroupId = undefined;
+			}
+			var fnError = function (oParams) {
+				if (fnErrorCallback) {
+					fnErrorCallback(oParams);
 				}
-				var fnError = function (oParams) {
-					if (fnErrorCallback) {
-						fnErrorCallback(oParams);
-					}
+			};
+
+			var fnSuccess = function () {
+				this.resetChanges(sGroupId, true);
+			}.bind(this);
+
+			var mRequestHandles;
+			var aPromises = [];
+			var iTriggeredVersionRequests = 0;
+
+			var fnSubmitBundles = function () {
+				var oPromiseHandler = {};
+				var fnSuccessPromise = function (aFHIRResource) {
+				   oPromiseHandler.resolve(aFHIRResource);
 				};
-
-				var fnSuccess = function () {
-					this.resetChanges(sGroupId, true);
-				}.bind(this);
-
-				var mRequestHandles;
-				var aPromises = [];
-				var iTriggeredVersionRequests = 0;
-
-				var fnSubmitBundles = function () {
-					var oPromiseHandler = {};
-					var fnSuccessPromise = function (aFHIRResource) {
-						oPromiseHandler.resolve(aFHIRResource);
-					};
-					var fnErrorPromise = function (oRequestHandle, aFHIRResource, aFHIROperationOutcome) {
-						var oError = {};
-						// this is done since promise catch can have only one parameter
-						oError.requestHandle = oRequestHandle;
-						oError.resources = aFHIRResource;
-						oError.operationOutcomes = aFHIROperationOutcome;
-						oPromiseHandler.reject(oError);
-					};
-					for (var sRequestHandleKey in mRequestHandles) {
-						if (sRequestHandleKey !== "direct") {
-							// eslint-disable-next-line no-undef
-							var oPromise = new Promise(
-								function (resolve, reject) {
-									oPromiseHandler.resolve = resolve;
-									oPromiseHandler.reject = reject;
-								}
-							);
-							aPromises.push(oPromise);
-							oPromise.then(function (aFHIRResource) {
-								fnSuccessCallback(aFHIRResource);
-							}).catch(function (oError) {
-								if (fnErrorCallback && oError.requestHandle) {
-									var mParameters = {
-										message: oError.requestHandle.getRequest().statusText,
-										description: oError.requestHandle.getRequest().responseText,
-										code: oError.requestHandle.getRequest().status,
-										descriptionUrl: oError.requestHandle.getUrl()
-									};
-									var oMessage = new Message(mParameters);
-									fnErrorCallback(oMessage, oError.resources, oError.operationOutcomes);
-								}
-							});
-							mRequestHandles[sRequestHandleKey] = this.oRequestor.submitBundle(sRequestHandleKey, fnSuccessPromise, fnErrorPromise);
-						}
-					}
-				}.bind(this);
-
-				var oBindingInfo;
-				var fnCheckSubmitChange = function(){
-					var iTriggeredVersionRequestsCompleted = 0;
-					var aResourcePath = oBindingInfo.getResourcePathArray();
-					var oResourceNew = this._getProperty(this.oData, aResourcePath);
-					var sResourceGroupId = this._getProperty(this.mResourceGroupId, aResourcePath);
-					var bSubmitChanges;
-					if (sGroupId && sResourceGroupId === sGroupId){
-						bSubmitChanges = true;
-					} else if (!sGroupId) {
-						bSubmitChanges = true;
-					} else {
-						bSubmitChanges = false;
-					}
-					if (bSubmitChanges){
-						var oResourceOld = this._getProperty(this.oDataServerState, aResourcePath);
-						var oRequestInfo = this._getProperty(this.mChangedResources, aResourcePath);
-						if (!deepEqual(oResourceNew, oResourceOld) || (oRequestInfo && oRequestInfo.method === HTTPMethod.DELETE)) {
-							var mHeaders;
-							var fnSubmitChange = function() {
-								var mParameters = {
-										 successBeforeMapping : fnSuccess,
-										 success : fnSuccessCallback,
-										 error : fnError,
-										 headers : mHeaders,
-										 groupId : sResourceGroupId,
-										 manualSubmit : true
-								};
-								if (sGroupId && sResourceGroupId === sGroupId && this.getGroupSubmitMode(sGroupId) !== "Direct") {
-									mParameters.success = function () { };
-									mParameters.error = function () { };
-								}
-								var vRequestHandle = this.loadData(oRequestInfo.url, mParameters, oRequestInfo.method, oResourceNew);
-								mRequestHandles = mRequestHandles ? mRequestHandles : {};
-								if (vRequestHandle instanceof FHIRBundle && !mRequestHandles[vRequestHandle.getGroupId()]) {
-									mRequestHandles[vRequestHandle.getGroupId()] = {};
-								} else if (!mRequestHandles.direct) {
-									mRequestHandles.direct = [];
-									mRequestHandles.direct.push(vRequestHandle);
-								} else {
-									mRequestHandles.direct.push(vRequestHandle);
-								}
-							}.bind(this);
-
-
-							var fnVersionReadSuccess = function(sETag){
-								iTriggeredVersionRequestsCompleted++;
-								mHeaders = {
-									"If-Match" : sETag
-								};
-								fnSubmitChange();
-								if (iTriggeredVersionRequests === iTriggeredVersionRequestsCompleted){
-									fnSubmitBundles();
-								}
-							};
-
-							if (oRequestInfo.method === HTTPMethod.PUT) {
-								var sETag = oBindingInfo.getETag();
-								if (!sETag){
-									this.readLatestVersionOfResource(oBindingInfo.getResourceServerPath(), fnVersionReadSuccess);
-									iTriggeredVersionRequests++;
-								} else {
-									mHeaders = {
-										"If-Match" : sETag
-									};
-									fnSubmitChange();
-								}
-							} else {
-								fnSubmitChange();
+				var fnErrorPromise = function (oRequestHandle, aFHIRResource, aFHIROperationOutcome) {
+					var oError = {};
+					// this is done since promise catch can have only one parameter
+					oError.requestHandle = oRequestHandle;
+					oError.resources = aFHIRResource;
+					oError.operationOutcomes = aFHIROperationOutcome;
+					oPromiseHandler.reject(oError);
+				};
+				for (var sRequestHandleKey in mRequestHandles) {
+					if (sRequestHandleKey !== "direct") {
+						// eslint-disable-next-line no-undef
+						var oPromise = new Promise(
+							function (resolve, reject) {
+								oPromiseHandler.resolve = resolve;
+								oPromiseHandler.reject = reject;
 							}
-						}
-					}
-				}.bind(this);
-
-				for ( var vType in this.mChangedResources) {
-					for (var vId in this.mChangedResources[vType]){
-						if (vType === "$_history"){
-							for (var vOriginId in this.mChangedResources[vType][vId]){
-								for (var sVersion in this.mChangedResources[vType][vId][vOriginId]){
-									oBindingInfo = this.getBindingInfo("/" + vType + "/" + vId + "/" + vOriginId + "/" + sVersion);
-									fnCheckSubmitChange();
+						);
+						aPromises.push(oPromise);
+						oPromise.then(function (aFHIRResource) {
+							if (aFHIRResource.length == 0) {
+								aFHIRResource = removedResources;
+							}
+							fnSuccessCallback(aFHIRResource);
+						}).catch(function (oError) {
+							if (fnErrorCallback && oError.requestHandle) {
+								var sIds = FHIRUtils.getsIdFromOperationOutcome(oError.operationOutcomes);
+								removedResources = removedResources.filter(obj => !sIds.includes(obj.id));
+								if (oError.resources.length == 0){
+									oError.resources = removedResources;
 								}
+								var mParameters = {
+									message: oError.requestHandle.getRequest().statusText,
+									description: oError.requestHandle.getRequest().responseText,
+									code: oError.requestHandle.getRequest().status,
+									descriptionUrl: oError.requestHandle.getUrl()
+								};
+								var oMessage = new Message(mParameters);
+								fnErrorCallback(oMessage, oError.resources, oError.operationOutcomes);
+							}
+						});
+						mRequestHandles[sRequestHandleKey] = this.oRequestor.submitBundle(sRequestHandleKey, fnSuccessPromise, fnErrorPromise);
+					}
+				}
+			}.bind(this);
+
+			var oBindingInfo;
+			var fnCheckSubmitChange = function () {
+				var iTriggeredVersionRequestsCompleted = 0;
+				var aResourcePath = oBindingInfo.getResourcePathArray();
+				var oResourceNew = this._getProperty(this.oData, aResourcePath);
+				var sResourceGroupId = this._getProperty(this.mResourceGroupId, aResourcePath);
+				var bSubmitChanges;
+				if (sGroupId && sResourceGroupId === sGroupId) {
+					bSubmitChanges = true;
+				} else if (!sGroupId) {
+					bSubmitChanges = true;
+				} else {
+					bSubmitChanges = false;
+				}
+				if (bSubmitChanges) {
+					var oResourceOld = this._getProperty(this.oDataServerState, aResourcePath);
+					var oRequestInfo = this._getProperty(this.mChangedResources, aResourcePath);
+					if (!deepEqual(oResourceNew, oResourceOld) || (oRequestInfo && oRequestInfo.method === HTTPMethod.DELETE)) {
+						var mHeaders;
+						var fnSubmitChange = function () {
+							var mParameters = {
+								successBeforeMapping: fnSuccess,
+								success: fnSuccessCallback,
+								error: fnError,
+								headers: mHeaders,
+								groupId: sResourceGroupId,
+								manualSubmit: true
+							};
+							if (sGroupId && sResourceGroupId === sGroupId && this.getGroupSubmitMode(sGroupId) !== "Direct") {
+								mParameters.success = function () { };
+								mParameters.error = function () { };
+							}
+							var vRequestHandle = this.loadData(oRequestInfo.url, mParameters, oRequestInfo.method, oResourceNew);
+							mRequestHandles = mRequestHandles ? mRequestHandles : {};
+							if (vRequestHandle instanceof FHIRBundle && !mRequestHandles[vRequestHandle.getGroupId()]) {
+								mRequestHandles[vRequestHandle.getGroupId()] = {};
+							} else if (!mRequestHandles.direct) {
+								mRequestHandles.direct = [];
+								mRequestHandles.direct.push(vRequestHandle);
+							} else {
+								mRequestHandles.direct.push(vRequestHandle);
+							}
+						}.bind(this);
+
+
+						var fnVersionReadSuccess = function (sETag) {
+							iTriggeredVersionRequestsCompleted++;
+							mHeaders = {
+								"If-Match": sETag
+							};
+							fnSubmitChange();
+							if (iTriggeredVersionRequests === iTriggeredVersionRequestsCompleted) {
+								fnSubmitBundles();
+							}
+						};
+
+						if (oRequestInfo.method === HTTPMethod.PUT) {
+							var sETag = oBindingInfo.getETag();
+							if (!sETag) {
+								this.readLatestVersionOfResource(oBindingInfo.getResourceServerPath(), fnVersionReadSuccess);
+								iTriggeredVersionRequests++;
+							} else {
+								mHeaders = {
+									"If-Match": sETag
+								};
+								fnSubmitChange();
 							}
 						} else {
-							oBindingInfo = this.getBindingInfo("/" + vType + "/" + vId);
-							fnCheckSubmitChange();
+							fnSubmitChange();
 						}
 					}
 				}
-				if (iTriggeredVersionRequests === 0){
-					fnSubmitBundles();
+			}.bind(this);
+
+			for (var vType in this.mChangedResources) {
+				for (var vId in this.mChangedResources[vType]) {
+					if (vType === "$_history") {
+						for (var vOriginId in this.mChangedResources[vType][vId]) {
+							for (var sVersion in this.mChangedResources[vType][vId][vOriginId]) {
+								oBindingInfo = this.getBindingInfo("/" + vType + "/" + vId + "/" + vOriginId + "/" + sVersion);
+								fnCheckSubmitChange();
+							}
+						}
+					} else {
+						oBindingInfo = this.getBindingInfo("/" + vType + "/" + vId);
+						fnCheckSubmitChange();
+					}
 				}
-				return mRequestHandles;
-			};
+			}
+			if (iTriggeredVersionRequests === 0) {
+				fnSubmitBundles();
+			}
+			return mRequestHandles;
+		};
+
+	/**
+	 * Retrieves an array of resources that have been removed from the FHIR model.
+	 * Iterates through the removed resources,
+	 * retrieves corresponding resources from the model, and returns them.
+	 * @returns {Array} An array containing the removed resources.
+	 */
+	FHIRModel.prototype.getRemovedResourcesObject = function () {
+		var resources = [];
+		for (var type in this.mRemovedResources) {
+			if (this.mRemovedResources.hasOwnProperty(type)) {
+				var removedResources = this.mRemovedResources[type];
+				for (var key in removedResources) {
+					var resource = this.getProperty("/" + removedResources[key]);
+					if (resource) {
+						resources.push(resource);
+					}
+				}
+			}
+		}
+		return resources;
+	};
+
 
 	/**
 	 * Checks if an update for the existing bindings is necessary due to the <code>mChangedResources</code>

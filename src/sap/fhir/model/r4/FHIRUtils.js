@@ -717,6 +717,20 @@ sap.ui.define([
 		return sFullUrl;
 	};
 
+	FHIRUtils.getsIdFromOperationOutcome = function(operationOutcomes){
+		var sIds = [];
+		for (var key in operationOutcomes) {
+			if (operationOutcomes.hasOwnProperty(key)) {
+				var operationOutcome = operationOutcomes[key];
+			    var text = operationOutcome._aIssue[0].details.text;
+				var sId = text.match(/[0-9a-fA-F]{8}(?:-[0-9a-fA-F]{4}){3}-[0-9a-fA-F]{12}/);
+				sIds.push(sId[0]);
+			}
+		}
+		return sIds;
+
+	};
+
 	return FHIRUtils;
 
 });
