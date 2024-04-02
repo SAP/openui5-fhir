@@ -540,4 +540,15 @@ sap.ui.define(["../utils/TestUtils", "sap/fhir/model/r4/FHIRUtils"], function(Te
 		assert.deepEqual(actualIds, expectedIds, "IDs extracted correctly from operationOutcomes");
 	});
 
+	QUnit.test("Test filterResourcesByIds", function(assert) {
+		var resources = [
+			{ id: "1", name: "Resource 1" },
+			{ id: "2", name: "Resource 2" },
+			{ id: "3", name: "Resource 3" }
+		];
+		var sIds = ["2"];
+		var filteredResources = FHIRUtils.filterResourcesByIds(resources, sIds);
+		assert.deepEqual(filteredResources, [ { id: "1", name: "Resource 1" },{ id: "3", name: "Resource 3" }], "Filtered resources should match expected result");
+	});
+
 });
