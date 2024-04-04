@@ -694,15 +694,15 @@ sap.ui.define([
 						);
 						aPromises.push(oPromise);
 						oPromise.then(function (aFHIRResource) {
-							if (aFHIRResource.length == 0) {
+							if (removedResources.length != 0) {
 								aFHIRResource = removedResources;
 							}
 							fnSuccessCallback(aFHIRResource);
 						}).catch(function (oError) {
 							if (fnErrorCallback && oError.requestHandle) {
-								var sIds = FHIRUtils.getsIdFromOperationOutcome(oError.operationOutcomes);
-								if (oError.resources.length == 0){
-									oError.resources = FHIRUtils.filterResourcesByIds(removedResources,sIds);
+								if (removedResources.length != 0) {
+									var sIds = FHIRUtils.getsIdFromOperationOutcome(oError.operationOutcomes);
+									oError.resources = FHIRUtils.filterResourcesByIds(removedResources, sIds);
 								}
 								var mParameters = {
 									message: oError.requestHandle.getRequest().statusText,
