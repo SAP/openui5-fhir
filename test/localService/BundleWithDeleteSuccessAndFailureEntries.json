@@ -1,0 +1,43 @@
+{
+    "resourceType": "Bundle",
+    "id": "934953d3-35a3-477d-8c9e-0948a7e553ec",
+    "links": [],
+    "type": "batch-response",
+    "entry": [
+        {
+            "response": {
+                "status": "409 CONFLICT",
+                "outcome": {
+                    "issue": [
+                        {
+                            "severity": "error",
+                            "code": "conflict",
+                            "details": {
+                                "text": "Referenced resource exist 'e1692049-4bdc-4e40-abb5-4eae27ce0b8b' for resource 'RolePermission}'"
+                            },
+                            "diagnostics": "Referenced resource exist 'e1692049-4bdc-4e40-abb5-4eae27ce0b8b' for resource 'RolePermission}'"
+                        }
+                    ],
+                    "resourceType": "OperationOutcome",
+                    "meta": {
+                        "profile": [
+                            "http://hl7.org/fhir/StructureDefinition/OperationOutcome"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "response": {
+                "status": "204 NO_CONTENT"
+            },
+            "fullUrl": "urn:uuid:cb62c497-ee6c-4c26-9721-2668f797e6c8"
+        }
+    ],
+    "total": 2,
+    "meta": {
+        "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Bundle"
+        ]
+    }
+ }

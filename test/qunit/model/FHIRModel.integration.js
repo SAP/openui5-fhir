@@ -920,4 +920,22 @@ sap.ui.define([
 		oListBinding.attachDataReceived(fnDataReceivedCheck);
 	});
 
+	QUnit.test("Test delete containing successful entry and operation outcome", function (assert) {
+		var oJSONData = TestUtils.loadJSONFile("BundleWithDeleteSuccessAndFailureEntries");
+		var done = assert.async();
+		var sResId = this.oFhirModel.create("RolePermission", {
+			resourceType: "RolePermission",
+			version: "1.0.0",
+			name: "PersonaRead"
+		}, "bundle");
+		this.oFhirModel.mChangedResources = {};
+		this.oFhirModel.remove(["/RolePermission/" + sResId], undefined, "bundle");
+		var fnErrorCallback = function (oMessage, aFHIRResource, aOperationOutcome) {
+			assert.strictEqual(aOperationOutcome.length, 1, "Bundle error callback contains the opertion outcome of the failed entry ");
+			done();
+		};
+		TestUtilsIntegration.manipulateResponse("http://localhost:8080/fhir/R4", this.oFhirModel, TestUtilsIntegration.setResponseJSON, undefined, oJSONData);
+		this.oFhirModel.submitChanges("bundle", undefined, fnErrorCallback);
+	});
+
 });

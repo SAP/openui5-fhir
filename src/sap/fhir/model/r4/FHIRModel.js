@@ -650,6 +650,7 @@ sap.ui.define([
 	 */
 	FHIRModel.prototype.submitChanges =
 			function(sGroupId, fnSuccessCallback, fnErrorCallback) {
+				var removedResources = this.getRemovedResourcesObject();
 				if (typeof sGroupId === "function") {
 					fnErrorCallback = fnSuccessCallback;
 					fnSuccessCallback = FHIRUtils.deepClone(sGroupId);
@@ -693,9 +694,17 @@ sap.ui.define([
 							);
 							aPromises.push(oPromise);
 							oPromise.then(function (aFHIRResource) {
+								if (aFHIRResource.length == 0) {
+									aFHIRResource = removedResources;
+								}
 								fnSuccessCallback(aFHIRResource);
 							}).catch(function (oError) {
 								if (fnErrorCallback && oError.requestHandle) {
+									var sIds = FHIRUtils.getsIdFromOperationOutcome(oError.operationOutcomes);
+									removedResources = removedResources.filter(obj => !sIds.includes(obj.id));
+									if (oError.resources.length == 0) {
+										oError.resources = removedResources;
+									}
 									var mParameters = {
 										message: oError.requestHandle.getRequest().statusText,
 										description: oError.requestHandle.getRequest().responseText,
@@ -805,6 +814,28 @@ sap.ui.define([
 				}
 				return mRequestHandles;
 			};
+
+	/**
+     * Retrieves an array of resources that have been removed from the FHIR model.
+     * Iterates through the removed resources,
+     * retrieves corresponding resources from the model, and returns them.
+     * @returns {Array} An array containing the removed resources.
+     */
+	FHIRModel.prototype.getRemovedResourcesObject = function () {
+		var resources = [];
+		for (var type in this.mRemovedResources) {
+			if (this.mRemovedResources.hasOwnProperty(type)) {
+				var removedResources = this.mRemovedResources[type];
+				for (var key in removedResources) {
+					var resource = this.getProperty("/" + removedResources[key]);
+					if (resource) {
+						resources.push(resource);
+					}
+				}
+			}
+		}
+		return resources;
+	};
 
 	/**
 	 * Checks if an update for the existing bindings is necessary due to the <code>mChangedResources</code>
