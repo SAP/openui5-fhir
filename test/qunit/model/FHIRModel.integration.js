@@ -926,11 +926,10 @@ sap.ui.define([
 		var sResId = this.oFhirModel.create("RolePermission", {
 			resourceType: "RolePermission",
 			version: "1.0.0",
-			name: "PersonaRead",
-		   
+			name: "PersonaRead"
 		}, "bundle");
-		this.oFhirModel.mChangedResources={};
-        this.oFhirModel.remove(["/RolePermission/" + sResId], undefined, "bundle");
+		this.oFhirModel.mChangedResources = {};
+		this.oFhirModel.remove(["/RolePermission/" + sResId], undefined, "bundle");
 		var fnErrorCallback = function (oMessage, aFHIRResource, aOperationOutcome) {
 			assert.strictEqual(aOperationOutcome.length, 1, "Bundle error callback contains the opertion outcome of the failed entry ");
 			done();
