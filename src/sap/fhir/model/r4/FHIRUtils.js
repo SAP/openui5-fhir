@@ -731,6 +731,13 @@ sap.ui.define([
 
 	};
 
+	FHIRUtils.filterResourcesByIds = function(resources, sIds) {
+		function isIdNotIncluded(obj) {
+			return !sIds.includes(obj.id);
+		}
+		return resources.filter(isIdNotIncluded);
+	};
+
 	return FHIRUtils;
 
 });

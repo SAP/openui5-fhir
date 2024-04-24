@@ -700,10 +700,9 @@ sap.ui.define([
 								fnSuccessCallback(aFHIRResource);
 							}).catch(function (oError) {
 								if (fnErrorCallback && oError.requestHandle) {
-									var sIds = FHIRUtils.getsIdFromOperationOutcome(oError.operationOutcomes);
-									removedResources = removedResources.filter(obj => !sIds.includes(obj.id));
-									if (oError.resources.length == 0) {
-										oError.resources = removedResources;
+									if (removedResources.length != 0) {
+										var sIds = FHIRUtils.getsIdFromOperationOutcome(oError.operationOutcomes);
+										oError.resources = FHIRUtils.filterResourcesByIds(removedResources, sIds);
 									}
 									var mParameters = {
 										message: oError.requestHandle.getRequest().statusText,

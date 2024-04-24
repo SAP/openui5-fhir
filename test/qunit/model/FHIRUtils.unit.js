@@ -516,7 +516,7 @@ sap.ui.define(["../utils/TestUtils", "sap/fhir/model/r4/FHIRUtils"], function(Te
 		sFullUrl = FHIRUtils.generateFullUrl(TestUtils.createUri("url"), "/Patient/123", "123", "http://example.com");
 		assert.strictEqual(sFullUrl, "http://example.com/Patient/123");
 	});
-	
+
 	QUnit.test("Test getIDsFromOperationOutcomes", function(assert) {
 		var operationOutcomes = {
 			"0": {
@@ -538,6 +538,17 @@ sap.ui.define(["../utils/TestUtils", "sap/fhir/model/r4/FHIRUtils"], function(Te
 		var actualIds = FHIRUtils.getsIdFromOperationOutcome(operationOutcomes);
 
 		assert.deepEqual(actualIds, expectedIds, "IDs extracted correctly from operationOutcomes");
+	});
+
+	QUnit.test("Test filterResourcesByIds", function (assert) {
+		var resources = [
+			{ id: "1", name: "Resource 1" },
+			{ id: "2", name: "Resource 2" },
+			{ id: "3", name: "Resource 3" }
+		];
+		var sIds = ["2"];
+		var filteredResources = FHIRUtils.filterResourcesByIds(resources, sIds);
+		assert.deepEqual(filteredResources, [{ id: "1", name: "Resource 1" }, { id: "3", name: "Resource 3" }], "Filtered resources should match expected result");
 	});
 
 });
