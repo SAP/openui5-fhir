@@ -818,7 +818,7 @@ sap.ui.define([
      * Retrieves an array of resources that have been removed from the FHIR model.
      * Iterates through the removed resources,
      * retrieves corresponding resources from the model, and returns them.
-     * @returns {Array} An array containing the removed resources.
+     * @returns {Array<object>} An array containing the removed resources.
      */
 	FHIRModel.prototype.getRemovedResourcesObject = function () {
 		var resources = [];
