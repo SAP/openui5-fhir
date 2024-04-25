@@ -814,12 +814,12 @@ sap.ui.define([
 				return mRequestHandles;
 			};
 
-       /**
-        * Retrieves an array of resources that have been removed from the FHIR model.
-        * Iterates through the removed resources,
-        * retrieves corresponding resources from the model, and returns them.
-        * @returns {Array<object>} An array containing the removed resources.
-        */
+	/**
+     * Retrieves an array of resources that have been removed from the FHIR model.
+     * Iterates through the removed resources,
+     * retrieves corresponding resources from the model, and returns them.
+     * @returns {Array<object>} An array containing the removed resources.
+     */
 	FHIRModel.prototype.getRemovedResourcesObject = function () {
 		var resources = [];
 		for (var type in this.mRemovedResources) {
