@@ -650,7 +650,7 @@ sap.ui.define([
 	 */
 	FHIRModel.prototype.submitChanges =
 			function(sGroupId, fnSuccessCallback, fnErrorCallback) {
-				var removedResources = this.getRemovedResourcesObject();
+				var removedResources = this._getRemovedResourcesObject();
 				if (typeof sGroupId === "function") {
 					fnErrorCallback = fnSuccessCallback;
 					fnSuccessCallback = FHIRUtils.deepClone(sGroupId);
@@ -819,8 +819,10 @@ sap.ui.define([
 	* Iterates through the removed resources,
 	* retrieves corresponding resources from the model, and returns them.
 	* @returns {Array<object>} An array containing the removed resources.
+	* @private
+	* @since 2.3.8
 	*/
-	FHIRModel.prototype.getRemovedResourcesObject = function () {
+	FHIRModel.prototype._getRemovedResourcesObject = function () {
 		var resources = [];
 		for (var type in this.mRemovedResources) {
 			if (this.mRemovedResources.hasOwnProperty(type)) {

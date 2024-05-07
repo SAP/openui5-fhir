@@ -526,9 +526,9 @@ sap.ui.define(["../utils/TestUtils", "sap/fhir/model/r4/FHIRUtils"], function(Te
 						"severity": "error",
 						"code": "conflict",
 						"details": {
-							"text": "Referenced resource exist '7b4abf15-8a93-4e11-8d85-96c945530d05' for resource 'RolePermission}'"
+							"text": "Referenced resource exist '7b4abf15-8a93-4e11-8d85-96c945530d05' for resource 'Patient}'"
 						},
-						"diagnostics": "Referenced resource exist '7b4abf15-8a93-4e11-8d85-96c945530d05' for resource 'RolePermission}'"
+						"diagnostics": "Referenced resource exist '7b4abf15-8a93-4e11-8d85-96c945530d05' for resource 'Patient}'"
 					}
 				]
 			}

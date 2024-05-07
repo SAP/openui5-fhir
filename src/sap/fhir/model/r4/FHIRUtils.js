@@ -719,14 +719,16 @@ sap.ui.define([
 
 	/**
 	* Extracts resource IDs from the error description in FHIR OperationOutcome.
-	* @param {Array<object>} operationOutcomes - The array of FHIR OperationOutcome objects.
+	* @param {Array<object>} aOperationOutcomes - The array of FHIR OperationOutcome objects.
 	* @returns {Array<string>} - An array containing the extracted resource IDs.
+	* @private
+	* @since 2.3.8
 	*/
-	FHIRUtils.getsIdFromOperationOutcome = function(operationOutcomes){
+	FHIRUtils.getsIdFromOperationOutcome = function(aOperationOutcomes){
 		var sIds = [];
-		for (var key in operationOutcomes) {
-			if (operationOutcomes.hasOwnProperty(key)) {
-				var operationOutcome = operationOutcomes[key];
+		for (var key in aOperationOutcomes) {
+			if (aOperationOutcomes.hasOwnProperty(key)) {
+				var operationOutcome = aOperationOutcomes[key];
 			    var text = operationOutcome._aIssue[0].details.text;
 				var sId = text.match(/[0-9a-fA-F]{8}(?:-[0-9a-fA-F]{4}){3}-[0-9a-fA-F]{12}/);
 				sIds.push(sId[0]);
@@ -738,15 +740,17 @@ sap.ui.define([
 
 	/**
 	* Filters an array of FHIR resources by their IDs, removing those that match the provided IDs.
-	* @param {Array<object>} resources - The array of FHIR resources to filter.
-	* @param {Array<string>} sIds - The array of resource IDs to exclude from the filtered result.
+	* @param {Array<object>} aResources - The array of FHIR resources to filter.
+	* @param {Array<string>} aSIds - The array of resource IDs to exclude from the filtered result.
 	* @returns {Array<object>} - The filtered array of FHIR resources.
+	* @private
+	* @since 2.3.8
 	*/
-	FHIRUtils.filterResourcesByIds = function(resources, sIds) {
+	FHIRUtils.filterResourcesByIds = function(aResources, aSIds) {
 		function isIdNotIncluded(obj) {
-			return !sIds.includes(obj.id);
+			return !aSIds.includes(obj.id);
 		}
-		return resources.filter(isIdNotIncluded);
+		return aResources.filter(isIdNotIncluded);
 	};
 
 	return FHIRUtils;
