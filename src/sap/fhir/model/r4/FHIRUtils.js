@@ -746,8 +746,8 @@ sap.ui.define([
 
 	/**
 	* Filters an array of FHIR resources by their IDs, removing those that match the provided IDs.
-	* @param {Array<object>} aResources - The array of FHIR resources to filter.
-	* @param {Array<string>} aSIds - The array of resource IDs to exclude from the filtered result.
+	* @param {Array<object>} aResource - The array of FHIR resources to filter.
+	* @param {Array<string>} aID - The array of resource IDs to exclude from the filtered result.
 	* @returns {Array<object>} - The filtered array of FHIR resources.
 	* @private
 	* @since 2.4.0

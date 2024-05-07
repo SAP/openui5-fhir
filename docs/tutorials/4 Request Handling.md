@@ -128,6 +128,7 @@ onSavePress: function(){
 Depending on the submit mode the callback will be invoked with specific type of parameters. 
 
 If the group submit mode is Batch/Transaction then the success callback will contain all the FHIR Resources which were part of the request and in case of failed enteries in Bundle the error callback will be invoked with the successful resources and the operation outcome enteries.
+In case of delete if the API doesn't return FHIR resources which got deleted successfuly, while resolving the promise, the removed resources are fetched from the model and assigned to aFHIRResource.
 
 ```javascript
 onSavePress: function() {
