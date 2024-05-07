@@ -517,8 +517,8 @@ sap.ui.define(["../utils/TestUtils", "sap/fhir/model/r4/FHIRUtils"], function(Te
 		assert.strictEqual(sFullUrl, "http://example.com/Patient/123");
 	});
 
-	QUnit.test("Test getIDsFromOperationOutcomes", function(assert) {
-		var operationOutcomes = {
+	QUnit.test("Test getIdFromOperationOutcome", function(assert) {
+		var operationOutcome = {
 			"0": {
 				"_sResourceType": "OperationOutcome",
 				"_aIssue": [
@@ -526,18 +526,16 @@ sap.ui.define(["../utils/TestUtils", "sap/fhir/model/r4/FHIRUtils"], function(Te
 						"severity": "error",
 						"code": "conflict",
 						"details": {
-							"text": "Referenced resource exist '7b4abf15-8a93-4e11-8d85-96c945530d05' for resource 'RolePermission}'"
+							"text": "Referenced resource exist '7b4abf15-8a93-4e11-8d85-96c945530d05' for resource 'Patient}'"
 						},
-						"diagnostics": "Referenced resource exist '7b4abf15-8a93-4e11-8d85-96c945530d05' for resource 'RolePermission}'"
+						"diagnostics": "Referenced resource exist '7b4abf15-8a93-4e11-8d85-96c945530d05' for resource 'Patient}'"
 					}
 				]
 			}
 		};
-		var expectedIds = ["7b4abf15-8a93-4e11-8d85-96c945530d05"];
-
-		var actualIds = FHIRUtils.getsIdFromOperationOutcome(operationOutcomes);
-
-		assert.deepEqual(actualIds, expectedIds, "IDs extracted correctly from operationOutcomes");
+		var expectedIDs = ["7b4abf15-8a93-4e11-8d85-96c945530d05"];
+		var actualIDs = FHIRUtils.getIdFromOperationOutcome(operationOutcome);
+		assert.deepEqual(actualIDs, expectedIDs, "IDs extracted correctly from operationOutcomes");
 	});
 
 	QUnit.test("Test filterResourcesByIds", function (assert) {
@@ -550,5 +548,27 @@ sap.ui.define(["../utils/TestUtils", "sap/fhir/model/r4/FHIRUtils"], function(Te
 		var filteredResources = FHIRUtils.filterResourcesByIds(resources, sIds);
 		assert.deepEqual(filteredResources, [{ id: "1", name: "Resource 1" }, { id: "3", name: "Resource 3" }], "Filtered resources should match expected result");
 	});
+
+	QUnit.test("Test getIdFromOperationOutcome when resource ID is not present", function(assert) {
+		var operationOutcome = {
+			"0": {
+				"_sResourceType": "OperationOutcome",
+				"_aIssue": [
+					{
+						"severity": "error",
+						"code": "conflict",
+						"details": {
+							"text": "Referenced resource exist for this resource}"
+						},
+						"diagnostics": "Referenced resource exist for this resource}"
+					}
+				]
+			}
+		};
+
+		var actualIDs = FHIRUtils.getIdFromOperationOutcome(operationOutcome);
+		assert.deepEqual(actualIDs, [], "Empty array returned");
+	});
+
 
 });

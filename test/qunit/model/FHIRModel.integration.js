@@ -923,13 +923,13 @@ sap.ui.define([
 	QUnit.test("Test delete containing successful entry and operation outcome", function (assert) {
 		var oJSONData = TestUtils.loadJSONFile("BundleWithDeleteSuccessAndFailureEntries");
 		var done = assert.async();
-		var sResId = this.oFhirModel.create("RolePermission", {
-			resourceType: "RolePermission",
+		var sResId = this.oFhirModel.create("Patient", {
+			resourceType: "Patient",
 			version: "1.0.0",
-			name: "PersonaRead"
+			name: "Billy"
 		}, "bundle");
 		this.oFhirModel.mChangedResources = {};
-		this.oFhirModel.remove(["/RolePermission/" + sResId], undefined, "bundle");
+		this.oFhirModel.remove(["/Patient/" + sResId], undefined, "bundle");
 		var fnErrorCallback = function (oMessage, aFHIRResource, aOperationOutcome) {
 			assert.strictEqual(aOperationOutcome.length, 1, "Bundle error callback contains the opertion outcome of the failed entry ");
 			done();

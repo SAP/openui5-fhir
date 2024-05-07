@@ -13,9 +13,9 @@
                             "severity": "error",
                             "code": "conflict",
                             "details": {
-                                "text": "Referenced resource exist 'e1692049-4bdc-4e40-abb5-4eae27ce0b8b' for resource 'RolePermission}'"
+                                "text": "Referenced resource exist 'e1692049-4bdc-4e40-abb5-4eae27ce0b8b' for resource 'Patient}'"
                             },
-                            "diagnostics": "Referenced resource exist 'e1692049-4bdc-4e40-abb5-4eae27ce0b8b' for resource 'RolePermission}'"
+                            "diagnostics": "Referenced resource exist 'e1692049-4bdc-4e40-abb5-4eae27ce0b8b' for resource 'Patient}'"
                         }
                     ],
                     "resourceType": "OperationOutcome",

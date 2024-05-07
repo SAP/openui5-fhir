@@ -719,34 +719,44 @@ sap.ui.define([
 
 	/**
 	* Extracts resource IDs from the error description in FHIR OperationOutcome.
-	* @param {Array<object>} operationOutcomes - The array of FHIR OperationOutcome objects.
+	* @param {Array<object>} aOperationOutcome - The array of FHIR OperationOutcome objects.
 	* @returns {Array<string>} - An array containing the extracted resource IDs.
+	* @private
+	* @since 2.4.0
 	*/
-	FHIRUtils.getsIdFromOperationOutcome = function(operationOutcomes){
-		var sIds = [];
-		for (var key in operationOutcomes) {
-			if (operationOutcomes.hasOwnProperty(key)) {
-				var operationOutcome = operationOutcomes[key];
-			    var text = operationOutcome._aIssue[0].details.text;
+	FHIRUtils.getIdFromOperationOutcome = function (aOperationOutcome) {
+		var aID = [];
+		var text;
+		for (var key in aOperationOutcome) {
+			if (aOperationOutcome.hasOwnProperty(key)) {
+				var operationOutcome = aOperationOutcome[key];
+				var issue = operationOutcome._aIssue[0];
+				if (issue) {
+					text = issue.details.text;
+				}
 				var sId = text.match(/[0-9a-fA-F]{8}(?:-[0-9a-fA-F]{4}){3}-[0-9a-fA-F]{12}/);
-				sIds.push(sId[0]);
+				if (sId) {
+					aID.push(sId[0]);
+				}
 			}
 		}
-		return sIds;
+		return aID;
 
 	};
 
 	/**
 	* Filters an array of FHIR resources by their IDs, removing those that match the provided IDs.
-	* @param {Array<object>} resources - The array of FHIR resources to filter.
-	* @param {Array<string>} sIds - The array of resource IDs to exclude from the filtered result.
+	* @param {Array<object>} aResources - The array of FHIR resources to filter.
+	* @param {Array<string>} aSIds - The array of resource IDs to exclude from the filtered result.
 	* @returns {Array<object>} - The filtered array of FHIR resources.
+	* @private
+	* @since 2.4.0
 	*/
-	FHIRUtils.filterResourcesByIds = function(resources, sIds) {
+	FHIRUtils.filterResourcesByIds = function(aResource, aID) {
 		function isIdNotIncluded(obj) {
-			return !sIds.includes(obj.id);
+			return !aID.includes(obj.id);
 		}
-		return resources.filter(isIdNotIncluded);
+		return aResource.filter(isIdNotIncluded);
 	};
 
 	return FHIRUtils;
