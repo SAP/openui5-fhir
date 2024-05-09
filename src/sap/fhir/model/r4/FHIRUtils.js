@@ -721,7 +721,7 @@ sap.ui.define([
 	* Extracts resource IDs from the error description in FHIR OperationOutcome.
 	* @param {Array<object>} aOperationOutcome - The array of FHIR OperationOutcome objects.
 	* @returns {Array<string>} - An array containing the extracted resource IDs.
-	* @private
+	* @protected
 	* @since 2.4.0
 	*/
 	FHIRUtils.getIdFromOperationOutcome = function (aOperationOutcome) {
@@ -749,7 +749,7 @@ sap.ui.define([
 	* @param {Array<object>} aResource - The array of FHIR resources to filter.
 	* @param {Array<string>} aID - The array of resource IDs to exclude from the filtered result.
 	* @returns {Array<object>} - The filtered array of FHIR resources.
-	* @private
+	* @protected
 	* @since 2.4.0
 	*/
 	FHIRUtils.filterResourcesByIds = function(aResource, aID) {
