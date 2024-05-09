@@ -824,9 +824,9 @@ sap.ui.define([
 	*/
 	FHIRModel.prototype._getRemovedResourcesObject = function () {
 		var aResource = [];
-		for (var type in this.mRemovedResources) {
-			if (this.mRemovedResources.hasOwnProperty(type)) {
-				var oRemovedResource = this.mRemovedResources[type];
+		for (var sType in this.mRemovedResources) {
+			if (this.mRemovedResources.hasOwnProperty(sType)) {
+				var oRemovedResource = this.mRemovedResources[sType];
 				for (var key in oRemovedResource) {
 					var eResource = this.getProperty("/" + oRemovedResource[key]);
 					if (eResource) {
