@@ -726,7 +726,7 @@ sap.ui.define([
 	*/
 	FHIRUtils.getIdFromOperationOutcome = function (aOperationOutcome) {
 		var aID = [];
-		var sId;
+		var aMatchedId;
 		var text;
 		for (var key in aOperationOutcome) {
 			if (aOperationOutcome.hasOwnProperty(key)) {
@@ -734,12 +734,10 @@ sap.ui.define([
 				var issue = operationOutcome._aIssue[0];
 				if (issue) {
 					text = issue.details.text;
-				}
-				if (text) {
-					sId = text.match(/[0-9a-fA-F]{8}(?:-[0-9a-fA-F]{4}){3}-[0-9a-fA-F]{12}/);
-				}
-				if (sId) {
-					aID.push(sId[0]);
+					if (text) {
+						aMatchedId = text.match(/[0-9a-fA-F]{8}(?:-[0-9a-fA-F]{4}){3}-[0-9a-fA-F]{12}/);
+					}
+					aMatchedId && aMatchedId.length > 0 ? aID.push(aMatchedId[0]) : [];
 				}
 			}
 		}
