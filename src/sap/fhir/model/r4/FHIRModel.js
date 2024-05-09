@@ -826,11 +826,11 @@ sap.ui.define([
 		var aResource = [];
 		for (var type in this.mRemovedResources) {
 			if (this.mRemovedResources.hasOwnProperty(type)) {
-				var oResource = this.mRemovedResources[type];
-				for (var sKey in oResource) {
-					var eResource = this.getProperty("/" + oResource[sKey]);
+				var oRemovedResource = this.mRemovedResources[type];
+				for (var key in oRemovedResource) {
+					var eResource = this.getProperty("/" + oRemovedResource[key]);
 					if (eResource) {
-						aResource.push(eResource);
+						oRemovedResource.push(eResource);
 					}
 				}
 			}
