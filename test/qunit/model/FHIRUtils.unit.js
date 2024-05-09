@@ -518,7 +518,7 @@ sap.ui.define(["../utils/TestUtils", "sap/fhir/model/r4/FHIRUtils"], function(Te
 	});
 
 	QUnit.test("Test getIdFromOperationOutcome", function(assert) {
-		var operationOutcome = {
+		var oOperationOutcome = {
 			"0": {
 				"_sResourceType": "OperationOutcome",
 				"_aIssue": [
@@ -533,24 +533,24 @@ sap.ui.define(["../utils/TestUtils", "sap/fhir/model/r4/FHIRUtils"], function(Te
 				]
 			}
 		};
-		var expectedIDs = ["7b4abf15-8a93-4e11-8d85-96c945530d05"];
-		var actualIDs = FHIRUtils.getIdFromOperationOutcome(operationOutcome);
-		assert.deepEqual(actualIDs, expectedIDs, "IDs extracted correctly from operationOutcomes");
+		var aExpectedId = ["7b4abf15-8a93-4e11-8d85-96c945530d05"];
+		var aActualId = FHIRUtils.getIdFromOperationOutcome(oOperationOutcome);
+		assert.deepEqual(aActualId, aExpectedId, "IDs extracted correctly from operationOutcomes");
 	});
 
 	QUnit.test("Test filterResourcesByIds", function (assert) {
-		var resources = [
+		var aResource = [
 			{ id: "1", name: "Resource 1" },
 			{ id: "2", name: "Resource 2" },
 			{ id: "3", name: "Resource 3" }
 		];
-		var sIds = ["2"];
-		var filteredResources = FHIRUtils.filterResourcesByIds(resources, sIds);
-		assert.deepEqual(filteredResources, [{ id: "1", name: "Resource 1" }, { id: "3", name: "Resource 3" }], "Filtered resources should match expected result");
+		var aId = ["2"];
+		var aFilteredResource = FHIRUtils.filterResourcesByIds(aResource, aId);
+		assert.deepEqual(aFilteredResource, [{ id: "1", name: "Resource 1" }, { id: "3", name: "Resource 3" }], "Filtered resources should match expected result");
 	});
 
 	QUnit.test("Test getIdFromOperationOutcome when resource ID is not present", function(assert) {
-		var operationOutcome = {
+		var oOperationOutcome = {
 			"0": {
 				"_sResourceType": "OperationOutcome",
 				"_aIssue": [
@@ -566,7 +566,7 @@ sap.ui.define(["../utils/TestUtils", "sap/fhir/model/r4/FHIRUtils"], function(Te
 			}
 		};
 
-		var actualIDs = FHIRUtils.getIdFromOperationOutcome(operationOutcome);
+		var actualIDs = FHIRUtils.getIdFromOperationOutcome(oOperationOutcome);
 		assert.deepEqual(actualIDs, [], "Empty array returned");
 	});
 

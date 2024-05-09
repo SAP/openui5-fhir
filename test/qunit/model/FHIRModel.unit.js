@@ -1506,8 +1506,8 @@ sap.ui.define([
 	QUnit.test("Test getRemovedResourcesObject returning the correct value", function (assert) {
 		this.oFhirModel1.mRemovedResources = { Patient: ["Patient/123"] };
 		this.oFhirModel1.setProperty("/Patient/123", { id: 123, description: "this is a test object", resourceType: "Patient" });
-		var resources = this.oFhirModel1._getRemovedResourcesObject();
-		assert.deepEqual(resources, [{ id: 123, description: "this is a test object", resourceType: "Patient" }], "Correct resources returned");
+		var aResource = this.oFhirModel1._getRemovedResourcesObject();
+		assert.deepEqual(aResource, [{ id: 123, description: "this is a test object", resourceType: "Patient" }], "Correct resources returned");
 	});
 
 });

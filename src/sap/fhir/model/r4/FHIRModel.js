@@ -650,7 +650,7 @@ sap.ui.define([
 	 */
 	FHIRModel.prototype.submitChanges =
 			function(sGroupId, fnSuccessCallback, fnErrorCallback) {
-				var removedResources = this._getRemovedResourcesObject();
+				var aRemovedResource = this._getRemovedResourcesObject();
 				if (typeof sGroupId === "function") {
 					fnErrorCallback = fnSuccessCallback;
 					fnSuccessCallback = FHIRUtils.deepClone(sGroupId);
@@ -695,14 +695,14 @@ sap.ui.define([
 							aPromises.push(oPromise);
 							oPromise.then(function (aFHIRResource) {
 								if (aFHIRResource.length == 0) {
-									aFHIRResource = removedResources;
+									aFHIRResource = aRemovedResource;
 								}
 								fnSuccessCallback(aFHIRResource);
 							}).catch(function (oError) {
 								if (fnErrorCallback && oError.requestHandle) {
-									if (removedResources.length != 0) {
-										var sIds = FHIRUtils.getIdFromOperationOutcome(oError.operationOutcomes);
-										oError.resources = FHIRUtils.filterResourcesByIds(removedResources, sIds);
+									if (aRemovedResource.length != 0) {
+										var aId = FHIRUtils.getIdFromOperationOutcome(oError.operationOutcomes);
+										oError.resources = FHIRUtils.filterResourcesByIds(aRemovedResource, aId);
 									}
 									var mParameters = {
 										message: oError.requestHandle.getRequest().statusText,
@@ -823,19 +823,19 @@ sap.ui.define([
 	* @since 2.4.0
 	*/
 	FHIRModel.prototype._getRemovedResourcesObject = function () {
-		var resources = [];
+		var aResource = [];
 		for (var type in this.mRemovedResources) {
 			if (this.mRemovedResources.hasOwnProperty(type)) {
-				var removedResources = this.mRemovedResources[type];
-				for (var key in removedResources) {
-					var resource = this.getProperty("/" + removedResources[key]);
-					if (resource) {
-						resources.push(resource);
+				var oResource = this.mRemovedResources[type];
+				for (var sKey in oResource) {
+					var eResource = this.getProperty("/" + oResource[sKey]);
+					if (eResource) {
+						aResource.push(eResource);
 					}
 				}
 			}
 		}
-		return resources;
+		return aResource;
 	};
 
 	/**
