@@ -726,6 +726,7 @@ sap.ui.define([
 	*/
 	FHIRUtils.getIdFromOperationOutcome = function (aOperationOutcome) {
 		var aID = [];
+		var sId;
 		var text;
 		for (var key in aOperationOutcome) {
 			if (aOperationOutcome.hasOwnProperty(key)) {
@@ -734,7 +735,9 @@ sap.ui.define([
 				if (issue) {
 					text = issue.details.text;
 				}
-				var sId = text.match(/[0-9a-fA-F]{8}(?:-[0-9a-fA-F]{4}){3}-[0-9a-fA-F]{12}/);
+				if (text) {
+					sId = text.match(/[0-9a-fA-F]{8}(?:-[0-9a-fA-F]{4}){3}-[0-9a-fA-F]{12}/);
+				}
 				if (sId) {
 					aID.push(sId[0]);
 				}
@@ -752,7 +755,7 @@ sap.ui.define([
 	* @protected
 	* @since 2.4.0
 	*/
-	FHIRUtils.filterResourcesByIds = function(aResource, aID) {
+	FHIRUtils.filterResourcesByIds = function (aResource, aID) {
 		function isIdNotIncluded(obj) {
 			return !aID.includes(obj.id);
 		}
