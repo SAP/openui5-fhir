@@ -650,6 +650,7 @@ sap.ui.define([
 	 */
 	FHIRModel.prototype.submitChanges =
 			function(sGroupId, fnSuccessCallback, fnErrorCallback) {
+
 				var aRemovedResource = this._getRemovedResourcesObject();
 				if (typeof sGroupId === "function") {
 					fnErrorCallback = fnSuccessCallback;
@@ -826,11 +827,11 @@ sap.ui.define([
 		var aResource = [];
 		for (var type in this.mRemovedResources) {
 			if (this.mRemovedResources.hasOwnProperty(type)) {
-				var oResource = this.mRemovedResources[type];
-				for (var sKey in oResource) {
-					var eResource = this.getProperty("/" + oResource[sKey]);
-					if (eResource) {
-						aResource.push(eResource);
+				var removedResources = this.mRemovedResources[type];
+				for (var key in removedResources) {
+					var resource = this.getProperty("/" + removedResources[key]);
+					if (resource) {
+						resources.push(resource);
 					}
 				}
 			}
