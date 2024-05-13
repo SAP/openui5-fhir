@@ -737,7 +737,9 @@ sap.ui.define([
 					if (sText) {
 						aMatchedId = sText.match(/[0-9a-fA-F]{8}(?:-[0-9a-fA-F]{4}){3}-[0-9a-fA-F]{12}/);
 					}
-					aMatchedId && aMatchedId.length > 0 ? aID.push(aMatchedId[0]) : [];
+					if (aMatchedId && aMatchedId.length > 0){
+						aID.push(aMatchedId[0]);
+					}
 				}
 			}
 		}
