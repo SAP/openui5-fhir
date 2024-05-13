@@ -650,6 +650,7 @@ sap.ui.define([
 	 */
 	FHIRModel.prototype.submitChanges =
 			function(sGroupId, fnSuccessCallback, fnErrorCallback) {
+				var aRemovedResource = this._getRemovedResourcesObject();
 				if (typeof sGroupId === "function") {
 					fnErrorCallback = fnSuccessCallback;
 					fnSuccessCallback = FHIRUtils.deepClone(sGroupId);
@@ -693,9 +694,16 @@ sap.ui.define([
 							);
 							aPromises.push(oPromise);
 							oPromise.then(function (aFHIRResource) {
+								if (aFHIRResource.length == 0) {
+									aFHIRResource = aRemovedResource;
+								}
 								fnSuccessCallback(aFHIRResource);
 							}).catch(function (oError) {
 								if (fnErrorCallback && oError.requestHandle) {
+									if (aRemovedResource.length != 0) {
+										var aId = FHIRUtils.getIdFromOperationOutcome(oError.operationOutcomes);
+										oError.resources = FHIRUtils.filterResourcesByIds(aRemovedResource, aId);
+									}
 									var mParameters = {
 										message: oError.requestHandle.getRequest().statusText,
 										description: oError.requestHandle.getRequest().responseText,
@@ -805,6 +813,30 @@ sap.ui.define([
 				}
 				return mRequestHandles;
 			};
+
+	/**
+	* Retrieves an array of resources that have been removed from the FHIR model.
+	* Iterates through the removed resources,
+	* retrieves corresponding resources from the model, and returns them.
+	* @returns {Array<object>} An array containing the removed resources.
+	* @private
+	* @since 2.4.0
+	*/
+	FHIRModel.prototype._getRemovedResourcesObject = function () {
+		var aResource = [];
+		for (var sType in this.mRemovedResources) {
+			if (this.mRemovedResources.hasOwnProperty(sType)) {
+				var oRemovedResource = this.mRemovedResources[sType];
+				for (var sKey in oRemovedResource) {
+					var oResource = this.getProperty("/" + oRemovedResource[sKey]);
+					if (oResource) {
+						aResource.push(oResource);
+					}
+				}
+			}
+		}
+		return aResource;
+	};
 
 	/**
 	 * Checks if an update for the existing bindings is necessary due to the <code>mChangedResources</code>
