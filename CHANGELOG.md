@@ -1,3 +1,10 @@
+# [2.4.0](https://github.com/SAP/openui5-fhir/compare/v2.3.7...v2.4.0) (2024-05-13)
+
+
+### Features
+
+* return deleted resources object from submitChanges ([#445](https://github.com/SAP/openui5-fhir/issues/445)) ([2081bd8](https://github.com/SAP/openui5-fhir/commit/2081bd8c25ceb3a794cd3ff87049b108a098dcc8))
+
 ## [2.3.7](https://github.com/SAP/openui5-fhir/compare/v2.3.6...v2.3.7) (2024-02-16)
 
 
