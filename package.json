@@ -30,7 +30,7 @@
     "js-beautify": "^1.15.1",
     "jsdoc": "^4.0.3",
     "@jsdoc/salty": "^0.2.8",
-    "karma": "^6.4.3",
+    "karma": "^6.4.4",
     "karma-chrome-launcher": "^3.2.0",
     "karma-coverage": "^2.2.1",
     "karma-junit-reporter": "^2.0.1",
