@@ -9,6 +9,10 @@ jobs:
   build:
      name: Build, Lint Checks and Tests
      runs-on: ubuntu-latest
+     permissions:
+       contents: read
+       actions: write
+       checks: write
      steps:
       - name: Cancel Previous Runs
         uses: styfle/cancel-workflow-action@0.9.1
