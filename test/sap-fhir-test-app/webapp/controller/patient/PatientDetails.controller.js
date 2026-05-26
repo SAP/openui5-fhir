@@ -8,8 +8,9 @@ sap.ui.define([
 	"sap/fhir/model/r4/FHIRUtils",
 	"sap/m/MessageBox",
 	"sap/base/Log",
-	"sap/base/util/deepEqual"
-], function(Controller, Filter, History, MessageToast, Utils, FHIRFilterOperator, FHIRUtils, MessageBox, Log, deepEqual) {
+	"sap/base/util/deepEqual",
+	"sap/ui/core/syncStyleClass"
+], function(Controller, Filter, History, MessageToast, Utils, FHIRFilterOperator, FHIRUtils, MessageBox, Log, deepEqual, syncStyleClass) {
 	"use strict";
 
 	return Controller.extend("sap-fhir-test-app.controller.patient.PatientDetails", {
@@ -34,7 +35,7 @@ sap.ui.define([
 		_getMessagePopover : function () {
 			if (!this._oMessagePopover) {
 				this._oMessagePopover = sap.ui.xmlfragment(this.getView().getId(), "sap-fhir-test-app.view.patient.fragments.MessagePopover", this);
-				jQuery.sap.syncStyleClass(this.getOwnerComponent().getContentDensityClass(), this.getView(), this._oMessagePopover);
+				syncStyleClass(this.getOwnerComponent().getContentDensityClass(), this.getView(), this._oMessagePopover);
 				this.getView().addDependent(this._oMessagePopover);
 			}
 			return this._oMessagePopover;
