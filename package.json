@@ -21,8 +21,8 @@
     "fhir"
   ],
   "engines": {
-    "node": ">= 10",
-    "npm": ">= 5"
+    "node": ">= 22",
+    "npm": ">= 10"
   },
   "devDependencies": {
     "eslint": "^8.57.0",
