@@ -3,27 +3,11 @@
 <head>
 <title>Unit tests for sap.fhir library</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<script>
-	window["sap-ui-config"] = {
-		resourceroots: {
-			"openui5-fhir.test": "../",
-			"sap.fhir": "../../resources/sap/fhir"
-		},
-		onInit: function() {
-			sap.ui.require([
-				"sap/ui/qunit/qunit-2-css",
-				"sap/ui/thirdparty/qunit-2",
-				"sap/ui/qunit/qunit-junit",
-				"sap/ui/qunit/qunit-coverage",
-				"openui5-fhir/test/createMockServer",
-				"openui5-fhir/test/qunit/unit"
-			]);
-		}
-	};
-</script>
 <script id="sap-ui-bootstrap" src="https://openui5.hana.ondemand.com/1.120.6/resources/sap-ui-core.js"
 	data-sap-ui-theme="sap_belize" data-sap-ui-libs="sap.m"
-	data-sap-ui-compatVersion="edge" data-sap-ui-preload="async"></script>
+	data-sap-ui-compatVersion="edge" data-sap-ui-preload="async"
+	data-sap-ui-onInit="module:openui5-fhir/test/qunit/unitInit"
+	data-sap-ui-resourceroots='{"openui5-fhir.test": "../", "sap.fhir": "../../resources/sap/fhir"}'></script>
 </head>
 <body>
 	<div id="content"></div>

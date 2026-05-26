@@ -4,32 +4,13 @@
 <title>OPA Tests for sap.fhir library</title>
 <meta http-equiv='X-UA-Compatible' content='IE=edge'>
 <meta charset="utf-8">
-<script>
-	window["sap-ui-config"] = {
-		resourceroots: {
-			"sap-fhir-test-app": "../../",
-			"openui5-fhir.test": "../../../../"
-		},
-		onInit: function() {
-			sap.ui.require([
-				"sap/ui/qunit/qunit-2-css",
-				"sap/ui/thirdparty/qunit-2",
-				"sap/ui/qunit/qunit-junit",
-				"sap/ui/qunit/qunit-coverage",
-				"openui5-fhir/test/createMockServer",
-				"sap-fhir-test-app/test/opa5/journeys/all"
-			], function() {
-				QUnit.start();
-			});
-		}
-	};
-</script>
 <script id="sap-ui-bootstrap"
 	src="https://openui5.hana.ondemand.com/1.120.6/resources/sap-ui-core.js"
 	data-sap-ui-theme="sap_belize" data-sap-ui-libs="sap.m"
-	data-sap-ui-compatVersion="edge" data-sap-ui-preload="async">
+	data-sap-ui-compatVersion="edge" data-sap-ui-preload="async"
+	data-sap-ui-onInit="module:sap-fhir-test-app/test/opa5/opaInit"
+	data-sap-ui-resourceroots='{"sap-fhir-test-app": "../../", "openui5-fhir.test": "../../../../"}'>
 </script>
-
 </head>
 <body>
 	<div id="qunit"></div>
