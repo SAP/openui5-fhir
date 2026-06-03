@@ -27,7 +27,7 @@
   "devDependencies": {
     "eslint": "^8.57.0",
     "eslint-watch": "^8.0.0",
-    "js-beautify": "^1.15.1",
+    "js-beautify": "^1.15.4",
     "jsdoc": "^4.0.3",
     "@jsdoc/salty": "^0.2.8",
     "karma": "^6.4.4",
