@@ -46,6 +46,7 @@ jobs:
      needs: build
      name: Release
      runs-on: ubuntu-latest
+     environment: production
      permissions:
        contents: read
      steps:
@@ -61,15 +62,15 @@ jobs:
           node-version: 22
       - name: Install dependencies
         run: npm install
-      - name: Run Semantic Release
-        env:
-          GITHUB_TOKEN: ${{ secrets.FHIRBOT_GH_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          GIT_AUTHOR_NAME: openui5fhirbot
-          GIT_AUTHOR_EMAIL: openui5-fhir@sap.com
-          GIT_COMMITTER_NAME: openui5fhirbot
-          GIT_COMMITTER_EMAIL: openui5-fhir@sap.com
-        run: npx semantic-release
+      # - name: Run Semantic Release
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.FHIRBOT_GH_TOKEN }}
+      #     NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      #     GIT_AUTHOR_NAME: openui5fhirbot
+      #     GIT_AUTHOR_EMAIL: openui5-fhir@sap.com
+      #     GIT_COMMITTER_NAME: openui5fhirbot
+      #     GIT_COMMITTER_EMAIL: openui5-fhir@sap.com
+      #   run: npx semantic-release
       - name: Generate API Documentation
         run: npm run docs
       - name: Deploy
