@@ -25,4 +25,21 @@ sap.ui.define(["../utils/TestUtils"], function (TestUtils) {
 		assert.strictEqual(oPropertyBinding.isInitial(), false, "The binding is after initialization not in 'initial' mode.");
 	});
 
+	QUnit.test("suspend and resume", function (assert) {
+		createPropertyBinding("/Patient/123/name/0/given", undefined);
+		var iChanges = 0;
+		oPropertyBinding.attachChange(function () {
+			iChanges++;
+		});
+		oPropertyBinding.suspend();
+		assert.strictEqual(oPropertyBinding.isSuspended(), true, "The binding is suspended.");
+		oPropertyBinding.checkUpdate(false);
+		assert.strictEqual(iChanges, 0, "A suspended binding does not fire a change event on checkUpdate.");
+		oPropertyBinding.resume();
+		assert.strictEqual(oPropertyBinding.isSuspended(), false, "The binding is resumed.");
+		assert.strictEqual(iChanges, 1, "Resuming forces one update of the binding.");
+		oPropertyBinding.checkUpdate(false);
+		assert.strictEqual(iChanges, 2, "A resumed binding fires change events again.");
+	});
+
 });
