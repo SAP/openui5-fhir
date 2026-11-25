@@ -65,6 +65,10 @@ sap.ui.define([
 	 * @since 1.0.0
 	 */
 	FHIRPropertyBinding.prototype.checkUpdate = function(bForceUpdate, mChangedResources, sMethod, sChangeReason) {
+		if (this.isSuspended() && !bForceUpdate) {
+			// a suspended binding is not updated; resume() calls checkUpdate again
+			return;
+		}
 		var oValue = this._getValue();
 		this.oValue = FHIRUtils.deepClone(oValue);
 		this._fireChange({

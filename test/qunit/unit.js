@@ -6,6 +6,7 @@ sap.ui.define([
 	"./model/FHIRModel.integration",
 	"./model/FHIRTreeBinding.unit",
 	"./model/FHIRTreeBinding.integration",
+	"./model/FHIRListBinding.unit",
 	"./model/FHIRListBinding.integration",
 	"./model/FHIRContextBinding.integration",
 	"./model/FHIRPropertyBinding.unit",

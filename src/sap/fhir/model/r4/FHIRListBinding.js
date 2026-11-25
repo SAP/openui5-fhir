@@ -431,7 +431,14 @@ sap.ui.define([
 			}
 		}
 		var sPath = this.oModel._getProperty(mChangedEntities, ["path", "lastUpdated"]);
-		if (oBindingInfo && (sPath && FHIRUtils.getNumberOfLevelsByPath(sPath) < 3 && sPath.indexOf(oBindingInfo.getResourceType()) > -1 || sPath === oBindingInfo.getAbsolutePath()) || bForceUpdate === true || sMethod) {
+		var bChanged = !!(oBindingInfo && (sPath && FHIRUtils.getNumberOfLevelsByPath(sPath) < 3 && sPath.indexOf(oBindingInfo.getResourceType()) > -1 || sPath === oBindingInfo.getAbsolutePath()) || bForceUpdate === true || sMethod);
+		if (this.isSuspended() && bForceUpdate !== true) {
+			// a suspended binding does not report changes; the change event is fired when the binding is resumed
+			this._bChangePending = this._bChangePending || bChanged;
+			return;
+		}
+		if (bChanged || this._bChangePending) {
+			this._bChangePending = false;
 			this._fireChange({
 				reason: ChangeReason.Change
 			});
